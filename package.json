@@ -1,0 +1,34 @@
+{
+  "name": "kit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "overrides": {
+    "@vanilla-extract/vite-plugin": {
+      "vite": "^3"
+    }
+  },
+  "dependencies": {
+    "@mysten/wallet-adapter-base": "0.0.0",
+    "@radix-ui/react-dialog": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@mysten/wallet-adapter-all-wallets": "^0.0.0",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vanilla-extract/css": "^1.9.0",
+    "@vanilla-extract/vite-plugin": "^3.4.0",
+    "@vitejs/plugin-react": "^2.1.0",
+    "typescript": "^4.6.4",
+    "typescript-plugin-css-modules": "^3.4.0",
+    "vite": "^3.1.0",
+    "vite-plugin-svgr": "^2.2.1"
+  }
+}
