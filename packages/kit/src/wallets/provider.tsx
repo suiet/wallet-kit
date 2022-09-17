@@ -49,7 +49,7 @@ export function WalletProvider({
     (selectedWallet: Wallet | null) => {
       setWallet(selectedWallet);
       if (selectedWallet != null) {
-        localStorage.setItem('suiWallet', selectedWallet.adapter.name);
+        latestWallets.storeWalletName(selectedWallet.adapter.name);
       } else {
         localStorage.removeItem('suiWallet');
       }
