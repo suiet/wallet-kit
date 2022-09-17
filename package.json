@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "overrides": {
-    "@vanilla-extract/vite-plugin": {
-      "vite": "^3"
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "vite": "^3"
+      }
     }
   },
   "scripts": {
