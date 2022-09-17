@@ -43,10 +43,6 @@ class LatestWalletStorage {
 
     const newValue = dedupe(this.wallets, name);
 
-    if (newValue.length > this.size) {
-      newValue.unshift();
-    }
-
     localStorage.setItem(SUI_STORAGE_KEY, JSON.stringify(newValue));
   }
 }
