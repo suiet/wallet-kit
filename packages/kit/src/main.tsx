@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import ConnectButton from './components/ConnectButton';
+import { ConnectButton } from './components/ConnectButton';
 import { WalletProvider } from './wallets/provider';
 import { getDefaultWallets } from './adapter/getDefaultWallets';
 

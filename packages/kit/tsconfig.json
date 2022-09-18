@@ -13,8 +13,9 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
+    "declaration": true,
+    "declarationDir": "dist",
     "plugins": [
       {
         "name": "typescript-plugin-css-modules",

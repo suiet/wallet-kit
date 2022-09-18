@@ -1,5 +1,6 @@
+import React, { ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { ReactNode } from 'react';
+import { WalletInstance } from '../../adapter/KitAdapter';
 import styles from './index.module.scss';
 
 interface ModalProps {
@@ -8,7 +9,7 @@ interface ModalProps {
   content: ReactNode;
 }
 
-function ConnectWalletModal({ children, content, title }: ModalProps) {
+function Modal({ children, content, title }: ModalProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
@@ -27,4 +28,42 @@ function ConnectWalletModal({ children, content, title }: ModalProps) {
   );
 }
 
-export default ConnectWalletModal;
+interface ConnectWalletModalProps {
+  walletGroups: [string, WalletInstance[]][];
+  children: ReactNode;
+  onWalletClick: (wallet: WalletInstance) => any;
+}
+
+export function ConnectWalletModal({
+  walletGroups,
+  children,
+  onWalletClick,
+}: ConnectWalletModalProps) {
+  return (
+    <Modal
+      title="Connect Wallet"
+      content={walletGroups.map(([group, wallets]) => {
+        if (wallets.length === 0) return null;
+        return (
+          <div className={styles['select-container']} key={group}>
+            <div className={styles['select-title']}>{group}</div>
+            {wallets.map((wallet) => {
+              return (
+                <div
+                  className={styles['select-item']}
+                  key={wallet.name}
+                  onClick={() => onWalletClick(wallet)}
+                >
+                  <span />
+                  {wallet?.name}
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    >
+      {children}
+    </Modal>
+  );
+}
