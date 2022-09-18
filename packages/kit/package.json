@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc --emitDeclarationOnly && node build.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mysten/sui.js": "^0.10.0",
     "@mysten/wallet-adapter-base": "0.0.0-experimental-20220825172556",
     "@radix-ui/react-dialog": "^1.0.0",
     "lodash": "^4.17.21"

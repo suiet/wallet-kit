@@ -38,7 +38,7 @@ const EMPTY_ARRAY: never[] = [];
 
 const DEFAULT_CONTEXT: WalletContextState = {
   supportedWallets: [],
-  groupWallets: [],
+  groupWallets: {},
   wallet: null,
   connecting: false,
   connected: false,

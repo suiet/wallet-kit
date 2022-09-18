@@ -11,4 +11,22 @@ export default defineConfig({
       localsConvention: 'camelCase',
     },
   },
+  build: {
+    lib: {
+      entry: './src/index.ts',
+      name: 'SuietKit',
+    },
+    emptyOutDir: false,
+    rollupOptions: {
+      external: ['react', 'react-dom'],
+      output: {
+        // Provide global variables to use in the UMD build
+        // for externalized deps
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    },
+  },
 });
