@@ -1,41 +1,43 @@
-# Website
+# Suiet Wallet KIT
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+The best way to connect a sui wallet
 
-### Installation
+- Out-of-the-box sui wallet management
+- Easily customizable
+- Built on top of sui adapter
 
-```
-$ yarn
-```
+## Try it out
 
-### Local Development
+You can use the CodeSandbox links below try out
 
-```
-$ yarn start
-```
+- todo
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## Documentation
 
-### Build
+For full documentation, visit .
 
-```
-$ yarn build
-```
+## Examples
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+You can use the follow examples to run a simple demo.
 
-### Deployment
+## Running examples
 
-Using SSH:
+Install dependencies first
 
-```
-$ USE_SSH=true yarn deploy
-```
+`pnpm install`
 
-Not using SSH:
+Go into an example directory
 
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
+`cd examples/simple`
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Then run the dev script.
+
+`pnpm run dev`
+
+## Contributing
+
+TODO
+
+## License
+
+TODO
