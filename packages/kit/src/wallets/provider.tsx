@@ -45,7 +45,7 @@ export function WalletProvider({
     return walletInstanceByName[name];
   });
 
-  groupWallets['recent'] = recentWallets;
+  groupWallets['Recent'] = recentWallets;
 
   const connect = useCallback(async () => {
     if (wallet == null) {
@@ -86,9 +86,10 @@ export function WalletProvider({
       );
       if (newWallet) {
         setWalletAndUpdateStorage(newWallet);
-        localStorage.setItem(LAST_WALLET, 'newWallet');
+        localStorage.setItem(LAST_WALLET, newWallet.adapter.name);
       } else {
-        throw new Error('');
+        localStorage.removeItem(LAST_WALLET);
+        throw new Error('Error wallet');
       }
       connect();
     },
