@@ -8,16 +8,14 @@ import {
 } from '@mysten/sui.js';
 import { createContext, useContext } from 'react';
 import { WalletAdapter } from '@mysten/wallet-adapter-base';
-
-export interface Wallet {
-  adapter: WalletAdapter;
-}
+import { WalletInstance } from '../adapter/KitAdapter';
 
 export interface WalletContextState {
   // Supported Wallets
-  supportedWallets: Wallet[];
+  supportedWallets: WalletInstance[];
+  groupWallets: Record<string, WalletInstance[]>;
   // Wallet that we are currently connected to
-  wallet: Wallet | null;
+  wallet: WalletInstance | null;
 
   connecting: boolean;
   connected: boolean;
@@ -40,6 +38,7 @@ const EMPTY_ARRAY: never[] = [];
 
 const DEFAULT_CONTEXT: WalletContextState = {
   supportedWallets: [],
+  groupWallets: [],
   wallet: null,
   connecting: false,
   connected: false,
