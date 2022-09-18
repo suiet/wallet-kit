@@ -7,23 +7,45 @@ import type {
 } from '@mysten/sui.js';
 import { WalletContext } from '../hooks/useWallet';
 import latestWallets from './latestWallets';
-
-interface Wallet {
-  adapter: WalletCapabilities;
-}
+import { Wallet, WalletInstance, WalletList } from '../adapter/KitAdapter';
+import { keyBy, groupBy } from 'lodash';
 
 interface WalletProviderProps {
   children: ReactNode;
-  supportedWallets: Wallet[];
+  supportedWallets: WalletInstance[];
+  autoConnect?: boolean;
 }
+
+const LAST_WALLET = 'SUIET_LAST_WALLET';
 
 export function WalletProvider({
   supportedWallets,
   children,
+  autoConnect = true,
 }: WalletProviderProps) {
-  const [wallet, setWallet] = useState<Wallet | null>(null);
+  const [wallet, setWallet] = useState<WalletInstance | null>(null);
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
+
+  const walletInstanceByName = keyBy(
+    supportedWallets,
+    (walletInstance) => walletInstance.name
+  );
+
+  const groupWallets = groupBy(supportedWallets, (wallet) => wallet.group);
+
+  const recentWalletsNames = latestWallets
+    .getLatestWalletNames()
+    .filter((name) => {
+      return walletInstanceByName[name];
+    })
+    .slice(0, 3);
+
+  const recentWallets = recentWalletsNames.map((name) => {
+    return walletInstanceByName[name];
+  });
+
+  groupWallets['recent'] = recentWallets;
 
   const connect = useCallback(async () => {
     if (wallet == null) {
@@ -34,8 +56,9 @@ export function WalletProvider({
       await wallet.adapter.connect();
       setConnected(true);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       setConnected(false);
+      throw new Error('Connect Failed');
     }
     setConnecting(false);
   }, [wallet]);
@@ -46,12 +69,11 @@ export function WalletProvider({
   };
 
   const setWalletAndUpdateStorage = useCallback(
-    (selectedWallet: Wallet | null) => {
+    (selectedWallet: WalletInstance | null) => {
       setWallet(selectedWallet);
       if (selectedWallet != null) {
         latestWallets.storeWalletName(selectedWallet.adapter.name);
       } else {
-        localStorage.removeItem('suiWallet');
       }
     },
     []
@@ -64,6 +86,9 @@ export function WalletProvider({
       );
       if (newWallet) {
         setWalletAndUpdateStorage(newWallet);
+        localStorage.setItem(LAST_WALLET, 'newWallet');
+      } else {
+        throw new Error('');
       }
       connect();
     },
@@ -71,8 +96,8 @@ export function WalletProvider({
   );
 
   useEffect(() => {
-    if (!wallet && !connected && !connecting) {
-      let walletItem = localStorage.getItem('suiWallet');
+    if (!wallet && !connected && !connecting && autoConnect) {
+      let walletItem = localStorage.getItem(LAST_WALLET);
       if (typeof walletItem === 'string') {
         const items = walletItem;
         choose(items);
@@ -118,6 +143,7 @@ export function WalletProvider({
         getAccounts,
         executeMoveCall,
         executeSerializedMoveCall,
+        groupWallets,
       }}
     >
       {children}
