@@ -1,27 +1,33 @@
 .button {
-  background-color: rgb(2, 69, 245);
-  padding: 8px 20px;
-  border-radius: 99px;
+  background-color: #3ea2f8;
+  border-radius: 16px;
+  padding: 16px 24px;
   color: white;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
   cursor: pointer;
   border: 0;
 }
 
+.select-container {
+  margin-top: 24px;
+}
+
 .select-title {
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: #b9c0d4;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #7d89b0;
+  margin-bottom: 15px;
 }
 
 .select-item {
   font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000000;
-  margin-top: 10px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #404968;
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -39,4 +45,29 @@
     background-size: cover;
     margin-right: 10px;
   }
+}
+
+.connected-button {
+  background: #eff1f5;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #404968;
+  padding: 16px;
+  border: 0;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-arrow {
+  background: url('../../../assets/arrow.svg') no-repeat center;
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  margin-left: 12px;
 }
