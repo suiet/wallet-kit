@@ -1,5 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
-import { WalletCapabilities } from '@mysten/wallet-adapter-base';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import type {
   SuiAddress,
   MoveCallTransaction,

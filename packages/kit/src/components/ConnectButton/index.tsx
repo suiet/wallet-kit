@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useWallet } from '../../hooks/useWallet';
-import Modal from '../Modal/ConnectWalletModal';
+import { ConnectWalletModal } from '../Modal/ConnectWalletModal';
 import styles from './style/index.module.scss';
 
 interface ConnectButtonProps {
@@ -15,7 +15,9 @@ export function addressEllipsis(address: string) {
   return address.slice(0, 7) + '....' + address.slice(-4, address.length);
 }
 
-function ConnectButton({ label = 'Connect Wallet' }: ConnectButtonProps) {
+export function ConnectButton({
+  label = 'Connect Wallet',
+}: ConnectButtonProps) {
   const {
     supportedWallets,
     select,
@@ -49,36 +51,14 @@ function ConnectButton({ label = 'Connect Wallet' }: ConnectButtonProps) {
   }
 
   return (
-    <Modal
-      title="Connect Wallet"
-      content={groups.map(([group, wallets]) => {
-        if (wallets.length === 0) return null;
-        return (
-          <div className={styles['select-container']} key={group}>
-            <div className={styles['select-title']}>{group}</div>
-            {wallets.map((wallet) => {
-              return (
-                <div
-                  className={styles['select-item']}
-                  key={wallet.name}
-                  onClick={async () => {
-                    if (!wallet?.installed) return;
-                    select(wallet.adapter.name);
-                  }}
-                >
-                  {' '}
-                  <span />
-                  {wallet?.name}
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+    <ConnectWalletModal
+      walletGroups={groups}
+      onWalletClick={(wallet) => {
+        if (!wallet.installed) return;
+        select(wallet.adapter.name);
+      }}
     >
       <button className={styles.button}>{label}</button>
-    </Modal>
+    </ConnectWalletModal>
   );
 }
-
-export default ConnectButton;

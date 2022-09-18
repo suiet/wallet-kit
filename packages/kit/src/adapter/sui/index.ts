@@ -7,7 +7,8 @@ export const sui = (): Wallet => {
     group: 'Popular',
     iconUrl: '',
     installed:
-      typeof window !== 'undefined' && typeof window.suiWallet !== undefined,
+      typeof window !== 'undefined' &&
+      typeof (window as any).suiWallet !== undefined,
     createAdapter: () => {
       return {
         adapter: new SuiWalletAdapter(),
