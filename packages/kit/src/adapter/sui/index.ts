@@ -4,7 +4,7 @@ import { Wallet } from '../KitAdapter';
 export const sui = (): Wallet => {
   return {
     name: 'Sui Wallet',
-    group: 'popular',
+    group: 'Popular',
     iconUrl: '',
     installed:
       typeof window !== 'undefined' && typeof window.suiWallet !== undefined,

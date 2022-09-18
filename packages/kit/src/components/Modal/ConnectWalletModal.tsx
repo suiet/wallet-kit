@@ -5,13 +5,13 @@ import styles from './index.module.scss';
 interface ModalProps {
   children: ReactNode;
   title: string;
-  trigger: ReactNode;
+  content: ReactNode;
 }
 
-function ConnectWalletModal({ children, title, trigger }: ModalProps) {
+function ConnectWalletModal({ children, content, title }: ModalProps) {
   return (
     <Dialog.Root>
-      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={styles['overlay']}>
           <Dialog.Content className={styles['content']}>
@@ -19,7 +19,7 @@ function ConnectWalletModal({ children, title, trigger }: ModalProps) {
               <Dialog.Title className={styles['title']}>{title}</Dialog.Title>
               <Dialog.Close className={styles['close']}></Dialog.Close>
             </div>
-            {children}
+            {content}
           </Dialog.Content>
         </Dialog.Overlay>
       </Dialog.Portal>

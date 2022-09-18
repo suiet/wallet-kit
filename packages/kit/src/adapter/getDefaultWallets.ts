@@ -46,7 +46,7 @@ export function adapterInstance(walletList: WalletList) {
 export function getDefaultWallets() {
   const wallets: WalletList = [
     {
-      group: 'popular',
+      group: 'Popular',
       wallets: [sui()],
     },
   ];
