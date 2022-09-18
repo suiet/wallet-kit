@@ -2,13 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import ConnectButton from './components/ConnectButton';
 import { WalletProvider } from './wallets/provider';
-import { SuiWalletAdapter } from '@mysten/wallet-adapter-all-wallets';
+import { getDefaultWallets } from './adapter/getDefaultWallets';
 
-const supportedWallets = [
-  {
-    adapter: new SuiWalletAdapter(),
-  },
-];
+const supportedWallets = getDefaultWallets();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
