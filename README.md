@@ -1,4 +1,4 @@
-# Suiet Wallet KIT
+# Wallet Kit
 
 The best way to connect a sui wallet
 
