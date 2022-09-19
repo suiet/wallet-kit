@@ -25,7 +25,7 @@
   font-weight: 700;
   text-align: center;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   text-align: center;
 
@@ -57,11 +57,11 @@
 }
 
 .select-title {
-  font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   color: #7d89b0;
   margin-bottom: 15px;
+  margin-left: 8px;
 }
 
 .select-item {
@@ -73,10 +73,13 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 8px;
+  transition: background 0.2s;
+  border-radius: 18px;
 
   &:hover {
-    background: #f9fafb;
-    // background-color: rgba(224, 232, 255, 0.1);
+    background: #ececec;
+   
   }
 
   &__icon {
