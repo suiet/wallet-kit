@@ -19,14 +19,15 @@ export function ConnectButton({
   label = 'Connect Wallet',
 }: ConnectButtonProps) {
   const {
-    supportedWallets,
     select,
     wallet: connectedWallet,
     connecting,
     connected,
     groupWallets,
+    disconnect,
   } = useWallet();
   const [account, setAccount] = useState('');
+  const [showConnectedModal, setShowConnectedModal] = useState(false);
 
   const groups = Object.entries(groupWallets).sort((wa, wb) => {
     if (wa[0] === 'Recent') return -1;
@@ -43,10 +44,27 @@ export function ConnectButton({
 
   if (account && connected) {
     return (
-      <button className={styles['connected-button']}>
-        {addressEllipsis(account)}
-        <span className={styles['right-arrow']} />
-      </button>
+      <>
+        <div className={styles['connected-container']}>
+          <button
+            className={styles['connected-button']}
+            onClick={() => {
+              setShowConnectedModal(!showConnectedModal);
+            }}
+          >
+            {addressEllipsis(account)}
+            <span className={styles['right-arrow']} />
+          </button>
+          {showConnectedModal && (
+            <div
+              className={styles['connected-modal']}
+              onClick={() => disconnect()}
+            >
+              Disconnect
+            </div>
+          )}
+        </div>
+      </>
     );
   }
 

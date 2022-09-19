@@ -1,6 +1,6 @@
 import { Wallet, WalletInstance, WalletList } from './KitAdapter';
 import { sui } from './sui';
-import {suiet} from "./suiet";
+import { suiet } from './suiet';
 
 interface WalletListItem extends Wallet {
   index: number;
@@ -50,11 +50,14 @@ export function getDefaultWallets() {
       group: 'Popular',
       wallets: [suiet()],
     },
+    {
+      group: 'Popular',
+      wallets: [sui()],
+    },
   ];
 
   return adapterInstance(wallets);
 }
-
 
 export function getAllWallets() {
   const wallets: WalletList = [
