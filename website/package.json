@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.1.0",
+    "@mysten/wallet-adapter-sui-wallet": "0.0.0-experimental-20220918004146",
     "@tsconfig/docusaurus": "^1.0.5",
     "typescript": "^4.7.4"
   },
