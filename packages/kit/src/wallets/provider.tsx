@@ -55,7 +55,6 @@ export function WalletProvider({
       await wallet.adapter.connect();
       setConnected(true);
     } catch (e) {
-      console.error(e);
       setConnected(false);
       throw new Error('Connect Failed');
     }
@@ -64,7 +63,9 @@ export function WalletProvider({
 
   const disconnect = async () => {
     setConnected(false);
+    setWallet(null);
     setWalletAndUpdateStorage(null);
+    wallet?.adapter.disconnect();
   };
 
   const setWalletAndUpdateStorage = useCallback(
@@ -101,7 +102,9 @@ export function WalletProvider({
       let walletItem = localStorage.getItem(LAST_WALLET);
       if (typeof walletItem === 'string') {
         const items = walletItem;
-        choose(items);
+        setTimeout(() => {
+          choose(items);
+        }, 200);
       }
     }
   }, [choose, connected, connecting, wallet]);
