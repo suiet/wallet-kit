@@ -73,6 +73,7 @@ export function WalletProvider({
       if (selectedWallet != null) {
         latestWallets.storeWalletName(selectedWallet.adapter.name);
       } else {
+        localStorage.removeItem(LAST_WALLET);
       }
     },
     []
