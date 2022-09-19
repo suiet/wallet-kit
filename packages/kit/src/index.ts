@@ -1,3 +1,3 @@
-export { useWallet } from './hooks/useWallet';
-export { getDefaultWallets } from './adapter/getDefaultWallets';
+export * from './hooks';
+export * from './adapter';
 export * from './components';
