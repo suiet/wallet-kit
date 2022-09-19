@@ -20,7 +20,8 @@
     "@mysten/sui.js": "^0.10.0",
     "@mysten/wallet-adapter-base": "0.0.0-experimental-20220825172556",
     "@radix-ui/react-dialog": "^1.0.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "@suiet/wallet-adapter": "^0.0.7"
   },
   "devDependencies": {
     "@mysten/wallet-adapter-sui-wallet": "0.0.0-experimental-20220918004146",
