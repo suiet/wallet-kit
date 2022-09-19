@@ -79,12 +79,16 @@
     // background-color: rgba(224, 232, 255, 0.1);
   }
 
-  span {
+  &__icon {
     width: 36px;
     height: 36px;
-    display: inline-block;
-    background: url('../../assets/logo.svg') no-repeat center;
-    background-size: cover;
+    border-radius: 18px;
     margin-right: 10px;
+    outline: 1px solid #DCDFEA;
+  }
+  &__icon-img {
+    width: 36px;
+    border-radius: 18px;
+    object-fit: cover;
   }
 }

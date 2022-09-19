@@ -18,9 +18,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@suiet/wallet-adapter": "^0.0.7",
-    "@suiet/wallet-kit": "workspace:^0.0.1"
-  }
+  "license": "ISC"
 }
