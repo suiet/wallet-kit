@@ -28,7 +28,6 @@ export function ConnectButton({
   } = useWallet();
   const [account, setAccount] = useState('');
   const [showConnectedModal, setShowConnectedModal] = useState(false);
-
   const groups = Object.entries(groupWallets).sort((wa, wb) => {
     if (wa[0] === 'Recent') return -1;
     if (wa[0] === 'Popular') return -1;
@@ -58,7 +57,10 @@ export function ConnectButton({
           {showConnectedModal && (
             <div
               className={styles['connected-modal']}
-              onClick={() => disconnect()}
+              onClick={() => {
+                setShowConnectedModal(false);
+                disconnect();
+              }}
             >
               Disconnect
             </div>
