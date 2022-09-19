@@ -1,13 +1,9 @@
-// Copyright (c) 2022, Mysten Labs, Inc.
-// SPDX-License-Identifier: Apache-2.0
-
 import {
   MoveCallTransaction,
   SuiAddress,
   SuiTransactionResponse,
 } from '@mysten/sui.js';
 import { createContext, useContext } from 'react';
-import { WalletAdapter } from '@mysten/wallet-adapter-base';
 import { WalletInstance } from '../adapter/KitAdapter';
 
 export interface WalletContextState {
@@ -19,7 +15,6 @@ export interface WalletContextState {
 
   connecting: boolean;
   connected: boolean;
-  // disconnecting: boolean;
 
   select: (walletName: string) => void;
   connect: () => Promise<void>;
@@ -34,7 +29,9 @@ export interface WalletContextState {
   ) => Promise<SuiTransactionResponse>;
 }
 
-const EMPTY_ARRAY: never[] = [];
+function missProviderMessage(action: string) {
+  return `Error to run method ${action}, please make sure useWallet use in a proper provider`;
+}
 
 const DEFAULT_CONTEXT: WalletContextState = {
   supportedWallets: [],
@@ -43,76 +40,36 @@ const DEFAULT_CONTEXT: WalletContextState = {
   connecting: false,
   connected: false,
   select(_name: string) {
-    console.error(constructMissingProviderErrorMessage('get', 'select'));
+    console.error(missProviderMessage('select'));
   },
   async connect() {
-    return await Promise.reject(
-      console.error(constructMissingProviderErrorMessage('get', 'connect'))
-    );
+    return await Promise.reject(console.error(missProviderMessage('connect')));
   },
   async disconnect() {
     return await Promise.reject(
-      console.error(constructMissingProviderErrorMessage('get', 'disconnect'))
+      console.error(missProviderMessage('disconnect'))
     );
   },
   async getAccounts() {
     return await Promise.reject(
-      console.error(constructMissingProviderErrorMessage('get', 'getAccounts'))
+      console.error(missProviderMessage('getAccounts'))
     );
   },
   async executeMoveCall(
     transaction: MoveCallTransaction
   ): Promise<SuiTransactionResponse> {
     return await Promise.reject(
-      console.error(
-        constructMissingProviderErrorMessage('get', 'executeMoveCall')
-      )
+      console.error(missProviderMessage('executeMoveCall'))
     );
   },
   async executeSerializedMoveCall(
     transactionBytes: Uint8Array
   ): Promise<SuiTransactionResponse> {
     return await Promise.reject(
-      console.error(
-        constructMissingProviderErrorMessage('get', 'executeSerializedMoveCall')
-      )
+      console.error(missProviderMessage('executeSerializedMoveCall'))
     );
   },
 };
-
-// Reword these, they are from Solana's repo
-Object.defineProperty(DEFAULT_CONTEXT, 'wallets', {
-  get() {
-    console.error(constructMissingProviderErrorMessage('read', 'wallets'));
-    return EMPTY_ARRAY;
-  },
-});
-Object.defineProperty(DEFAULT_CONTEXT, 'wallet', {
-  get() {
-    console.error(constructMissingProviderErrorMessage('read', 'wallet'));
-    return null;
-  },
-});
-Object.defineProperty(DEFAULT_CONTEXT, 'publicKey', {
-  get() {
-    console.error(constructMissingProviderErrorMessage('read', 'publicKey'));
-    return null;
-  },
-});
-
-function constructMissingProviderErrorMessage(
-  action: string,
-  valueName: string
-) {
-  return (
-    'You have tried to ' +
-    ` ${action} "${valueName}"` +
-    ' on a WalletContext without providing one.' +
-    ' Make sure to render a WalletProvider' +
-    ' as an ancestor of the component that uses ' +
-    'WalletContext'
-  );
-}
 
 export const WalletContext = createContext<any>(DEFAULT_CONTEXT);
 

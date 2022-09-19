@@ -35,10 +35,12 @@ export function ConnectButton({
   });
 
   useEffect(() => {
-    connectedWallet?.adapter.getAccounts().then((accounts) => {
-      const account = accounts[0];
-      setAccount(account);
-    });
+    if (connected) {
+      connectedWallet?.adapter.getAccounts().then((accounts) => {
+        const account = accounts[0];
+        setAccount(account);
+      });
+    }
   }, [connected]);
 
   if (account && connected) {
