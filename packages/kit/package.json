@@ -1,13 +1,21 @@
 {
-  "name": "kit",
+  "name": "@suiet/wallet-kit",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --emitDeclarationOnly && node build.mjs",
+    "build": "tsc --emitDeclarationOnly && vite build",
     "preview": "vite preview"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/kit.js",
+      "require": "./dist/kit.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@mysten/sui.js": "^0.10.0",
     "@mysten/wallet-adapter-base": "0.0.0-experimental-20220825172556",
@@ -17,13 +25,13 @@
   "devDependencies": {
     "@mysten/wallet-adapter-sui-wallet": "0.0.0-experimental-20220918004146",
     "@types/lodash": "^4.14.185",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^17",
+    "@types/react-dom": "^17",
     "@vanilla-extract/css": "^1.9.0",
     "@vanilla-extract/vite-plugin": "^3.4.0",
     "@vitejs/plugin-react": "^2.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "typescript": "^4.6.4",
     "typescript-plugin-css-modules": "^3.4.0",
     "vite": "^3.1.0",
