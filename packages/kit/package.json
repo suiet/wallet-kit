@@ -1,8 +1,10 @@
 {
   "name": "@suiet/wallet-kit",
-  "private": true,
   "version": "0.0.1",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc --emitDeclarationOnly && vite build",
