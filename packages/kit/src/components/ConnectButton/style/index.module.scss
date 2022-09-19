@@ -10,43 +10,6 @@
   border: 0;
 }
 
-.select-container {
-  margin-top: 24px;
-}
-
-.select-title {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  color: #7d89b0;
-  margin-bottom: 15px;
-}
-
-.select-item {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  color: #404968;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  &:hover {
-    background: #f9fafb;
-    // background-color: rgba(224, 232, 255, 0.1);
-  }
-
-  span {
-    width: 36px;
-    height: 36px;
-    display: inline-block;
-    background: url('../../../assets/logo.svg') no-repeat center;
-    background-size: cover;
-    margin-right: 10px;
-  }
-}
-
 .connected-button {
   background: #eff1f5;
   border-radius: 16px;

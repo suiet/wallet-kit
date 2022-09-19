@@ -1,12 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { ConnectButton } from './components/ConnectButton';
 import { WalletProvider } from './wallets/provider';
 import { getDefaultWallets } from './adapter/getDefaultWallets';
 
 const supportedWallets = getDefaultWallets();
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.render(
   <React.StrictMode>
     <div
       style={{
@@ -18,5 +18,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <ConnectButton />
       </WalletProvider>
     </div>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root') as HTMLElement
 );
