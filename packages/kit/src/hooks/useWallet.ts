@@ -114,7 +114,7 @@ function constructMissingProviderErrorMessage(
   );
 }
 
-export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);
+export const WalletContext = createContext<any>(DEFAULT_CONTEXT);
 
 export function useWallet(): WalletContextState {
   return useContext(WalletContext);

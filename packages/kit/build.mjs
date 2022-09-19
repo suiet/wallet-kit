@@ -8,13 +8,13 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const libraries = [
-  {
-    entry: path.resolve(__dirname, './src/components/index.ts'),
-    fileName: 'components',
-  },
+  // {
+  //   entry: path.resolve(__dirname, './src/components/index.ts'),
+  //   fileName: 'components',
+  // },
   {
     entry: path.resolve(__dirname, './src/index.ts'),
-    fileName: 'index',
+    fileName: 'kit',
   },
 ];
 
@@ -36,6 +36,7 @@ libraries.forEach(async (lib) => {
       build: {
         lib: lib,
         emptyOutDir: false,
+        sourcemap: 'inline',
         rollupOptions: {
           external: ['react', 'react-dom'],
           output: {
