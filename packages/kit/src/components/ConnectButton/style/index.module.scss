@@ -34,3 +34,21 @@
   display: inline-block;
   margin-left: 12px;
 }
+
+.connected-container {
+  position: relative;
+}
+
+.connected-modal {
+  background: #eff1f5;
+  border-radius: 13px;
+  padding: 17px 24px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+  position: absolute;
+  width: 268px;
+  cursor: pointer;
+  bottom: -76px;
+}
