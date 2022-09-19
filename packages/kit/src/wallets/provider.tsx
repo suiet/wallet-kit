@@ -47,12 +47,12 @@ export function WalletProvider({
   groupWallets['Recent'] = recentWallets;
 
   const connect = useCallback(async () => {
-    if (wallet == null) {
+    if (wallet === null) {
       return;
     }
     try {
       setConnecting(true);
-      await wallet.adapter.connect();
+      const res = await wallet.adapter.connect();
       setConnected(true);
     } catch (e) {
       setConnected(false);
@@ -62,10 +62,14 @@ export function WalletProvider({
   }, [wallet]);
 
   const disconnect = async () => {
-    setConnected(false);
-    setWallet(null);
-    setWalletAndUpdateStorage(null);
-    wallet?.adapter.disconnect();
+    try {
+      if (!wallet) throw new Error('No wallet to disconnect');
+      await wallet?.adapter.disconnect();
+      setWalletAndUpdateStorage(null);
+      setConnected(false);
+    } catch (e) {
+      throw e;
+    }
   };
 
   const setWalletAndUpdateStorage = useCallback(
@@ -110,26 +114,27 @@ export function WalletProvider({
   }, [choose, connected, connecting, wallet]);
 
   const getAccounts = async (): Promise<SuiAddress[]> => {
-    if (wallet == null) throw Error('Wallet Not Connected');
+    if (wallet === null) throw Error('Wallet Not Connected');
     return await wallet.adapter.getAccounts();
   };
 
   const executeMoveCall = async (
     transaction: MoveCallTransaction
   ): Promise<SuiTransactionResponse> => {
-    if (wallet == null) throw Error('Wallet Not Connected');
+    if (wallet === null) throw Error('Wallet Not Connected');
     return await wallet.adapter.executeMoveCall(transaction);
   };
 
   const executeSerializedMoveCall = async (
     transactionBytes: Uint8Array
   ): Promise<SuiTransactionResponse> => {
-    if (wallet == null) throw Error('Wallet Not Connected');
+    if (wallet === null) throw Error('Wallet Not Connected');
     return await wallet.adapter.executeSerializedMoveCall(transactionBytes);
   };
 
+  // auto reconnect
   useEffect(() => {
-    if (wallet != null && connecting !== true && connected !== true) {
+    if (wallet !== null && connecting !== true && connected !== true) {
       connect();
     }
   }, [connect, wallet, connecting, connected]);
