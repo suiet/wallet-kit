@@ -18,6 +18,7 @@ importers:
       '@vanilla-extract/css': ^1.9.0
       '@vanilla-extract/vite-plugin': ^3.4.0
       '@vitejs/plugin-react': ^2.1.0
+      classnames: ^2.3.2
       lodash: ^4.17.21
       react: ^17.0.2
       react-dom: ^17.0.2
@@ -30,6 +31,7 @@ importers:
       '@mysten/wallet-adapter-base': 0.0.0-experimental-20220825172556
       '@radix-ui/react-dialog': 1.0.0_hiunvzosbwliizyirxfy6hjyim
       '@suiet/wallet-adapter': 0.0.8_@mysten+sui.js@0.10.0
+      classnames: 2.3.2
       lodash: 4.17.21
     devDependencies:
       '@mysten/wallet-adapter-sui-wallet': 0.0.0-experimental-20220918004146
@@ -4058,6 +4060,10 @@ packages:
 
   /ci-info/2.0.0:
     resolution: {integrity: sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==}
+    dev: false
+
+  /classnames/2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
     dev: false
 
   /clean-css/5.3.1:
