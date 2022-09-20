@@ -1,10 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {CSSProperties, useEffect, useState} from 'react';
 import {useWallet} from '../../hooks/useWallet';
 import {ConnectWalletModal} from '../Modal/ConnectWalletModal';
 import styles from './style/index.module.scss';
+import {Extendable} from "../../types";
+import classnames from 'classnames'
 
-interface ConnectButtonProps {
+export type ConnectButtonProps = Extendable & {
   label?: string;
+  btnClassName?: string;
+  btnStyle?: CSSProperties;
 }
 
 export function addressEllipsis(address: string) {
@@ -15,9 +19,11 @@ export function addressEllipsis(address: string) {
   return address.slice(0, 7) + '....' + address.slice(-4, address.length);
 }
 
-export function ConnectButton({
-                                label = 'Connect Wallet',
-                              }: ConnectButtonProps) {
+export function ConnectButton(props: ConnectButtonProps) {
+  const {
+    label = 'Connect Wallet',
+  } = props;
+
   const {
     select,
     wallet: connectedWallet,
@@ -45,36 +51,38 @@ export function ConnectButton({
 
   if (account && connected) {
     return (
-      <>
-        <div className={styles['connected-container']}>
-          <button
-            className={styles['connected-button']}
-            onClick={() => {
-              setShowConnectedModal(!showConnectedModal);
-            }}
-          >
-            <span className={styles['balance']}>0 SUI</span>
-            <div className={styles['divider']}></div>
-            <div className={styles['address-select']}>
+      <div
+        className={classnames(styles['connected-container'], props.className)}
+        style={props.style}
+      >
+        <button
+          className={classnames(styles['connected-button'], props.btnClassName)}
+          style={props.btnStyle}
+          onClick={() => {
+            setShowConnectedModal(!showConnectedModal);
+          }}
+        >
+          <span className={styles['balance']}>0 SUI</span>
+          <div className={styles['divider']}></div>
+          <div className={styles['address-select']}>
               <span className={styles['address']}>
                 {addressEllipsis(account)}
               </span>
-              <span className={styles['right-arrow']}/>
-            </div>
-          </button>
-          {showConnectedModal && (
-            <div
-              className={styles['connected-modal']}
-              onClick={() => {
-                setShowConnectedModal(false);
-                disconnect();
-              }}
-            >
-              <span className={styles['connected-modal__text']}>Disconnect</span>
-            </div>
-          )}
-        </div>
-      </>
+            <span className={styles['right-arrow']}/>
+          </div>
+        </button>
+        {showConnectedModal && (
+          <div
+            className={styles['connected-modal']}
+            onClick={() => {
+              setShowConnectedModal(false);
+              disconnect();
+            }}
+          >
+            <span className={styles['connected-modal__text']}>Disconnect</span>
+          </div>
+        )}
+      </div>
     );
   }
 
@@ -86,7 +94,10 @@ export function ConnectButton({
         select(wallet.name);
       }}
     >
-      <button className={styles.button}>{label}</button>
+      <button
+        className={classnames(styles.button, props.btnClassName)}
+        style={props.btnStyle}
+      >{label}</button>
     </ConnectWalletModal>
   );
 }
