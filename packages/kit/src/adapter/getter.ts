@@ -48,10 +48,6 @@ export function getDefaultWallets() {
   const wallets: WalletList = [
     {
       group: 'Popular',
-      wallets: [suiet()],
-    },
-    {
-      group: 'Popular',
       wallets: [sui()],
     },
   ];
