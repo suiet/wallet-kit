@@ -6,10 +6,20 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import styles from './index.module.css';
 import {ConnectButton, WalletProvider} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
-import {getAllWallets} from "@suiet/wallet-kit";
+import {getAllWallets, useWallet} from "@suiet/wallet-kit";
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
+  const {connected, getAccounts} = useWallet();
+
+  useEffect(() => {
+    if (!connected) return;
+    (async function () {
+      const accounts = await getAccounts();
+      console.log('accounts', accounts);
+    })()
+  }, [connected, getAccounts])
+
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
