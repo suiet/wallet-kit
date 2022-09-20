@@ -66,7 +66,7 @@ importers:
       '@docusaurus/core': 2.1.0_mjb3abnop6izgvkouxh4aqdnvm
       '@docusaurus/preset-classic': 2.1.0_mjb3abnop6izgvkouxh4aqdnvm
       '@mdx-js/react': 1.6.22_react@17.0.2
-      '@suiet/wallet-kit': link:../packages/kit
+      '@suiet/wallet-kit': 0.0.1_sfoxds7t5ydpegc3knd667wn6m
       clsx: 1.2.1
       prism-react-renderer: 1.3.5_react@17.0.2
       react: 17.0.2
@@ -2754,6 +2754,33 @@ packages:
       - '@types/react'
     dev: false
 
+  /@radix-ui/react-dialog/1.0.0_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-Yn9YU+QlHYLWwV1XfKiqnGVpWYWk6MeBVM6x/bcoyPvxgjQGoeT35482viLPctTMWoMw0PoHgqfSox7Ig+957Q==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.19.0
+      '@radix-ui/primitive': 1.0.0
+      '@radix-ui/react-compose-refs': 1.0.0_react@17.0.2
+      '@radix-ui/react-context': 1.0.0_react@17.0.2
+      '@radix-ui/react-dismissable-layer': 1.0.0_sfoxds7t5ydpegc3knd667wn6m
+      '@radix-ui/react-focus-guards': 1.0.0_react@17.0.2
+      '@radix-ui/react-focus-scope': 1.0.0_sfoxds7t5ydpegc3knd667wn6m
+      '@radix-ui/react-id': 1.0.0_react@17.0.2
+      '@radix-ui/react-portal': 1.0.0_sfoxds7t5ydpegc3knd667wn6m
+      '@radix-ui/react-presence': 1.0.0_sfoxds7t5ydpegc3knd667wn6m
+      '@radix-ui/react-primitive': 1.0.0_sfoxds7t5ydpegc3knd667wn6m
+      '@radix-ui/react-slot': 1.0.0_react@17.0.2
+      '@radix-ui/react-use-controllable-state': 1.0.0_react@17.0.2
+      aria-hidden: 1.2.1_react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-remove-scroll: 2.5.4_react@17.0.2
+    transitivePeerDependencies:
+      - '@types/react'
+    dev: false
+
   /@radix-ui/react-dismissable-layer/1.0.0_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-n7kDRfx+LB1zLueRDvZ1Pd0bxdJWDUZNQ/GWoxDn2prnuJKRdxsjulejX/ePkOsLi2tTm6P24mDqlMSgQpsT6g==}
     peerDependencies:
@@ -2921,6 +2948,17 @@ packages:
       webpack-sources: 3.2.3
     dev: false
 
+  /@suiet/wallet-adapter/0.0.8:
+    resolution: {integrity: sha512-Jq1oiKBI1YNNe3cxxK30Gsgm54MErqVxhFfQ1gF87JrLP3s08QaEe1AjwjXp8u9U3sG1rDx8mnf6MKeZu2LvCg==}
+    dependencies:
+      '@mysten/sui.js': 0.10.0
+      '@mysten/wallet-adapter-base': 0.0.0-experimental-20220825172556
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   /@suiet/wallet-adapter/0.0.8_@mysten+sui.js@0.10.0:
     resolution: {integrity: sha512-Jq1oiKBI1YNNe3cxxK30Gsgm54MErqVxhFfQ1gF87JrLP3s08QaEe1AjwjXp8u9U3sG1rDx8mnf6MKeZu2LvCg==}
     peerDependencies:
@@ -2931,6 +2969,23 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - encoding
+      - utf-8-validate
+    dev: false
+
+  /@suiet/wallet-kit/0.0.1_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-S+9ways/YLa0alX3hp6KVa15TQduHaG0vJt+BDiJh0sBBi0HZimVNiFwYGLAQfBQr8hZVTjimiBs7X6OvaDr7w==}
+    dependencies:
+      '@mysten/sui.js': 0.10.0
+      '@mysten/wallet-adapter-base': 0.0.0-experimental-20220825172556
+      '@radix-ui/react-dialog': 1.0.0_sfoxds7t5ydpegc3knd667wn6m
+      '@suiet/wallet-adapter': 0.0.8
+      lodash: 4.17.21
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - encoding
+      - react
+      - react-dom
       - utf-8-validate
     dev: false
 
@@ -3656,6 +3711,20 @@ packages:
         optional: true
     dependencies:
       '@types/react': 17.0.50
+      react: 17.0.2
+      tslib: 2.4.0
+    dev: false
+
+  /aria-hidden/1.2.1_react@17.0.2:
+    resolution: {integrity: sha512-PN344VAf9j1EAi+jyVHOJ8XidQdPVssGco39eNcsGdM4wcsILtxrKLkbuiMfLWYROK1FjRQasMWCBttrhjnr6A==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': ^16.9.0 || ^17.0.0 || ^18.0.0
+      react: ^16.9.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
       react: 17.0.2
       tslib: 2.4.0
     dev: false
@@ -8069,6 +8138,21 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /react-remove-scroll-bar/2.3.3_react@17.0.2:
+    resolution: {integrity: sha512-i9GMNWwpz8XpUpQ6QlevUtFjHGqnPG4Hxs+wlIJntu/xcsZVEpJcIV71K3ZkqNy2q3GfgvkD7y6t/Sv8ofYSbw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      react: 17.0.2
+      react-style-singleton: 2.2.1_react@17.0.2
+      tslib: 2.4.0
+    dev: false
+
   /react-remove-scroll/2.5.4_pxzommwrsowkd4kgag6q3sluym:
     resolution: {integrity: sha512-xGVKJJr0SJGQVirVFAUZ2k1QLyO6m+2fy0l8Qawbp5Jgrv3DeLalrfMNBFSlmz5kriGGzsVBtGVnf4pTKIhhWA==}
     engines: {node: '>=10'}
@@ -8086,6 +8170,24 @@ packages:
       tslib: 2.4.0
       use-callback-ref: 1.3.0_pxzommwrsowkd4kgag6q3sluym
       use-sidecar: 1.1.2_pxzommwrsowkd4kgag6q3sluym
+    dev: false
+
+  /react-remove-scroll/2.5.4_react@17.0.2:
+    resolution: {integrity: sha512-xGVKJJr0SJGQVirVFAUZ2k1QLyO6m+2fy0l8Qawbp5Jgrv3DeLalrfMNBFSlmz5kriGGzsVBtGVnf4pTKIhhWA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      react: 17.0.2
+      react-remove-scroll-bar: 2.3.3_react@17.0.2
+      react-style-singleton: 2.2.1_react@17.0.2
+      tslib: 2.4.0
+      use-callback-ref: 1.3.0_react@17.0.2
+      use-sidecar: 1.1.2_react@17.0.2
     dev: false
 
   /react-router-config/5.1.1_oyuskl3t7voyrff2xstzuy4hqu:
@@ -8143,6 +8245,22 @@ packages:
         optional: true
     dependencies:
       '@types/react': 17.0.50
+      get-nonce: 1.0.1
+      invariant: 2.2.4
+      react: 17.0.2
+      tslib: 2.4.0
+    dev: false
+
+  /react-style-singleton/2.2.1_react@17.0.2:
+    resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
       get-nonce: 1.0.1
       invariant: 2.2.4
       react: 17.0.2
@@ -9387,6 +9505,20 @@ packages:
       tslib: 2.4.0
     dev: false
 
+  /use-callback-ref/1.3.0_react@17.0.2:
+    resolution: {integrity: sha512-3FT9PRuRdbB9HfXhEq35u4oZkvpJ5kuYbpqhCfmiZyReuRgpnhDlbr2ZEnnuS0RrJAPn6l23xjFg9kpDM+Ms7w==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      react: 17.0.2
+      tslib: 2.4.0
+    dev: false
+
   /use-composed-ref/1.3.0_react@17.0.2:
     resolution: {integrity: sha512-GLMG0Jc/jiKov/3Ulid1wbv3r54K9HlMW29IWcDFPEqFkSO2nS0MuefWgMJpeHQ9YJeXDL3ZUF+P3jdXlZX/cQ==}
     peerDependencies:
@@ -9431,6 +9563,21 @@ packages:
         optional: true
     dependencies:
       '@types/react': 17.0.50
+      detect-node-es: 1.1.0
+      react: 17.0.2
+      tslib: 2.4.0
+    dev: false
+
+  /use-sidecar/1.1.2_react@17.0.2:
+    resolution: {integrity: sha512-epTbsLuzZ7lPClpz2TyryBfztm7m+28DlEv2ZCQ3MDr5ssiwyOwGH/e5F9CkfWjJ1t4clvI58yF822/GUkjjhw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@types/react': ^16.9.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
       detect-node-es: 1.1.0
       react: 17.0.2
       tslib: 2.4.0
