@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useWallet } from '../../hooks/useWallet';
-import { ConnectWalletModal } from '../Modal/ConnectWalletModal';
+import React, {useEffect, useState} from 'react';
+import {useWallet} from '../../hooks/useWallet';
+import {ConnectWalletModal} from '../Modal/ConnectWalletModal';
 import styles from './style/index.module.scss';
 
 interface ConnectButtonProps {
@@ -16,8 +16,8 @@ export function addressEllipsis(address: string) {
 }
 
 export function ConnectButton({
-  label = 'Connect Wallet',
-}: ConnectButtonProps) {
+                                label = 'Connect Wallet',
+                              }: ConnectButtonProps) {
   const {
     select,
     wallet: connectedWallet,
@@ -53,8 +53,14 @@ export function ConnectButton({
               setShowConnectedModal(!showConnectedModal);
             }}
           >
-            {addressEllipsis(account)}
-            <span className={styles['right-arrow']} />
+            <span className={styles['balance']}>0 SUI</span>
+            <div className={styles['divider']}></div>
+            <div className={styles['address-select']}>
+              <span className={styles['address']}>
+                {addressEllipsis(account)}
+              </span>
+              <span className={styles['right-arrow']}/>
+            </div>
           </button>
           {showConnectedModal && (
             <div
@@ -64,7 +70,7 @@ export function ConnectButton({
                 disconnect();
               }}
             >
-              Disconnect
+              <span className={styles['connected-modal__text']}>Disconnect</span>
             </div>
           )}
         </div>
@@ -77,7 +83,7 @@ export function ConnectButton({
       walletGroups={groups}
       onWalletClick={(wallet) => {
         if (!wallet.installed) return;
-        select(wallet.adapter.name);
+        select(wallet.name);
       }}
     >
       <button className={styles.button}>{label}</button>
