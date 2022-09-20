@@ -10,7 +10,7 @@ const config = {
   tagline: 'The best kit for your DApp to connect with SUI wallets',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
