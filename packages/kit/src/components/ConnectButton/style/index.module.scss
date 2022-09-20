@@ -11,19 +11,46 @@
 }
 
 .connected-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background: #eff1f5;
   border-radius: 16px;
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
   color: #404968;
-  padding: 12px 18px;
+  padding: 16px 24px;
   border: 0;
   cursor: pointer;
+}
 
+.balance {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #111322;
+}
+.address-select {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+}
+.address {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #404968;
+}
+.divider {
+  width: 1px;
+  height: 16px;
+  margin: 0 10px;
+  background-color: #DCDFEA;
 }
 
 .right-arrow {
@@ -37,18 +64,26 @@
 
 .connected-container {
   position: relative;
+  width: 268px;
 }
 
 .connected-modal {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: -76px;
+  width: 268px;
   background: #eff1f5;
   border-radius: 13px;
-  padding: 17px 24px 20px;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+  padding: 20px 24px;
   color: #000000;
-  position: absolute;
-  width: 268px;
   cursor: pointer;
-  bottom: -76px;
+
+  &__text {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #111322;
+  }
 }

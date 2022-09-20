@@ -75,8 +75,8 @@ export function WalletProvider({
   const setWalletAndUpdateStorage = useCallback(
     (selectedWallet: WalletInstance | null) => {
       setWallet(selectedWallet);
-      if (selectedWallet != null) {
-        latestWallets.storeWalletName(selectedWallet.adapter.name);
+      if (selectedWallet !== null) {
+        latestWallets.storeWalletName(selectedWallet.name);
       } else {
         localStorage.removeItem(LAST_WALLET);
       }
@@ -87,11 +87,11 @@ export function WalletProvider({
   const choose = useCallback(
     (name: string) => {
       let newWallet = supportedWallets.find(
-        (wallet) => wallet.adapter.name === name
+        (wallet) => wallet.name === name
       );
       if (newWallet) {
         setWalletAndUpdateStorage(newWallet);
-        localStorage.setItem(LAST_WALLET, newWallet.adapter.name);
+        localStorage.setItem(LAST_WALLET, newWallet.name);
       } else {
         localStorage.removeItem(LAST_WALLET);
         throw new Error('Error wallet');
