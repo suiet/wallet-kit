@@ -25,6 +25,16 @@ export function WalletProvider({
   const [wallet, setWallet] = useState<WalletInstance | null>(null);
   const [connected, setConnected] = useState(false);
   const [connecting, setConnecting] = useState(false);
+  const [address, setAddress] = useState('');
+
+  useEffect(() => {
+    if (connected) {
+      wallet?.adapter.getAccounts().then((accounts) => {
+        const address = accounts[0];
+        setAddress(address);
+      });
+    }
+  }, [connected]);
 
   const walletInstanceByName = keyBy(
     supportedWallets,
@@ -86,9 +96,7 @@ export function WalletProvider({
 
   const choose = useCallback(
     (name: string) => {
-      let newWallet = supportedWallets.find(
-        (wallet) => wallet.name === name
-      );
+      let newWallet = supportedWallets.find((wallet) => wallet.name === name);
       if (newWallet) {
         setWalletAndUpdateStorage(newWallet);
         localStorage.setItem(LAST_WALLET, newWallet.name);
@@ -153,6 +161,7 @@ export function WalletProvider({
         executeMoveCall,
         executeSerializedMoveCall,
         groupWallets,
+        address,
       }}
     >
       {children}
