@@ -8,11 +8,12 @@ export enum CoinSymbol {
 }
 
 export function useAccountBalance(token = Token.SUI) {
-  const { address } = useWallet();
+  const { address, connected } = useWallet();
   const { error, loading, getBalance } = useCoinBalance({
     address,
     opts: {
       networkId: NetworkType.devnet,
+      canFetch: connected,
     },
   });
 
