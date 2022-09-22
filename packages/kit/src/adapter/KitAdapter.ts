@@ -7,7 +7,6 @@ interface KitAdapter<T> {
 export interface Wallet<T extends WalletAdapter = WalletAdapter> {
   installed: boolean | undefined;
   name: string;
-  group: string;
   iconUrl: string | (() => Promise<string>);
   downloadUrl?: {
     browserExtension?: string; // chrome default
@@ -16,7 +15,6 @@ export interface Wallet<T extends WalletAdapter = WalletAdapter> {
 }
 
 export type WalletList = {
-  group: string;
   wallets: Wallet[];
 }[];
 

@@ -13,26 +13,25 @@ function adapterInstance(walletList: WalletList) {
 
   const walletItemList: WalletListItem[] = [];
 
-  walletList.forEach(({ group, wallets }) => {
+  walletList.forEach(({ wallets }) => {
     wallets.forEach((wallet) => {
       index++;
 
       const walletListItem = {
         ...wallet,
-        group,
         index,
+        group: 'Popular', // default group
       };
 
       walletItemList.push(walletListItem);
     });
   });
 
-  walletItemList.forEach(({ createAdapter, group, name, index, ...rest }) => {
+  walletItemList.forEach(({ createAdapter, name, index, ...rest }) => {
     const { adapter } = createAdapter();
 
     const walletInstance: WalletInstance = {
       adapter,
-      group,
       name,
       index,
       ...rest,
@@ -47,7 +46,6 @@ function adapterInstance(walletList: WalletList) {
 export function getDefaultWallets() {
   const wallets: WalletList = [
     {
-      group: 'Popular',
       wallets: [sui()],
     },
   ];
@@ -58,11 +56,9 @@ export function getDefaultWallets() {
 export function getAllWallets() {
   const wallets: WalletList = [
     {
-      group: 'Popular',
       wallets: [suiet()],
     },
     {
-      group: 'Popular',
       wallets: [sui()],
     },
   ];
