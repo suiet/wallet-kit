@@ -32,30 +32,37 @@ async function getCoinsBalance(
 export function useCoinBalance({
   address,
   symbol,
-  opts = {},
+  opts = {
+    canFetch: true,
+  },
 }: {
   address: string;
   symbol?: CoinSymbol;
   opts: {
     networkId?: string;
+    canFetch?: boolean;
   };
 }) {
   const [balance, setBalance] = useState<string>('0');
-  const { networkId = 'devnet' } = opts;
+  const { networkId = 'devnet', canFetch } = opts;
   const net = network.getNetwork(NetworkType.devnet);
   const {
     data: coinsBalanceMap,
     error,
     isValidating,
-  } = useSWR(['fetchCoinsBalanceMap', address, network], fetchCoinsBalanceMap);
+  } = useSWR(
+    ['fetchCoinsBalanceMap', address, network, canFetch],
+    fetchCoinsBalanceMap
+  );
 
   async function fetchCoinsBalanceMap(
     _: string,
     address: string,
-    network: Network
+    network: Network,
+    canFetch = true
   ) {
     const map = new Map<string, string>();
-    if (!address || !network) return map;
+    if (!address || !network || !canFetch) return map;
 
     const coinsBalance = await getCoinsBalance({ address, network: net });
     if (!coinsBalance) {

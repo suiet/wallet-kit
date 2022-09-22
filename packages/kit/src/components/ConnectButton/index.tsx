@@ -1,15 +1,16 @@
-import React, {CSSProperties, useEffect, useState} from 'react';
-import {useWallet} from '../../hooks/useWallet';
-import {ConnectWalletModal} from '../Modal/ConnectWalletModal';
+import React, { CSSProperties, useEffect, useState } from 'react';
+import { useWallet } from '../../hooks/useWallet';
+import { ConnectWalletModal } from '../Modal/ConnectWalletModal';
 import styles from './style/index.module.scss';
-import {Extendable} from "../../types";
-import classnames from 'classnames'
+import { Extendable } from '../../types';
+import classnames from 'classnames';
+import { useAccountBalance } from '../../hooks/useAccountBalance';
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
   btnClassName?: string;
   btnStyle?: CSSProperties;
-}
+};
 
 export function addressEllipsis(address: string) {
   // 0x0000000000000000000000000000000000000000 40bits / 42 length
@@ -20,9 +21,7 @@ export function addressEllipsis(address: string) {
 }
 
 export function ConnectButton(props: ConnectButtonProps) {
-  const {
-    label = 'Connect Wallet',
-  } = props;
+  const { label = 'Connect Wallet' } = props;
 
   const {
     select,
@@ -32,6 +31,8 @@ export function ConnectButton(props: ConnectButtonProps) {
     groupWallets,
     disconnect,
   } = useWallet();
+
+  const { balance } = useAccountBalance();
   const [account, setAccount] = useState('');
   const [showConnectedModal, setShowConnectedModal] = useState(false);
   const groups = Object.entries(groupWallets).sort((wa, wb) => {
@@ -62,13 +63,13 @@ export function ConnectButton(props: ConnectButtonProps) {
             setShowConnectedModal(!showConnectedModal);
           }}
         >
-          <span className={styles['balance']}>0 SUI</span>
+          <span className={styles['balance']}>{balance} SUI</span>
           <div className={styles['divider']}></div>
           <div className={styles['address-select']}>
-              <span className={styles['address']}>
-                {addressEllipsis(account)}
-              </span>
-            <span className={styles['right-arrow']}/>
+            <span className={styles['address']}>
+              {addressEllipsis(account)}
+            </span>
+            <span className={styles['right-arrow']} />
           </div>
         </button>
         {showConnectedModal && (
@@ -97,7 +98,9 @@ export function ConnectButton(props: ConnectButtonProps) {
       <button
         className={classnames(styles.button, props.btnClassName)}
         style={props.btnStyle}
-      >{label}</button>
+      >
+        {label}
+      </button>
     </ConnectWalletModal>
   );
 }
