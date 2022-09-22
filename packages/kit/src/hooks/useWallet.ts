@@ -15,6 +15,7 @@ export interface WalletContextState {
 
   connecting: boolean;
   connected: boolean;
+  address: string;
 
   select: (walletName: string) => void;
   connect: () => Promise<void>;
@@ -39,6 +40,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   wallet: null,
   connecting: false,
   connected: false,
+  address: '',
   select(_name: string) {
     console.error(missProviderMessage('select'));
   },

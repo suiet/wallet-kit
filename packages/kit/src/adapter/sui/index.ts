@@ -1,11 +1,10 @@
 import { SuiWalletAdapter } from '@mysten/wallet-adapter-sui-wallet';
 import { Wallet } from '../KitAdapter';
-import logo from './logo.png'
+import logo from './logo.png';
 
 export const sui = (): Wallet => {
   return {
     name: 'Sui Wallet',
-    group: 'Popular',
     iconUrl: logo,
     installed:
       typeof window !== 'undefined' &&
