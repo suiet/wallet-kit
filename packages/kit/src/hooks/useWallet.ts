@@ -28,6 +28,7 @@ export interface WalletContextState {
   executeSerializedMoveCall: (
     transactionBytes: Uint8Array
   ) => Promise<SuiTransactionResponse>;
+  status: 'disconnected' | 'connected' | 'connecting';
 }
 
 function missProviderMessage(action: string) {
@@ -41,6 +42,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   connecting: false,
   connected: false,
   address: '',
+  status: 'disconnected',
   select(_name: string) {
     console.error(missProviderMessage('select'));
   },
