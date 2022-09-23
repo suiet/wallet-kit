@@ -8,6 +8,7 @@ import { WalletContext } from '../hooks/useWallet';
 import latestWallets from './latestWallets';
 import { Wallet, WalletInstance, WalletList } from '../adapter/KitAdapter';
 import { keyBy, groupBy } from 'lodash';
+import { AccountStatus } from '../types/account';
 
 interface WalletProviderProps {
   children: ReactNode;
@@ -23,18 +24,17 @@ export function WalletProvider({
   autoConnect = true,
 }: WalletProviderProps) {
   const [wallet, setWallet] = useState<WalletInstance | null>(null);
-  const [connected, setConnected] = useState(false);
-  const [connecting, setConnecting] = useState(false);
+  const [status, setStatus] = useState(AccountStatus.disconnected);
   const [address, setAddress] = useState('');
 
   useEffect(() => {
-    if (connected) {
+    if (status === AccountStatus.connected) {
       wallet?.adapter.getAccounts().then((accounts) => {
         const address = accounts[0];
         setAddress(address);
       });
     }
-  }, [connected]);
+  }, [status]);
 
   const walletInstanceByName = keyBy(
     supportedWallets,
@@ -61,14 +61,13 @@ export function WalletProvider({
       return;
     }
     try {
-      setConnecting(true);
+      setStatus(AccountStatus.connecting);
       const res = await wallet.adapter.connect();
-      setConnected(true);
+      setStatus(AccountStatus.connected);
     } catch (e) {
-      setConnected(false);
+      setStatus(AccountStatus.disconnected);
       throw new Error('Connect Failed');
     }
-    setConnecting(false);
   }, [wallet]);
 
   const disconnect = async () => {
@@ -76,7 +75,7 @@ export function WalletProvider({
       if (!wallet) throw new Error('No wallet to disconnect');
       await wallet?.adapter.disconnect();
       setWalletAndUpdateStorage(null);
-      setConnected(false);
+      setStatus(AccountStatus.disconnected);
     } catch (e) {
       throw e;
     }
@@ -97,6 +96,7 @@ export function WalletProvider({
   const choose = useCallback(
     (name: string) => {
       let newWallet = supportedWallets.find((wallet) => wallet.name === name);
+      console.log('sdfsdf', newWallet, name);
       if (newWallet) {
         setWalletAndUpdateStorage(newWallet);
         localStorage.setItem(LAST_WALLET, newWallet.name);
@@ -104,22 +104,15 @@ export function WalletProvider({
         localStorage.removeItem(LAST_WALLET);
         throw new Error('Error wallet');
       }
-      connect();
     },
     [supportedWallets, connect, setWalletAndUpdateStorage]
   );
 
   useEffect(() => {
-    if (!wallet && !connected && !connecting && autoConnect) {
-      let walletItem = localStorage.getItem(LAST_WALLET);
-      if (typeof walletItem === 'string') {
-        const items = walletItem;
-        setTimeout(() => {
-          choose(items);
-        }, 200);
-      }
+    if (wallet && status === AccountStatus.disconnected) {
+      connect();
     }
-  }, [choose, connected, connecting, wallet]);
+  }, [wallet, status]);
 
   const getAccounts = async (): Promise<SuiAddress[]> => {
     if (wallet === null) throw Error('Wallet Not Connected');
@@ -140,20 +133,13 @@ export function WalletProvider({
     return await wallet.adapter.executeSerializedMoveCall(transactionBytes);
   };
 
-  // auto reconnect
-  useEffect(() => {
-    if (wallet !== null && connecting !== true && connected !== true) {
-      connect();
-    }
-  }, [connect, wallet, connecting, connected]);
-
   return (
     <WalletContext.Provider
       value={{
         supportedWallets,
         wallet,
-        connecting: connecting,
-        connected: connected,
+        connecting: status === AccountStatus.connecting,
+        connected: status === AccountStatus.connected,
         select: choose,
         connect,
         disconnect,
@@ -162,6 +148,7 @@ export function WalletProvider({
         executeSerializedMoveCall,
         groupWallets,
         address,
+        status,
       }}
     >
       {children}
