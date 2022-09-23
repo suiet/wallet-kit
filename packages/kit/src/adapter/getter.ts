@@ -46,6 +46,9 @@ function adapterInstance(walletList: WalletList) {
 export function getDefaultWallets() {
   const wallets: WalletList = [
     {
+      wallets: [suiet()],
+    },
+    {
       wallets: [sui()],
     },
   ];

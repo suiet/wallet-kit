@@ -1,8 +1,8 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import {WalletInstance} from '../../adapter/KitAdapter';
+import { WalletInstance } from '../../adapter/KitAdapter';
 import styles from './index.module.scss';
-import Icon from "../Icon";
+import Icon from '../Icon';
 
 interface ModalProps {
   children: ReactNode;
@@ -10,7 +10,7 @@ interface ModalProps {
   content: ReactNode;
 }
 
-function Modal({children, content, title}: ModalProps) {
+function Modal({ children, content, title }: ModalProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
@@ -36,10 +36,10 @@ interface ConnectWalletModalProps {
 }
 
 export function ConnectWalletModal({
-                                     walletGroups,
-                                     children,
-                                     onWalletClick,
-                                   }: ConnectWalletModalProps) {
+  walletGroups,
+  children,
+  onWalletClick,
+}: ConnectWalletModalProps) {
   return (
     <Modal
       title="Connect Wallet"

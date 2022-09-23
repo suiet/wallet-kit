@@ -17,7 +17,7 @@ function dedupe<T>(array: T[], name: T): T[] {
     return newArray;
   }
   newArray.splice(idx, 1);
-  newArray.push(name);
+  newArray.unshift(name);
   return newArray;
 }
 
