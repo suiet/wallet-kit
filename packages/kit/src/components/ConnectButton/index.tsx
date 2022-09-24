@@ -91,6 +91,7 @@ export function ConnectButton(props: ConnectButtonProps) {
     <ConnectWalletModal
       walletGroups={groups}
       onWalletClick={(wallet) => {
+        console.log(wallet.installed);
         if (!wallet.installed) return;
         select(wallet.name);
       }}
