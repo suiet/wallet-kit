@@ -2,9 +2,17 @@
 
 ## BEM Naming Rule
 
-.wkit-[block]__[element]--[modifier]
+The BEM naming rule is used to name CSS classes. It is a convention for naming CSS classes in a consistent and predictable way. It helps to achieve reusable components and code sharing in front-end development.
 
-className={'wkit-button'}
+```txt
+.wkit-[block]__[element]--[modifier]
+```
+
+```jsx
+<div className={'wkit-button'}>
+  ...
+</div>
+```
 
 ## CSS Variables
 
@@ -34,7 +42,7 @@ Below is a list of all CSS variables that you can use as public API to customize
 | --wkit-button-bg-connected-hover | connected button background color on hover | rgba(10, 14, 34, 0.07) |
 | --wkit-button-bg-connected-active | connected button background color on active | rgba(10, 14, 34, 0.10) |
 | --wkit-button-border-radius | connect button border radius | 16px |
-| --wkit-button-width | connect button border radius | 254px |
+| --wkit-button-width | connect button width | 254px |
 
 ## Import default css
 
