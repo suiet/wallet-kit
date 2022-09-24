@@ -8,7 +8,7 @@ className={'wkit-button'}
 
 ## CSS Variables
 
-You can use CSS variables to customize the look of the components.
+We use CSS variables to define colors, and other styles like below:
 
 ```css
 :root {
@@ -23,6 +23,19 @@ You can use CSS variables to customize the look of the components.
 }
 ```
 
+Below is a list of all CSS variables that you can use as public API to customize the look of the components.
+
+| Variable | Description | Default |
+| --- | --- | --- |
+| --wkit-button-bg | connect button background color | #3ea2f8 |
+| --wkit-button-bg-hover | connect button background color on hover | #0073E5 |
+| --wkit-button-bg-active | connect button background color on active | #0059BF |
+| --wkit-button-bg-connected | connected button background color | rgba(10, 14, 34, 0.05) |
+| --wkit-button-bg-connected-hover | connected button background color on hover | rgba(10, 14, 34, 0.07) |
+| --wkit-button-bg-connected-active | connected button background color on active | rgba(10, 14, 34, 0.10) |
+| --wkit-button-border-radius | connect button border radius | 16px |
+| --wkit-button-width | connect button border radius | 254px |
+
 ## Import default css
 
 You need to import the default css file to use the default styles.
@@ -33,9 +46,11 @@ import '@suiet/wallet-kit/default.css';
 
 ## Customize css
 
+When CSS variables are not enough, you can customize the styles by importing the css file and overriding the styles.
+
 ```js
 import '@suiet/wallet-kit/default.css';
-import './suiet-wallet-kit-custom.css';
+import './suiet-wallet-kit-custom.css'; // You css file here
 ```
 
 Example:

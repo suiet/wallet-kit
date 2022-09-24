@@ -3,13 +3,17 @@
   --wkit-button-bg-hover: #0073E5;
   --wkit-button-bg-active: #0059BF;
 
+  --wkit-button-bg-connected: rgba(10, 14, 34, 0.05);
+  --wkit-button-bg-connected-hover: rgba(10, 14, 34, 0.07);
+  --wkit-button-bg-connected-active: rgba(10, 14, 34, 0.10);
+
+  --wkit-button-width: 284px;
   --wkit-border-radius: 16px;
 }
 
 .wkit-button {
-  --wkit-button-border-radius: var(--wkit-border-radius);
-
-  border-radius: var(--wkit-button-border-radius);
+  border-radius: var(--wkit-border-radius);
+  width: var(--wkit-button-width);
   padding: 14px 24px;
   height: 50px;
   color: white;
