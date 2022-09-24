@@ -2,9 +2,7 @@
 
 ## WalletProvider
 
-Provide context
-
-- supportedWallets: `undefined` | `Array<Connector>`
+You must wrap all kit hooks or components in WalletProvider. From WalletProvider, You can get all WalletContextState props with useWallet hook. The basic usage is as follows.
 
 ```jsx
 const supportedWallets = getDefaultWallets();
@@ -14,92 +12,73 @@ const supportedWallets = getDefaultWallets();
 </WalletProvider>;
 ```
 
+All WalletContextState props is as follows.
+
 ```ts
-interface Context {
-  // Supported Wallets
-  supportedWallets: WalletInstance[];
-  groupWallets: Record<string, WalletInstance[]>;
-  // Wallet that we are currently connected to
-  wallet: Wallet | null;
+interface WalletContextState {
+  supportedWallets: WalletInstance[]; // all supported wallet list
+  groupWallets: Record<string, WalletInstance[]>; // grouped wallet map, now include recent and popular group
+  wallet: Wallet | null; // Wallet that we are currently connected to
 
   connecting: boolean;
   connected: boolean;
-  address: string;
+  address: string; // currently coonected account address
   status: 'disconnected' | 'connected' | 'connecting';
 
-  select(walletName: string): void;
-  connect(): Promise<void>;
-  disconnect(): Promise<void>;
+  select(walletName: string): void; // select which wallet to connect
+  connect(): Promise<void>; // connect to wallet
+  disconnect(): Promise<void>; // disconnect connected wallet connection
 
-  getAccounts: () => Promise<SuiAddress[]>;
+  getAccounts: () => Promise<SuiAddress[]>; // get all your wallets' accounts
   executeMoveCall: (
     transaction: MoveCallTransaction
-  ) => Promise<SuiTransactionResponse>;
+  ) => Promise<SuiTransactionResponse>; // adapter's executeMoveCall
   executeSerializedMoveCall: (
     transactionBytes: Uint8Array
-  ) => Promise<SuiTransactionResponse>;
+  ) => Promise<SuiTransactionResponse>; // adapter's executeSerializedMoveCall
 }
 ```
 
 ## ConnectButton
 
+If you use ConnectButton in your App, you'll get all of features of kit, such as modal, connect, disconnect and so on. Use ConnectButton component is also the simplest way
+to integrate suiet wallet kit.
+
 ```jsx
-<ConnectButton>Connect Wallet</ConnectButton>
+const supportedWallets = getDefaultWallets();
+
+<WalletProvider supportedWallets={supportedWallets}>
+  <ConnectButton>Connect Wallet</ConnectButton>
+</WalletProvider>;
 ```
 
-# Internal
+## ConnectWalletModal
 
-## \_ConnectButton
-
-```jsx
-<_ConnectButton
-  onClick={}
->
-  {props.children}
-</_ConnectButton>
-```
-
-## WalletInfo
+If you want to use your own button, you can use ConnectWalletModal to wrap your button just as following.
 
 ```jsx
-<WalletInfo onClick={() => {}} />
-```
+// index.tsx
+const supportedWallets = getDefaultWallets();
 
-## WalletSelectorModal
+<WalletProvider supportedWallets={supportedWallets}>
+  <App />
+</WalletProvider>;
 
-```jsx
-<WalletSelectorModal
-  title={''}
-  connectors={[]}
-  onWalletConnected={(wallet: Wallet) => {}}
-  onClose={() => {}}
-/>
-```
+// App.tsx
+function App() {
+  const { groupWallets } = useWallet()
 
-## WalletNotInstall
+  return (
+  <ConnectWalletModal
+    groupWallets={groupWallets}
+    onWalletClick={(wallet) => {
+      if (!wallet.installed) return;
+      select(wallet.name);
+    }}
+  >
+    <YourOwnButton></YourOwnButton>
+  </ConnectWalletModal>;
+  )
+}
 
-```jsx
-<WalletNotInstall
-  extInstallation={[
-    {
-      name: 'xx wallet',
-      browser: 'chrome',
-      url: 'xxx',
-    },
-  ]}
-></WalletNotInstall>
-```
-
-## WalletDropdown
-
-```jsx
-<WalletDropdown onSelect={(key: string) => {}}>
-  <WalletDropdown.Item key={''} title={''} icon={''} />
-</WalletDropdown>
-```
-
-## Loading
-
-```jsx
-<Loading />
 ```
