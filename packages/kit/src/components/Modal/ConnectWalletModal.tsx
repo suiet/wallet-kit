@@ -30,20 +30,25 @@ function Modal({ children, content, title }: ModalProps) {
 }
 
 interface ConnectWalletModalProps {
-  walletGroups: [string, WalletInstance[]][];
+  groupWallets: Record<string, WalletInstance[]>;
   children: ReactNode;
   onWalletClick: (wallet: WalletInstance) => any;
 }
 
 export function ConnectWalletModal({
-  walletGroups,
+  groupWallets,
   children,
   onWalletClick,
 }: ConnectWalletModalProps) {
+  const groups = Object.entries(groupWallets).sort((wa, wb) => {
+    if (wa[0] === 'Recent') return -1;
+    if (wa[0] === 'Popular') return -1;
+    return wa[0] > wb[0] ? -1 : 1;
+  });
   return (
     <Modal
       title="Connect Wallet"
-      content={walletGroups.map(([group, wallets]) => {
+      content={groups.map(([group, wallets]) => {
         if (wallets.length === 0) return null;
         return (
           <div className={styles['select-container']} key={group}>
