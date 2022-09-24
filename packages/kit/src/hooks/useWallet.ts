@@ -18,7 +18,7 @@ export interface WalletContextState {
   address: string;
 
   select: (walletName: string) => void;
-  connect: () => Promise<void>;
+  connect: (walletInstance: WalletInstance) => Promise<void>;
   disconnect: () => Promise<void>;
 
   getAccounts: () => Promise<SuiAddress[]>;
