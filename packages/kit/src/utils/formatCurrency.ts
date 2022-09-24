@@ -17,7 +17,7 @@ export function formatCurrency(amount: number | string) {
       Math.floor(_amount / (measureUnit / 1000))
     ).padEnd(4, '0');
     const result = Intl.NumberFormat('en-US').format(Number(showAmount));
-    return result.replace(',', '.') + unitSymbol;
+    return result.replace(',', '.').slice(0, -2) + unitSymbol;
   }
 
   return Intl.NumberFormat('en-US').format(_amount);
