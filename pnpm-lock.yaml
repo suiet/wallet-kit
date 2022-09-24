@@ -8,6 +8,7 @@ importers:
   packages/kit:
     specifiers:
       '@mysten/sui.js': ^0.10.0
+      '@mysten/sui.js-experimental': npm:@mysten/sui.js@0.0.0-experimental-20220924004602
       '@mysten/wallet-adapter-base': 0.0.0-experimental-20220825172556
       '@mysten/wallet-adapter-sui-wallet': 0.0.0-experimental-20220918004146
       '@radix-ui/react-dialog': ^1.0.0
@@ -29,6 +30,7 @@ importers:
       vite-plugin-svgr: ^2.2.1
     dependencies:
       '@mysten/sui.js': 0.10.0
+      '@mysten/sui.js-experimental': /@mysten/sui.js/0.0.0-experimental-20220924004602
       '@mysten/wallet-adapter-base': 0.0.0-experimental-20220825172556
       '@radix-ui/react-dialog': 1.0.0_hiunvzosbwliizyirxfy6hjyim
       '@suiet/wallet-adapter': 0.0.8_@mysten+sui.js@0.10.0
@@ -2585,6 +2587,12 @@ packages:
       bn.js: 5.2.1
     dev: true
 
+  /@mysten/bcs/0.0.0-experimental-20220924004602:
+    resolution: {integrity: sha512-fk+zFH9GRkXOyZEvQv/qjm4TDoDGP0CoGzLzb8ArEA95YA3VSOKULWTH/Qz6bjK2o4wamMJqftbbaI3nCo6fEQ==}
+    dependencies:
+      bn.js: 5.2.1
+    dev: false
+
   /@mysten/sui.js/0.0.0-experimental-20220918004146:
     resolution: {integrity: sha512-rTLp6eDKdWeID4CXQyvHmfnKj+dZD6chz7l8duVljYoK0lVBp3+wAThoWKWX4oqdcgAATwql+aC4ULD1+IlWgw==}
     engines: {node: '>=16'}
@@ -2605,6 +2613,27 @@ packages:
       - encoding
       - utf-8-validate
     dev: true
+
+  /@mysten/sui.js/0.0.0-experimental-20220924004602:
+    resolution: {integrity: sha512-ZB+4iPkw/8wN/zVy6IPM+CFwdFnu5VZ9uIanldBySAbgm/3uZ5MA1lRdOoykF8OUl4wJ1xeULcZ4ehU8XA/n0w==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@mysten/bcs': 0.0.0-experimental-20220924004602
+      '@noble/hashes': 1.1.2
+      '@noble/secp256k1': 1.7.0
+      bn.js: 5.2.1
+      buffer: 6.0.3
+      cross-fetch: 3.1.5
+      jayson: 3.7.0
+      js-sha3: 0.8.0
+      lossless-json: 1.0.5
+      rpc-websockets: 7.5.0
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
 
   /@mysten/sui.js/0.10.0:
     resolution: {integrity: sha512-z9K34+jQBzeUCTcroTExBzYPCNHohyuz1sR85HYkbymDqdRCTi1IcfBzZDinWibZlk0sZhJtjnozxHklsPvYLQ==}
@@ -2674,11 +2703,9 @@ packages:
 
   /@noble/hashes/1.1.2:
     resolution: {integrity: sha512-KYRCASVTv6aeUi1tsF8/vpyR7zpfs3FUzy2Jqm+MU+LmUKhQ0y2FpfwqkCcxSg2ua4GALJd8k2R76WxwZGbQpA==}
-    dev: true
 
   /@noble/secp256k1/1.7.0:
     resolution: {integrity: sha512-kbacwGSsH/CTout0ZnZWxnW1B+jH/7r/WAAKLBtrRJ/+CUH7lgmQzl3GTrQua3SGKWNSDsS6lmjnDpIJ5Dxyaw==}
-    dev: true
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3923,7 +3950,6 @@ packages:
     requiresBuild: true
     dependencies:
       node-gyp-build: 4.5.0
-    dev: true
 
   /bytes/3.0.0:
     resolution: {integrity: sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==}
@@ -7000,7 +7026,6 @@ packages:
   /node-gyp-build/4.5.0:
     resolution: {integrity: sha512-2iGbaQBV+ITgCz76ZEjmhUKAKVf7xfY1sRl4UiKQspfZMH2h06SyhNsnSVy50cwkFQDGLyif6m/6uFXHkOZ6rg==}
     hasBin: true
-    dev: true
 
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
@@ -8435,7 +8460,6 @@ packages:
     optionalDependencies:
       bufferutil: 4.0.6
       utf-8-validate: 5.0.9
-    dev: true
 
   /rtl-detect/1.0.4:
     resolution: {integrity: sha512-EBR4I2VDSSYr7PkBmFy04uhycIpDKp+21p/jARYXlCSjQksTBQcJ0HFUPOO79EPPH5JS6VAhiIQbycf0O3JAxQ==}
@@ -9452,7 +9476,6 @@ packages:
     requiresBuild: true
     dependencies:
       node-gyp-build: 4.5.0
-    dev: true
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -9875,7 +9898,6 @@ packages:
     dependencies:
       bufferutil: 4.0.6
       utf-8-validate: 5.0.9
-    dev: true
 
   /xdg-basedir/4.0.0:
     resolution: {integrity: sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==}
