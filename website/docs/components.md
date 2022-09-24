@@ -4,51 +4,52 @@
 
 Provide context
 
-- connectors: `undefined` | `Array<Connector>`
-- chains: `undefined` | `Array<Chain>`
+- supportedWallets: `undefined` | `Array<Connector>`
 
 ```jsx
-<WalletProvider>
-    <App />
-</WalletProvider>
+const supportedWallets = getDefaultWallets();
+
+<WalletProvider supportedWallets={supportedWallets}>
+  <App />
+</WalletProvider>;
 ```
 
 ```ts
 interface Context {
   // Supported Wallets
-  supportedWallets: Wallet[];
+  supportedWallets: WalletInstance[];
+  groupWallets: Record<string, WalletInstance[]>;
   // Wallet that we are currently connected to
   wallet: Wallet | null;
 
   connecting: boolean;
   connected: boolean;
-  // disconnecting: boolean;
+  address: string;
+  status: 'disconnected' | 'connected' | 'connecting';
 
   select(walletName: string): void;
   connect(): Promise<void>;
   disconnect(): Promise<void>;
 
-  getAccounts: () => Promise < SuiAddress[] >;
+  getAccounts: () => Promise<SuiAddress[]>;
   executeMoveCall: (
     transaction: MoveCallTransaction
-  ) => Promise < SuiTransactionResponse >;
+  ) => Promise<SuiTransactionResponse>;
   executeSerializedMoveCall: (
     transactionBytes: Uint8Array
-  ) => Promise < SuiTransactionResponse >;
+  ) => Promise<SuiTransactionResponse>;
 }
 ```
 
 ## ConnectButton
 
 ```jsx
-<ConnectButton>
-  Connect Wallet
-</ConnectButton>
+<ConnectButton>Connect Wallet</ConnectButton>
 ```
 
 # Internal
 
-## _ConnectButton
+## \_ConnectButton
 
 ```jsx
 <_ConnectButton
@@ -61,9 +62,7 @@ interface Context {
 ## WalletInfo
 
 ```jsx
-<WalletInfo
-  onClick={() => {}}
-/>
+<WalletInfo onClick={() => {}} />
 ```
 
 ## WalletSelectorModal
@@ -81,24 +80,21 @@ interface Context {
 
 ```jsx
 <WalletNotInstall
-  extInstallation={[{
-    name: 'xx wallet',
-    browser: 'chrome',
-    url: 'xxx'
-  }]}
->
-</WalletNotInstall>
+  extInstallation={[
+    {
+      name: 'xx wallet',
+      browser: 'chrome',
+      url: 'xxx',
+    },
+  ]}
+></WalletNotInstall>
 ```
 
 ## WalletDropdown
 
 ```jsx
 <WalletDropdown onSelect={(key: string) => {}}>
-  <WalletDropdown.Item
-    key={''}
-    title={''}
-    icon={''}
-  />
+  <WalletDropdown.Item key={''} title={''} icon={''} />
 </WalletDropdown>
 ```
 
