@@ -4,64 +4,48 @@
 
 .wkit-[block]__[element]--[modifier]
 
-className={'wkit-connect-btn'}
+className={'wkit-button'}
 
 ## CSS Variables
 
+You can use CSS variables to customize the look of the components.
+
 ```css
---wkit-color-primary: #000;
---wkit-color-danger: #000;
---wkit-color-success: #000;
---wkit-color-warning: #000;
---wkit-color-info: #000;
+:root {
+  --wkit-button-bg: #3ea2f8; /* connect button background color */
+  --wkit-button-bg-hover: #0073E5; /* connect button background color on hover */
+  --wkit-button-bg-active: #0059BF; /* connect button background color on active */
 
---wkit-color-title: #000;
---wkit-color-subtitle: #000;
---wkit-color-desc: #000;
---wkit-font-family: Arial;
+  --wkit-border-radius: 16px; /* default border radius for all */
+  --wkit-button-border-radius: 16px; /* connect button border radius */
 
---wkit-bg-primary: #000;
-
---wkit-modal-bg: var(--wkit-bg-primary);
---wkit-button-bg: var(--wkit-bg-primary);
-
---wkit-border-radius: 8px;
---wkit-modal-border-radius: var(--wkit-border-radius);
---wkit-button-border-radius: var(--wkit-border-radius);
+  /* etc. */
+}
 ```
 
 ## Import default css
 
-```
-import '@suiet/wallet-kit/default.css';
-```
+You need to import the default css file to use the default styles.
 
-```scss
-.wkit-connect-btn {
-  color: var(--wkit-color-primary);
-}
+```js
+import '@suiet/wallet-kit/default.css';
 ```
 
 ## Customize css
 
-```
+```js
 import '@suiet/wallet-kit/default.css';
 import './suiet-wallet-kit-custom.css';
 ```
 
-simple
+Example:
+
+```scss
+// Content of file: ./suiet-wallet-kit-custom.css
+
+:root {
+  --wkit-button-bg: $COLOR_YOUR_THEME;
+
+  ... // other css variables
+}
 ```
-// ./suiet-wallet-kit-custom.css
-
---wkit-color-primary: #000;
---wkit-color-danger: #000;
---wkit-color-success: #000;
---wkit-color-warning: #000;
---wkit-color-info: #000;
-```
-
-full
-
-synced from github link.
-
-// TODO: component playground with docs

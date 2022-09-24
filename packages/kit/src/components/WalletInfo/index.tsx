@@ -5,7 +5,7 @@ import { useWallet } from '../../hooks/useWallet';
 import { Extendable } from '../../types';
 import { addressEllipsis } from '../../utils/addressEllipsis';
 import { formatCurrency } from '../../utils/formatCurrency';
-import styles from './index.module.scss';
+import './index.scss';
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
@@ -19,30 +19,37 @@ function WalletInfo(props: ConnectButtonProps) {
   const { balance } = useAccountBalance();
   const [showConnectedModal, setShowConnectedModal] = useState(false);
   return (
-    <div className={classnames(styles['connected-container'], props.className)}>
+    <div
+      className={classnames("wkit-connected-container", props.className)}
+      style={props.style}
+    >
       <button
-        className={classnames(styles['connected-button'], props.btnClassName)}
+        className={classnames("wkit-connected-button", props.btnClassName)}
         style={props.btnStyle}
         onClick={() => {
           setShowConnectedModal(!showConnectedModal);
         }}
       >
-        <span className={styles['balance']}>{formatCurrency(balance)} SUI</span>
-        <div className={styles['divider']}></div>
-        <div className={styles['address-select']}>
-          <span className={styles['address']}>{addressEllipsis(address)}</span>
-          <span className={styles['right-arrow']} />
+        <span className={"wkit-connected-button__balance"}>
+          {formatCurrency(balance)} SUI
+        </span>
+        <div className={"wkit-connected-button__divider"}></div>
+        <div className={"wkit-address-select"}>
+          <span className={"wkit-address-select__address"}>
+            {addressEllipsis(address)}
+          </span>
+          <span className={"wkit-address-select__right-arrow"} />
         </div>
       </button>
       {showConnectedModal && (
         <div
-          className={styles['connected-modal']}
+          className={"wkit-connected-modal"}
           onClick={() => {
             setShowConnectedModal(false);
             disconnect();
           }}
         >
-          <span className={styles['connected-modal__text']}>Disconnect</span>
+          <span className={"wkit-connected-modal__text"}>Disconnect</span>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { useWallet } from '../../hooks/useWallet';
 import { ConnectWalletModal } from '../Modal/ConnectWalletModal';
-import styles from './style/index.module.scss';
+import './style/index.scss';
 import { Extendable } from '../../types';
 import classnames from 'classnames';
 import WalletInfo from '../WalletInfo';
@@ -30,7 +30,7 @@ export function ConnectButton(props: ConnectButtonProps) {
       }}
     >
       <button
-        className={classnames(styles.button, props.btnClassName)}
+        className={classnames("wkit-button", props.btnClassName)}
         style={props.btnStyle}
       >
         {label}
