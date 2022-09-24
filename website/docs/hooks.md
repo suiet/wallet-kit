@@ -4,17 +4,16 @@
 
 ```ts
 const {
-    supportedWallets,
-    select,
-    connecting,
-    connected,
-    getAccounts,
-    executeMoveCall,
-    executeSerializedMoveCall,
-    status = 'disconnected' | 'connected' | 'connecting',
-    address, // active account address  
-    account, // { address: string }
-} = useWallet()
+  supportedWallets,
+  select,
+  connecting,
+  connected,
+  getAccounts,
+  executeMoveCall,
+  executeSerializedMoveCall,
+  status = 'disconnected' | 'connected' | 'connecting',
+  address, // active account address
+} = useWallet();
 ```
 
 ## useSuiProvider
@@ -25,7 +24,7 @@ const {
   getTransaction,
   getEventsByTransaction,
   getEventsBySender,
-} = useSuiProvider()
+} = useSuiProvider();
 ```
 
 ## useAccountBalance
@@ -33,7 +32,11 @@ const {
 get balance of the current account under selected network.
 
 ```ts
-const {
-    balance,
-} = useAccountBalance(token = 'SUI')
+interface AccountBalanceResponse {
+  error: Error; // an error object
+  loading: boolean;
+  balance: string;
+}
+
+const { error, loading, balance } = useAccountBalance((token = 'SUI'));
 ```

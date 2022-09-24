@@ -22,5 +22,5 @@ export function useAccountBalance(token = Token.SUI) {
     return { error, loading, balance };
   }
 
-  return { error: 'Unexpected Token', loading: false, balance: '0' };
+  return { error: new Error('Unexpected Token'), loading: false, balance: '0' };
 }
