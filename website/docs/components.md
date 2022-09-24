@@ -26,7 +26,7 @@ interface WalletContextState {
   status: 'disconnected' | 'connected' | 'connecting';
 
   select(walletName: string): void; // select which wallet to connect
-  connect(): Promise<void>; // connect to wallet
+  connect: (walletInstance: WalletInstance) => Promise<void>; // connect to the wallet which you passed in
   disconnect(): Promise<void>; // disconnect connected wallet connection
 
   getAccounts: () => Promise<SuiAddress[]>; // get all your wallets' accounts
