@@ -1,3 +1,7 @@
+:root {
+  --wkit-button-width: 254px;
+}
+
 .wkit-connected-button {
   width: 100%;
   display: flex;
@@ -10,7 +14,7 @@
   font-size: 16px;
   line-height: 19px;
   color: #404968;
-  padding: 16px 24px;
+  padding: 13px;
   border: 0;
   cursor: pointer;
 
@@ -20,13 +24,14 @@
     font-size: 16px;
     line-height: 19px;
     color: #111322;
+    white-space: nowrap;
+    flex-grow: 1;
   }
 
   &__divider {
     width: 1px;
     height: 16px;
-    margin: 0 10px;
-    background-color: #DCDFEA;
+    margin: 0 6px;
   }
 }
 
@@ -38,10 +43,11 @@
 
   &__address {
     font-style: normal;
-    font-weight: 600;
+    font-family: monospace;
+    font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    color: #404968;
+    color: rgba(10, 14, 34, 0.5);
   }
 
   &__right-arrow {
@@ -50,20 +56,19 @@
     width: 24px;
     height: 24px;
     display: inline-block;
-    margin-left: 12px;
   }
 }
 
 .wkit-connected-container {
   position: relative;
-  width: 268px;
+  width: var(--wkit-button-width);
 }
 
 .wkit-connected-modal {
   box-sizing: border-box;
   position: absolute;
   bottom: -76px;
-  width: 268px;
+  width: var(--wkit-button-width);
   background: #eff1f5;
   border-radius: 13px;
   padding: 16px 24px;
