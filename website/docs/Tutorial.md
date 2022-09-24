@@ -23,7 +23,7 @@ We present **React Provider & Hooks, UI components** for the DApp (React) develo
 
 - `WalletProvider` - provide the context containing wallet data source, retrieve functions & smart contract calling functions.
 
-### 🪝  Hooks
+### 🪝 Hooks
 
 - `useWallet` - consumer of the `WalletProvider`, load data & functions into your React component.
 
@@ -48,7 +48,7 @@ pnpm add @suiet/wallet-kit
 
 ### Setup Provider and supported wallets
 
-Import  `WalletProvider` and wrap your App component.
+Import `WalletProvider` and wrap your App component.
 
 Feel free to choose the wallets you want to support.
 
@@ -57,11 +57,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   WalletProvider,
-  getAllWallets,  // support all the wallets
-  getDefaultWallets,  // if you only support SUI wallet
+  getAllWallets, // support all the wallets
+  getDefaultWallets, // if you only support SUI wallet
 } from '@suiet/wallet-kit';
 
-const supportedWallets = getAllWallets();  // let's say we support all the wallets
+const supportedWallets = getAllWallets(); // let's say we support all the wallets
 
 ReactDOM.render(
   <React.StrictMode>
@@ -69,7 +69,7 @@ ReactDOM.render(
       <App />
     </WalletProvider>
   </React.StrictMode>
-) 
+);
 ```
 
 ### Append ConnectButton wherever you want
@@ -101,18 +101,18 @@ After the above settings, we can do integrations with wallets now.
 Once a user approved the connection request, our dapp can fetch the address of the active account in wallets.
 
 ```js
-import {useWallet} from "@suiet/wallet-kit";
+import { useWallet } from '@suiet/wallet-kit';
 
 function Component() {
-	const {connected, getAccounts} = useWallet();
+  const { connected, getAccounts } = useWallet();
 
   useEffect(() => {
     if (!connected) return;
     (async function () {
       const accounts = await getAccounts();
-      console.log('accounts', accounts);  // ['0x0000000000000000000000000000000000000000']
-    })()
-  }, [connected, getAccounts])
+      console.log('accounts', accounts); // ['0x0000000000000000000000000000000000000000']
+    })();
+  }, [connected, getAccounts]);
 }
 ```
 
@@ -128,7 +128,7 @@ function App() {
     connected,
     executeMoveCall,
   } = useWallet();
-  
+
   async function mintOneCapybaraForFun() {
     try {
       const data = {
@@ -151,12 +151,12 @@ function App() {
       alert('executeMoveCall failed (see response in the console)')
     }
   }
-  
+
   return (
     <...>
       {connected ? <button onClick={mintOneCapybaraForFun}>Mint A Capybara!</button> : null}
     </...>
-  ) 
+  )
 }
 ```
 
@@ -167,5 +167,4 @@ Actually we are working hard on this new project right now, so feel free to subm
 - Composable components
 - Customize component styles
 - More useful Hooks
-    - useAccountBalance
-    - ...
+  - ...
