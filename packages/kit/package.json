@@ -20,6 +20,7 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@mysten/sui.js": "^0.10.0",
+    "@mysten/sui.js-experimental": "npm:@mysten/sui.js@0.0.0-experimental-20220924004602",
     "@mysten/wallet-adapter-base": "0.0.0-experimental-20220825172556",
     "@radix-ui/react-dialog": "^1.0.0",
     "@suiet/wallet-adapter": "^0.0.8",
