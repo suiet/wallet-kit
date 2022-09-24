@@ -8,7 +8,7 @@ export const sui = (): Wallet => {
     iconUrl: logo,
     installed:
       typeof window !== 'undefined' &&
-      typeof (window as any).suiWallet !== undefined,
+      typeof (window as any).suiWallet !== 'undefined',
     createAdapter: () => {
       return {
         adapter: new SuiWalletAdapter(),
