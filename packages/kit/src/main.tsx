@@ -8,16 +8,9 @@ const supportedWallets = getDefaultWallets();
 
 ReactDOM.render(
   <React.StrictMode>
-    <div
-      style={{
-        width: '100%',
-        height: '100vh',
-      }}
-    >
-      <WalletProvider supportedWallets={supportedWallets}>
-        <ConnectButton />
-      </WalletProvider>
-    </div>
+    <WalletProvider supportedWallets={supportedWallets}>
+      <ConnectButton />
+    </WalletProvider>
   </React.StrictMode>,
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );

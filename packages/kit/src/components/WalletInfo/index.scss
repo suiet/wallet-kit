@@ -1,4 +1,4 @@
-.connected-button {
+.wkit-connected-button {
   width: 100%;
   display: flex;
   align-items: center;
@@ -13,49 +13,53 @@
   padding: 16px 24px;
   border: 0;
   cursor: pointer;
+
+  &__balance {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #111322;
+  }
+
+  &__divider {
+    width: 1px;
+    height: 16px;
+    margin: 0 10px;
+    background-color: #DCDFEA;
+  }
 }
 
-.balance {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  color: #111322;
-}
-.address-select {
+
+.wkit-address-select {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.address {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 19px;
-  color: #404968;
-}
-.divider {
-  width: 1px;
-  height: 16px;
-  margin: 0 10px;
-  background-color: #dcdfea;
+
+  &__address {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #404968;
+  }
+
+  &__right-arrow {
+    background: url('../../assets/arrow.svg') no-repeat center;
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    margin-left: 12px;
+  }
 }
 
-.right-arrow {
-  background: url('../../assets/arrow.svg') no-repeat center;
-  background-size: cover;
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  margin-left: 12px;
-}
-
-.connected-container {
+.wkit-connected-container {
   position: relative;
   width: 268px;
 }
 
-.connected-modal {
+.wkit-connected-modal {
   box-sizing: border-box;
   position: absolute;
   bottom: -76px;
