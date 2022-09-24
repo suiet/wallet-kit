@@ -1,22 +1,30 @@
-:root {
-  --wkit-button-width: 254px;
-}
-
 .wkit-connected-button {
   width: 100%;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: #eff1f5;
-  border-radius: 16px;
+  border-radius: var(--wkit-border-radius);
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
   color: #404968;
-  padding: 13px;
+  padding: 14px;
   border: 0;
   cursor: pointer;
+
+  &{
+    background-color: var(--wkit-button-bg-connected);
+  }
+  
+  &:hover {
+    background-color: var(--wkit-button-bg-connected-hover);
+  }
+
+  &:active {
+    background-color: var(--wkit-button-bg-connected-active);
+  }
 
   &__balance {
     font-style: normal;
@@ -64,23 +72,39 @@
   width: var(--wkit-button-width);
 }
 
-.wkit-connected-modal {
+.wkit-disconnect-button {
+  height: 50px;
   box-sizing: border-box;
   position: absolute;
   bottom: -76px;
   width: var(--wkit-button-width);
-  background: #eff1f5;
+  
   border-radius: 13px;
-  padding: 16px 24px;
+  padding: 14px;
+  line-height: 22px;
   color: #000000;
   cursor: pointer;
+
+  text-align: center;
+
+  &{
+    background-color: var(--wkit-button-bg-connected);
+  }
+  
+  &:hover {
+    background-color: var(--wkit-button-bg-connected-hover);
+  }
+
+  &:active {
+    background-color: var(--wkit-button-bg-connected-active);
+  }
 
   &__text {
     font-family: 'Arial';
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 16px;
     line-height: 19px;
-    color: #111322;
+    color: rgba(10, 14, 34, 0.8);
   }
 }

@@ -17,7 +17,7 @@ function WalletInfo(props: ConnectButtonProps) {
   const { disconnect, address } = useWallet();
 
   const { balance } = useAccountBalance();
-  const [showConnectedModal, setShowConnectedModal] = useState(false);
+  const [showDisconnectButton, setShowDisconnectButton] = useState(false);
   return (
     <div
       className={classnames("wkit-connected-container", props.className)}
@@ -27,7 +27,7 @@ function WalletInfo(props: ConnectButtonProps) {
         className={classnames("wkit-connected-button", props.btnClassName)}
         style={props.btnStyle}
         onClick={() => {
-          setShowConnectedModal(!showConnectedModal);
+          setShowDisconnectButton(!showDisconnectButton);
         }}
       >
         <span className={"wkit-connected-button__balance"}>
@@ -41,15 +41,15 @@ function WalletInfo(props: ConnectButtonProps) {
           <span className={"wkit-address-select__right-arrow"} />
         </div>
       </button>
-      {showConnectedModal && (
+      {showDisconnectButton && (
         <div
-          className={"wkit-connected-modal"}
+          className={"wkit-disconnect-button"}
           onClick={() => {
-            setShowConnectedModal(false);
+            setShowDisconnectButton(false);
             disconnect();
           }}
         >
-          <span className={"wkit-connected-modal__text"}>Disconnect</span>
+          <span className={"wkit-disconnect-button__text"}>Disconnect</span>
         </div>
       )}
     </div>
