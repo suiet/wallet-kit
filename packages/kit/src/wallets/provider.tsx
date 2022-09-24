@@ -13,7 +13,6 @@ import { AccountStatus } from '../types/account';
 interface WalletProviderProps {
   children: ReactNode;
   supportedWallets: WalletInstance[];
-  autoConnect?: boolean;
 }
 
 const LAST_WALLET = 'SUIET_LAST_WALLET';
@@ -21,7 +20,6 @@ const LAST_WALLET = 'SUIET_LAST_WALLET';
 export function WalletProvider({
   supportedWallets,
   children,
-  autoConnect = true,
 }: WalletProviderProps) {
   const [wallet, setWallet] = useState<WalletInstance | null>(null);
   const [status, setStatus] = useState(AccountStatus.disconnected);
@@ -56,10 +54,7 @@ export function WalletProvider({
 
   groupWallets['Recent'] = recentWallets;
 
-  const connect = useCallback(async () => {
-    if (wallet === null) {
-      return;
-    }
+  const connect = useCallback(async (wallet: WalletInstance) => {
     try {
       setStatus(AccountStatus.connecting);
       const res = await wallet.adapter.connect();
@@ -68,7 +63,7 @@ export function WalletProvider({
       setStatus(AccountStatus.disconnected);
       throw new Error('Connect Failed');
     }
-  }, [wallet]);
+  }, []);
 
   const disconnect = async () => {
     try {
@@ -104,15 +99,11 @@ export function WalletProvider({
         localStorage.removeItem(LAST_WALLET);
         throw new Error('Error wallet');
       }
+      connect(newWallet);
     },
+
     [supportedWallets, connect, setWalletAndUpdateStorage]
   );
-
-  useEffect(() => {
-    if (wallet && status === AccountStatus.disconnected) {
-      connect();
-    }
-  }, [wallet, status]);
 
   const getAccounts = async (): Promise<SuiAddress[]> => {
     if (wallet === null) throw Error('Wallet Not Connected');
