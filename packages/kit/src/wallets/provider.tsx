@@ -26,13 +26,13 @@ export function WalletProvider({
   const [address, setAddress] = useState('');
 
   useEffect(() => {
-    if (status === AccountStatus.connected) {
+    if (wallet && status === AccountStatus.connected) {
       wallet?.adapter.getAccounts().then((accounts) => {
         const address = accounts[0];
         setAddress(address);
       });
     }
-  }, [status]);
+  }, [status, wallet]);
 
   const walletInstanceByName = keyBy(
     supportedWallets,
@@ -91,7 +91,6 @@ export function WalletProvider({
   const choose = useCallback(
     (name: string) => {
       let newWallet = supportedWallets.find((wallet) => wallet.name === name);
-      console.log('sdfsdf', newWallet, name);
       if (newWallet) {
         setWalletAndUpdateStorage(newWallet);
         localStorage.setItem(LAST_WALLET, newWallet.name);
