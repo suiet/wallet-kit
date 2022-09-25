@@ -21,7 +21,7 @@ function HomepageHeader() {
   }, [connected, getAccounts])
 
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx('hero', styles.heroBanner)}>
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
@@ -43,7 +43,7 @@ export default function Home(): JSX.Element {
     >
       <WalletProvider supportedWallets={getAllWallets()}>
         <HomepageHeader/>
-        <main>
+        <main >
           <HomepageFeatures/>
         </main>
       </WalletProvider>
