@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Suiet Wallet Kit',
   tagline: 'The best kit for your DApp to connect with SUI wallets',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://kit.suiet.app',
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -65,7 +65,7 @@ const config = {
             type: 'doc',
             docId: 'Tutorial',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {
