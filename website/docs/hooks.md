@@ -1,3 +1,8 @@
+---
+title: Hooks
+sidebar_position: 3
+---
+
 # Hooks
 
 ## useWallet
