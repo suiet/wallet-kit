@@ -18,6 +18,7 @@ const supportedWallets = getDefaultWallets();
 ```
 
 All WalletContextState props and method is as following.
+WalletContextState
 
 | Properties       | Description                                              | Type                                          | Default        |
 | ---------------- | -------------------------------------------------------- | --------------------------------------------- | -------------- |
@@ -60,9 +61,10 @@ const supportedWallets = getDefaultWallets();
 ```
 
 **API**
-| Properties | Description | Type | Default |
-| ---------------- | -------------------------------------------------------- | --------------------------------------------- | -------------- |
-| children | show in button | ReactNode | Connect Wallet |
+
+| Properties | Description    | Type      | Default          |
+| ---------- | -------------- | --------- | ---------------- |
+| children   | show in button | ReactNode | 'Connect Wallet' |
 
 ## ConnectWalletModal
 
@@ -96,7 +98,8 @@ function App() {
 ```
 
 **API**
-| Properties | Description | Type | Default |
-| ---------------- | -------------------------------------------------------- | --------------------------------------------- | -------------- |
-| groupWallets | grouped wallet list, you can get it with useWallet hook | Record<string, WalletInstance[]> | {} |
-| onWalletClick | will trigger when click wallet list item | (wallet: WalletInstance) => {} |
+
+| Properties    | Description                                             | Type                                | Default |
+| ------------- | ------------------------------------------------------- | ----------------------------------- | ------- |
+| groupWallets  | grouped wallet list, you can get it with useWallet hook | Record&lt;string, WalletInstance[]> | {}      |
+| onWalletClick | will trigger when click wallet list item                | (wallet: WalletInstance) => {}      |         |

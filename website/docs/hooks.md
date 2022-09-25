@@ -7,7 +7,7 @@ sidebar_position: 3
 
 ## useWallet
 
-The useWallet hook provide the ability to get the status of account, connect method and move call method. You can use the hook and provider to connect wallet by your own button and modal.
+The useWallet hook provide the ability to get the status of account, connect method and move call method. You can use the hook and provider to connect wallet by your own button and modal. The useWallet hook will return WalletContextState props, for detail, you can check the doc https://kit.suiet.app/docs/components#walletprovider.
 
 ```ts
 const {
