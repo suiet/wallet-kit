@@ -12,32 +12,34 @@ const supportedWallets = getDefaultWallets();
 </WalletProvider>;
 ```
 
-All WalletContextState props is as follows.
+All WalletContextState props and method is as following.
 
-```ts
-interface WalletContextState {
-  supportedWallets: WalletInstance[]; // all supported wallet list
-  groupWallets: Record<string, WalletInstance[]>; // grouped wallet map, now include recent and popular group
-  wallet: Wallet | null; // Wallet that we are currently connected to
+| Properties       | Description                                              | Type                                          | Default        |
+| ---------------- | -------------------------------------------------------- | --------------------------------------------- | -------------- |
+| supportedWallets | all supported wallet list                                | WalletInstance[]                              | []             |
+| groupWallets     | grouped wallet map, now include recent and popular group | Record<string, WalletInstance[]>              | {}             |
+| wallet           | wallet that we are currently connected to                | Wallet \| null                                | null           |
+| connecting       | connecting to wallet                                     | boolean                                       | false          |
+| connected        |                                                          | boolean                                       | false          |
+| status           | wallet connection status                                 | 'disconnected' \| 'connected' \| 'connecting' | 'disconnected' |
 
-  connecting: boolean;
-  connected: boolean;
-  address: string; // currently coonected account address
-  status: 'disconnected' | 'connected' | 'connecting';
+| Method                    | Description                                | Type                                                                   |
+| ------------------------- | ------------------------------------------ | ---------------------------------------------------------------------- |
+| select                    | select which wallet to connect             | (walletName: string)=> void                                            |
+| connect                   | connect to the wallet which you passed in  | (walletInstance: WalletInstance) => Promise\<void>                     |
+| disconnect                | disconnect the connected wallet connection | ()=> Promise<void>                                                     |
+| getAccounts               | get all your wallets' accounts             | () => Promise<SuiAddress[]>                                            |
+| executeMoveCall           | adapter's executeMoveCall                  | (transaction: MoveCallTransaction) => Promise\<SuiTransactionResponse> |
+| executeSerializedMoveCall | adapter's executeSerializedMoveCall        | (transactionBytes: Uint8Array) => Promise\<SuiTransactionResponse>     |
 
-  select(walletName: string): void; // select which wallet to connect
-  connect: (walletInstance: WalletInstance) => Promise<void>; // connect to the wallet which you passed in
-  disconnect(): Promise<void>; // disconnect connected wallet connection
+WalletInstance
 
-  getAccounts: () => Promise<SuiAddress[]>; // get all your wallets' accounts
-  executeMoveCall: (
-    transaction: MoveCallTransaction
-  ) => Promise<SuiTransactionResponse>; // adapter's executeMoveCall
-  executeSerializedMoveCall: (
-    transactionBytes: Uint8Array
-  ) => Promise<SuiTransactionResponse>; // adapter's executeSerializedMoveCall
-}
-```
+| Properties | Description                                    | Type    | Default |
+| ---------- | ---------------------------------------------- | ------- | ------- |
+| installed  | wallet installed or not                        | boolean | false   |
+| name       | then name of wallet, will show on select modal | string  | ''      |
+| adpter     | the instance of wallet adpter                  |         |         |
+| index      | the index of the item in wallet list           | number  |         |
 
 ## ConnectButton
 
@@ -51,6 +53,11 @@ const supportedWallets = getDefaultWallets();
   <ConnectButton>Connect Wallet</ConnectButton>
 </WalletProvider>;
 ```
+
+**API**
+| Properties | Description | Type | Default |
+| ---------------- | -------------------------------------------------------- | --------------------------------------------- | -------------- |
+| children | show in button | ReactNode | Connect Wallet |
 
 ## ConnectWalletModal
 
@@ -82,3 +89,9 @@ function App() {
 }
 
 ```
+
+**API**
+| Properties | Description | Type | Default |
+| ---------------- | -------------------------------------------------------- | --------------------------------------------- | -------------- |
+| groupWallets | grouped wallet list, you can get it with useWallet hook | Record<string, WalletInstance[]> | {} |
+| onWalletClick | will trigger when click wallet list item | (wallet: WalletInstance) => {} |
