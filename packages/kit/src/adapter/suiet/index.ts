@@ -1,6 +1,6 @@
 import { SuietWalletAdapter } from '@suiet/wallet-adapter';
 import { Wallet } from '../KitAdapter';
-import logo from './logo.png';
+import logo from './logo.svg';
 
 export const suiet = (): Wallet => {
   return {

@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { WalletInstance } from '../../adapter/KitAdapter';
 import styles from './index.module.scss';
+import closeIcon from './x-close.svg';
 import Icon from '../Icon';
 
 interface ModalProps {
@@ -19,7 +20,9 @@ function Modal({ children, content, title }: ModalProps) {
           <Dialog.Content className={styles['content']}>
             <div className={styles.header}>
               <Dialog.Title className={styles['title']}>{title}</Dialog.Title>
-              <Dialog.Close className={styles['close']}></Dialog.Close>
+              <Dialog.Close className={styles['close']}>
+                <img className={styles['close__icon']} src={closeIcon} alt="X" draggable={false} />
+              </Dialog.Close>
             </div>
             {content}
           </Dialog.Content>
