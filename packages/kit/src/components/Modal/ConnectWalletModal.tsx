@@ -48,30 +48,40 @@ export function ConnectWalletModal({
   return (
     <Modal
       title="Connect Wallet"
-      content={groups.map(([group, wallets]) => {
-        if (wallets.length === 0) return null;
-        return (
-          <div className={styles['select-container']} key={group}>
-            <div className={styles['select-title']}>{group}</div>
-            {wallets.map((wallet) => {
-              return (
-                <div
-                  className={styles['select-item']}
-                  key={wallet.name}
-                  onClick={() => onWalletClick(wallet)}
-                >
-                  <Icon
-                    icon={wallet.iconUrl}
-                    className={styles['select-item__icon']}
-                    elClassName={styles['select-item__icon']}
-                  />
-                  {wallet?.name}
-                </div>
-              );
-            })}
+      content={
+        <div className={styles['main-content-container']}>
+          {groups.map(([group, wallets]) => {
+            if (wallets.length === 0) return null;
+            return (
+              <div className={styles['select-container']} key={group}>
+                <div className={styles['select-title']}>{group}</div>
+                {wallets.map((wallet) => {
+                  return (
+                    <div
+                      className={styles['select-item']}
+                      key={wallet.name}
+                      onClick={() => onWalletClick(wallet)}
+                    >
+                      <Icon
+                        icon={wallet.iconUrl}
+                        className={styles['select-item__icon']}
+                        elClassName={styles['select-item__icon']}
+                      />
+                      {wallet?.name}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+          <div className={styles['new-to-sui']}>
+            New to sui?{' '}
+            <a href="https://suiet.app/docs/getting-started" target="_blank">
+              Learn More Here
+            </a>
           </div>
-        );
-      })}
+        </div>
+      }
     >
       {children}
     </Modal>
