@@ -40,16 +40,40 @@
 }
 
 .close {
-  padding: 0;
+  padding: 8px;
   border: 0;
-  background: url(./close.svg) no-repeat center;
-  background-size: cover;
-  width: 24px;
-  height: 24px;
+  background-size: percentage(20/36);
+  width: 36px;
+  height: 36px;
   position: absolute;
-  right: 24px;
-  top: 24px;
+  right: 16px;
+  top: 16px;
+  border-radius: 16px;
   cursor: pointer;
+
+  &{
+    background-color: rgba(10, 14, 34, 0.05);
+  }
+
+  &:hover {
+    background-color: rgba(10, 14, 34, 0.07);
+  }
+
+  &:active {
+    background-color: rgba(10, 14, 34, 0.1);
+  }
+
+  & > &__icon {
+    opacity: 0.5;
+  }
+
+  &:hover > &__icon {
+    opacity: 1;
+  }
+
+  &:active > &__icon {
+    opacity: 1;
+  }
 }
 
 .select-container {
