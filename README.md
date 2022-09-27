@@ -12,6 +12,8 @@ We present **React Provider & Hooks, UI components** for the DApp (React) develo
 
 > 💡 Demo Here: https://kit.suiet.app/
 
+<img src="/assets/wallet-kit.png">
+
 ## 📦 Library Overview
 
 ### 💼 Provider
