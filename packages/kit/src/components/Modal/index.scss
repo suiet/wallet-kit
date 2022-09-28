@@ -1,4 +1,6 @@
-.overlay {
+@use "sass:math";
+
+.wkit-dialog__overlay {
   position: absolute;
   top: 0;
   display: flex;
@@ -9,9 +11,9 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.content {
+.wkit-dialog__content {
   box-sizing: border-box;
-  padding: 24px 28px;
+  padding: 24px 26px;
   gap: 10px;
   width: 316px;
   position: relative;
@@ -21,7 +23,7 @@
   border-radius: 20px;
 }
 
-.title {
+.wkit-dialog__title {
   font-weight: 700;
   text-align: center;
   font-weight: 700;
@@ -33,62 +35,60 @@
   margin: 0;
 }
 
-.header {
+.wkit-dialog__header {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.close {
-  padding: 8px;
-  border: 0;
-  background-size: percentage(20/36);
-  width: 36px;
-  height: 36px;
-  position: absolute;
-  right: 16px;
-  top: 16px;
-  border-radius: 16px;
-  cursor: pointer;
+.wkit-dialog {
+  &__close {
+    padding: 8px;
+    border: 0;
+    background-size: percentage(math.div(20, 36));
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    border-radius: 16px;
+    cursor: pointer;
 
-  &{
     background-color: rgba(10, 14, 34, 0.05);
   }
 
-  &:hover {
+  &__close:hover {
     background-color: rgba(10, 14, 34, 0.07);
   }
 
-  &:active {
+  &__close:active {
     background-color: rgba(10, 14, 34, 0.1);
   }
 
-  & > &__icon {
+  &__close > img {
     opacity: 0.5;
   }
 
-  &:hover > &__icon {
+  &__close:hover > img {
     opacity: 1;
   }
 
-  &:active > &__icon {
+  &__close:active > img {
     opacity: 1;
   }
 }
 
-.select-container {
+.wkit-select__container {
   margin-top: 24px;
 }
 
-.select-title {
+.wkit-select__title {
   font-size: 14px;
   line-height: 17px;
   color: #7d89b0;
   margin-bottom: 15px;
-  margin-left: 8px;
 }
 
-.select-item {
+.wkit-select-item {
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
@@ -97,12 +97,18 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 8px;
+  padding: 6px;
+  margin-left: -6px;
+  margin-right: -6px;
   transition: background 0.2s;
   border-radius: 18px;
 
   &:hover {
-    background: #ececec;
+    background: rgba(10, 14, 34, 0.03);
+  }
+
+  &:active {
+    background: rgba(10, 14, 34, 0.07);
   }
 
   &__icon {
@@ -119,11 +125,7 @@
   }
 }
 
-.main-content-container {
-  padding-bottom: 41px;
-}
-
-.new-to-sui {
+.wkit-new-to-sui {
   width: 100%;
   height: 65px;
   position: absolute;
@@ -135,13 +137,16 @@
   align-items: center;
   padding-left: 24px;
   border-top: 1px solid rgba(10, 14, 34, 0.1);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  color: rgba(10, 14, 34, 0.5);
   border-radius: 0px 0px 24px 24px;
 
-  a {
+  &__text {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(10, 14, 34, 0.5);
+  }
+
+  &__link {
     margin-left: 12px;
     color: #0096ff;
     font-weight: 700;

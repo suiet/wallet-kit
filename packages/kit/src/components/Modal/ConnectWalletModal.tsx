@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { WalletInstance } from '../../adapter/KitAdapter';
-import styles from './index.module.scss';
-import closeIcon from './x-close.svg';
+import './index.scss';
+import closeIcon from './close.svg';
 import Icon from '../Icon';
 
 interface ModalProps {
@@ -16,12 +16,16 @@ function Modal({ children, content, title }: ModalProps) {
     <Dialog.Root>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className={styles['overlay']}>
-          <Dialog.Content className={styles['content']}>
-            <div className={styles.header}>
-              <Dialog.Title className={styles['title']}>{title}</Dialog.Title>
-              <Dialog.Close className={styles['close']}>
-                <img className={styles['close__icon']} src={closeIcon} alt="X" draggable={false} />
+        <Dialog.Overlay className={"wkit-dialog__overlay"}>
+          <Dialog.Content className={"wkit-dialog__content"}>
+            <div className={"wkit-dialog__header"}>
+              <Dialog.Title className={"wkit-dialog__title"}>{title}</Dialog.Title>
+              <Dialog.Close className={"wkit-dialog__close"}>
+                <img
+                  src={closeIcon}
+                  alt="X"
+                  draggable={false}
+                />
               </Dialog.Close>
             </div>
             {content}
@@ -52,23 +56,23 @@ export function ConnectWalletModal({
     <Modal
       title="Connect Wallet"
       content={
-        <div className={styles['main-content-container']}>
+        <div style={{ paddingBottom: "41px" }}>
           {groups.map(([group, wallets]) => {
             if (wallets.length === 0) return null;
             return (
-              <div className={styles['select-container']} key={group}>
-                <div className={styles['select-title']}>{group}</div>
+              <div className={"wkit-select__container"} key={group}>
+                <div className={"wkit-select__title"}>{group}</div>
                 {wallets.map((wallet) => {
                   return (
                     <div
-                      className={styles['select-item']}
+                      className={"wkit-select-item"}
                       key={wallet.name}
                       onClick={() => onWalletClick(wallet)}
                     >
                       <Icon
                         icon={wallet.iconUrl}
-                        className={styles['select-item__icon']}
-                        elClassName={styles['select-item__icon']}
+                        className={"wkit-select-item__icon"}
+                        elClassName={"wkit-select-item__icon"}
                       />
                       {wallet?.name}
                     </div>
@@ -77,9 +81,13 @@ export function ConnectWalletModal({
               </div>
             );
           })}
-          <div className={styles['new-to-sui']}>
-            New to sui?{' '}
-            <a href="https://suiet.app/docs/getting-started" target="_blank">
+          <div className={"wkit-new-to-sui"}>
+            <span className={"wkit-new-to-sui__text"}>New to sui? </span>
+            <a
+              className={"wkit-new-to-sui__link"}
+              href="https://suiet.app/docs/getting-started"
+              target="_blank"
+            >
               Learn More Here
             </a>
           </div>
