@@ -11,7 +11,7 @@ importers:
       '@mysten/wallet-adapter-base': 0.1.0
       '@mysten/wallet-adapter-sui-wallet': 0.0.0-experimental-20220918004146
       '@radix-ui/react-dialog': ^1.0.0
-      '@suiet/wallet-adapter': 0.0.11
+      '@suiet/wallet-adapter': 0.0.12
       '@types/lodash': ^4.14.185
       '@types/react': ^17
       '@types/react-dom': ^17
@@ -31,7 +31,7 @@ importers:
       '@mysten/sui.js': 0.11.0
       '@mysten/wallet-adapter-base': 0.1.0
       '@radix-ui/react-dialog': 1.0.0_hiunvzosbwliizyirxfy6hjyim
-      '@suiet/wallet-adapter': 0.0.11
+      '@suiet/wallet-adapter': 0.0.12
       classnames: 2.3.2
       lodash: 4.17.21
       swr: 1.3.0_react@17.0.2
@@ -2913,8 +2913,8 @@ packages:
       webpack-sources: 3.2.3
     dev: false
 
-  /@suiet/wallet-adapter/0.0.11:
-    resolution: {integrity: sha512-tlbOIrXuKj6NQgaiJF3IszPTrJn8JatEXp27a6scNR4w8iR0H3bDimNpvmXGQes/N2VF4QbJZqCyWzeVQKsd+Q==}
+  /@suiet/wallet-adapter/0.0.12:
+    resolution: {integrity: sha512-n12HTVGc8EB3S7jFDIGnN11UZPcxXwOqyG70iQ1REnJug3RNOmrt9gRUiYQrA0DByXeY1RDrg1jJFGSua/7Y8g==}
     dependencies:
       '@mysten/sui.js': 0.11.0
       '@mysten/wallet-adapter-base': 0.1.0

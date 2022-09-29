@@ -21,7 +21,7 @@
   "dependencies": {
     "@mysten/sui.js": "0.11.0",
     "@mysten/wallet-adapter-base": "0.1.0",
-    "@suiet/wallet-adapter": "0.0.11",
+    "@suiet/wallet-adapter": "0.0.12",
     "@radix-ui/react-dialog": "^1.0.0",
     "classnames": "^2.3.2",
     "lodash": "^4.17.21",
