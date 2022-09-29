@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 .wkit-dialog__overlay {
   position: absolute;
@@ -112,8 +112,8 @@
   }
 
   &__icon {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 18px;
     margin-right: 10px;
     outline: 1px solid #dcdfea;
