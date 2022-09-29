@@ -1,4 +1,3 @@
-// @ts-ignore
 import { SuietWalletAdapter } from '@suiet/wallet-adapter';
 import { Wallet } from '../KitAdapter';
 import logo from './logo.svg';
