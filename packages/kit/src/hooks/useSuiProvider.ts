@@ -1,6 +1,6 @@
 import {
   JsonRpcProvider
-} from '@mysten/sui.js-experimental';
+} from '@mysten/sui.js';
 import { useRef } from 'react';
 
 interface SuiProvider extends JsonRpcProvider {

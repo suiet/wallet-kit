@@ -19,11 +19,10 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@mysten/sui.js": "^0.11.0",
-    "@mysten/sui.js-experimental": "npm:@mysten/sui.js@0.0.0-experimental-20220924004602",
-    "@mysten/wallet-adapter-base": "0.0.0-experimental-20220825172556",
+    "@mysten/sui.js": "0.11.0",
+    "@mysten/wallet-adapter-base": "0.1.0",
+    "@suiet/wallet-adapter": "0.0.11",
     "@radix-ui/react-dialog": "^1.0.0",
-    "@suiet/wallet-adapter": "^0.0.10",
     "classnames": "^2.3.2",
     "lodash": "^4.17.21",
     "swr": "^1.3.0"
