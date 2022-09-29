@@ -7,7 +7,7 @@ importers:
 
   packages/kit:
     specifiers:
-      '@mysten/sui.js': ^0.10.0
+      '@mysten/sui.js': ^0.11.0
       '@mysten/sui.js-experimental': npm:@mysten/sui.js@0.0.0-experimental-20220924004602
       '@mysten/wallet-adapter-base': 0.0.0-experimental-20220825172556
       '@mysten/wallet-adapter-sui-wallet': 0.0.0-experimental-20220918004146
@@ -29,7 +29,7 @@ importers:
       vite: ^3.1.0
       vite-plugin-svgr: ^2.2.1
     dependencies:
-      '@mysten/sui.js': 0.10.0
+      '@mysten/sui.js': 0.11.0
       '@mysten/sui.js-experimental': /@mysten/sui.js/0.0.0-experimental-20220924004602
       '@mysten/wallet-adapter-base': 0.0.0-experimental-20220825172556
       '@radix-ui/react-dialog': 1.0.0_hiunvzosbwliizyirxfy6hjyim
@@ -2609,6 +2609,12 @@ packages:
       bn.js: 5.2.1
     dev: false
 
+  /@mysten/bcs/0.3.0:
+    resolution: {integrity: sha512-Me6OkrS+idPq+ZUM1MEcKP9YOTacZKLwo0gf8rfeImQ+G25tqPRhjpccZGOUJGOKh+gojH2vjkWi2TYJv9kNCg==}
+    dependencies:
+      bn.js: 5.2.1
+    dev: false
+
   /@mysten/sui.js/0.0.0-experimental-20220918004146:
     resolution: {integrity: sha512-rTLp6eDKdWeID4CXQyvHmfnKj+dZD6chz7l8duVljYoK0lVBp3+wAThoWKWX4oqdcgAATwql+aC4ULD1+IlWgw==}
     engines: {node: '>=16'}
@@ -2672,16 +2678,20 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@mysten/sui.js/0.10.0:
-    resolution: {integrity: sha512-z9K34+jQBzeUCTcroTExBzYPCNHohyuz1sR85HYkbymDqdRCTi1IcfBzZDinWibZlk0sZhJtjnozxHklsPvYLQ==}
-    engines: {node: '>=10'}
+  /@mysten/sui.js/0.11.0:
+    resolution: {integrity: sha512-AGdvotFCEAFAqPjBnUJ/taNaSxisXibpcQXLSBE5PTo0YUqQjTaF76sm57SY0ZZMAhnSxacnM5kP0UuNkZc1ew==}
+    engines: {node: '>=16'}
     dependencies:
+      '@mysten/bcs': 0.3.0
+      '@noble/hashes': 1.1.2
+      '@noble/secp256k1': 1.7.0
       bn.js: 5.2.1
       buffer: 6.0.3
       cross-fetch: 3.1.5
       jayson: 3.7.0
       js-sha3: 0.8.0
       lossless-json: 1.0.5
+      rpc-websockets: 7.5.0
       tweetnacl: 1.0.3
     transitivePeerDependencies:
       - bufferutil
