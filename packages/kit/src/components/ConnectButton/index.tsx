@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import { useWallet } from '../../hooks/useWallet';
 import { ConnectWalletModal } from '../Modal/ConnectWalletModal';
 import './style/index.scss';
@@ -10,10 +10,11 @@ export type ConnectButtonProps = Extendable & {
   label?: string;
   btnClassName?: string;
   btnStyle?: CSSProperties;
+  children?: ReactNode;
 };
 
 export function ConnectButton(props: ConnectButtonProps) {
-  const { label = 'Connect Wallet' } = props;
+  const { label = 'Connect Wallet', children } = props;
 
   const { select, connected, groupWallets } = useWallet();
 
@@ -30,10 +31,10 @@ export function ConnectButton(props: ConnectButtonProps) {
       }}
     >
       <button
-        className={classnames("wkit-button", props.btnClassName)}
+        className={classnames('wkit-button', props.btnClassName)}
         style={props.btnStyle}
       >
-        {label}
+        {children || label}
       </button>
     </ConnectWalletModal>
   );
