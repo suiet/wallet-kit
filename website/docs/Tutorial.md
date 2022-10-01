@@ -1,6 +1,6 @@
 ---
 title: Overview
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 ## Wallet Kit, connect all wallet on Sui with a button
@@ -53,13 +53,13 @@ Import `WalletProvider` and wrap your App component.
 Feel free to choose the wallets you want to support.
 
 ```jsx
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   WalletProvider,
   getAllWallets, // support all the wallets
   getDefaultWallets, // if you only support SUI wallet
-} from "@suiet/wallet-kit";
+} from '@suiet/wallet-kit';
 
 const supportedWallets = getAllWallets(); // let's say we support all the wallets
 
@@ -91,7 +91,7 @@ function Header() {
 If you want to apply our default styles, please import the css file.
 
 ```js
-import "@suiet/wallet-kit/style.css";
+import '@suiet/wallet-kit/style.css';
 ```
 
 ### Use the wallet data and functions!
@@ -101,7 +101,7 @@ After the above settings, we can do integrations with wallets now.
 Once a user approved the connection request, our dapp can fetch the address of the active account in wallets.
 
 ```js
-import { useWallet } from "@suiet/wallet-kit";
+import { useWallet } from '@suiet/wallet-kit';
 
 function Component() {
   const { connected, getAccounts } = useWallet();
@@ -110,7 +110,7 @@ function Component() {
     if (!connected) return;
     (async function () {
       const accounts = await getAccounts();
-      console.log("accounts", accounts); // ['0x0000000000000000000000000000000000000000']
+      console.log('accounts', accounts); // ['0x0000000000000000000000000000000000000000']
     })();
   }, [connected, getAccounts]);
 }
