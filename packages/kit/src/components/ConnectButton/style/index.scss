@@ -1,14 +1,19 @@
 :root {
-  --wkit-button-bg: #3ea2f8;
-  --wkit-button-bg-hover: #0073E5;
-  --wkit-button-bg-active: #0059BF;
+  --wkit-accent-hs: 210, 100%;
+  --wkit-on-accent-rgb: 255, 255, 255;
+  --wkit-bg-rgb: 239, 241, 245;
+  --wkit-on-bg-rgb: 10, 14, 34;
 
-  --wkit-button-bg-connected: rgba(10, 14, 34, 0.05);
-  --wkit-button-bg-connected-hover: rgba(10, 14, 34, 0.07);
-  --wkit-button-bg-connected-active: rgba(10, 14, 34, 0.10);
+  --wkit-border-radius: 16px;
+
+  --wkit-font-family: 'Inter', sans-serif;
+  --wkit-font-family-mono: 'IBM Plex Mono', monospace;
+
+  --wkit-font-size-large: 18px;
+  --wkit-font-size-medium: 16px;
+  --wkit-font-size-small: 14px;
 
   --wkit-button-width: 284px;
-  --wkit-border-radius: 16px;
 }
 
 .wkit-button {
@@ -16,22 +21,23 @@
   width: var(--wkit-button-width);
   padding: 14px 24px;
   height: 50px;
-  color: white;
+  color: rgba(var(--wkit-on-accent-rgb), 1.0);
   font-weight: 600;
-  font-size: 16px;
+  font-size: var(--wkit-font-size-medium);
+  font-family: var(--wkit-font-family);
   line-height: 22px;
   cursor: pointer;
   border: 0;
 
   &{
-    background-color: var(--wkit-button-bg);
+    background-color: hsl(var(--wkit-accent-hs), 45%);
   }
 
   &:hover {
-    background-color: var(--wkit-button-bg-hover);
+    background-color: hsl(var(--wkit-accent-hs), 40%);
   }
 
   &:active {
-    background-color: var(--wkit-button-bg-active);
+    background-color: hsl(var(--wkit-accent-hs), 35%);
   }
 }

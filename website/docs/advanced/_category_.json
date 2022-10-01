@@ -1,8 +1,7 @@
 {
-  "label": "Roadmap",
+  "label": "Advanced",
   "position": 4,
   "link": {
-    "type": "generated-index",
-    "description": "Roadmap"
+    "type": "generated-index"
   }
 }

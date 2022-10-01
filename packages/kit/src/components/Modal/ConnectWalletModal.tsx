@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
-import { WalletInstance } from '../../adapter/KitAdapter';
-import './index.scss';
-import closeIcon from './close.svg';
-import Icon from '../Icon';
+import React, { ReactNode } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { WalletInstance } from "../../adapter/KitAdapter";
+import "./index.scss";
+import closeIcon from "./close.svg";
+import Icon from "../Icon";
 
 interface ModalProps {
   children: ReactNode;
@@ -19,13 +19,25 @@ function Modal({ children, content, title }: ModalProps) {
         <Dialog.Overlay className={"wkit-dialog__overlay"}>
           <Dialog.Content className={"wkit-dialog__content"}>
             <div className={"wkit-dialog__header"}>
-              <Dialog.Title className={"wkit-dialog__title"}>{title}</Dialog.Title>
+              <Dialog.Title className={"wkit-dialog__title"}>
+                {title}
+              </Dialog.Title>
               <Dialog.Close className={"wkit-dialog__close"}>
-                <img
-                  src={closeIcon}
-                  alt="X"
-                  draggable={false}
-                />
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15 5L5 15M5 5L15 15"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </Dialog.Close>
             </div>
             {content}
@@ -48,8 +60,8 @@ export function ConnectWalletModal({
   onWalletClick,
 }: ConnectWalletModalProps) {
   const groups = Object.entries(groupWallets).sort((wa, wb) => {
-    if (wa[0] === 'Recent') return -1;
-    if (wa[0] === 'Popular') return -1;
+    if (wa[0] === "Recent") return -1;
+    if (wa[0] === "Popular") return -1;
     return wa[0] > wb[0] ? -1 : 1;
   });
   return (
