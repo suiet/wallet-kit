@@ -21,6 +21,8 @@ const supportedWallets = getDefaultWallets();
 
 ## API
 
-| Properties | Description    | Type      | Default          |
-| ---------- | -------------- | --------- | ---------------- |
-| children   | show in button | ReactNode | 'Connect Wallet' |
+| Properties | Description        | Type                | Default          |
+| ---------- | ------------------ | ------------------- | ---------------- |
+| children   | show in button     | ReactNode           | 'Connect Wallet' |
+| style      | button's style     | React.CSSProperties |                  |
+| className  | button's className | string              |                  |
