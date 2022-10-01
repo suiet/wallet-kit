@@ -1,13 +1,10 @@
 ---
-title: Hooks
-sidebar_position: 3
+sidebar_position: 1
 ---
 
-# Hooks
+# useWallet
 
-## useWallet
-
-The useWallet hook provide the ability to get the status of account, connect method and move call method. You can use the hook and provider to connect wallet by your own button and modal. The useWallet hook will return WalletContextState props, for detail, you can check the doc https://kit.suiet.app/docs/components#walletprovider.
+The useWallet hook provide the ability to get the status of account, connect method and move call method. You can use the hook and provider to connect wallet by your own button and modal. The useWallet hook will return WalletContextState props, for detail, you can check the doc https://kit.suiet.app/docs/components/walletprovider#walletcontextstate.
 
 ```ts
 const {
@@ -32,29 +29,4 @@ const {
     transactionBytes: Uint8Array
   ) => Promise<SuiTransactionResponse>; // adapter's executeSerializedMoveCall
 } = useWallet();
-```
-
-## useSuiProvider
-
-```ts
-const {
-  getOwnedObjectRefs,
-  getTransaction,
-  getEventsByTransaction,
-  getEventsBySender,
-} = useSuiProvider();
-```
-
-## useAccountBalance
-
-You can get balance of the current account under selected network.
-
-```ts
-interface AccountBalanceResponse {
-  error: Error; // an error object
-  loading: boolean;
-  balance: string; // balance of the current account, when loading or error, it will be 0
-}
-
-const { error, loading, balance } = useAccountBalance();
 ```
