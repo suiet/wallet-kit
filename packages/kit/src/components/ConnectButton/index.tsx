@@ -8,8 +8,8 @@ import WalletInfo from '../WalletInfo';
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
-  btnClassName?: string;
-  btnStyle?: CSSProperties;
+  className?: string;
+  style?: CSSProperties;
   children?: ReactNode;
 };
 
@@ -31,8 +31,8 @@ export function ConnectButton(props: ConnectButtonProps) {
       }}
     >
       <button
-        className={classnames('wkit-button', props.btnClassName)}
-        style={props.btnStyle}
+        className={classnames('wkit-button', props.className)}
+        style={props.style}
       >
         {children || label}
       </button>
