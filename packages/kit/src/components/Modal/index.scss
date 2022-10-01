@@ -17,21 +17,22 @@
   gap: 10px;
   width: 316px;
   position: relative;
-  background: white;
+  background-color: rgba(var(--wkit-bg-rgb), 1.0);
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 20px;
+  border-radius: var(--wkit-border-radius);
 }
 
 .wkit-dialog__title {
   font-weight: 700;
   text-align: center;
   font-weight: 700;
-  font-size: 18px;
+  font-size: var(--wkit-font-size-large);
+  font-family: var(--wkit-font-family);
   line-height: 24px;
   text-align: center;
 
-  color: #111322;
+  color: rgba(var(--wkit-on-bg-rgb), 1.0);
   margin: 0;
 }
 
@@ -50,30 +51,30 @@
     position: absolute;
     right: 16px;
     top: 16px;
-    border-radius: 16px;
+    border-radius: var(--wkit-border-radius);
     cursor: pointer;
 
-    background-color: rgba(10, 14, 34, 0.05);
+    background-color: rgba(var(--wkit-on-bg-rgb), 0.05);
   }
 
   &__close:hover {
-    background-color: rgba(10, 14, 34, 0.07);
+    background-color: rgba(var(--wkit-on-bg-rgb), 0.07);
   }
 
   &__close:active {
-    background-color: rgba(10, 14, 34, 0.1);
+    background-color: rgba(var(--wkit-on-bg-rgb), 0.1);
   }
 
-  &__close > img {
-    opacity: 0.5;
+  &__close {
+    color: rgba(var(--wkit-on-bg-rgb), 0.5);
   }
-
-  &__close:hover > img {
-    opacity: 1;
+  
+  &__close:hover {
+    color: rgba(var(--wkit-on-bg-rgb), 0.8);
   }
-
-  &__close:active > img {
-    opacity: 1;
+  
+  &__close:active {
+    color: rgba(var(--wkit-on-bg-rgb), 1.0);
   }
 }
 
@@ -82,17 +83,19 @@
 }
 
 .wkit-select__title {
-  font-size: 14px;
+  font-size: var(--wkit-font-size-small);
+  font-family: var(--wkit-font-family);
   line-height: 17px;
-  color: #7d89b0;
+  color: rgba(var(--wkit-on-bg-rgb), 0.5);
   margin-bottom: 15px;
 }
 
 .wkit-select-item {
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--wkit-font-size-medium);
+  font-family: var(--wkit-font-family);
   line-height: 19px;
-  color: #404968;
+  color: rgba(var(--wkit-on-bg-rgb), 0.8);
   margin-bottom: 4px;
   display: flex;
   align-items: center;
@@ -101,26 +104,33 @@
   margin-left: -6px;
   margin-right: -6px;
   transition: background 0.2s;
-  border-radius: 18px;
+  border-radius: var(--wkit-border-radius);
+
+  & {
+    background-color: var(--wkit-button-bg-varient1);
+    color: rgba(var(--wkit-on-bg-rgb), 0.8);
+  }
 
   &:hover {
-    background: rgba(10, 14, 34, 0.03);
+    background-color: rgba(var(--wkit-on-bg-rgb), 0.03);
+    color: rgba(var(--wkit-on-bg-rgb), 1.0);
   }
 
   &:active {
-    background: rgba(10, 14, 34, 0.07);
+    background-color: rgba(var(--wkit-on-bg-rgb), 0.07);
+    color: rgba(var(--wkit-on-bg-rgb), 1.0);
   }
 
   &__icon {
     width: 32px;
     height: 32px;
-    border-radius: 18px;
+    border-radius: 16px;
     margin-right: 10px;
     outline: 1px solid #dcdfea;
   }
   &__icon-img {
     width: 36px;
-    border-radius: 18px;
+    border-radius: 16px;
     object-fit: cover;
   }
 }
@@ -132,24 +142,38 @@
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  background-color: white;
+  background-color: rgba(var(--wkit-bg-rgb), 1.0);
   display: flex;
   align-items: center;
   padding-left: 24px;
-  border-top: 1px solid rgba(10, 14, 34, 0.1);
-  border-radius: 0px 0px 24px 24px;
+  border-top: 1px solid rgba(var(--wkit-on-bg-rgb), 0.1);
+  border-radius: 0px 0px var(--wkit-border-radius) var(--wkit-border-radius);
 
   &__text {
     font-weight: 500;
-    font-size: 14px;
+    font-size: var(--wkit-font-size-small);
+    font-family: var(--wkit-font-family);
     line-height: 17px;
-    color: rgba(10, 14, 34, 0.5);
+    color: rgba(var(--wkit-on-bg-rgb), 0.5);
   }
 
   &__link {
     margin-left: 12px;
-    color: #0096ff;
     font-weight: 700;
+    font-family: var(--wkit-font-family);
+    font-size: var(--wkit-font-size-small);
     text-decoration: none;
+    
+    &:hover {
+      color: hsl(var(--wkit-accent-hs), 45%);
+    }
+    
+    &:hover {
+      color: hsl(var(--wkit-accent-hs), 40%);
+    }
+    
+    &:active {
+      color: hsl(var(--wkit-accent-hs), 35%);
+    }
   }
 }

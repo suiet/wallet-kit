@@ -9,8 +9,6 @@ import './index.scss';
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
-  btnClassName?: string;
-  btnStyle?: CSSProperties;
 };
 
 function WalletInfo(props: ConnectButtonProps) {
@@ -19,13 +17,9 @@ function WalletInfo(props: ConnectButtonProps) {
   const { balance } = useAccountBalance();
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
   return (
-    <div
-      className={classnames("wkit-connected-container", props.className)}
-      style={props.style}
-    >
+    <div className={classnames("wkit-connected-container")}>
       <button
-        className={classnames("wkit-connected-button", props.btnClassName)}
-        style={props.btnStyle}
+        className={classnames("wkit-connected-button")}
         onClick={() => {
           setShowDisconnectButton(!showDisconnectButton);
         }}
@@ -38,7 +32,32 @@ function WalletInfo(props: ConnectButtonProps) {
           <span className={"wkit-address-select__address"}>
             {addressEllipsis(address)}
           </span>
-          <span className={"wkit-address-select__right-arrow"} />
+          <span className={"wkit-address-select__right-arrow"}>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clipPath="url(#clip0_1790_28273)">
+                <path
+                  d="M9.99989 10.9766L14.1249 6.85156L15.3032 8.0299L9.99989 13.3332L4.69656 8.0299L5.87489 6.85156L9.99989 10.9766Z"
+                  fill="currentColor"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_1790_28273">
+                  <rect
+                    width="20"
+                    height="20"
+                    fill="white"
+                    transform="translate(20) rotate(90)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
         </div>
       </button>
       {showDisconnectButton && (
