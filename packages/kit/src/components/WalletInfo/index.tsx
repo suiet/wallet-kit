@@ -1,11 +1,12 @@
 import classnames from 'classnames';
 import React, { CSSProperties, useState } from 'react';
+
+import './index.scss';
 import { useAccountBalance } from '../../hooks/useAccountBalance';
 import { useWallet } from '../../hooks/useWallet';
 import { Extendable } from '../../types';
-import { addressEllipsis } from '../../utils/addressEllipsis';
+import { addressEllipsis } from "../../utils/addressEllipsis";
 import { formatCurrency } from '../../utils/formatCurrency';
-import './index.scss';
 
 export type ConnectButtonProps = Extendable & {
   label?: string;

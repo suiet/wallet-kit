@@ -14,5 +14,8 @@ export const sui = (): Wallet => {
         adapter: new SuiWalletAdapter(),
       };
     },
+    downloadUrl: {
+      browserExtension: "https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil",
+    },
   };
 };

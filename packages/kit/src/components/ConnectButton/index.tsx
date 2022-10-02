@@ -1,7 +1,7 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import { useWallet } from '../../hooks/useWallet';
+import './index.scss';
 import { ConnectWalletModal } from '../Modal/ConnectWalletModal';
-import './style/index.scss';
 import { Extendable } from '../../types';
 import classnames from 'classnames';
 import WalletInfo from '../WalletInfo';
