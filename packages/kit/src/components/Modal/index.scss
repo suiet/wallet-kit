@@ -1,7 +1,7 @@
 @use 'sass:math';
 
 .wkit-dialog__overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   display: flex;
   justify-content: center;
@@ -17,7 +17,7 @@
   gap: 10px;
   width: 316px;
   position: relative;
-  background-color: rgba(var(--wkit-bg-rgb), 1.0);
+  background-color: rgba(var(--wkit-bg-rgb), 1);
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
   border-radius: var(--wkit-border-radius);
@@ -32,7 +32,7 @@
   line-height: var(--wkit-line-height-large);
   text-align: center;
 
-  color: rgba(var(--wkit-on-bg-rgb), 1.0);
+  color: rgba(var(--wkit-on-bg-rgb), 1);
   margin: 0;
 }
 
@@ -73,7 +73,7 @@
   }
 
   &__close:active {
-    color: rgba(var(--wkit-on-bg-rgb), 1.0);
+    color: rgba(var(--wkit-on-bg-rgb), 1);
   }
 }
 
@@ -112,12 +112,12 @@
 
   &:hover {
     background-color: rgba(var(--wkit-on-bg-rgb), 0.03);
-    color: rgba(var(--wkit-on-bg-rgb), 1.0);
+    color: rgba(var(--wkit-on-bg-rgb), 1);
   }
 
   &:active {
     background-color: rgba(var(--wkit-on-bg-rgb), 0.07);
-    color: rgba(var(--wkit-on-bg-rgb), 1.0);
+    color: rgba(var(--wkit-on-bg-rgb), 1);
   }
 
   &__icon {
@@ -142,7 +142,7 @@
   bottom: 0;
   left: 0;
   box-sizing: border-box;
-  background-color: rgba(var(--wkit-bg-rgb), 1.0);
+  background-color: rgba(var(--wkit-bg-rgb), 1);
   display: flex;
   align-items: center;
   padding-left: 24px;
@@ -215,7 +215,7 @@
   font-family: var(--wkit-font-family);
   text-align: center;
 
-  color: rgba(var(--wkit-on-bg-rgb), 1.0);
+  color: rgba(var(--wkit-on-bg-rgb), 1);
   margin: 0;
 }
 
