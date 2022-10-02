@@ -24,7 +24,7 @@ For example, import the default css file in the `src/index.jsx` file:
 
 ```jsx title="src/index.jsx"
 import * as React from "react";
-import "@suiet/wallet-kit/default.css"; // Add this line to your code
+import "@suiet/wallet-kit/style.css"; // Add this line to your code
 
 // Your Application code below
 function App() {
@@ -99,7 +99,7 @@ The CSS variables must be imported **AFTER** importing the default css file.
 For example, in the `src/index.jsx` file:
 
 ```jsx title="src/index.jsx"
-import "@suiet/wallet-kit/default.css";
+import "@suiet/wallet-kit/style.css";
 import "./suiet-wallet-kit-custom.css"; // You css file here
 ```
 
@@ -134,7 +134,7 @@ Your CSS rules must be imported **AFTER** importing the default css file.
 For example, in the `src/index.jsx` file:
 
 ```jsx title="src/index.jsx"
-import "@suiet/wallet-kit/default.css";
+import "@suiet/wallet-kit/style.css";
 import "./suiet-wallet-kit-custom.css"; // You css file here
 ```
 
