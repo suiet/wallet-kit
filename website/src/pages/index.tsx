@@ -1,24 +1,24 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import styles from './index.module.css';
-import {ConnectButton, WalletProvider} from "@suiet/wallet-kit";
+import { ConnectButton, WalletProvider } from '@suiet/wallet-kit';
 import '@suiet/wallet-kit/style.css';
-import {getAllWallets, useWallet} from "@suiet/wallet-kit";
+import { getAllWallets, useWallet } from '@suiet/wallet-kit';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  const {connected, getAccounts} = useWallet();
+  const { siteConfig } = useDocusaurusContext();
+  const { connected, getAccounts } = useWallet();
 
   useEffect(() => {
     if (!connected) return;
     (async function () {
       const accounts = await getAccounts();
       console.log('accounts', accounts);
-    })()
-  }, [connected, getAccounts])
+    })();
+  }, [connected, getAccounts]);
 
   return (
     <header className={clsx('hero', styles.heroBanner)}>
@@ -34,7 +34,7 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
 
   return (
     <Layout
@@ -42,9 +42,9 @@ export default function Home(): JSX.Element {
       description="Description will go into a meta tag in <head />"
     >
       <WalletProvider supportedWallets={getAllWallets()}>
-        <HomepageHeader/>
-        <main >
-          <HomepageFeatures/>
+        <HomepageHeader />
+        <main>
+          <HomepageFeatures />
         </main>
       </WalletProvider>
     </Layout>
