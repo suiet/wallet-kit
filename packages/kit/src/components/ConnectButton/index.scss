@@ -1,7 +1,7 @@
 :root {
   --wkit-accent-hs: 210, 100%;
   --wkit-on-accent-rgb: 255, 255, 255;
-  --wkit-bg-rgb: 239, 241, 245;
+  --wkit-bg-rgb: 255, 255, 255;
   --wkit-on-bg-rgb: 10, 14, 34;
 
   --wkit-border-radius: 16px;
@@ -29,7 +29,7 @@
   }
 }
 
-[data-theme=dark]:root {
+[data-theme='dark']:root {
   --wkit-accent-hs: 166, 91%;
   --wkit-on-accent-rgb: 255, 255, 255;
   --wkit-bg-rgb: 40, 40, 40;
@@ -40,7 +40,7 @@
   border-radius: var(--wkit-border-radius);
   width: var(--wkit-button-width);
   padding: 14px 16px;
-  color: rgba(var(--wkit-on-accent-rgb), 1.0);
+  color: rgba(var(--wkit-on-accent-rgb), 1);
   font-weight: 600;
   font-size: var(--wkit-font-size-medium);
   font-family: var(--wkit-font-family);
@@ -49,7 +49,7 @@
   cursor: pointer;
   border: 0;
 
-  &{
+  & {
     background-color: hsl(var(--wkit-accent-hs), 50%);
   }
 
