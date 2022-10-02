@@ -165,15 +165,15 @@
     text-decoration: none;
     
     &:hover {
-      color: hsl(var(--wkit-accent-hs), 45%);
+      color: hsl(var(--wkit-accent-hs), 50%);
     }
     
     &:hover {
-      color: hsl(var(--wkit-accent-hs), 40%);
+      color: hsl(var(--wkit-accent-hs), 45%);
     }
     
     &:active {
-      color: hsl(var(--wkit-accent-hs), 35%);
+      color: hsl(var(--wkit-accent-hs), 37%);
     }
   }
 }
