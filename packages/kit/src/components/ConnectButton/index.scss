@@ -29,6 +29,13 @@
   }
 }
 
+[data-theme=dark]:root {
+  --wkit-accent-hs: 166, 91%;
+  --wkit-on-accent-rgb: 255, 255, 255;
+  --wkit-bg-rgb: 40, 40, 40;
+  --wkit-on-bg-rgb: 241, 241, 241;
+}
+
 .wkit-button {
   border-radius: var(--wkit-border-radius);
   width: var(--wkit-button-width);
