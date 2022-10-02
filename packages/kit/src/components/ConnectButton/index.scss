@@ -13,19 +13,23 @@
   --wkit-font-size-medium: 16px;
   --wkit-font-size-small: 14px;
 
+  --wkit-line-height-large: 22px;
+  --wkit-line-height-medium: 19px;
+  --wkit-line-height-small: 17px;
+
   --wkit-button-width: 284px;
 }
 
 .wkit-button {
   border-radius: var(--wkit-border-radius);
   width: var(--wkit-button-width);
-  padding: 14px 24px;
-  height: 50px;
+  padding: 14px 16px;
   color: rgba(var(--wkit-on-accent-rgb), 1.0);
   font-weight: 600;
   font-size: var(--wkit-font-size-medium);
   font-family: var(--wkit-font-family);
-  line-height: 22px;
+  // line-height: 22px;
+  line-height: var(--wkit-line-height-medium);
   cursor: pointer;
   border: 0;
 

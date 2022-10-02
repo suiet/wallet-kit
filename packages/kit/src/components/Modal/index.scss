@@ -29,7 +29,7 @@
   font-weight: 700;
   font-size: var(--wkit-font-size-large);
   font-family: var(--wkit-font-family);
-  line-height: 24px;
+  line-height: var(--wkit-line-height-large);
   text-align: center;
 
   color: rgba(var(--wkit-on-bg-rgb), 1.0);
@@ -48,11 +48,10 @@
     background-size: percentage(math.div(20, 36));
     width: 36px;
     height: 36px;
-    position: absolute;
-    right: 16px;
-    top: 16px;
     border-radius: var(--wkit-border-radius);
     cursor: pointer;
+    box-sizing: border-box;
+    display: inline-block;
 
     background-color: rgba(var(--wkit-on-bg-rgb), 0.05);
   }
@@ -68,11 +67,11 @@
   &__close {
     color: rgba(var(--wkit-on-bg-rgb), 0.5);
   }
-  
+
   &__close:hover {
     color: rgba(var(--wkit-on-bg-rgb), 0.8);
   }
-  
+
   &__close:active {
     color: rgba(var(--wkit-on-bg-rgb), 1.0);
   }
@@ -85,7 +84,7 @@
 .wkit-select__title {
   font-size: var(--wkit-font-size-small);
   font-family: var(--wkit-font-family);
-  line-height: 17px;
+  line-height: var(--wkit-line-height-small);
   color: rgba(var(--wkit-on-bg-rgb), 0.5);
   margin-bottom: 15px;
 }
@@ -94,7 +93,7 @@
   font-weight: 700;
   font-size: var(--wkit-font-size-medium);
   font-family: var(--wkit-font-family);
-  line-height: 19px;
+  line-height: var(--wkit-line-height-medium);
   color: rgba(var(--wkit-on-bg-rgb), 0.8);
   margin-bottom: 4px;
   display: flex;
@@ -128,6 +127,7 @@
     margin-right: 10px;
     // box-shadow: 0 0 0 1px #dcdfea
   }
+
   &__icon-img {
     width: 36px;
     border-radius: 16px;
@@ -152,8 +152,8 @@
   &__text {
     font-weight: 500;
     font-size: var(--wkit-font-size-small);
+    line-height: var(--wkit-line-height-small);
     font-family: var(--wkit-font-family);
-    line-height: 17px;
     color: rgba(var(--wkit-on-bg-rgb), 0.5);
   }
 
@@ -162,18 +162,72 @@
     font-weight: 700;
     font-family: var(--wkit-font-family);
     font-size: var(--wkit-font-size-small);
+    line-height: var(--wkit-line-height-small);
     text-decoration: none;
-    
+
     &:hover {
       color: hsl(var(--wkit-accent-hs), 50%);
     }
-    
+
     &:hover {
       color: hsl(var(--wkit-accent-hs), 45%);
     }
-    
+
     &:active {
       color: hsl(var(--wkit-accent-hs), 37%);
     }
   }
+}
+
+.wkit-connecting,
+.wkit-install {
+  margin-top: 100px;
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wkit-install {
+  margin-bottom: 110px;
+}
+
+.wkit-connecting__logo,
+.wkit-install__logo {
+  display: block;
+  margin: auto;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+}
+
+.wkit-connecting__title,
+.wkit-install__title {
+  font-weight: 700;
+  text-align: center;
+  font-weight: 700;
+  font-size: var(--wkit-font-size-large);
+  line-height: var(--wkit-line-height-large);
+  font-family: var(--wkit-font-family);
+  text-align: center;
+
+  color: rgba(var(--wkit-on-bg-rgb), 1.0);
+  margin: 0;
+}
+
+.wkit-connecting__description,
+.wkit-install__description {
+  font-size: var(--wkit-font-size-small);
+  line-height: var(--wkit-line-height-small);
+  font-family: var(--wkit-font-family);
+  color: rgba(var(--wkit-on-bg-rgb), 0.5);
+  text-align: center;
+  margin-top: 5px;
+}
+
+.wkit-install__button {
+  width: unset;
+  padding: 10px 16px;
+  font-size: var(--wkit-font-size-small);
+  line-height: var(--wkit-line-height-small);
 }

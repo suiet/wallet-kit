@@ -8,7 +8,7 @@
   border-radius: var(--wkit-border-radius);
   font-weight: 600;
   font-size: var(--wkit-font-size-medium);
-  line-height: 19px;
+  line-height: var(--wkit-line-height-medium);
   padding: 14px;
   border: 0;
   cursor: pointer;
@@ -41,8 +41,8 @@
     font-style: normal;
     font-weight: 700;
     font-size: var(--wkit-font-size-medium);
+    line-height: var(--wkit-line-height-medium);
     font-family: var(--wkit-font-family);
-    line-height: 19px;
     color: rgba(var(--wkit-on-bg-rgb), 1.0);
     white-space: nowrap;
     flex-grow: 1;
@@ -68,7 +68,7 @@
     font-family: var(--wkit-font-family-mono);
     font-weight: 400;
     font-size: var(--wkit-font-size-medium);
-    line-height: 19px;
+    line-height: var(--wkit-line-height-medium);
   }
 
   &__right-arrow {
@@ -115,7 +115,7 @@
     font-style: normal;
     font-weight: 700;
     font-size: var(--wkit-font-size-medium);
-    line-height: 19px;
+    line-height: var(--wkit-line-height-medium);
     color: rgba(var(--wkit-on-bg-rgb), 0.8);
   }
 }

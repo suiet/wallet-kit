@@ -1,51 +1,20 @@
-import React, { ReactNode } from "react";
+import * as React from "react";
+import type { ReactNode } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { WalletInstance } from "../../adapter/KitAdapter";
+import type { DialogProps } from "@radix-ui/react-dialog";
+
 import "./index.scss";
-import closeIcon from "./close.svg";
+import { WalletInstance } from "../../adapter/KitAdapter";
 import Icon from "../Icon";
+import { SvgArrowLeft, SvgClose } from "../Icon/SvgIcons";
+import { useWallet } from "../../hooks";
 
 interface ModalProps {
   children: ReactNode;
-  title: string;
+  title: ReactNode;
+  close?: ReactNode;
   content: ReactNode;
-}
-
-function Modal({ children, content, title }: ModalProps) {
-  return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className={"wkit-dialog__overlay"}>
-          <Dialog.Content className={"wkit-dialog__content"}>
-            <div className={"wkit-dialog__header"}>
-              <Dialog.Title className={"wkit-dialog__title"}>
-                {title}
-              </Dialog.Title>
-              <Dialog.Close className={"wkit-dialog__close"}>
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M15 5L5 15M5 5L15 15"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Dialog.Close>
-            </div>
-            {content}
-          </Dialog.Content>
-        </Dialog.Overlay>
-      </Dialog.Portal>
-    </Dialog.Root>
-  );
+  dialogProps?: DialogProps;
 }
 
 interface ConnectWalletModalProps {
@@ -64,49 +33,201 @@ export function ConnectWalletModal({
     if (wa[0] === "Popular") return -1;
     return wa[0] > wb[0] ? -1 : 1;
   });
-  return (
-    <Modal
-      title="Connect Wallet"
-      content={
-        <div style={{ paddingBottom: "41px" }}>
-          {groups.map(([group, wallets]) => {
-            if (wallets.length === 0) return null;
-            return (
-              <div className={"wkit-select__container"} key={group}>
-                <div className={"wkit-select__title"}>{group}</div>
-                {wallets.map((wallet) => {
-                  return (
-                    <div
-                      className={"wkit-select-item"}
-                      key={wallet.name}
-                      onClick={() => onWalletClick(wallet)}
+
+  const [open, setOpen] = React.useState(false);
+  const [selectedWallet, setSelectedWallet] = React.useState<WalletInstance>();
+  const [realIconUrl, setRealIconUrl] = React.useState<string>();
+  const { connecting, connected } = useWallet();
+
+  React.useEffect(() => {
+    if (typeof selectedWallet?.iconUrl === "function") {
+      selectedWallet?.iconUrl().then((url) => {
+        setRealIconUrl(url);
+      });
+    } else if (typeof selectedWallet?.iconUrl === "string") {
+      setRealIconUrl(selectedWallet?.iconUrl);
+    }
+  }, [selectedWallet]);
+
+  if (connected) {
+    return null;
+  }
+
+  if (selectedWallet) {
+    if (selectedWallet.installed) {
+      if (connecting) {
+        return (
+          <Dialog.Root open={open}>
+            <Dialog.Trigger asChild>{children}</Dialog.Trigger>
+            <Dialog.Portal>
+              <Dialog.Overlay className={"wkit-dialog__overlay"}>
+                <Dialog.Content className={"wkit-dialog__content"}>
+                  <div className={"wkit-dialog__header"}>
+                    <Dialog.Title
+                      className={"wkit-dialog__title"}
+                      style={{ margin: "-6px 12px -6px -8px" }}
                     >
-                      <Icon
-                        icon={wallet.iconUrl}
-                        className={"wkit-select-item__icon"}
-                        elClassName={"wkit-select-item__icon"}
-                      />
-                      {wallet?.name}
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
-          <div className={"wkit-new-to-sui"}>
-            <span className={"wkit-new-to-sui__text"}>New to sui? </span>
-            <a
-              className={"wkit-new-to-sui__link"}
-              href="https://suiet.app/docs/getting-started"
-              target="_blank"
-            >
-              Learn More Here
-            </a>
-          </div>
-        </div>
+                      <span
+                        className="wkit-dialog__close"
+                        onClick={() => setSelectedWallet(undefined)}
+                      >
+                        <SvgArrowLeft />
+                      </span>
+                    </Dialog.Title>
+
+                    <Dialog.Title className={"wkit-dialog__title"}>
+                      Connecting
+                    </Dialog.Title>
+                  </div>
+                  <div className="wkit-connecting">
+                    <img
+                      className="wkit-connecting__logo"
+                      src={realIconUrl}
+                      alt={`logo of ${selectedWallet.name}`}
+                    />
+                    <h1 className="wkit-connecting__title">
+                      Opening Suiet Wallet
+                    </h1>
+                    <p className="wkit-connecting__description">
+                      Confirm connection in the extension
+                    </p>
+                  </div>
+                </Dialog.Content>
+              </Dialog.Overlay>
+            </Dialog.Portal>
+          </Dialog.Root>
+        );
       }
-    >
-      {children}
-    </Modal>
+    } else {
+      return (
+        <Dialog.Root open={open}>
+          <Dialog.Trigger asChild>{children}</Dialog.Trigger>
+          <Dialog.Portal>
+            <Dialog.Overlay className={"wkit-dialog__overlay"}>
+              <Dialog.Content className={"wkit-dialog__content"}>
+                <div className={"wkit-dialog__header"}>
+                  <Dialog.Title
+                    className={"wkit-dialog__title"}
+                    style={{ margin: "-6px 12px -6px -8px" }}
+                  >
+                    <span
+                      className="wkit-dialog__close"
+                      onClick={() => setSelectedWallet(undefined)}
+                    >
+                      <SvgArrowLeft />
+                    </span>
+                  </Dialog.Title>
+
+                  <Dialog.Title className={"wkit-dialog__title"}>
+                    Install Wallet
+                  </Dialog.Title>
+                </div>
+                <div className="wkit-install">
+                  <img
+                    className="wkit-install__logo"
+                    src={realIconUrl}
+                    alt={`logo of ${selectedWallet.name}`}
+                  />
+                  <h1 className="wkit-install__title">You haven’t install this wallet</h1>
+                  <p className="wkit-install__description">
+                    Install wallet via Chrome Extension Store
+                  </p>
+                  <button className="wkit-button wkit-install__button" onClick={() => {
+                    if (selectedWallet.downloadUrl) {
+                      if (selectedWallet.downloadUrl.browserExtension) {
+                        window.open(
+                          selectedWallet.downloadUrl.browserExtension,
+                          "_blank"
+                        );
+                      }
+                      // else if (selectedWallet.downloadUrl.mobile) {
+                      //   window.open(
+                      //     selectedWallet.downloadUrl.mobile,
+                      //     "_blank"
+                      //   );
+                      // }
+                    }
+                  }}>
+                    Get Wallet
+                  </button>
+                </div>
+              </Dialog.Content>
+            </Dialog.Overlay>
+          </Dialog.Portal>
+        </Dialog.Root>
+      );
+    }
+  }
+
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className={"wkit-dialog__overlay"}>
+          <Dialog.Content className={"wkit-dialog__content"}>
+            <div className={"wkit-dialog__header"}>
+              <Dialog.Title className={"wkit-dialog__title"}>
+                {"Connect Wallet"}
+              </Dialog.Title>
+              <Dialog.Close
+                style={{ position: "absolute", right: "16px", top: "16px" }}
+                className={"wkit-dialog__close"}
+              >
+                <SvgClose />
+              </Dialog.Close>
+            </div>
+            <div style={{ paddingBottom: "41px" }}>
+              {groups.map(([group, wallets]) => {
+                if (wallets.length === 0) return null;
+                return (
+                  <div className={"wkit-select__container"} key={group}>
+                    <div className={"wkit-select__title"}>{group}</div>
+                    {wallets.map((wallet) => {
+                      return (
+                        <div
+                          className={"wkit-select-item"}
+                          key={wallet.name}
+                          onClick={() => {
+                            onWalletClick(wallet);
+                            if (wallet.installed) {
+                              setTimeout(() => {
+                                // Delay 300 ms to avoid flashing
+                                // You may see React warning about updating state after unmounting
+                                // I think it's ok to ignore it
+                                // TODO(hzy): Find a better way to avoid flashing
+                                setSelectedWallet(wallet);
+                              }, 300);
+                            } else {
+                              setSelectedWallet(wallet);
+                            }
+                          }}
+                        >
+                          <Icon
+                            icon={wallet.iconUrl}
+                            className={"wkit-select-item__icon"}
+                            elClassName={"wkit-select-item__icon"}
+                          />
+                          {wallet?.name}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+              <div className={"wkit-new-to-sui"}>
+                <span className={"wkit-new-to-sui__text"}>New to sui? </span>
+                <a
+                  className={"wkit-new-to-sui__link"}
+                  href="https://suiet.app/docs/getting-started"
+                  target="_blank"
+                >
+                  Learn More Here
+                </a>
+              </div>
+            </div>
+          </Dialog.Content>
+        </Dialog.Overlay>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }

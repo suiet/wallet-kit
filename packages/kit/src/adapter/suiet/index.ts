@@ -14,5 +14,8 @@ export const suiet = (): Wallet => {
         adapter: new SuietWalletAdapter(),
       };
     },
+    downloadUrl: {
+      browserExtension: "https://chrome.google.com/webstore/detail/suiet/khpkpbbcccdmmclmpigdgddabeilkdpd",
+    },
   };
 };
