@@ -165,7 +165,7 @@
     line-height: var(--wkit-line-height-small);
     text-decoration: none;
 
-    &:hover {
+    & {
       color: hsl(var(--wkit-accent-hs), 50%);
     }
 
@@ -175,6 +175,10 @@
 
     &:active {
       color: hsl(var(--wkit-accent-hs), 37%);
+    }
+
+    &:visited {
+      color: hsl(var(--wkit-accent-hs), 50%);
     }
   }
 }
