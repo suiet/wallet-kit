@@ -40,9 +40,9 @@ const App = () => {
 
 > By default, suiet kit will load all the supported wallets to the list💡
 
-## 🕹 Place `<ConnectButton />` wherever you like
+## 🕹 Place ConnectButton
 
-Just import our `<ConnectButton />` and place to anywhere you like, such as Header.
+Just import our `<ConnectButton />` and place it to anywhere you like, such as Header.
 
 
 ```jsx
@@ -60,7 +60,7 @@ const App = () => {
 };
 ```
 
-## 🪝 Use wallet capacities 
+## 🪝 Use Wallet Capacities 
 
 Now your dapp is already empowered and able to call wallet capacities🎉
 
@@ -88,4 +88,4 @@ Feel free to play with our [Create-React-App Demo](https://wallet-kit-demo.suiet
 
 > Github repo: https://github.com/suiet/wallet-kit/examples/with-cra
 
-<img src="/assets/integration-example.png" />
+<img src="/img/integration-example.png" />
