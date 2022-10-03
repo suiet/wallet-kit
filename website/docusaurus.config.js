@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Suiet Wallet Kit',
-  tagline: 'The best kit for your DApp to connect with SUI wallets',
+  tagline: 'The best kit for your DApp to connect with ALL Sui wallets',
   url: 'https://kit.suiet.app',
   baseUrl: '/',
   onBrokenLinks: 'warn',
