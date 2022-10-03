@@ -7,8 +7,9 @@ import styles from './index.module.css';
 import { ConnectButton, WalletProvider } from '@suiet/wallet-kit';
 import '@suiet/wallet-kit/style.css';
 import { getAllWallets, useWallet } from '@suiet/wallet-kit';
-import  KitBanner from '../../assets/img/kit-banner.svg';
-
+import KitBanner from '../../static/img/kit-banner.svg';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+// import KitBanner2 from   '../../assets/img/kit-banner-2.png';
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   const { connected, getAccounts } = useWallet();
@@ -28,9 +29,10 @@ function HomepageHeader() {
         <h1 className={styles['hero-title']}>
           {siteConfig.title}
         </h1>
-        <p  className={styles['hero-desc']}>{siteConfig.tagline}</p>
+        <p className={styles['hero-desc']}>{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <ConnectButton />
+          <a className={styles['doc-button']} href="/docs/QuickStart" >View Docs</a>
         </div>
       </div>
     </header>
@@ -55,6 +57,10 @@ export default function Home(): JSX.Element {
             width: "1280px",
             margin: "auto",
           }}><KitBanner /></div>
+          <div style={{
+            width: "1280px",
+            margin: "auto",
+          }}><img src={useBaseUrl('img/kit-banner-2.png')} /></div>
         </main>
       </WalletProvider>
     </Layout>
