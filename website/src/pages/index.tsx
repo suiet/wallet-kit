@@ -7,6 +7,7 @@ import styles from './index.module.css';
 import { ConnectButton, WalletProvider } from '@suiet/wallet-kit';
 import '@suiet/wallet-kit/style.css';
 import { getAllWallets, useWallet } from '@suiet/wallet-kit';
+import  KitBanner from '../../assets/img/kit-banner.svg';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -43,8 +44,14 @@ export default function Home(): JSX.Element {
     >
       <WalletProvider supportedWallets={getAllWallets()}>
         <HomepageHeader />
-        <main>
-          <HomepageFeatures />
+        <main style={{
+          margin: "auto"
+        }}>
+          {/* <HomepageFeatures /> */}
+          <div style={{
+            width: "1280px",
+            margin: "auto",
+          }}><KitBanner /></div>
         </main>
       </WalletProvider>
     </Layout>
