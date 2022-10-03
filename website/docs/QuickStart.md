@@ -88,4 +88,4 @@ Feel free to play with our [Create-React-App Demo](https://wallet-kit-demo.suiet
 
 > Github repo: https://github.com/suiet/wallet-kit/examples/with-cra
 
-<img src="/assets/integration-example.png">
+<img src="/assets/integration-example.png" />
