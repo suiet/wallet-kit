@@ -3,13 +3,14 @@ title: Overview
 sidebar_position: 2
 ---
 
-## Wallet Kit, connect all wallet on Sui with a button
+## Wallet Kit, connect all wallets on Sui with a button
 
 > 👋 If you want to know how to **install/use** suiet, please visit our offical website [suiet.app](https://suiet.app) or [docs](https://suiet.app/docs)
 
-Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in SUI💧 ecosystem easily 🥳
+Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in SUI💧 ecosystem easily. 🥳
 
-We present **React Provider & Hooks, UI components** for the DApp (React) developers to connect your DApp and all the wallet extensions 🔗 Integration solution or customization are both supported ✅
+We present **React Provider & Hooks, UI components** for the DApp (React) developers to connect your DApp with all the wallet extensions. 🔗 
+Integration solutions or customization are both supported. ✅
 
 > 💡 Demo Here: https://kit.suiet.app/
 
@@ -98,7 +99,7 @@ import '@suiet/wallet-kit/style.css';
 
 After the above settings, we can do integrations with wallets now.
 
-Once a user approved the connection request, our dapp can fetch the address of the active account in wallets.
+Once a user approves the connection request, our dapp can fetch the address of the active account in wallets.
 
 ```js
 import { useWallet } from '@suiet/wallet-kit';
@@ -162,7 +163,7 @@ function App() {
 
 ## ✨ Incoming Features
 
-Actually we are working hard on this new project right now, so feel free to submit issues or ideas to our [Github](https://github.com/suiet/wallet-kit), Or send direct message via [Discord](https://discord.gg/WHup6fG5) or [Telegram](https://t.me/suietwallet)
+Actually we are working hard on this new project right now, so feel free to submit issues or ideas to our [Github](https://github.com/suiet/wallet-kit). Or send direct message via [Discord](https://discord.gg/WHup6fG5) or [Telegram](https://t.me/suietwallet)
 
 - Composable components
 - Customize component styles
