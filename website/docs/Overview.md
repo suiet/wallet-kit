@@ -14,9 +14,10 @@ Integration solutions or customization are both supported. ✅
 
 > 💡 Demo Here: https://kit.suiet.app/
 
-## Wallet capabilities
+## ❓Can I Use - Wallet adapter capabilities
 
-// TODO: table
+
+
 
 ## 📦 Library Overview
 
