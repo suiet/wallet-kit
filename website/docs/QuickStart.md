@@ -86,6 +86,6 @@ const App = () => {
 
 Feel free to play with our [Create-React-App Demo](https://wallet-kit-demo.vercel.app) 🔗
 
-> Github repo: https://github.com/suiet/wallet-kit/examples/with-cra
+> Github repo: https://github.com/suiet/wallet-kit/tree/main/examples/with-cra
 
 <img src="/img/integration-example.png" />
