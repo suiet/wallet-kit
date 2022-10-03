@@ -31,8 +31,8 @@ function HomepageHeader() {
         </h1>
         <p className={styles['hero-desc']}>{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <ConnectButton />
           <a className={styles['doc-button']} href="/docs/QuickStart" >View Docs</a>
+          <ConnectButton>Try Connect Wallet</ConnectButton>
         </div>
       </div>
     </header>
@@ -54,11 +54,13 @@ export default function Home(): JSX.Element {
         }}>
           {/* <HomepageFeatures /> */}
           <div style={{
-            width: "1280px",
+            width:"100%",
+            maxWidth: "1280px",
             margin: "auto",
           }}><KitBanner /></div>
           <div style={{
-            width: "1280px",
+             width:"100%",
+            maxWidth: "1280px",
             margin: "auto",
           }}><img src={useBaseUrl('img/kit-banner-2.png')} /></div>
         </main>
