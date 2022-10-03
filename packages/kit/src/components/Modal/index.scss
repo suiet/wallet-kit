@@ -14,7 +14,7 @@
 
 .wkit-dialog__content {
   box-sizing: border-box;
-  padding: 24px 26px;
+  padding: 24px 24px;
   width: 316px;
   // max-height: 300px;
   position: relative;
@@ -83,8 +83,8 @@
 
 .wkit-select__scroll {
   overflow-y: auto;
-  overflow-x: hidden;
   margin-right: -12px;
+  margin-left: -4px;
 }
 
 .wkit-select__container {
@@ -101,6 +101,7 @@
   line-height: var(--wkit-line-height-small);
   color: rgba(var(--wkit-on-bg-rgb), 0.5);
   margin-bottom: 15px;
+  margin-left: 6px;
 }
 
 .wkit-select-item {
@@ -114,9 +115,7 @@
   align-items: center;
   cursor: pointer;
   padding: 6px;
-  margin-left: -6px;
-  margin-right: -6px;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
   border-radius: var(--wkit-border-radius);
 
   & {

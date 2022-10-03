@@ -20,21 +20,21 @@
   --wkit-button-width: 284px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --wkit-accent-hs: 166, 91%;
-    --wkit-on-accent-rgb: 255, 255, 255;
-    --wkit-bg-rgb: 40, 40, 40;
-    --wkit-on-bg-rgb: 241, 241, 241;
-  }
-}
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     --wkit-accent-hs: 166, 91%;
+//     --wkit-on-accent-rgb: 255, 255, 255;
+//     --wkit-bg-rgb: 40, 40, 40;
+//     --wkit-on-bg-rgb: 241, 241, 241;
+//   }
+// }
 
-[data-theme='dark']:root {
-  --wkit-accent-hs: 166, 91%;
-  --wkit-on-accent-rgb: 255, 255, 255;
-  --wkit-bg-rgb: 40, 40, 40;
-  --wkit-on-bg-rgb: 241, 241, 241;
-}
+// [data-theme='dark']:root {
+//   --wkit-accent-hs: 166, 91%;
+//   --wkit-on-accent-rgb: 255, 255, 255;
+//   --wkit-bg-rgb: 40, 40, 40;
+//   --wkit-on-bg-rgb: 241, 241, 241;
+// }
 
 .wkit-button {
   border-radius: var(--wkit-border-radius);

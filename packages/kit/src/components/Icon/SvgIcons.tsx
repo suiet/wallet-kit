@@ -12,7 +12,6 @@ export function SvgArrowLeft() {
       <path
         d="M15.8332 10.0003H4.1665M4.1665 10.0003L9.99984 15.8337M4.1665 10.0003L9.99984 4.16699"
         stroke="currentColor" // currentColor is neccessary for the color to be inherited
-        strokeOpacity="0.5"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
