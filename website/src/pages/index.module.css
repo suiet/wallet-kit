@@ -2,7 +2,26 @@
  * CSS files with the .module.css suffix will be treated as CSS modules
  * and scoped locally.
  */
+.hero-title {
+  background: linear-gradient(130.2deg, #0C66E1 -19.23%, #65C6FF 102.03%);
+  /* font-family: 'Work Sans'; */
+  font-weight: bold;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  font-size: 60px;
+}
 
+.hero-desc {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 24px;
+  color: #B9C0D4;
+  margin-bottom: 48px;
+}
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
