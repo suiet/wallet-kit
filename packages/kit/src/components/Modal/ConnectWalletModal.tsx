@@ -9,14 +9,6 @@ import Icon from "../Icon";
 import { SvgArrowLeft, SvgClose } from "../Icon/SvgIcons";
 import { useWallet } from "../../hooks";
 
-interface ModalProps {
-  children: ReactNode;
-  title: ReactNode;
-  close?: ReactNode;
-  content: ReactNode;
-  dialogProps?: DialogProps;
-}
-
 interface ConnectWalletModalProps {
   groupWallets: Record<string, WalletInstance[]>;
   children: ReactNode;
@@ -38,6 +30,15 @@ export function ConnectWalletModal({
   const [selectedWallet, setSelectedWallet] = React.useState<WalletInstance>();
   const [realIconUrl, setRealIconUrl] = React.useState<string>();
   const { connecting, connected } = useWallet();
+
+  const [contentHeight, setContentHeight] = React.useState(0);
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (contentRef.current) {
+      const r = contentRef.current.getBoundingClientRect();
+      setContentHeight(r.height);
+    }
+  }, [contentRef, contentRef.current]);
 
   React.useEffect(() => {
     if (typeof selectedWallet?.iconUrl === "function") {
@@ -61,7 +62,14 @@ export function ConnectWalletModal({
             <Dialog.Trigger asChild>{children}</Dialog.Trigger>
             <Dialog.Portal>
               <Dialog.Overlay className={"wkit-dialog__overlay"}>
-                <Dialog.Content className={"wkit-dialog__content"}>
+                <Dialog.Content
+                  className={"wkit-dialog__content"}
+                  style={{
+                    minHeight: `${contentHeight}px`,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <div className={"wkit-dialog__header"}>
                     <Dialog.Title
                       className={"wkit-dialog__title"}
@@ -104,7 +112,14 @@ export function ConnectWalletModal({
           <Dialog.Trigger asChild>{children}</Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className={"wkit-dialog__overlay"}>
-              <Dialog.Content className={"wkit-dialog__content"}>
+              <Dialog.Content
+                className={"wkit-dialog__content"}
+                style={{
+                  minHeight: `${contentHeight}px`,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
                 <div className={"wkit-dialog__header"}>
                   <Dialog.Title
                     className={"wkit-dialog__title"}
@@ -128,26 +143,31 @@ export function ConnectWalletModal({
                     src={realIconUrl}
                     alt={`logo of ${selectedWallet.name}`}
                   />
-                  <h1 className="wkit-install__title">You haven’t install this wallet</h1>
+                  <h1 className="wkit-install__title">
+                    You haven’t install this wallet
+                  </h1>
                   <p className="wkit-install__description">
                     Install wallet via Chrome Extension Store
                   </p>
-                  <button className="wkit-button wkit-install__button" onClick={() => {
-                    if (selectedWallet.downloadUrl) {
-                      if (selectedWallet.downloadUrl.browserExtension) {
-                        window.open(
-                          selectedWallet.downloadUrl.browserExtension,
-                          "_blank"
-                        );
+                  <button
+                    className="wkit-button wkit-install__button"
+                    onClick={() => {
+                      if (selectedWallet.downloadUrl) {
+                        if (selectedWallet.downloadUrl.browserExtension) {
+                          window.open(
+                            selectedWallet.downloadUrl.browserExtension,
+                            "_blank"
+                          );
+                        }
+                        // else if (selectedWallet.downloadUrl.mobile) {
+                        //   window.open(
+                        //     selectedWallet.downloadUrl.mobile,
+                        //     "_blank"
+                        //   );
+                        // }
                       }
-                      // else if (selectedWallet.downloadUrl.mobile) {
-                      //   window.open(
-                      //     selectedWallet.downloadUrl.mobile,
-                      //     "_blank"
-                      //   );
-                      // }
-                    }
-                  }}>
+                    }}
+                  >
                     Get Wallet
                   </button>
                 </div>
@@ -164,7 +184,7 @@ export function ConnectWalletModal({
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={"wkit-dialog__overlay"}>
-          <Dialog.Content className={"wkit-dialog__content"}>
+          <Dialog.Content className={"wkit-dialog__content"} ref={contentRef}>
             <div className={"wkit-dialog__header"}>
               <Dialog.Title className={"wkit-dialog__title"}>
                 {"Connect Wallet"}
@@ -176,7 +196,7 @@ export function ConnectWalletModal({
                 <SvgClose />
               </Dialog.Close>
             </div>
-            <div style={{ paddingBottom: "41px" }}>
+            <div className="wkit-select__scroll">
               {groups.map(([group, wallets]) => {
                 if (wallets.length === 0) return null;
                 return (
@@ -188,6 +208,12 @@ export function ConnectWalletModal({
                           className={"wkit-select-item"}
                           key={wallet.name}
                           onClick={() => {
+                            if (contentRef.current) {
+                              const r =
+                                contentRef.current.getBoundingClientRect();
+                              setContentHeight(r.height);
+                            }
+
                             onWalletClick(wallet);
                             if (wallet.installed) {
                               setTimeout(() => {
@@ -214,16 +240,17 @@ export function ConnectWalletModal({
                   </div>
                 );
               })}
-              <div className={"wkit-new-to-sui"}>
-                <span className={"wkit-new-to-sui__text"}>New to sui? </span>
-                <a
-                  className={"wkit-new-to-sui__link"}
-                  href="https://suiet.app/docs/getting-started"
-                  target="_blank"
-                >
-                  Learn More Here
-                </a>
-              </div>
+            </div>
+            <div style={{ height: "41px", flexShrink: "0" }}></div>
+            <div className={"wkit-new-to-sui"}>
+              <span className={"wkit-new-to-sui__text"}>New to sui? </span>
+              <a
+                className={"wkit-new-to-sui__link"}
+                href="https://suiet.app/docs/getting-started"
+                target="_blank"
+              >
+                Learn More Here
+              </a>
             </div>
           </Dialog.Content>
         </Dialog.Overlay>
