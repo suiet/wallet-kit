@@ -84,6 +84,8 @@ const App = () => {
 
 ## 💧 Demo Playground
 
-Feel free to play with our [Create-React-App Demo](https://github.com/suiet/wallet-kit/examples/with-cra) 🔗
+Feel free to play with our [Create-React-App Demo](https://wallet-kit-demo.suiet.app) 🔗
+
+> Github repo: https://github.com/suiet/wallet-kit/examples/with-cra
 
 <img src="/assets/integration-example.png">
