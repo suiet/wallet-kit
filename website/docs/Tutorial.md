@@ -7,7 +7,7 @@ sidebar_position: 2
 
 > 👋 If you want to know how to **install/use** suiet, please visit our offical website [suiet.app](https://suiet.app) or [docs](https://suiet.app/docs)
 
-Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in SUI💧 ecosystem easily. 🥳
+Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in Sui💧 ecosystem easily. 🥳
 
 We present **React Provider & Hooks, UI components** for the DApp (React) developers to connect your DApp with all the wallet extensions. 🔗 
 Integration solutions or customization are both supported. ✅
@@ -59,7 +59,7 @@ import ReactDOM from 'react-dom';
 import {
   WalletProvider,
   getAllWallets, // support all the wallets
-  getDefaultWallets, // if you only support SUI wallet
+  getDefaultWallets, // if you only support Sui wallet
 } from '@suiet/wallet-kit';
 
 const supportedWallets = getAllWallets(); // let's say we support all the wallets
