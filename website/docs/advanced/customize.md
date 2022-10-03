@@ -1,40 +1,6 @@
-# Styling
+# Customize & Theme
 
-## BEM Naming Rule
-
-The BEM naming rule is used to name CSS classes. It is a convention for naming CSS classes in a consistent and predictable way. It helps to achieve reusable components and code sharing in front-end development.
-
-```txt
-.wkit-[block]__[element]--[modifier]
-```
-
-```jsx
-<div className={"wkit-button"}>...</div>
-```
-
-## Import default CSS
-
-You need to import the default css file to use the default styles.
-
-:::caution
-You may need a proper CSS loader to import CSS files. See [Webpack](https://webpack.js.org/loaders/css-loader/) or [Vite](https://vitejs.dev/guide/features.html#css) for more information.
-:::
-
-For example, import the default css file in the `src/index.jsx` file:
-
-```jsx title="src/index.jsx"
-import * as React from "react";
-import "@suiet/wallet-kit/style.css"; // Add this line to your code
-
-// Your Application code below
-function App() {
-  return <div>...</div>;
-}
-```
-
-## Customize & Theme
-
-### CSS Variables
+## CSS Variables
 
 This section describes how to use CSS variables to customize the theme of the components.
 
@@ -103,7 +69,7 @@ import "@suiet/wallet-kit/style.css";
 import "./suiet-wallet-kit-custom.css"; // You css file here
 ```
 
-### Override (Not recommended)
+## Override (Not recommended)
 
 When CSS variables are not enough, you can customize the styles by importing the css file and overriding our default CSS rules.
 
@@ -136,35 +102,4 @@ For example, in the `src/index.jsx` file:
 ```jsx title="src/index.jsx"
 import "@suiet/wallet-kit/style.css";
 import "./suiet-wallet-kit-custom.css"; // You css file here
-```
-
-## Dark Mode
-
-With the help of CSS variables, you can easily customize the theme of the components to support dark mode.
-
-In fact, we have already provided a dark mode theme for you, no additional configuration is required.
-
-:::tip
-We also defined our dark mode theme under the `[data-theme='dark']:root` selector, as it is a common practice in the web development community.
-:::
-
-```scss
-@media (prefers-color-scheme: dark) {
-  :root {
-    --wkit-accent-hs: 166, 91%;
-    --wkit-on-accent-rgb: 255, 255, 255;
-    --wkit-bg-rgb: 40, 40, 40;
-    --wkit-on-bg-rgb: 241, 241, 241;
-  }
-}
-```
-
-Like normal mode, you can override the CSS variables above to customize the look of the components in dark mode. For example, you can change the accent color to red in dark mode:
-
-```scss
-@media (prefers-color-scheme: dark) {
-  :root {
-    --wkit-accent-hs: 0, 100%;
-  }
-}
 ```
