@@ -59,7 +59,7 @@ After figuring out the CSS variables you want to customize, you can override the
 Import the default css file and your own css file in your application.
 
 :::caution
-The CSS variables must be imported **AFTER** importing the default css file.
+The CSS variables must be imported / declared **AFTER** the default css file.
 :::
 
 For example, in the `src/index.jsx` file:
@@ -94,7 +94,7 @@ Then override the styles in your own CSS file.
 And last, import the default css file and your own css file in your application.
 
 :::caution
-Your CSS rules must be imported **AFTER** importing the default css file.
+Your CSS rules must be imported / declared **AFTER** the default css file.
 :::
 
 For example, in the `src/index.jsx` file:

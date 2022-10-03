@@ -84,17 +84,27 @@
 }
 
 .wkit-disconnect-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   position: absolute;
   bottom: -56px;
-  width: var(--wkit-button-width);
-  
   border-radius: var(--wkit-border-radius);
   padding: 14px;
   color: rgba(var(--wkit-on-bg-rgb), 0.8);
   cursor: pointer;
 
   text-align: center;
+
+  font-family: var(--wkit-font-family);
+  font-style: normal;
+  font-weight: 700;
+  font-size: var(--wkit-font-size-medium);
+  line-height: var(--wkit-line-height-medium);
+  color: rgba(var(--wkit-on-bg-rgb), 0.8);
+  border: 0;
 
   &{
     background-color: rgba(var(--wkit-on-bg-rgb), 0.05);
@@ -106,14 +116,5 @@
 
   &:active {
     background-color: rgba(10, 14, 34, 0.10);
-  }
-
-  &__text {
-    font-family: var(--wkit-font-family);
-    font-style: normal;
-    font-weight: 700;
-    font-size: var(--wkit-font-size-medium);
-    line-height: var(--wkit-line-height-medium);
-    color: rgba(var(--wkit-on-bg-rgb), 0.8);
   }
 }

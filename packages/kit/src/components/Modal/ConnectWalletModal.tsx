@@ -123,7 +123,7 @@ export function ConnectWalletModal({
                 <div className={"wkit-dialog__header"}>
                   <Dialog.Title
                     className={"wkit-dialog__title"}
-                    style={{ margin: "-6px 12px -6px -8px" }}
+                    style={{ margin: "-8px 12px -6px -8px" }}
                   >
                     <span
                       className="wkit-dialog__close"

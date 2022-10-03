@@ -40,15 +40,15 @@ function WalletInfo(props: ConnectButtonProps) {
         </div>
       </button>
       {showDisconnectButton && (
-        <div
+        <button
           className={"wkit-disconnect-button"}
           onClick={() => {
             setShowDisconnectButton(false);
             disconnect();
           }}
         >
-          <span className={"wkit-disconnect-button__text"}>Disconnect</span>
-        </div>
+          Disconnect
+        </button>
       )}
     </div>
   );
