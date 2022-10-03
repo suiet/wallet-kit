@@ -5,7 +5,7 @@ sidebar_position: 1
 
 Hello my friend 👋 Welcome onboard 🛳
 
-Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in SUI💧 ecosystem easily. 🥳
+Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in Sui💧 ecosystem easily. 🥳
 
 Let's try our kit and empower your dapp in minutes. 🪄
 
