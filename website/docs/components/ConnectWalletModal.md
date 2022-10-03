@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## Description
 
-If you want to use your own button, you can use ConnectWalletModal to wrap your button just as following.
+If you want to use your own button, you can use `ConnectWalletModal` to wrap your button just as following.
 
 ## Example
 

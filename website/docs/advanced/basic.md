@@ -2,7 +2,9 @@
 
 ## BEM Naming Rule
 
-The BEM naming rule is used to name CSS classes. It is a convention for naming CSS classes in a consistent and predictable way. It helps to achieve reusable components and code sharing in front-end development.
+The BEM naming rule is used to name CSS classes.
+It is a convention for naming CSS classes in a consistent and predictable way.
+It helps to achieve reusable components and code sharing in front-end development.
 
 ```txt
 .wkit-[block]__[element]--[modifier]
@@ -14,7 +16,7 @@ The BEM naming rule is used to name CSS classes. It is a convention for naming C
 
 ## Import default CSS
 
-You need to import the default css file to use the default styles.
+You need to import the default CSS file to use the default styles.
 
 :::caution
 You may need a proper CSS loader to import CSS files. See [Webpack](https://webpack.js.org/loaders/css-loader/) or [Vite](https://vitejs.dev/guide/features.html#css) for more information.

@@ -3,11 +3,11 @@ title: Quick Start
 sidebar_position: 1
 ---
 
-Hello my friend 👋 Welcome onboard 🛳 
+Hello my friend 👋 Welcome onboard 🛳
 
-Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in SUI💧 ecosystem easily 🥳
+Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in SUI💧 ecosystem easily. 🥳
 
-Let's try our kit and empower your dapp in minutes 🪄
+Let's try our kit and empower your dapp in minutes. 🪄
 
 ## 🔨 Setup
 
@@ -62,7 +62,7 @@ const App = () => {
 
 ## 🪝 Use Wallet Capacities 
 
-Now your dapp is already empowered and able to call wallet capacities🎉
+Now your dapp is already empowered and able to call wallet capacities.🎉
 
 Continue to BUIDL your amazing dapp and join the incoming Sui-nami! 🌊
 

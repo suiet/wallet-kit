@@ -4,7 +4,7 @@
 
 This section describes how to use CSS variables to customize the theme of the components.
 
-We use CSS variables to define colors, and other styles like below:
+We use CSS variables to define colors and other styles like below:
 
 ```css
 :root {
@@ -52,26 +52,26 @@ After figuring out the CSS variables you want to customize, you can override the
 :root {
   --wkit-accent-hs: 110, 100%; // Redefine the hs (the first two components of hsl) of the accent color
 
-  ... // other css variables
+  ... // other CSS variables
 }
 ```
 
-Import the default css file and your own css file in your application.
+Import the default CSS file and your own CSS file in your application.
 
 :::caution
-The CSS variables must be imported / declared **AFTER** the default css file.
+The CSS variables must be imported / declared **AFTER** the default CSS file.
 :::
 
 For example, in the `src/index.jsx` file:
 
 ```jsx title="src/index.jsx"
 import "@suiet/wallet-kit/style.css";
-import "./suiet-wallet-kit-custom.css"; // You css file here
+import "./suiet-wallet-kit-custom.css"; // You CSS file here
 ```
 
 ## Override (Not recommended)
 
-When CSS variables are not enough, you can customize the styles by importing the css file and overriding our default CSS rules.
+When CSS variables are not enough, you can customize the styles by importing the CSS file and overriding our default CSS rules.
 
 :::caution
 **Override our default CSS rules is not recommended because it is not easy to maintain.** If you have any questions or feature requests, please contact us.
@@ -91,10 +91,10 @@ Then override the styles in your own CSS file.
 }
 ```
 
-And last, import the default css file and your own css file in your application.
+And last, import the default CSS file and your own CSS file in your application.
 
 :::caution
-Your CSS rules must be imported / declared **AFTER** the default css file.
+Your CSS rules must be imported / declared **AFTER** the default CSS file.
 :::
 
 For example, in the `src/index.jsx` file:

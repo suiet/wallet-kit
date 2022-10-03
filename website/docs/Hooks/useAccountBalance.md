@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## Introduction
 
-You can get balance of the current account under selected network.
+You can get the balance of the current account under the selected network.
 
 ```ts
 interface AccountBalanceResponse {
@@ -18,7 +18,7 @@ interface AccountBalanceResponse {
 const { error, loading, balance } = useAccountBalance();
 ```
 
-UseAccountBalance will return the current account's balance, loading status, error object. When fetch the banlance data, loading will set to true, otherwise false. If fetch failed, error will be an Error object instance and shows why fetch failed.
+UseAccountBalance will return the current account's balance, loading status, error object. When fetching the banlance data, loading will set to true, otherwise false. If fetch failed, error will be an Error object instance and shows why fetch failed.
 
 :::caution
 If error is not null, it means fetch balance failed. In this case, the balance will set to be 0.
