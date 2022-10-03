@@ -6,7 +6,10 @@ sidebar_position: 1
 
 ## Introduction
 
-The useWallet hook provide the ability to get the status of account, connect method and move call method. You can use the hook and provider to connect wallet by your own button and modal. The useWallet hook will return WalletContextState props, for detail, you can check the doc https://kit.suiet.app/docs/components/walletprovider#walletcontextstate to get the api reference of WalletContextState.
+The useWallet hook provides the ability to get the status of account, connect method and move call method.
+You can use the hook and provider to connect wallet by your own button and modal.
+The useWallet hook will return WalletContextState props.
+For detail, you can check the doc https://kit.suiet.app/docs/components/walletprovider#walletcontextstate to get the api reference of WalletContextState.
 
 ```ts
 const {
@@ -59,9 +62,10 @@ const groupWallets = {
 };
 ```
 
-The wallet is the current selected wallet in the supportedWallets. You can check the doc https://kit.suiet.app/docs/components/WalletProvider#walletinstance to learn the wallet type.
+The wallet is the currently selected wallet in the `supportedWallets`.
+You can check the doc https://kit.suiet.app/docs/components/WalletProvider#walletinstance to learn the wallet type.
 
-2. Wallet status. The connecting, connected, and status is all related to the wallet's connection status. Their relationship is as follows:
+2. Wallet status. The connecting, connected, and status are all related to the wallet's connection status. Their relationship is as follows:
 
 ```js
 const { status, connected, connecting } = useWallet();
@@ -70,8 +74,10 @@ assert(status === 'connecting', connecting);
 assert(status === 'connected', connected);
 ```
 
-After you connect to the wallet, you can get account address from useWallet hook. The address is just like `0x84bf9b49a3db40cb022c371af2ac6cb3017a712b`.
+After you connect to the wallet, you can get the account address from `useWallet` hook. The address is just like `0x84bf9b49a3db40cb022c371af2ac6cb3017a712b`.
 
 3. Connect method. In most cases, you do not need to use these methods.
 
-4. Adapter's common method. The getAccounts, executeMoveCall and executeSerializedMoveCall is just the adpter's method. The getAccounts will return all account address of the current wallet. The executeMoveCall and executeSerializedMoveCall is related to transaction of sui. For detail, you can check the sui official doc https://docs.sui.io/sui-jsonrpc#sui_executeTransaction.
+4. Adapter's common method. The `getAccounts`, `executeMoveCall` and `executeSerializedMoveCal`l` is just the adapter's method.
+   The `getAccounts` will return all account address of the current wallet. The `executeMoveCall` and `executeSerializedMoveCall` is related to transaction of sui.
+   For detail, you can check the sui official doc https://docs.sui.io/sui-jsonrpc#sui_executeTransaction.
