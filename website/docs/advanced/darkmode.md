@@ -9,7 +9,7 @@ You may also defined dark mode theme under the `[data-theme='dark']:root` select
 ::: -->
 
 :::caution
-Rules about dark mode must be imported / declared **AFTER** the default css file.
+Rules about dark mode must be imported / declared **AFTER** the default CSS file.
 :::
 
 ```scss
