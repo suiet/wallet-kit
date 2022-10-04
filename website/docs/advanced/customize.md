@@ -18,7 +18,7 @@ We use CSS variables to define colors and other styles like below:
   --wkit-font-size-medium: 16px;
   --wkit-font-size-small: 14px;
   --wkit-line-height-large: 22px;
-  --wkit-line-height-medium: 19px;
+  --wkit-line-height-medium: 20px;
   --wkit-line-height-small: 17px;
   --wkit-button-width: 284px;
   --wkit-border-radius: 16px;
@@ -39,7 +39,7 @@ Below is a list of all CSS variables that you can use as public API to customize
 | `--wkit-font-size-medium`   | The font-size of the components (M).                   | `16px`                       |
 | `--wkit-font-size-small`    | The font-size of the components (S).                   | `14px`                       |
 | `--wkit-line-height-large`  | The line-height of the components (L).                 | `22px`                       |
-| `--wkit-line-height-medium` | The line-height of the components (M).                 | `19px`                       |
+| `--wkit-line-height-medium` | The line-height of the components (M).                 | `20px`                       |
 | `--wkit-line-height-small`  | The line-height of the components (S).                 | `17px`                       |
 | `--wkit-button-width`       | The width of the button.                               | `284px`                      |
 | `--wkit-border-radius`      | The border radius of the components.                   | `16px`                       |
