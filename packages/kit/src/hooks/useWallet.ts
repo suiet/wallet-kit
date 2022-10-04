@@ -4,7 +4,12 @@ import {
   SuiTransactionResponse,
 } from '@mysten/sui.js';
 import { createContext, useContext } from 'react';
-import { WalletInstance } from '../adapter/KitAdapter';
+import {
+  SignMessageInput,
+  SignMessageOutput,
+  WalletInstance,
+} from '../adapter/KitAdapter';
+import { SuietWalletAdapter } from '@suiet/wallet-adapter';
 
 export interface WalletContextState {
   // Supported Wallets
@@ -15,6 +20,7 @@ export interface WalletContextState {
 
   connecting: boolean;
   connected: boolean;
+  status: 'disconnected' | 'connected' | 'connecting';
   address: string;
 
   select: (walletName: string) => void;
@@ -28,7 +34,10 @@ export interface WalletContextState {
   executeSerializedMoveCall: (
     transactionBytes: Uint8Array
   ) => Promise<SuiTransactionResponse>;
-  status: 'disconnected' | 'connected' | 'connecting';
+  signMessage: (input: SignMessageInput) => Promise<{
+    error: Error | null;
+    data: SignMessageOutput | null;
+  }>;
 }
 
 function missProviderMessage(action: string) {
@@ -45,6 +54,9 @@ const DEFAULT_CONTEXT: WalletContextState = {
   status: 'disconnected',
   select(_name: string) {
     console.error(missProviderMessage('select'));
+  },
+  async signMessage() {
+    return await Promise.reject(console.error(missProviderMessage('connect')));
   },
   async connect() {
     return await Promise.reject(console.error(missProviderMessage('connect')));

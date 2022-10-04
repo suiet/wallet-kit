@@ -6,7 +6,12 @@ import type {
 } from '@mysten/sui.js';
 import { WalletContext } from '../hooks/useWallet';
 import latestWallets from './latestWallets';
-import { Wallet, WalletInstance, WalletList } from '../adapter/KitAdapter';
+import {
+  SignMessageInput,
+  Wallet,
+  WalletInstance,
+  WalletList,
+} from '../adapter/KitAdapter';
 import { keyBy, groupBy } from 'lodash';
 import { AccountStatus } from '../types/account';
 
@@ -123,6 +128,21 @@ export function WalletProvider({
     return await wallet.adapter.executeSerializedMoveCall(transactionBytes);
   };
 
+  const signMessage = async (input: SignMessageInput) => {
+    if (typeof wallet?.adapter.signMessage === 'function') {
+      const data = await wallet.adapter.signMessage(input);
+      return {
+        error: null,
+        data,
+      };
+    } else {
+      return {
+        error: new Error('Not support signMessage method'),
+        data: null,
+      };
+    }
+  };
+
   return (
     <WalletContext.Provider
       value={{
@@ -139,6 +159,7 @@ export function WalletProvider({
         groupWallets,
         address,
         status,
+        signMessage,
       }}
     >
       {children}
