@@ -1,17 +1,37 @@
 import { WalletAdapter } from '@mysten/wallet-adapter-base';
+import { SuietWalletAdapter } from '@suiet/wallet-adapter';
 
-interface KitAdapter<T> {
-  adapter: T;
+/** Input for signing a message. */
+export type SignMessageInput = Readonly<{
+  /** Message to sign, as raw bytes. */
+  message: Uint8Array;
+}>;
+
+/** Output of signing a message. */
+export type SignMessageOutput = Readonly<{
+  /** TODO: docs */
+  signedMessage: Uint8Array;
+
+  /** TODO: docs */
+  signature: Uint8Array;
+}>;
+
+interface ExtendsAdapter extends WalletAdapter {
+  signMessage?: (input: SignMessageInput) => Promise<SignMessageOutput>;
 }
 
-export interface Wallet<T extends WalletAdapter = WalletAdapter> {
+interface KitAdapter {
+  adapter: ExtendsAdapter;
+}
+
+export interface Wallet {
   installed: boolean | undefined;
   name: string;
   iconUrl: string | (() => Promise<string>);
   downloadUrl?: {
     browserExtension?: string; // chrome default
   };
-  createAdapter: () => KitAdapter<T>;
+  createAdapter: () => KitAdapter;
 }
 
 export type WalletList = {
