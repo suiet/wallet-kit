@@ -81,6 +81,17 @@
 .wkit-connected-container {
   position: relative;
   width: var(--wkit-button-width);
+  background-color: rgba(var(--wkit-bg-rgb), 1);
+  border-radius: var(--wkit-border-radius);
+}
+
+.wkit-disconnect-button__container {
+  position: absolute;
+  bottom: -56px;
+  width: 100%;
+  display: flex;
+  background-color: rgba(var(--wkit-bg-rgb), 1);
+  border-radius: var(--wkit-border-radius);
 }
 
 .wkit-disconnect-button {
@@ -89,8 +100,6 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  position: absolute;
-  bottom: -56px;
   border-radius: var(--wkit-border-radius);
   padding: 14px;
   color: rgba(var(--wkit-on-bg-rgb), 0.8);
