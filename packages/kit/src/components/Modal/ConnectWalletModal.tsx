@@ -94,7 +94,7 @@ export function ConnectWalletModal({
                       alt={`logo of ${selectedWallet.name}`}
                     />
                     <h1 className="wkit-connecting__title">
-                      Opening Suiet Wallet
+                      Opening {selectedWallet.name}
                     </h1>
                     <p className="wkit-connecting__description">
                       Confirm connection in the extension
