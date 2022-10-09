@@ -63,6 +63,11 @@ export default function Home(): JSX.Element {
             maxWidth: "1280px",
             margin: "auto",
           }}><img src={useBaseUrl('img/kit-banner-2.png')} /></div>
+        <div style={{
+             width:"100%",
+            maxWidth: "1280px",
+            margin: "auto",
+          }}><img src={useBaseUrl('img/trustedby.png')} /></div>
         </main>
       </WalletProvider>
     </Layout>
