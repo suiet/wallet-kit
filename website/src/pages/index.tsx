@@ -45,7 +45,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      description="Suiet wallet kit is the best way to connect all Sui wallets."
     >
       <WalletProvider supportedWallets={getAllWallets()}>
         <HomepageHeader />
