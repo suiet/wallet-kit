@@ -30,4 +30,4 @@ If error is not null, it means fetch balance failed. In this case, the balance w
 | ---------- | ------------------------------ | ------- | ------- |
 | error      | error or null                  | boolean | false   |
 | loading    | fetch status                   | string  | ''      |
-| balance    | the balance of current account | string  | '0'     |
+| balance    | the balance of current account | string(bigint)  | '0'     |
