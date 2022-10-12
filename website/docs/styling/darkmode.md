@@ -8,7 +8,7 @@ You can override color-related CSS variables under the `@media (prefers-color-sc
 You may also defined dark mode theme under the `[data-theme='dark']:root` selector, as it is a common practice in the web development community.
 ::: -->
 
-:::caution
+:::tip
 Rules about dark mode must be imported / declared **AFTER** the default CSS file.
 :::
 

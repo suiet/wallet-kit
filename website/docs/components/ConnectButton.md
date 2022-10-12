@@ -6,8 +6,11 @@ sidebar_position: 1
 
 ## Description
 
-If you use `ConnectButton` in your App, you'll get all of features of kit, such as modal, connect, disconnect and so on.
-Use `ConnectButton` component is also the simplest way to integrate Suiet wallet kit.
+
+We recommend using `ConnectButton` component to integrate Suiet wallet kit 🥳 
+
+By using `ConnectButton`, you can use all the features of Suiet kit, such as wallet selection modal, account info display and so on.
+
 
 ## Example
 

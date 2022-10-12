@@ -18,7 +18,7 @@ It helps to achieve reusable components and code sharing in front-end developmen
 
 You need to import the default CSS file to use the default styles.
 
-:::caution
+:::tip
 You may need a proper CSS loader to import CSS files. See [Webpack](https://webpack.js.org/loaders/css-loader/) or [Vite](https://vitejs.dev/guide/features.html#css) for more information.
 :::
 

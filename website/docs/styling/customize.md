@@ -58,7 +58,7 @@ After figuring out the CSS variables you want to customize, you can override the
 
 Import the default CSS file and your own CSS file in your application.
 
-:::caution
+:::tip
 The CSS variables must be imported / declared **AFTER** the default CSS file.
 :::
 
@@ -93,7 +93,7 @@ Then override the styles in your own CSS file.
 
 And last, import the default CSS file and your own CSS file in your application.
 
-:::caution
+:::tip
 Your CSS rules must be imported / declared **AFTER** the default CSS file.
 :::
 
