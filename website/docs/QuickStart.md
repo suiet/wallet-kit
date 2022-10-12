@@ -42,8 +42,11 @@ const App = () => {
 
 ## 🕹 Place ConnectButton
 
-Just import our `<ConnectButton />` and place it to anywhere you like, such as Header.
+:::tip
+We recommend to use hooks together with our components. But if you only want to use our hooks, follow the instruction [#Advanced-Use Hooks Only](/docs/advanced/hooks-only)
+:::
 
+Just import our `<ConnectButton />` and place it to anywhere you like, such as Header.
 
 ```jsx
 import { ConnectButton } from '@suiet/wallet-kit';
@@ -60,7 +63,7 @@ const App = () => {
 };
 ```
 
-## 🪝 Use Wallet Capacities 
+## 🪝 Use Wallet Capacities
 
 Now your dapp is already empowered and able to call wallet capacities.🎉
 

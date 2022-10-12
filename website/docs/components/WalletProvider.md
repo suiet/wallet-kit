@@ -7,7 +7,7 @@ sidebar_position: 2
 ## Description
 
 You must wrap all kit hooks or components in `WalletProvider`.
-From `WalletProvider`, You can get all `WalletContextState` props with `useWallet` hook. The basic usage is as follows.
+From `WalletProvider`, You can get all `WalletContextState` props with `useWallet` hook.
 
 ## Example
 
