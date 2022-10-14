@@ -1,5 +1,4 @@
-import { WalletAdapter } from '@mysten/wallet-adapter-base';
-import { SuietWalletAdapter } from '@suiet/wallet-adapter';
+import type { WalletAdapter } from '@mysten/wallet-adapter-base';
 
 /** Input for signing a message. */
 export type SignMessageInput = Readonly<{

@@ -4,7 +4,7 @@ import logo from './logo.svg';
 
 export const suiet = (): Wallet => {
   return {
-    name: 'Suiet Wallet',
+    name: 'Suiet',
     iconUrl: logo,
     installed:
       typeof window !== 'undefined' &&
