@@ -3,6 +3,7 @@ import type {
   SuiAddress,
   MoveCallTransaction,
   SuiTransactionResponse,
+  SignableTransaction,
 } from '@mysten/sui.js';
 import { WalletContext } from '../hooks/useWallet';
 import latestWallets from './latestWallets';
@@ -14,6 +15,8 @@ import {
 } from '../adapter/KitAdapter';
 import { keyBy, groupBy } from 'lodash';
 import { AccountStatus } from '../types/account';
+import { useAdapters } from '../hooks/useAdapters';
+import { WalletContainer } from '../standard/WalletsContainer';
 
 interface WalletProviderProps {
   children: ReactNode;
@@ -29,6 +32,7 @@ export function WalletProvider({
   const [wallet, setWallet] = useState<WalletInstance | null>(null);
   const [status, setStatus] = useState(AccountStatus.disconnected);
   const [address, setAddress] = useState('');
+  const adapters = useAdapters([new WalletContainer()]);
 
   useEffect(() => {
     if (wallet && status === AccountStatus.connected) {
@@ -43,6 +47,14 @@ export function WalletProvider({
     supportedWallets,
     (walletInstance) => walletInstance.name
   );
+
+  adapters.forEach((adapter) => {
+    const wi = walletInstanceByName[adapter.name];
+    if (wi) {
+      wi.installed = true;
+      wi.adapter = adapter;
+    }
+  });
 
   const groupWallets = groupBy(supportedWallets, (wallet) => wallet.group);
 
@@ -131,15 +143,19 @@ export function WalletProvider({
   const signMessage = async (input: SignMessageInput) => {
     if (typeof wallet?.adapter.signMessage === 'function') {
       const data = await wallet.adapter.signMessage(input);
-      return {
-        error: null,
-        data,
-      };
+      return data;
     } else {
-      return {
-        error: new Error('Not support signMessage method'),
-        data: null,
-      };
+      throw new Error('Not support signMessage method');
+    }
+  };
+
+  const signAndExecuteTransaction = async (
+    transaction: SignableTransaction
+  ) => {
+    if (typeof wallet?.adapter.signAndExecuteTransaction === 'function') {
+      return await wallet?.adapter.signAndExecuteTransaction(transaction);
+    } else {
+      throw new Error('Not support signAndExecuteTransaction method');
     }
   };
 
@@ -160,6 +176,7 @@ export function WalletProvider({
         address,
         status,
         signMessage,
+        signAndExecuteTransaction,
       }}
     >
       {children}

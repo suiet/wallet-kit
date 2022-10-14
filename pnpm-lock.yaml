@@ -7,8 +7,8 @@ importers:
 
   packages/kit:
     specifiers:
-      '@mysten/sui.js': 0.11.0
-      '@mysten/wallet-adapter-base': 0.1.0
+      '@mysten/sui.js': 0.12.0
+      '@mysten/wallet-adapter-base': 0.2.0
       '@mysten/wallet-adapter-sui-wallet': 0.0.0-experimental-20220918004146
       '@radix-ui/react-dialog': ^1.0.0
       '@suiet/wallet-adapter': ^0.0.17
@@ -18,8 +18,12 @@ importers:
       '@vanilla-extract/css': ^1.9.0
       '@vanilla-extract/vite-plugin': ^3.4.0
       '@vitejs/plugin-react': ^2.1.0
+      '@wallet-standard/app': ^0.1.0-alpha.6
+      '@wallet-standard/features': 0.1.0-alpha.4
+      '@wallet-standard/standard': 0.1.0-alpha.5
       classnames: ^2.3.2
       lodash: ^4.17.21
+      mitt: ^3.0.0
       react: ^17.0.2
       react-dom: ^17.0.2
       swr: ^1.3.0
@@ -28,12 +32,16 @@ importers:
       vite: ^3.1.0
       vite-plugin-svgr: ^2.2.1
     dependencies:
-      '@mysten/sui.js': 0.11.0
-      '@mysten/wallet-adapter-base': 0.1.0
+      '@mysten/sui.js': 0.12.0
+      '@mysten/wallet-adapter-base': 0.2.0
       '@radix-ui/react-dialog': 1.0.0_hiunvzosbwliizyirxfy6hjyim
       '@suiet/wallet-adapter': 0.0.17
+      '@wallet-standard/app': 0.1.0-alpha.6
+      '@wallet-standard/features': 0.1.0-alpha.4
+      '@wallet-standard/standard': 0.1.0-alpha.5
       classnames: 2.3.2
       lodash: 4.17.21
+      mitt: 3.0.0
       swr: 1.3.0_react@17.0.2
     devDependencies:
       '@mysten/wallet-adapter-sui-wallet': 0.0.0-experimental-20220918004146
@@ -2633,6 +2641,29 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@mysten/sui.js/0.12.0:
+    resolution: {integrity: sha512-DdaBZGCZ0WPunk3NfJL48izK2XJ7xFueS84qqSD0teoqRICcM7mWLWfPIV4TNLRiZ/O0EKeL3amaU+m69t3Pgg==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@mysten/bcs': 0.3.0
+      '@noble/hashes': 1.1.3
+      '@noble/secp256k1': 1.7.0
+      '@scure/bip32': 1.1.1
+      '@scure/bip39': 1.1.0
+      bn.js: 5.2.1
+      buffer: 6.0.3
+      cross-fetch: 3.1.5
+      jayson: 3.7.0
+      js-sha3: 0.8.0
+      lossless-json: 1.0.5
+      rpc-websockets: 7.5.0
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   /@mysten/wallet-adapter-base/0.0.0-experimental-20220918004146:
     resolution: {integrity: sha512-NGjVvy1u05g5TNJygaIbv5i04HIptj8nfJNKD/T2nqfZ+qTyclkxdRoBdFLKdkP+VEReuKFCS7AOlQKzu3A2ow==}
     dependencies:
@@ -2653,6 +2684,16 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@mysten/wallet-adapter-base/0.2.0:
+    resolution: {integrity: sha512-j+lG1T5hGj3Zbd29d8hwPzCd5VDng7XUB3Fk/WiDw01doJex8P6sXUxEEm6RAlKrmJxGeZRi+JKAefHdXCHCBg==}
+    dependencies:
+      '@mysten/sui.js': 0.12.0
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   /@mysten/wallet-adapter-sui-wallet/0.0.0-experimental-20220918004146:
     resolution: {integrity: sha512-jYIFF77Lxir7KDBHoLPe+8PYmLVdl5VRUF1RQdytMZnkuuFjyMp6VdFzSMUkVttZOPPxXLvf46QByULeYpo8Ug==}
     dependencies:
@@ -2666,6 +2707,10 @@ packages:
 
   /@noble/hashes/1.1.2:
     resolution: {integrity: sha512-KYRCASVTv6aeUi1tsF8/vpyR7zpfs3FUzy2Jqm+MU+LmUKhQ0y2FpfwqkCcxSg2ua4GALJd8k2R76WxwZGbQpA==}
+
+  /@noble/hashes/1.1.3:
+    resolution: {integrity: sha512-CE0FCR57H2acVI5UOzIGSSIYxZ6v/HOhDR0Ro9VLyhnzLwx0o8W1mmgaqlEUx4049qJDlIBRztv5k+MM8vbO3A==}
+    dev: false
 
   /@noble/secp256k1/1.7.0:
     resolution: {integrity: sha512-kbacwGSsH/CTout0ZnZWxnW1B+jH/7r/WAAKLBtrRJ/+CUH7lgmQzl3GTrQua3SGKWNSDsS6lmjnDpIJ5Dxyaw==}
@@ -2887,6 +2932,25 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
+
+  /@scure/base/1.1.1:
+    resolution: {integrity: sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==}
+    dev: false
+
+  /@scure/bip32/1.1.1:
+    resolution: {integrity: sha512-UmI+liY7np2XakaW+6lMB6HZnpczWk1yXZTxvg8TM8MdOcKHCGL1YkraGj8eAjPfMwFNiAyek2hXmS/XFbab8g==}
+    dependencies:
+      '@noble/hashes': 1.1.3
+      '@noble/secp256k1': 1.7.0
+      '@scure/base': 1.1.1
+    dev: false
+
+  /@scure/bip39/1.1.0:
+    resolution: {integrity: sha512-pwrPOS16VeTKg98dYXQyIjJEcWfz7/1YJIwxUEPFfQPtc86Ym/1sVgQ2RLoD43AazMk2l/unK4ITySSpW2+82w==}
+    dependencies:
+      '@noble/hashes': 1.1.3
+      '@scure/base': 1.1.1
+    dev: false
 
   /@sideway/address/4.1.4:
     resolution: {integrity: sha512-7vwq+rOHVWjyXxVlR76Agnvhy8I9rpzjosTESvmhNeXOXdZZB15Fl+TI9x1SiHZH5Jv2wTGduSxFDIaq0m3DUw==}
@@ -3366,15 +3430,27 @@ packages:
       - supports-color
     dev: true
 
+  /@wallet-standard/app/0.1.0-alpha.6:
+    resolution: {integrity: sha512-Z/aTiMpI2qjh/YDS8GtmHrIwpsHhHlzYffkEvuiG3RY7j0ZNsQWOx38hNN/V6lOlKrh7S+azPcFL7ESiilqvcA==}
+    dependencies:
+      '@wallet-standard/standard': 0.1.0-alpha.5
+    dev: false
+
   /@wallet-standard/features/0.1.0-alpha.0:
     resolution: {integrity: sha512-HRVuYpMCbO3Vmdea1uRll7bL+3eZ0GxCtkMnDnMcT2+QOH9N56cxGo6DmUbZgVkqeWKzt6i+p27QPOdXlipD1g==}
     dependencies:
-      '@wallet-standard/standard': 0.1.0-alpha.3
+      '@wallet-standard/standard': 0.1.0-alpha.5
       '@wallet-standard/types': 0.1.0-alpha.3
     dev: false
 
-  /@wallet-standard/standard/0.1.0-alpha.3:
-    resolution: {integrity: sha512-XseAI+UuTvGyU9rJBFThD/Deaa7dGoixp6r368zbUX77HZEAGfLE6b+KWsqVlop6Y5W/ewXaCzcwpyw+/R/EpQ==}
+  /@wallet-standard/features/0.1.0-alpha.4:
+    resolution: {integrity: sha512-HF7i//1oqadV8269Jp8rEFxSf+nCxLZ+CGKT5giuavSb/hdbiPPDbQLMhWfyLRatSnssIZN1LtsyzGe9kDFJrg==}
+    dependencies:
+      '@wallet-standard/standard': 0.1.0-alpha.5
+    dev: false
+
+  /@wallet-standard/standard/0.1.0-alpha.5:
+    resolution: {integrity: sha512-rqs9vD+Hww8kWtF8/8wi+hhLIWN1ank/ZfK7mGALen+9XhxAcgOJwl96l30MCSL2w1AHykOEELOZK6lUbg13gQ==}
     dev: false
 
   /@wallet-standard/types/0.1.0-alpha.3:
@@ -6748,6 +6824,10 @@ packages:
 
   /minimist/1.2.6:
     resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==}
+
+  /mitt/3.0.0:
+    resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
+    dev: false
 
   /mkdirp/1.0.4:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
