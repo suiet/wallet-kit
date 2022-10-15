@@ -89,3 +89,11 @@ Feel free to play with our [Create-React-App Demo](https://wallet-kit-demo.verce
 > Github repo: https://github.com/suiet/wallet-kit/tree/main/examples/with-cra
 
 <img src="/img/integration-example.png" />
+
+
+## 🤝 Trusted by great Sui projects
+
+- [BlueMove NFT](https://sui.bluemove.net/)
+- [Suia POAP](https://suia.io/)
+
+<img src="/img/trustedby.png" />
