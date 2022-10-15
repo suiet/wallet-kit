@@ -1,4 +1,4 @@
-# Customize & Theme
+# CSS Customize & Theme
 
 ## CSS Variables
 
@@ -12,8 +12,8 @@ We use CSS variables to define colors and other styles like below:
   --wkit-on-accent-rgb: 255, 255, 255;
   --wkit-bg-rgb: 239, 241, 245;
   --wkit-on-bg-rgb: 10, 14, 34;
-  --wkit-font-family: "Inter", sans-serif;
-  --wkit-font-family-mono: "IBM Plex Mono", monospace;
+  --wkit-font-family: 'Inter', sans-serif;
+  --wkit-font-family-mono: 'IBM Plex Mono', monospace;
   --wkit-font-size-large: 18px;
   --wkit-font-size-medium: 16px;
   --wkit-font-size-small: 14px;
@@ -58,15 +58,15 @@ After figuring out the CSS variables you want to customize, you can override the
 
 Import the default CSS file and your own CSS file in your application.
 
-:::caution
+:::tip
 The CSS variables must be imported / declared **AFTER** the default CSS file.
 :::
 
 For example, in the `src/index.jsx` file:
 
 ```jsx title="src/index.jsx"
-import "@suiet/wallet-kit/style.css";
-import "./suiet-wallet-kit-custom.css"; // You CSS file here
+import '@suiet/wallet-kit/style.css';
+import './suiet-wallet-kit-custom.css'; // You CSS file here
 ```
 
 ## Override (Not recommended)
@@ -93,13 +93,13 @@ Then override the styles in your own CSS file.
 
 And last, import the default CSS file and your own CSS file in your application.
 
-:::caution
+:::tip
 Your CSS rules must be imported / declared **AFTER** the default CSS file.
 :::
 
 For example, in the `src/index.jsx` file:
 
 ```jsx title="src/index.jsx"
-import "@suiet/wallet-kit/style.css";
-import "./suiet-wallet-kit-custom.css"; // You css file here
+import '@suiet/wallet-kit/style.css';
+import './suiet-wallet-kit-custom.css'; // You css file here
 ```
