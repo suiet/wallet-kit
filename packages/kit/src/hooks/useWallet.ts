@@ -10,7 +10,6 @@ import {
   SignMessageOutput,
   WalletInstance,
 } from '../adapter/KitAdapter';
-import { SuietWalletAdapter } from '@suiet/wallet-adapter';
 
 export interface WalletContextState {
   // Supported Wallets
@@ -42,6 +41,7 @@ export interface WalletContextState {
     transactionBytes: Uint8Array
   ) => Promise<SuiTransactionResponse>;
   signMessage: (input: SignMessageInput) => Promise<SignMessageOutput | null>;
+  getPublicKey: () => Promise<string>;
 }
 
 function missProviderMessage(action: string) {
@@ -92,6 +92,11 @@ const DEFAULT_CONTEXT: WalletContextState = {
   async signAndExecuteTransaction() {
     return await Promise.reject(
       console.error(missProviderMessage('signAndExecuteTransaction'))
+    );
+  },
+  async getPublicKey() {
+    return await Promise.reject(
+      console.error(missProviderMessage('getPublicKey'))
     );
   },
 };
