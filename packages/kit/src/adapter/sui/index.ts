@@ -1,10 +1,11 @@
 import { SuiWalletAdapter } from '@mysten/wallet-adapter-sui-wallet';
+import { WalletNames } from '../../constants/wallet';
 import { Wallet } from '../KitAdapter';
 import logo from './logo.svg';
 
 export const sui = (): Wallet => {
   return {
-    name: 'Sui Wallet',
+    name: WalletNames.SUI_WALLET,
     iconUrl: logo,
     installed:
       typeof window !== 'undefined' &&
@@ -15,7 +16,8 @@ export const sui = (): Wallet => {
       };
     },
     downloadUrl: {
-      browserExtension: "https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil",
+      browserExtension:
+        'https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil',
     },
   };
 };

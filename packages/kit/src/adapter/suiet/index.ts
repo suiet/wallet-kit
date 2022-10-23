@@ -1,10 +1,11 @@
 import { SuietWalletAdapter } from '@suiet/wallet-adapter';
+import { WalletNames } from '../../constants/wallet';
 import { Wallet } from '../KitAdapter';
 import logo from './logo.svg';
 
 export const suiet = (): Wallet => {
   return {
-    name: 'Suiet Wallet',
+    name: WalletNames.SUIET_WALLET,
     iconUrl: logo,
     installed:
       typeof window !== 'undefined' &&

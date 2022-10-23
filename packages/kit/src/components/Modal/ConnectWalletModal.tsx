@@ -1,13 +1,13 @@
-import * as React from "react";
-import type { ReactNode } from "react";
-import * as Dialog from "@radix-ui/react-dialog";
-import type { DialogProps } from "@radix-ui/react-dialog";
+import * as React from 'react';
+import type { ReactNode } from 'react';
+import * as Dialog from '@radix-ui/react-dialog';
+import type { DialogProps } from '@radix-ui/react-dialog';
 
-import "./index.scss";
-import { WalletInstance } from "../../adapter/KitAdapter";
-import Icon from "../Icon";
-import { SvgArrowLeft, SvgClose } from "../Icon/SvgIcons";
-import { useWallet } from "../../hooks";
+import './index.scss';
+import { WalletInstance } from '../../adapter/KitAdapter';
+import Icon from '../Icon';
+import { SvgArrowLeft, SvgClose } from '../Icon/SvgIcons';
+import { useWallet } from '../../hooks';
 
 interface ConnectWalletModalProps {
   groupWallets: Record<string, WalletInstance[]>;
@@ -21,8 +21,8 @@ export function ConnectWalletModal({
   onWalletClick,
 }: ConnectWalletModalProps) {
   const groups = Object.entries(groupWallets).sort((wa, wb) => {
-    if (wa[0] === "Recent") return -1;
-    if (wa[0] === "Popular") return -1;
+    if (wa[0] === 'Recent') return -1;
+    if (wa[0] === 'Popular') return -1;
     return wa[0] > wb[0] ? -1 : 1;
   });
 
@@ -41,11 +41,11 @@ export function ConnectWalletModal({
   }, [contentRef, contentRef.current]);
 
   React.useEffect(() => {
-    if (typeof selectedWallet?.iconUrl === "function") {
+    if (typeof selectedWallet?.iconUrl === 'function') {
       selectedWallet?.iconUrl().then((url) => {
         setRealIconUrl(url);
       });
-    } else if (typeof selectedWallet?.iconUrl === "string") {
+    } else if (typeof selectedWallet?.iconUrl === 'string') {
       setRealIconUrl(selectedWallet?.iconUrl);
     }
   }, [selectedWallet]);
@@ -61,19 +61,19 @@ export function ConnectWalletModal({
           <Dialog.Root open={open}>
             <Dialog.Trigger asChild>{children}</Dialog.Trigger>
             <Dialog.Portal>
-              <Dialog.Overlay className={"wkit-dialog__overlay"}>
+              <Dialog.Overlay className={'wkit-dialog__overlay'}>
                 <Dialog.Content
-                  className={"wkit-dialog__content"}
+                  className={'wkit-dialog__content'}
                   style={{
                     minHeight: `${contentHeight}px`,
-                    display: "flex",
-                    flexDirection: "column",
+                    display: 'flex',
+                    flexDirection: 'column',
                   }}
                 >
-                  <div className={"wkit-dialog__header"}>
+                  <div className={'wkit-dialog__header'}>
                     <Dialog.Title
-                      className={"wkit-dialog__title"}
-                      style={{ margin: "-6px 12px -6px -8px" }}
+                      className={'wkit-dialog__title'}
+                      style={{ margin: '-6px 12px -6px -8px' }}
                     >
                       <span
                         className="wkit-dialog__close"
@@ -83,7 +83,7 @@ export function ConnectWalletModal({
                       </span>
                     </Dialog.Title>
 
-                    <Dialog.Title className={"wkit-dialog__title"}>
+                    <Dialog.Title className={'wkit-dialog__title'}>
                       Connecting
                     </Dialog.Title>
                   </div>
@@ -111,19 +111,19 @@ export function ConnectWalletModal({
         <Dialog.Root open={open}>
           <Dialog.Trigger asChild>{children}</Dialog.Trigger>
           <Dialog.Portal>
-            <Dialog.Overlay className={"wkit-dialog__overlay"}>
+            <Dialog.Overlay className={'wkit-dialog__overlay'}>
               <Dialog.Content
-                className={"wkit-dialog__content"}
+                className={'wkit-dialog__content'}
                 style={{
                   minHeight: `${contentHeight}px`,
-                  display: "flex",
-                  flexDirection: "column",
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
               >
-                <div className={"wkit-dialog__header"}>
+                <div className={'wkit-dialog__header'}>
                   <Dialog.Title
-                    className={"wkit-dialog__title"}
-                    style={{ margin: "-8px 12px -6px -8px" }}
+                    className={'wkit-dialog__title'}
+                    style={{ margin: '-8px 12px -6px -8px' }}
                   >
                     <span
                       className="wkit-dialog__close"
@@ -133,7 +133,7 @@ export function ConnectWalletModal({
                     </span>
                   </Dialog.Title>
 
-                  <Dialog.Title className={"wkit-dialog__title"}>
+                  <Dialog.Title className={'wkit-dialog__title'}>
                     Install Wallet
                   </Dialog.Title>
                 </div>
@@ -156,7 +156,7 @@ export function ConnectWalletModal({
                         if (selectedWallet.downloadUrl.browserExtension) {
                           window.open(
                             selectedWallet.downloadUrl.browserExtension,
-                            "_blank"
+                            '_blank'
                           );
                         }
                         // else if (selectedWallet.downloadUrl.mobile) {
@@ -183,15 +183,15 @@ export function ConnectWalletModal({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className={"wkit-dialog__overlay"}>
-          <Dialog.Content className={"wkit-dialog__content"} ref={contentRef}>
-            <div className={"wkit-dialog__header"}>
-              <Dialog.Title className={"wkit-dialog__title"}>
-                {"Connect Wallet"}
+        <Dialog.Overlay className={'wkit-dialog__overlay'}>
+          <Dialog.Content className={'wkit-dialog__content'} ref={contentRef}>
+            <div className={'wkit-dialog__header'}>
+              <Dialog.Title className={'wkit-dialog__title'}>
+                {'Connect Wallet'}
               </Dialog.Title>
               <Dialog.Close
-                style={{ position: "absolute", right: "16px", top: "16px" }}
-                className={"wkit-dialog__close"}
+                style={{ position: 'absolute', right: '16px', top: '16px' }}
+                className={'wkit-dialog__close'}
               >
                 <SvgClose />
               </Dialog.Close>
@@ -200,12 +200,12 @@ export function ConnectWalletModal({
               {groups.map(([group, wallets]) => {
                 if (wallets.length === 0) return null;
                 return (
-                  <div className={"wkit-select__container"} key={group}>
-                    <div className={"wkit-select__title"}>{group}</div>
+                  <div className={'wkit-select__container'} key={group}>
+                    <div className={'wkit-select__title'}>{group}</div>
                     {wallets.map((wallet) => {
                       return (
                         <div
-                          className={"wkit-select-item"}
+                          className={'wkit-select-item'}
                           key={wallet.name}
                           onClick={() => {
                             if (contentRef.current) {
@@ -230,8 +230,8 @@ export function ConnectWalletModal({
                         >
                           <Icon
                             icon={wallet.iconUrl}
-                            className={"wkit-select-item__icon"}
-                            elClassName={"wkit-select-item__icon"}
+                            className={'wkit-select-item__icon'}
+                            elClassName={'wkit-select-item__icon'}
                           />
                           {wallet?.name}
                         </div>
@@ -241,11 +241,11 @@ export function ConnectWalletModal({
                 );
               })}
             </div>
-            <div style={{ height: "41px", flexShrink: "0" }}></div>
-            <div className={"wkit-new-to-sui"}>
-              <span className={"wkit-new-to-sui__text"}>New to sui? </span>
+            <div style={{ height: '41px', flexShrink: '0' }}></div>
+            <div className={'wkit-new-to-sui'}>
+              <span className={'wkit-new-to-sui__text'}>New to sui? </span>
               <a
-                className={"wkit-new-to-sui__link"}
+                className={'wkit-new-to-sui__link'}
                 href="https://suiet.app/docs/getting-started"
                 target="_blank"
               >
