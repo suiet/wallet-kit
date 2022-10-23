@@ -2,6 +2,7 @@ import {
   MoveCallTransaction,
   SuiAddress,
   SuiTransactionResponse,
+  SignableTransaction,
 } from '@mysten/sui.js';
 import { createContext, useContext } from 'react';
 import {
@@ -9,7 +10,6 @@ import {
   SignMessageOutput,
   WalletInstance,
 } from '../adapter/KitAdapter';
-import { SuietWalletAdapter } from '@suiet/wallet-adapter';
 
 export interface WalletContextState {
   // Supported Wallets
@@ -28,16 +28,20 @@ export interface WalletContextState {
   disconnect: () => Promise<void>;
 
   getAccounts: () => Promise<SuiAddress[]>;
+  signAndExecuteTransaction(
+    transaction: SignableTransaction
+  ): Promise<SuiTransactionResponse>;
+
+  /** @deprecated Prefer `signAndExecuteTransaction` when available. */
   executeMoveCall: (
     transaction: MoveCallTransaction
   ) => Promise<SuiTransactionResponse>;
+  /** @deprecated Prefer `signAndExecuteTransaction` when available. */
   executeSerializedMoveCall: (
     transactionBytes: Uint8Array
   ) => Promise<SuiTransactionResponse>;
-  signMessage: (input: SignMessageInput) => Promise<{
-    error: Error | null;
-    data: SignMessageOutput | null;
-  }>;
+  signMessage: (input: SignMessageInput) => Promise<SignMessageOutput | null>;
+  getPublicKey: () => Promise<string>;
 }
 
 function missProviderMessage(action: string) {
@@ -85,9 +89,19 @@ const DEFAULT_CONTEXT: WalletContextState = {
       console.error(missProviderMessage('executeSerializedMoveCall'))
     );
   },
+  async signAndExecuteTransaction() {
+    return await Promise.reject(
+      console.error(missProviderMessage('signAndExecuteTransaction'))
+    );
+  },
+  async getPublicKey() {
+    return await Promise.reject(
+      console.error(missProviderMessage('getPublicKey'))
+    );
+  },
 };
 
-export const WalletContext = createContext<any>(DEFAULT_CONTEXT);
+export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);
 
 export function useWallet(): WalletContextState {
   return useContext(WalletContext);

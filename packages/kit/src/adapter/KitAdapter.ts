@@ -1,5 +1,4 @@
-import { WalletAdapter } from '@mysten/wallet-adapter-base';
-import { SuietWalletAdapter } from '@suiet/wallet-adapter';
+import type { WalletAdapter } from '@mysten/wallet-adapter-base';
 
 /** Input for signing a message. */
 export type SignMessageInput = Readonly<{
@@ -18,6 +17,7 @@ export type SignMessageOutput = Readonly<{
 
 interface ExtendsAdapter extends WalletAdapter {
   signMessage?: (input: SignMessageInput) => Promise<SignMessageOutput>;
+  getPublicKey?: () => Promise<string>;
 }
 
 interface KitAdapter {
@@ -42,4 +42,5 @@ export type WalletInstance = Omit<Wallet, 'createAdapter'> &
   ReturnType<Wallet['createAdapter']> & {
     index: number;
     group: string;
+    _adapter?: ExtendsAdapter;
   };

@@ -3,6 +3,7 @@ import type {
   SuiAddress,
   MoveCallTransaction,
   SuiTransactionResponse,
+  SignableTransaction,
 } from '@mysten/sui.js';
 import { WalletContext } from '../hooks/useWallet';
 import latestWallets from './latestWallets';
@@ -14,6 +15,9 @@ import {
 } from '../adapter/KitAdapter';
 import { keyBy, groupBy } from 'lodash';
 import { AccountStatus } from '../types/account';
+import { useAdapters } from '../hooks/useAdapters';
+import { WalletContainer } from '../standard/WalletsContainer';
+import type { ConditionalPick } from 'type-fest';
 
 interface WalletProviderProps {
   children: ReactNode;
@@ -22,6 +26,26 @@ interface WalletProviderProps {
 
 const LAST_WALLET = 'SUIET_LAST_WALLET';
 
+async function commonCallAdapterFunc(
+  wallet: WalletInstance,
+  funcName: any,
+  ...params: any[]
+) {
+  // @ts-ignore-nextlint
+  if (typeof wallet?.adapter?.[funcName] === 'function') {
+    // @ts-ignore-nextlint
+    return await wallet?.adapter[funcName](...params);
+    // @ts-ignore-nextlint
+  } else if (typeof wallet?._adapter?.[funcName] === 'function') {
+    // @ts-ignore-nextlint
+    return await wallet?._adapter[funcName](...params);
+  } else {
+    throw new Error(`Not support ${funcName} method`);
+  }
+}
+
+let init = false;
+
 export function WalletProvider({
   supportedWallets,
   children,
@@ -29,6 +53,7 @@ export function WalletProvider({
   const [wallet, setWallet] = useState<WalletInstance | null>(null);
   const [status, setStatus] = useState(AccountStatus.disconnected);
   const [address, setAddress] = useState('');
+  const adapters = useAdapters([new WalletContainer()]);
 
   useEffect(() => {
     if (wallet && status === AccountStatus.connected) {
@@ -43,6 +68,18 @@ export function WalletProvider({
     supportedWallets,
     (walletInstance) => walletInstance.name
   );
+
+  adapters.forEach((adapter) => {
+    const wi = walletInstanceByName[adapter.name];
+    if (wi && !init) {
+      wi.installed = true;
+      const temp = wi.adapter;
+      wi._adapter = temp;
+      wi.adapter = adapter;
+    }
+  });
+
+  init = true;
 
   const groupWallets = groupBy(supportedWallets, (wallet) => wallet.group);
 
@@ -111,36 +148,46 @@ export function WalletProvider({
 
   const getAccounts = async (): Promise<SuiAddress[]> => {
     if (wallet === null) throw Error('Wallet Not Connected');
-    return await wallet.adapter.getAccounts();
+    return await commonCallAdapterFunc(wallet, 'getAccounts');
   };
 
   const executeMoveCall = async (
     transaction: MoveCallTransaction
   ): Promise<SuiTransactionResponse> => {
     if (wallet === null) throw Error('Wallet Not Connected');
-    return await wallet.adapter.executeMoveCall(transaction);
+    if (typeof wallet?._adapter?.executeMoveCall === 'function')
+      return await wallet._adapter.executeMoveCall(transaction);
+    throw new Error(`Not support executeMoveCall method`);
   };
 
   const executeSerializedMoveCall = async (
     transactionBytes: Uint8Array
   ): Promise<SuiTransactionResponse> => {
     if (wallet === null) throw Error('Wallet Not Connected');
-    return await wallet.adapter.executeSerializedMoveCall(transactionBytes);
+    if (typeof wallet?._adapter?.executeSerializedMoveCall === 'function')
+      return await wallet._adapter.executeSerializedMoveCall(transactionBytes);
+    throw new Error(`Not support executeMoveCall method`);
   };
 
   const signMessage = async (input: SignMessageInput) => {
-    if (typeof wallet?.adapter.signMessage === 'function') {
-      const data = await wallet.adapter.signMessage(input);
-      return {
-        error: null,
-        data,
-      };
-    } else {
-      return {
-        error: new Error('Not support signMessage method'),
-        data: null,
-      };
-    }
+    if (wallet === null) throw Error('Wallet Not Connected');
+    return await commonCallAdapterFunc(wallet, 'signMessage', input);
+  };
+
+  const getPublicKey = async () => {
+    if (wallet === null) throw Error('Wallet Not Connected');
+    return await commonCallAdapterFunc(wallet, 'getPublicKey');
+  };
+
+  const signAndExecuteTransaction = async (
+    transaction: SignableTransaction
+  ) => {
+    if (wallet === null) throw Error('Wallet Not Connected');
+    return await commonCallAdapterFunc(
+      wallet,
+      'signAndExecuteTransaction',
+      transaction
+    );
   };
 
   return (
@@ -160,6 +207,8 @@ export function WalletProvider({
         address,
         status,
         signMessage,
+        signAndExecuteTransaction,
+        getPublicKey,
       }}
     >
       {children}

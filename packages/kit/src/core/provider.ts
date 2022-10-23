@@ -42,7 +42,6 @@ export class QueryProvider {
   }
 
   public async getOwnedObjects(address: string): Promise<SuiObject[]> {
-    trySyncAccountState(this.provider, address);
     const objectInfos = await this.provider.getObjectsOwnedByAddress(address);
     const objectIds = objectInfos.map((obj) => obj.objectId);
     const resps = await this.provider.getObjectBatch(objectIds);
@@ -52,7 +51,6 @@ export class QueryProvider {
   }
 
   public async getOwnedCoins(address: string): Promise<CoinObject[]> {
-    trySyncAccountState(this.provider, address);
     const objects = await this.getOwnedObjects(address);
     const res = objects
       .map((item) => ({
@@ -65,7 +63,6 @@ export class QueryProvider {
   }
 
   public async getOwnedNfts(address: string): Promise<NftObject[]> {
-    trySyncAccountState(this.provider, address);
     const objects = await this.getOwnedObjects(address);
     const res = objects
       .map((item) => ({
@@ -79,106 +76,6 @@ export class QueryProvider {
         return Nft.getNftObject(obj, item.previousTransaction);
       });
     return res;
-  }
-
-  public async getTransactionsForAddress(
-    address: string
-  ): Promise<TxnHistoryEntry[]> {
-    trySyncAccountState(this.provider, address);
-    const txs = await this.provider.getTransactionsForAddress(address);
-    if (txs.length === 0 || !txs[0]) {
-      return [];
-    }
-    const digests = txs
-      .map((tx) => tx[1])
-      .filter((value, index, self) => self.indexOf(value) === index);
-
-    const effects = await this.provider.getTransactionWithEffectsBatch(digests);
-    const results = [];
-    for (const effect of effects) {
-      const data = getTransactionData(effect.certificate);
-      for (const tx of data.transactions) {
-        const transferSui = getTransferSuiTransaction(tx);
-        const transferObject = getTransferObjectTransaction(tx);
-        const moveCall = getMoveCallTransaction(tx);
-        if (transferSui) {
-          results.push({
-            timestamp_ms: effect.timestamp_ms,
-            txStatus: getExecutionStatusType(effect),
-            transactionDigest: effect.certificate.transactionDigest,
-            gasFee:
-              effect.effects.gasUsed.computationCost +
-              effect.effects.gasUsed.storageCost -
-              effect.effects.gasUsed.storageRebate,
-            from: data.sender,
-            to: transferSui.recipient,
-            object: {
-              type: 'coin' as 'coin',
-              balance: transferSui.amount
-                ? BigInt(transferSui.amount)
-                : BigInt(0),
-              symbol: 'SUI',
-            },
-          });
-        } else if (transferObject) {
-          const resp = await this.provider.getObject(
-            transferObject.objectRef.objectId
-          );
-          const obj = getMoveObject(resp);
-          let txObj: TxObject | undefined;
-          // TODO: for now provider does not support to get histrorical object data,
-          // so the record here may not be accurate.
-          if (obj && Coin.isCoin(obj)) {
-            const coinObject = Coin.getCoinObject(obj);
-            txObj = {
-              type: 'coin' as 'coin',
-              ...coinObject,
-            };
-          } else if (obj && Nft.isNft(obj)) {
-            const nftObject = Nft.getNftObject(obj, undefined);
-            txObj = {
-              type: 'nft' as 'nft',
-              ...nftObject,
-            };
-          }
-          // TODO: handle more object types
-          if (txObj) {
-            results.push({
-              timestamp_ms: effect.timestamp_ms,
-              txStatus: getExecutionStatusType(effect),
-              transactionDigest: effect.certificate.transactionDigest,
-              gasFee:
-                effect.effects.gasUsed.computationCost +
-                effect.effects.gasUsed.storageCost -
-                effect.effects.gasUsed.storageRebate,
-              from: data.sender,
-              to: transferObject.recipient,
-              object: txObj,
-            });
-          }
-        } else if (moveCall) {
-          results.push({
-            timestamp_ms: effect.timestamp_ms,
-            txStatus: getExecutionStatusType(effect),
-            transactionDigest: effect.certificate.transactionDigest,
-            gasFee:
-              effect.effects.gasUsed.computationCost +
-              effect.effects.gasUsed.storageCost -
-              effect.effects.gasUsed.storageRebate,
-            from: data.sender,
-            to: moveCall.package.objectId,
-            object: {
-              type: 'move_call' as 'move_call',
-              packageObjectId: moveCall.package.objectId,
-              module: moveCall.module,
-              function: moveCall.function,
-              arguments: moveCall.arguments?.map((arg) => JSON.stringify(arg)),
-            },
-          });
-        }
-      }
-    }
-    return results;
   }
 
   public async getNormalizedMoveFunction(
@@ -215,10 +112,10 @@ export const MINT_EXAMPLE_NFT_MOVE_CALL = {
   gasBudget: 10000,
 };
 
-async function trySyncAccountState(provider: JsonRpcProvider, address: string) {
-  try {
-    await provider.syncAccountState(address);
-  } catch (err) {
-    console.log('sync account state failed', err);
-  }
-}
+// async function trySyncAccountState(provider: JsonRpcProvider, address: string) {
+//   try {
+//     await provider.syncAccountState(address);
+//   } catch (err) {
+//     console.log('sync account state failed', err);
+//   }
+// }
