@@ -120,11 +120,11 @@ After you connect to the wallet, you can get the account address from `useWallet
 | ---------------------------- | ------- |
 | (WalletName: string) => void |         |
 
-If you want to customize, it's useful to use select function. Now you can pass two kinds of WalletName: 'Suiet Wallet' or 'Sui Wallet'. For example:
+If you want to customize, it's useful to use select function. Now you can pass two kinds of WalletName: 'Suiet' or 'Sui Wallet'. And you can get wallet names from WalletNames constant. For example:
 
 ```jsx
 // App.jsx
-import { WalletProvider, getDefaultWallets } from '@suiet/wallet-kit';
+import { WalletProvider, getDefaultWallets, WalletNames } from '@suiet/wallet-kit';
 function App() {
   return (
     const supportedWallets = getDefaultWallets();
@@ -142,7 +142,7 @@ function YourComponent() {
 
   return (
     <YourButton onClick={() => {
-      select('Suiet Wallet') // = connect to suiet wallet
+      select(WalletNames.SUIET_WALLET) // = connect to suiet wallet
     }}>
       connect wallet
     </YourButton>
@@ -175,7 +175,42 @@ function YourComponent() {
 }
 ```
 
+### signAndExecuteTransaction
+
+The signAndExecuteTransaction hook is a substitute for executeMoveCall and executeSerializedMoveCall hook. It recive two pramas - kind and data. The kind param is the type of transaction(moveCall, bytes and more). For example
+
+```jsx
+export function Transaction() {
+  const { signAndExecuteTransaction } = useWallet();
+
+  const handleClick = async () => {
+    // the following example comes from sui wallet official example.
+    await signAndExecuteTransaction({
+      kind: 'moveCall',
+      data: {
+        packageObjectId: '0x2',
+        module: 'devnet_nft',
+        function: 'mint',
+        typeArguments: [],
+        arguments: [
+          'name',
+          'capy',
+          'https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop',
+        ],
+        gasBudget: 10000,
+      },
+    });
+  };
+
+  return <button onClick={() => handleClick()}>send transaction</button>;
+}
+```
+
 ### executeMoveCall and executeSerializedMoveCall
+
+:::caution
+deprecated, use `signAndExecuteTransaction` instead.
+:::
 
 The `executeMoveCall` and `executeSerializedMoveCall` is related to transaction of sui.
 For detail, you can check the sui official doc https://docs.sui.io/sui-jsonrpc#sui_executeTransaction. For example:
