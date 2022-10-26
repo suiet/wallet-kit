@@ -157,7 +157,7 @@ function App() {
 
 ## ✨ Incoming Features
 
-Actually we are working hard on this new project right now, so feel free to submit issues or ideas to our [Github](https://github.com/suiet/wallet-kit), Or send direct message via [Discord](https://discord.gg/WHup6fG5) or [Telegram](https://t.me/suietwallet)
+Actually we are working hard on this new project right now, so feel free to submit issues or ideas to our [Github](https://github.com/suiet/wallet-kit), Or send direct message via [Discord](https://discord.gg/XQspMzXNXu) or [Telegram](https://t.me/suietwallet)
 
 - Composable components
 - Customize component styles
