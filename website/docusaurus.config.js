@@ -101,7 +101,7 @@ const config = {
               },
               {
                 label: 'Discord',
-                href: 'https://discord.gg/WHup6fG5',
+                href: 'https://discord.gg/XQspMzXNXu',
               },
               {
                 label: 'Telegram',
