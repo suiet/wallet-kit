@@ -76,6 +76,20 @@ export function WalletProvider({
       const temp = wi.adapter;
       wi._adapter = temp;
       wi.adapter = adapter;
+      return;
+    }
+    if (!init) {
+      console.log(adapter.name);
+      const walletInstance: WalletInstance = {
+        adapter,
+        name: adapter.name,
+        index: -1,
+        installed: true,
+        iconUrl: adapter.icon || '',
+        group: 'Popular',
+      };
+      walletInstanceByName[adapter.name] = walletInstance;
+      supportedWallets.push(walletInstance);
     }
   });
 
