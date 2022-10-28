@@ -1,4 +1,5 @@
-import type { WalletAdapter } from '@mysten/wallet-adapter-base';
+// import type { WalletAdapter } from '@mysten/wallet-adapter-base';
+import { StandardWalletAdapter } from '../standard/WalletStandard';
 
 /** Input for signing a message. */
 export type SignMessageInput = Readonly<{
@@ -15,14 +16,14 @@ export type SignMessageOutput = Readonly<{
   signature: Uint8Array;
 }>;
 
-interface ExtendsAdapter extends WalletAdapter {
-  signMessage?: (input: SignMessageInput) => Promise<SignMessageOutput>;
-  getPublicKey?: () => Promise<string>;
-}
+// interface ExtendsAdapter extends WalletAdapter {
+//   signMessage?: (input: SignMessageInput) => Promise<SignMessageOutput>;
+//   getPublicKey?: () => Promise<string>;
+// }
 
-interface KitAdapter {
-  adapter: ExtendsAdapter;
-}
+// interface KitAdapter {
+//   adapter: ExtendsAdapter;
+// }
 
 export interface Wallet {
   installed: boolean | undefined;
@@ -31,16 +32,15 @@ export interface Wallet {
   downloadUrl?: {
     browserExtension?: string; // chrome default
   };
-  createAdapter: () => KitAdapter;
 }
 
 export type WalletList = {
   wallets: Wallet[];
 }[];
 
-export type WalletInstance = Omit<Wallet, 'createAdapter'> &
-  ReturnType<Wallet['createAdapter']> & {
-    index: number;
-    group: string;
-    _adapter?: ExtendsAdapter;
-  };
+export type WalletInstance = Omit<Wallet, 'createAdapter'> & {
+  index: number;
+  group: string;
+  // _adapter?: ExtendsAdapter;
+  adapter?: StandardWalletAdapter;
+};

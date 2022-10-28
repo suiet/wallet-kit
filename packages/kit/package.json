@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "type": "module",
   "files": [
     "dist"
@@ -19,13 +19,10 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@mysten/sui.js": "0.12.0",
-    "@mysten/wallet-adapter-base": "0.2.0",
+    "@mysten/sui.js": "0.14.0",
+    "@mysten/wallet-standard": "0.1.2",
     "@radix-ui/react-dialog": "^1.0.0",
-    "@suiet/wallet-adapter": "^0.0.17",
     "@wallet-standard/app": "^0.1.0-alpha.6",
-    "@wallet-standard/features": "0.1.0-alpha.4",
-    "@wallet-standard/standard": "0.1.0-alpha.5",
     "classnames": "^2.3.2",
     "lodash": "^4.17.21",
     "mitt": "^3.0.0",
@@ -33,7 +30,6 @@
     "type-fest": "^3.1.0"
   },
   "devDependencies": {
-    "@mysten/wallet-adapter-sui-wallet": "0.0.0-experimental-20220918004146",
     "@types/lodash": "^4.14.185",
     "@types/react": "^17",
     "@types/react-dom": "^17",

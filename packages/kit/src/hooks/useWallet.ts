@@ -10,13 +10,14 @@ import {
   SignMessageOutput,
   WalletInstance,
 } from '../adapter/KitAdapter';
+import { StandardWalletAdapter } from '../standard/WalletStandard';
 
 export interface WalletContextState {
   // Supported Wallets
   supportedWallets: WalletInstance[];
   groupWallets: Record<string, WalletInstance[]>;
   // Wallet that we are currently connected to
-  wallet: WalletInstance | null;
+  wallet: StandardWalletAdapter | null;
 
   connecting: boolean;
   connected: boolean;
@@ -32,14 +33,14 @@ export interface WalletContextState {
     transaction: SignableTransaction
   ): Promise<SuiTransactionResponse>;
 
-  /** @deprecated Prefer `signAndExecuteTransaction` when available. */
-  executeMoveCall: (
-    transaction: MoveCallTransaction
-  ) => Promise<SuiTransactionResponse>;
-  /** @deprecated Prefer `signAndExecuteTransaction` when available. */
-  executeSerializedMoveCall: (
-    transactionBytes: Uint8Array
-  ) => Promise<SuiTransactionResponse>;
+  // /** @deprecated Prefer `signAndExecuteTransaction` when available. */
+  // executeMoveCall: (
+  //   transaction: MoveCallTransaction
+  // ) => Promise<SuiTransactionResponse>;
+  // /** @deprecated Prefer `signAndExecuteTransaction` when available. */
+  // executeSerializedMoveCall: (
+  //   transactionBytes: Uint8Array
+  // ) => Promise<SuiTransactionResponse>;
   signMessage: (input: SignMessageInput) => Promise<SignMessageOutput | null>;
   getPublicKey: () => Promise<string>;
 }
@@ -73,20 +74,6 @@ const DEFAULT_CONTEXT: WalletContextState = {
   async getAccounts() {
     return await Promise.reject(
       console.error(missProviderMessage('getAccounts'))
-    );
-  },
-  async executeMoveCall(
-    transaction: MoveCallTransaction
-  ): Promise<SuiTransactionResponse> {
-    return await Promise.reject(
-      console.error(missProviderMessage('executeMoveCall'))
-    );
-  },
-  async executeSerializedMoveCall(
-    transactionBytes: Uint8Array
-  ): Promise<SuiTransactionResponse> {
-    return await Promise.reject(
-      console.error(missProviderMessage('executeSerializedMoveCall'))
     );
   },
   async signAndExecuteTransaction() {

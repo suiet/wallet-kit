@@ -27,11 +27,8 @@ function adapterInstance(walletList: WalletList) {
     });
   });
 
-  walletItemList.forEach(({ createAdapter, name, index, ...rest }) => {
-    const { adapter } = createAdapter();
-
+  walletItemList.forEach(({ name, index, ...rest }) => {
     const walletInstance: WalletInstance = {
-      adapter,
       name,
       index,
       ...rest,
