@@ -1,6 +1,6 @@
-<a href="https://suiet.app"><p align="center">
+<p align="center"><a href="https://suiet.app">
 <img width="480" src="/assets/LogoWithSlogen.png"/>
-</a>
+</a></p>
 
 # Suiet wallet kit, connection made easy
 
