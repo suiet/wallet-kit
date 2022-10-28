@@ -3,21 +3,26 @@ title: Overview
 sidebar_position: 2
 ---
 
-## Wallet Kit, connect all wallets on Sui with a button
+## Suiet wallet kit, connection made easy
+
+<a href="https://github.com/wallet-standard/wallet-standard">
+  <img src="https://badgen.net/badge/wallet-standard/supported/green" />
+</a>
 
 > 👋 If you want to know how to **install/use** suiet, please visit our offical website [suiet.app](https://suiet.app) or [docs](https://suiet.app/docs)
 
-Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in Sui💧 ecosystem easily. 🥳
+Suiet wallet kit is an awesome react toolkit for DApps to interact with all the wallets in Sui💧 easily 🥳
 
+Now we announce the **[Sui Wallet Standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard)** is supported ✅ Update to the latest kit version and empower your dapp with auto-detect-wallet feature 🥳
+
+> ⭐️ That means with our kit, your dapp can automatically detect all the installed wallets which implement wallet-standard in users' browser, rather than manually importing specific wallet adapter.
 We present **React Provider & Hooks, UI components** for the DApp (React) developers to connect your DApp with all the wallet extensions. 🔗 
 Integration solutions or customization are both supported. ✅
 
+
+We present **React Provider & Hooks, UI components** for the DApp (React) developers to connect your DApp and all the wallet extensions 🔗 Integration solution or customization are both supported ✅
+
 > 💡 Demo Here: https://kit.suiet.app/
-
-## ❓Can I Use - Wallet adapter capabilities
-
-
-
 
 ## 📦 Library Overview
 
@@ -162,11 +167,6 @@ function App() {
 }
 ```
 
-## ✨ Incoming Features
+## ✨ Feedback
 
 Actually we are working hard on this new project right now, so feel free to submit issues or ideas to our [Github](https://github.com/suiet/wallet-kit). Or send direct message via [Discord](https://discord.gg/XQspMzXNXu) or [Telegram](https://t.me/suietwallet)
-
-- Composable components
-- Customize component styles
-- More useful Hooks
-  - ...
