@@ -1,27 +1,16 @@
-import {
-  resolveAdapters,
-  WalletAdapterProvider,
-} from '@mysten/wallet-adapter-base';
 import { useEffect, useState } from 'react';
+import { WalletContainer } from '../standard/WalletsContainer';
 
-export function useAdapters(adapterProvider: WalletAdapterProvider[]) {
-  const [wallets, setWallets] = useState(() =>
-    resolveAdapters(adapterProvider)
-  );
+export function useAdapters(adapterProvider: WalletContainer) {
+  const [wallets, setWallets] = useState(() => adapterProvider.get());
 
   useEffect(() => {
-    if (adapterProvider.length < 0) return;
-
-    const unsubcribes = adapterProvider.map((provider) => {
-      const unsubcribe = provider.on('changed', () => {
-        setWallets(resolveAdapters(adapterProvider));
-      });
-
-      return unsubcribe;
+    const unsubcribe = adapterProvider.on('changed', () => {
+      setWallets(adapterProvider.get());
     });
 
     return () => {
-      unsubcribes.forEach((unsubcribe) => unsubcribe());
+      unsubcribe();
     };
   }, [adapterProvider]);
 
