@@ -4,9 +4,17 @@
 
 # Suiet wallet kit, connection made easy
 
+<a href="https://github.com/wallet-standard/wallet-standard">
+  <img src="https://badgen.net/badge/wallet-standard/supported/green" />
+</a>
+
 > 👋 If you want to know how to **install/use** suiet, please visit our offical website [suiet.app](https://suiet.app) or [docs](https://suiet.app/docs)
 
-Suiet wallet kit is a wallet aggregator for DApps to interact with all the wallets in Sui💧 ecosystem easily 🥳
+Suiet wallet kit is an awesome react toolkit for DApps to interact with all the wallets in Sui💧 easily 🥳
+
+Now we announce the **[Sui Wallet Standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard)** is supported ✅ Update to the latest kit version and empower your dapp with auto-detect-wallet feature 🥳 
+
+> ⭐️ That means with our kit, your dapp can automatically detect all the installed wallets which implement wallet-standard in users' browser, rather than manually importing specific wallet adapter.
 
 We present **React Provider & Hooks, UI components** for the DApp (React) developers to connect your DApp and all the wallet extensions 🔗 Integration solution or customization are both supported ✅
 
@@ -19,11 +27,11 @@ We present **React Provider & Hooks, UI components** for the DApp (React) develo
 |wallet|name|connected|connecting|select|disconnect|getAccounts|getPublicKey|signMessage|executeMoveCall|executeSerializedMoveCall|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |[Suiet Wallet](https://github.com/suiet/wallet-adapter)|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|
-|[Sui Wallet](https://github.com/MystenLabs/sui/blob/main/sdk/wallet-adapter/packages/adapters/sui-wallet/src/adapter.ts)|✅|✅|✅|✅|✅|✅|❌|❌|✅|✅|
-|[Ethos Wallet(Not Published)](https://ethoswallet.xyz/)|/|/|/|/|/|/|/|/|/|/|
-|[Wave Wallet(Not Published)](https://www.wavewallet.app/)|/|/|/|/|/|/|/|/|/|/|/|
-|[Hydro Wallet(Not Published)](https://hydro.tech/)|/|/|/|/|/|/|/|/|/|/|
-
+|[Sui Wallet](https://github.com/MystenLabs/sui/blob/main/sdk/wallet-adapter/packages/adapters/sui-wallet/src/adapter.ts)|✅|✅|✅|✅|✅|✅|✅|❌|✅|✅|
+|[Ethos Wallet](https://ethoswallet.xyz/)|✅|✅|✅|✅|✅|✅|✅|❌|✅|✅|
+|[Wave Wallet](https://www.wavewallet.app/) (Not Published)|/|/|/|/|/|/|/|/|/|/|
+|[Hydro Wallet](https://hydro.tech/) (Not Published)|/|/|/|/|/|/|/|/|/|/|
+|[Morphis Wallet](https://twitter.com/morphis_wallet) (Not Published)|/|/|/|/|/|/|/|/|/|/|
 
 ## 📦 Library Overview
 
