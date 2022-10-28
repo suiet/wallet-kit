@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectButton } from './components/ConnectButton';
 import { WalletProvider } from './wallets/provider';
@@ -8,13 +8,16 @@ import { useWallet } from './hooks';
 const supportedWallets = getDefaultWallets();
 
 function App() {
-  const { signAndExecuteTransaction, getPublicKey, signMessage } = useWallet();
-
+  const [pbk, setpbk] = useState('');
+  const { signAndExecuteTransaction, getPublicKey, wallet } = useWallet();
+  const publicKey = async () => {
+    const k = await getPublicKey();
+    console.log(k);
+    setpbk(k);
+  };
   const handleClick = async () => {
-    const publicKey = await getPublicKey();
-    console.log(publicKey);
     // the following example comes from sui wallet official example.
-    await signAndExecuteTransaction({
+    const res = await signAndExecuteTransaction({
       kind: 'moveCall',
       data: {
         packageObjectId: '0x2',
@@ -29,12 +32,14 @@ function App() {
         gasBudget: 10000,
       },
     });
+    console.log(res);
   };
 
   return (
     <div>
       <ConnectButton />
-      <button onClick={handleClick}>send</button>
+      <button onClick={handleClick}>send transaction</button>
+      <button onClick={publicKey}>public key: {pbk}</button>
     </div>
   );
 }

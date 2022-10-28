@@ -17,7 +17,7 @@ import { keyBy, groupBy } from 'lodash';
 import { AccountStatus } from '../types/account';
 import { useAdapters } from '../hooks/useAdapters';
 import { WalletContainer } from '../standard/WalletsContainer';
-import type { ConditionalPick } from 'type-fest';
+import { isStandardAdapter } from '../utils/isStandardAdapter';
 
 interface WalletProviderProps {
   children: ReactNode;
@@ -36,10 +36,12 @@ async function commonCallAdapterFunc(
     // @ts-ignore-nextlint
     return await wallet?.adapter[funcName](...params);
     // @ts-ignore-nextlint
-  } else if (typeof wallet?._adapter?.[funcName] === 'function') {
-    // @ts-ignore-nextlint
-    return await wallet?._adapter[funcName](...params);
-  } else {
+  }
+  // else if (typeof wallet?._adapter?.[funcName] === 'function') {
+  //   // @ts-ignore-nextlint
+  //   return await wallet?._adapter[funcName](...params);
+  // }
+  else {
     throw new Error(`Not support ${funcName} method`);
   }
 }
@@ -53,11 +55,11 @@ export function WalletProvider({
   const [wallet, setWallet] = useState<WalletInstance | null>(null);
   const [status, setStatus] = useState(AccountStatus.disconnected);
   const [address, setAddress] = useState('');
-  const adapters = useAdapters([new WalletContainer()]);
+  const adapters = useAdapters(new WalletContainer());
 
   useEffect(() => {
     if (wallet && status === AccountStatus.connected) {
-      wallet?.adapter.getAccounts().then((accounts) => {
+      wallet?.adapter?.getAccounts().then((accounts) => {
         const address = accounts[0];
         setAddress(address);
       });
@@ -73,13 +75,10 @@ export function WalletProvider({
     const wi = walletInstanceByName[adapter.name];
     if (wi && !init) {
       wi.installed = true;
-      const temp = wi.adapter;
-      wi._adapter = temp;
       wi.adapter = adapter;
       return;
     }
     if (!init) {
-      console.log(adapter.name);
       const walletInstance: WalletInstance = {
         adapter,
         name: adapter.name,
@@ -113,7 +112,7 @@ export function WalletProvider({
   const connect = useCallback(async (wallet: WalletInstance) => {
     try {
       setStatus(AccountStatus.connecting);
-      const res = await wallet.adapter.connect();
+      const res = await wallet?.adapter?.connect();
       setStatus(AccountStatus.connected);
     } catch (e) {
       setStatus(AccountStatus.disconnected);
@@ -124,7 +123,7 @@ export function WalletProvider({
   const disconnect = async () => {
     try {
       if (!wallet) throw new Error('No wallet to disconnect');
-      await wallet?.adapter.disconnect();
+      await wallet?.adapter?.disconnect();
       setWalletAndUpdateStorage(null);
       setStatus(AccountStatus.disconnected);
     } catch (e) {
@@ -165,32 +164,43 @@ export function WalletProvider({
     return await commonCallAdapterFunc(wallet, 'getAccounts');
   };
 
-  const executeMoveCall = async (
-    transaction: MoveCallTransaction
-  ): Promise<SuiTransactionResponse> => {
-    if (wallet === null) throw Error('Wallet Not Connected');
-    if (typeof wallet?._adapter?.executeMoveCall === 'function')
-      return await wallet._adapter.executeMoveCall(transaction);
-    throw new Error(`Not support executeMoveCall method`);
-  };
+  // const executeMoveCall = async (
+  //   transaction: MoveCallTransaction
+  // ): Promise<SuiTransactionResponse> => {
+  //   if (wallet === null) throw Error('Wallet Not Connected');
+  //   if (typeof wallet?._adapter?.executeMoveCall === 'function')
+  //     return await wallet._adapter.executeMoveCall(transaction);
+  //   throw new Error(`Not support executeMoveCall method`);
+  // };
 
-  const executeSerializedMoveCall = async (
-    transactionBytes: Uint8Array
-  ): Promise<SuiTransactionResponse> => {
-    if (wallet === null) throw Error('Wallet Not Connected');
-    if (typeof wallet?._adapter?.executeSerializedMoveCall === 'function')
-      return await wallet._adapter.executeSerializedMoveCall(transactionBytes);
-    throw new Error(`Not support executeMoveCall method`);
-  };
+  // const executeSerializedMoveCall = async (
+  //   transactionBytes: Uint8Array
+  // ): Promise<SuiTransactionResponse> => {
+  //   if (wallet === null) throw Error('Wallet Not Connected');
+  //   if (typeof wallet?._adapter?.executeSerializedMoveCall === 'function')
+  //     return await wallet._adapter.executeSerializedMoveCall(transactionBytes);
+  //   throw new Error(`Not support executeMoveCall method`);
+  // };
 
   const signMessage = async (input: SignMessageInput) => {
     if (wallet === null) throw Error('Wallet Not Connected');
     return await commonCallAdapterFunc(wallet, 'signMessage', input);
   };
 
-  const getPublicKey = async () => {
+  const getPublicKey = async (): Promise<string> => {
     if (wallet === null) throw Error('Wallet Not Connected');
-    return await commonCallAdapterFunc(wallet, 'getPublicKey');
+    if (isStandardAdapter(wallet.adapter)) {
+      const publicKey = wallet.adapter.publicKey;
+      const key = publicKey.find((k) => {
+        return typeof k[address] === 'string';
+      });
+      if (key) return key[address];
+      return '';
+    }
+    // else if (typeof wallet?._adapter?.getPublicKey === 'function') {
+    //   return await wallet._adapter.getPublicKey();
+    // }
+    throw new Error(`Not support getPublicKey method`);
   };
 
   const signAndExecuteTransaction = async (
@@ -208,15 +218,13 @@ export function WalletProvider({
     <WalletContext.Provider
       value={{
         supportedWallets,
-        wallet,
+        wallet: (wallet?.adapter || null) as any,
         connecting: status === AccountStatus.connecting,
         connected: status === AccountStatus.connected,
         select: choose,
         connect,
         disconnect,
         getAccounts,
-        executeMoveCall,
-        executeSerializedMoveCall,
         groupWallets,
         address,
         status,
