@@ -1,30 +1,15 @@
 import { SignableTransaction } from '@mysten/sui.js';
-import { WalletAdapter } from '@mysten/wallet-adapter-base';
-import type { WalletWithFeatures } from '@wallet-standard/standard';
-import type {
-  ConnectFeature,
-  DisconnectFeature,
-  EventsFeature,
-} from '@wallet-standard/features';
-import { SuiSignAndExecuteTransactionFeature } from './features/SignAndExecuteTransactionFeature';
-
-export type StandardWallet = WalletWithFeatures<
-  ConnectFeature &
-    EventsFeature &
-    SuiSignAndExecuteTransactionFeature &
-    // Disconnect is an optional feature:
-    Partial<DisconnectFeature>
->;
+import type { StandardWalletAdapterWallet } from '@mysten/wallet-standard';
 
 export interface StandardWalletAdapterConfig {
-  wallet: StandardWallet;
+  wallet: StandardWalletAdapterWallet;
 }
 
-export class StandardWalletAdapter implements WalletAdapter {
+export class StandardWalletAdapter {
   connected = false;
   connecting = false;
 
-  #wallet: StandardWallet;
+  #wallet: StandardWalletAdapterWallet;
 
   constructor({ wallet }: StandardWalletAdapterConfig) {
     this.#wallet = wallet;
@@ -40,6 +25,12 @@ export class StandardWalletAdapter implements WalletAdapter {
 
   get wallet() {
     return this.#wallet;
+  }
+
+  get publicKey() {
+    return this.#wallet.accounts.map((account) => ({
+      [account.address]: account.publicKey.join(''),
+    }));
   }
 
   async getAccounts() {
