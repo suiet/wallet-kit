@@ -9,7 +9,8 @@ const supportedWallets = getDefaultWallets();
 
 function App() {
   const [pbk, setpbk] = useState('');
-  const { signAndExecuteTransaction, getPublicKey, wallet } = useWallet();
+  const { signAndExecuteTransaction, getPublicKey, wallet, status } =
+    useWallet();
   const publicKey = async () => {
     const k = await getPublicKey();
     console.log(k);
@@ -38,8 +39,25 @@ function App() {
   return (
     <div>
       <ConnectButton />
-      <button onClick={handleClick}>send transaction</button>
-      <button onClick={publicKey}>public key: {pbk}</button>
+      <div>connectStatus: {status}</div>
+      <br />
+      <button
+        style={{
+          marginTop: 10,
+        }}
+        onClick={handleClick}
+      >
+        mint nft
+      </button>
+      <br />
+      <button
+        style={{
+          marginTop: 10,
+        }}
+        onClick={publicKey}
+      >
+        public key: {pbk}
+      </button>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { SignableTransaction } from '@mysten/sui.js';
 import type { StandardWalletAdapterWallet } from '@mysten/wallet-standard';
+import { baseEncode } from 'borsh';
 
 export interface StandardWalletAdapterConfig {
   wallet: StandardWalletAdapterWallet;
@@ -29,7 +30,7 @@ export class StandardWalletAdapter {
 
   get publicKey() {
     return this.#wallet.accounts.map((account) => ({
-      [account.address]: account.publicKey.join(''),
+      [account.address]: baseEncode(account.publicKey),
     }));
   }
 
