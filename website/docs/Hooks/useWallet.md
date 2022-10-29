@@ -19,7 +19,7 @@ For detail, you can check the doc https://kit.suiet.app/docs/components/walletpr
 const {
   supportedWallets: WalletInstance[]; // all supported wallet list
   groupWallets: Record<string, WalletInstance[]>; // grouped wallet map, now include recent and popular group
-  wallet: WalletInstance | null; // Wallet that we are currently connected to
+  wallet: Wallet | null; // Wallet that we are currently connected to
 
   connecting: boolean;
   connected: boolean;
@@ -30,12 +30,12 @@ const {
   disconnect(): Promise<void>; // disconnect the connected wallet's connection
 
   getAccounts: () => Promise<SuiAddress[]>; // get all your wallets' accounts
-  executeMoveCall: (
-    transaction: MoveCallTransaction
-  ) => Promise<SuiTransactionResponse>; // adapter's executeMoveCall
-  executeSerializedMoveCall: (
-    transactionBytes: Uint8Array
-  ) => Promise<SuiTransactionResponse>; // adapter's executeSerializedMoveCall
+  signAndExecuteTransaction(
+    transaction: SignableTransaction
+  ): Promise<SuiTransactionResponse>;
+
+  signMessage: (input: SignMessageInput) => Promise<SignMessageOutput | null>;
+  getPublicKey: () => Promise<string>;
 } = useWallet();
 ```
 
@@ -177,7 +177,7 @@ function YourComponent() {
 
 ### signAndExecuteTransaction
 
-The signAndExecuteTransaction hook is a substitute for executeMoveCall and executeSerializedMoveCall hook. It recive two pramas - kind and data. The kind param is the type of transaction(moveCall, bytes and more). For example
+The signAndExecuteTransaction is a substitute for executeMoveCall and executeSerializedMoveCall hook. It recive two pramas - kind and data. The kind param is the type of transaction(moveCall, bytes and more). For example
 
 ```jsx
 export function Transaction() {
@@ -206,35 +206,32 @@ export function Transaction() {
 }
 ```
 
+### getPublicKey
+
+| Type                  | Default |
+| --------------------- | ------- |
+| () => Promise<string> | ''      |
+
+In some case, you may need to get user's public key. Just use getPulicKey method. It will return the current account address's publicKey. But some wallet don't provide publickey, in this case, will return an empty string.
+
+```jsx
+import { useWallet } from '@suiet/wallet-kit';
+
+function YourComponent() {
+  const { getPublicKey, connected } = useWallet();
+
+  useEffect(() => {
+    if (connected) {
+      getPublicKey().then((key) => {
+        console.log(key); // exmaple output: bD5kJW7QVpVMgM44gm84B6URXqfCN1FocpJnVkUbwguNDwRZDNmzMkoBeJKxxxxxxxx
+      });
+    }
+  }, [connected]);
+}
+```
+
 ### executeMoveCall and executeSerializedMoveCall
 
 :::caution
-deprecated, use `signAndExecuteTransaction` instead.
+has been removed, use `signAndExecuteTransaction` instead.
 :::
-
-The `executeMoveCall` and `executeSerializedMoveCall` is related to transaction of sui.
-For detail, you can check the sui official doc https://docs.sui.io/sui-jsonrpc#sui_executeTransaction. For example:
-
-```jsx
-export function Transaction() {
-  const { executeMoveCall } = useWallet();
-
-  const handleClick = async () => {
-    // the following example comes from sui wallet official example.
-    await executeMoveCall({
-      packageObjectId: '0x2',
-      module: 'devnet_nft',
-      function: 'mint',
-      typeArguments: [],
-      arguments: [
-        'name',
-        'capy',
-        'https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop',
-      ],
-      gasBudget: 10000,
-    });
-  };
-
-  return <button onClick={() => handleClick()}>send transaction</button>;
-}
-```
