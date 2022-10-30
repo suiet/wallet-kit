@@ -19,7 +19,6 @@ function App() {
   } = useWallet();
 
   useEffect(() => {
-    console.log(connected, getAccounts);
     if (!connected) return;
     (async function () {
       const accounts = await getAccounts();
