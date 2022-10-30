@@ -43,7 +43,7 @@ For demonstration purpose, we use cURL to call the RPC. You can use any HTTP cli
 :::
 
 ```bash
-curl --location --request POST https://gateway.devnet.sui.io:443 \
+curl --location --request POST https://fullnode.devnet.sui.io:443 \
 --header 'Content-Type: application/json' \
 --data-raw '{ "jsonrpc": "2.0",
               "method": "sui_executeTransaction",
