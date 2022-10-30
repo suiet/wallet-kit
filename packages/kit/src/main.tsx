@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectButton } from './components/ConnectButton';
 import { WalletProvider } from './wallets/provider';
@@ -9,8 +9,23 @@ const supportedWallets = getDefaultWallets();
 
 function App() {
   const [pbk, setpbk] = useState('');
-  const { signAndExecuteTransaction, getPublicKey, wallet, status } =
-    useWallet();
+  const {
+    signAndExecuteTransaction,
+    getPublicKey,
+    wallet,
+    status,
+    connected,
+    getAccounts,
+  } = useWallet();
+
+  useEffect(() => {
+    console.log(connected, getAccounts);
+    if (!connected) return;
+    (async function () {
+      const accounts = await getAccounts();
+      console.log('accounts', accounts);
+    })();
+  }, [connected, getAccounts]);
   const publicKey = async () => {
     const k = await getPublicKey();
     console.log(k);
