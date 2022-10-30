@@ -15,6 +15,7 @@ function HomepageHeader() {
   const { connected, getAccounts } = useWallet();
 
   useEffect(() => {
+    console.log(connected, getAccounts);
     if (!connected) return;
     (async function () {
       const accounts = await getAccounts();
@@ -26,12 +27,12 @@ function HomepageHeader() {
     <header className={clsx('hero', styles.heroBanner)}>
       <div className="container">
         {/* <h1 className="hero__title">{siteConfig.title}</h1> */}
-        <h1 className={styles['hero-title']}>
-          {siteConfig.title}
-        </h1>
+        <h1 className={styles['hero-title']}>{siteConfig.title}</h1>
         <p className={styles['hero-desc']}>{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <a className={styles['doc-button']} href="/docs/QuickStart" >View Docs</a>
+          <a className={styles['doc-button']} href="/docs/QuickStart">
+            View Docs
+          </a>
           <ConnectButton>Try Connect Wallet</ConnectButton>
         </div>
       </div>
@@ -49,25 +50,39 @@ export default function Home(): JSX.Element {
     >
       <WalletProvider supportedWallets={getAllWallets()}>
         <HomepageHeader />
-        <main style={{
-          margin: "auto"
-        }}>
+        <main
+          style={{
+            margin: 'auto',
+          }}
+        >
           {/* <HomepageFeatures /> */}
-          <div style={{
-            width:"100%",
-            maxWidth: "1280px",
-            margin: "auto",
-          }}><KitBanner /></div>
-          <div style={{
-             width:"100%",
-            maxWidth: "1280px",
-            margin: "auto",
-          }}><img src={useBaseUrl('img/kit-banner-2.png')} /></div>
-        <div style={{
-             width:"100%",
-            maxWidth: "1280px",
-            margin: "auto",
-          }}><img src={useBaseUrl('img/trustedby.png')} /></div>
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '1280px',
+              margin: 'auto',
+            }}
+          >
+            <KitBanner />
+          </div>
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '1280px',
+              margin: 'auto',
+            }}
+          >
+            <img src={useBaseUrl('img/kit-banner-2.png')} />
+          </div>
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '1280px',
+              margin: 'auto',
+            }}
+          >
+            <img src={useBaseUrl('img/trustedby.png')} />
+          </div>
         </main>
       </WalletProvider>
     </Layout>

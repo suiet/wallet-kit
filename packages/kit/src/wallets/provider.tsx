@@ -1,4 +1,10 @@
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import type {
   SuiAddress,
   MoveCallTransaction,
@@ -18,6 +24,12 @@ import { AccountStatus } from '../types/account';
 import { useAdapters } from '../hooks/useAdapters';
 import { WalletContainer } from '../standard/WalletsContainer';
 import { isStandardAdapter } from '../utils/isStandardAdapter';
+import {
+  ActionType,
+  initialWalletState,
+  walletReducer,
+  WalletState,
+} from './reducer';
 
 interface WalletProviderProps {
   children: ReactNode;
@@ -29,12 +41,23 @@ const LAST_WALLET = 'SUIET_LAST_WALLET';
 async function commonCallAdapterFunc(
   wallet: WalletInstance,
   funcName: any,
+  connect: Function,
   ...params: any[]
 ) {
   // @ts-ignore-nextlint
   if (typeof wallet?.adapter?.[funcName] === 'function') {
-    // @ts-ignore-nextlint
-    return await wallet?.adapter[funcName](...params);
+    try {
+      // @ts-ignore-nextlint
+      return await wallet?.adapter[funcName](...params);
+    } catch (e) {
+      if (e instanceof Error && e?.message.includes('permission')) {
+        await connect();
+        // @ts-ignore-nextlint
+        return await wallet?.adapter[funcName](...params);
+      }
+      throw e;
+    }
+
     // @ts-ignore-nextlint
   }
   // else if (typeof wallet?._adapter?.[funcName] === 'function') {
@@ -52,16 +75,27 @@ export function WalletProvider({
   supportedWallets,
   children,
 }: WalletProviderProps) {
-  const [wallet, setWallet] = useState<WalletInstance | null>(null);
-  const [status, setStatus] = useState(AccountStatus.disconnected);
-  const [address, setAddress] = useState('');
   const adapters = useAdapters(new WalletContainer());
+  const [{ wallet, status, address }, dispatch] = useReducer(
+    walletReducer,
+    initialWalletState
+  );
+
+  const setWalletStatus = (payload: Partial<WalletState>) => {
+    dispatch({
+      type: ActionType.Update,
+      payload,
+    });
+  };
 
   useEffect(() => {
     if (wallet && status === AccountStatus.connected) {
       wallet?.adapter?.getAccounts().then((accounts) => {
+        console.log(accounts);
         const address = accounts[0];
-        setAddress(address);
+        setWalletStatus({
+          address,
+        });
       });
     }
   }, [status, wallet]);
@@ -110,30 +144,47 @@ export function WalletProvider({
   groupWallets['Recent'] = recentWallets;
 
   const connect = useCallback(async (wallet: WalletInstance) => {
+    console.log('jkjlkj');
     try {
-      setStatus(AccountStatus.connecting);
+      setWalletStatus({
+        status: AccountStatus.connecting,
+      });
       const res = await wallet?.adapter?.connect();
-      setStatus(AccountStatus.connected);
+      setWalletStatus({
+        status: AccountStatus.connected,
+      });
     } catch (e) {
-      setStatus(AccountStatus.disconnected);
+      setWalletStatus({
+        status: AccountStatus.disconnected,
+      });
       throw new Error('Connect Failed');
     }
   }, []);
 
-  const disconnect = async () => {
+  const disconnect = useCallback(async () => {
     try {
       if (!wallet) throw new Error('No wallet to disconnect');
       await wallet?.adapter?.disconnect();
-      setWalletAndUpdateStorage(null);
-      setStatus(AccountStatus.disconnected);
+      setWalletAndUpdateStorage(wallet);
+      setWalletStatus({
+        status: AccountStatus.disconnected,
+        wallet: null,
+      });
     } catch (e) {
       throw e;
     }
+  }, [wallet]);
+
+  const reConnect = async () => {
+    if (wallet === null) return;
+    try {
+      await disconnect();
+      await connect(wallet);
+    } catch {}
   };
 
   const setWalletAndUpdateStorage = useCallback(
     (selectedWallet: WalletInstance | null) => {
-      setWallet(selectedWallet);
       if (selectedWallet !== null) {
         latestWallets.storeWalletName(selectedWallet.name);
       } else {
@@ -147,6 +198,9 @@ export function WalletProvider({
     (name: string) => {
       let newWallet = supportedWallets.find((wallet) => wallet.name === name);
       if (newWallet) {
+        setWalletStatus({
+          wallet: newWallet,
+        });
         setWalletAndUpdateStorage(newWallet);
         localStorage.setItem(LAST_WALLET, newWallet.name);
       } else {
@@ -159,10 +213,10 @@ export function WalletProvider({
     [supportedWallets, connect, setWalletAndUpdateStorage]
   );
 
-  const getAccounts = async (): Promise<SuiAddress[]> => {
+  const getAccounts = useCallback(async (): Promise<SuiAddress[]> => {
     if (wallet === null) throw Error('Wallet Not Connected');
-    return await commonCallAdapterFunc(wallet, 'getAccounts');
-  };
+    return await commonCallAdapterFunc(wallet, 'getAccounts', reConnect);
+  }, [wallet]);
 
   // const executeMoveCall = async (
   //   transaction: MoveCallTransaction
@@ -184,7 +238,7 @@ export function WalletProvider({
 
   const signMessage = async (input: SignMessageInput) => {
     if (wallet === null) throw Error('Wallet Not Connected');
-    return await commonCallAdapterFunc(wallet, 'signMessage', input);
+    return await commonCallAdapterFunc(wallet, 'signMessage', reConnect, input);
   };
 
   const getPublicKey = async (): Promise<string> => {
@@ -210,6 +264,7 @@ export function WalletProvider({
     return await commonCallAdapterFunc(
       wallet,
       'signAndExecuteTransaction',
+      reConnect,
       transaction
     );
   };
