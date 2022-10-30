@@ -1,7 +1,8 @@
-import { initialize, InitializedWallets } from '@wallet-standard/app';
+import type { InitializedWallets } from '@wallet-standard/app';
 import mitt, { Emitter } from 'mitt';
 import { isStandardWalletAdapterCompatibleWallet } from '@mysten/wallet-standard';
 import { StandardWalletAdapter } from './WalletStandard';
+import { initialize } from './initialize';
 
 type Events = {
   changed: void;
