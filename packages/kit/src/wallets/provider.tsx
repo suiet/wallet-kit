@@ -91,7 +91,6 @@ export function WalletProvider({
   useEffect(() => {
     if (wallet && status === AccountStatus.connected) {
       wallet?.adapter?.getAccounts().then((accounts) => {
-        console.log(accounts);
         const address = accounts[0];
         setWalletStatus({
           address,
@@ -144,7 +143,6 @@ export function WalletProvider({
   groupWallets['Recent'] = recentWallets;
 
   const connect = useCallback(async (wallet: WalletInstance) => {
-    console.log('jkjlkj');
     try {
       setWalletStatus({
         status: AccountStatus.connecting,
@@ -179,8 +177,18 @@ export function WalletProvider({
     if (wallet === null) return;
     try {
       await disconnect();
-      await connect(wallet);
     } catch {}
+    try {
+      await connect(wallet);
+      wallet?.adapter?.getAccounts().then((accounts) => {
+        const address = accounts[0];
+        setWalletStatus({
+          address,
+        });
+      });
+    } catch (e) {
+      throw e;
+    }
   };
 
   const setWalletAndUpdateStorage = useCallback(
