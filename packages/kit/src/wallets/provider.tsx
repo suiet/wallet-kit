@@ -249,15 +249,15 @@ export function WalletProvider({
     return await commonCallAdapterFunc(wallet, 'signMessage', reConnect, input);
   };
 
-  const getPublicKey = async (): Promise<string> => {
+  const getPublicKey = async (): Promise<Uint8Array> => {
     if (wallet === null) throw Error('Wallet Not Connected');
     if (isStandardAdapter(wallet.adapter)) {
       const publicKey = wallet.adapter.publicKey;
       const key = publicKey.find((k) => {
-        return typeof k[address] === 'string';
+        return k[address];
       });
       if (key) return key[address];
-      return '';
+      return Uint8Array.from([]);
     }
     // else if (typeof wallet?._adapter?.getPublicKey === 'function') {
     //   return await wallet._adapter.getPublicKey();
