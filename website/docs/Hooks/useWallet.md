@@ -19,7 +19,7 @@ For detail, you can check the doc https://kit.suiet.app/docs/components/walletpr
 const {
   supportedWallets: WalletInstance[]; // all supported wallet list
   groupWallets: Record<string, WalletInstance[]>; // grouped wallet map, now include recent and popular group
-  wallet: Wallet | null; // Wallet that we are currently connected to
+  wallet: StandardWallet | null; // Wallet that we are currently connected to
 
   connecting: boolean;
   connected: boolean;
@@ -35,7 +35,7 @@ const {
   ): Promise<SuiTransactionResponse>;
 
   signMessage: (input: SignMessageInput) => Promise<SignMessageOutput | null>;
-  getPublicKey: () => Promise<string>;
+  getPublicKey: () => Promise<Uint8Array>;
 } = useWallet();
 ```
 
@@ -50,7 +50,7 @@ const {
 The supportedWallets will return all the wallets you passed to the WalletProvider. You can check the doc https://kit.suiet.app/docs/components/WalletProvider#walletinstance to learn the wallet type. For example:
 
 ```jsx
-import { getDefaultWallets, useWallet } from "@suiet/wallet-kit";
+import { getDefaultWallets, useWallet } from '@suiet/wallet-kit';
 const supportedWallets = getDefaultWallets();
 
 <WalletProvider supportedWallets={supportedWallets}>
@@ -97,13 +97,13 @@ The wallet is the currently selected wallet in the `supportedWallets`. You can c
 The connecting, connected, and status are all related to the wallet's connection status. When connecting to wallet, the connecting will be true. And when connected to wallet, connected will be true. You can also just use status to know current connection status. Their relationship is as follows:
 
 ```js
-import { getDefaultWallets, useWallet } from "@suiet/wallet-kit";
+import { getDefaultWallets, useWallet } from '@suiet/wallet-kit';
 
 const { status, connected, connecting } = useWallet();
 
-assert(status === "disconnected", !connecting && !connected); // not connect to wallet
-assert(status === "connecting", connecting); // now connecting to the wallet
-assert(status === "connected", connected); // connected to the wallet
+assert(status === 'disconnected', !connecting && !connected); // not connect to wallet
+assert(status === 'connecting', connecting); // now connecting to the wallet
+assert(status === 'connected', connected); // connected to the wallet
 ```
 
 ### address
@@ -160,7 +160,7 @@ function YourComponent() {
 The getAccounts will get the current wallet's account address. Now one wallet only have one account.
 
 ```jsx
-import { useWallet } from "@suiet/wallet-kit";
+import { useWallet } from '@suiet/wallet-kit';
 
 function YourComponent() {
   const { getAccounts, connected } = useWallet();
@@ -186,16 +186,16 @@ export function Transaction() {
   const handleClick = async () => {
     // the following example comes from sui wallet official example.
     await signAndExecuteTransaction({
-      kind: "moveCall",
+      kind: 'moveCall',
       data: {
-        packageObjectId: "0x2",
-        module: "devnet_nft",
-        function: "mint",
+        packageObjectId: '0x2',
+        module: 'devnet_nft',
+        function: 'mint',
         typeArguments: [],
         arguments: [
-          "name",
-          "capy",
-          "https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop",
+          'name',
+          'capy',
+          'https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop',
         ],
         gasBudget: 10000,
       },
@@ -208,14 +208,14 @@ export function Transaction() {
 
 ### getPublicKey
 
-| Type                    | Default |
-| ----------------------- | ------- |
-| `() => Promise<string>` | ''      |
+| Type                        | Default      |
+| --------------------------- | ------------ |
+| `() => Promise<Uint8Array>` | Uint8Array[] |
 
-In some case, you may need to get user's public key. Just use getPulicKey method. It will return the current account address's publicKey. But some wallet don't provide publickey, in this case, will return an empty string.
+In some case, you may need to get user's public key. Just use getPulicKey method. It will return the current account address's publicKey. But some wallet don't provide publickey, in this case, will return an empty Uint8Array.
 
 ```jsx
-import { useWallet } from "@suiet/wallet-kit";
+import { useWallet } from '@suiet/wallet-kit';
 
 function YourComponent() {
   const { getPublicKey, connected } = useWallet();
@@ -223,12 +223,14 @@ function YourComponent() {
   useEffect(() => {
     if (connected) {
       getPublicKey().then((key) => {
-        console.log(key); // exmaple output: bD5kJW7QVpVMgM44gm84B6URXqfCN1FocpJnVkUbwguNDwRZDNmzMkoBeJKxxxxxxxx
+        console.log(key); // exmaple output: Uint8Array[112,33,44,11,...]
       });
     }
   }, [connected]);
 }
 ```
+
+If you want to convert Uint8Array to string, you need to use other library like borsh(https://www.npmjs.com/package/borsh).
 
 ### executeMoveCall and executeSerializedMoveCall
 
