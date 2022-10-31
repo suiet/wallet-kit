@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "type": "module",
   "files": [
     "dist"
@@ -23,7 +23,6 @@
     "@mysten/wallet-standard": "0.1.2",
     "@radix-ui/react-dialog": "^1.0.0",
     "@wallet-standard/app": "^0.1.0-alpha.6",
-    "borsh": "^0.7.0",
     "classnames": "^2.3.2",
     "lodash": "^4.17.21",
     "mitt": "^3.0.0",

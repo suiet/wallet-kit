@@ -8,7 +8,7 @@ import { useWallet } from './hooks';
 const supportedWallets = getDefaultWallets();
 
 function App() {
-  const [pbk, setpbk] = useState('');
+  const [pbk, setpbk] = useState<Uint8Array>();
   const {
     signAndExecuteTransaction,
     getPublicKey,

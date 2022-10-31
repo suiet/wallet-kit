@@ -42,7 +42,7 @@ export interface WalletContextState {
   //   transactionBytes: Uint8Array
   // ) => Promise<SuiTransactionResponse>;
   signMessage: (input: SignMessageInput) => Promise<SignMessageOutput | null>;
-  getPublicKey: () => Promise<string>;
+  getPublicKey: () => Promise<Uint8Array>;
 }
 
 function missProviderMessage(action: string) {
