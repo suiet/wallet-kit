@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "type": "module",
   "files": [
     "dist"
@@ -53,7 +53,9 @@
     "url": "https://github.com/suiet/wallet-kit.git"
   },
   "release": {
-    "branches": ["main"],
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/changelog",
       "@semantic-release/npm"
