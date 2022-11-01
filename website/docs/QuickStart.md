@@ -78,7 +78,7 @@ const App = () => {
     connected,
     connecting,
     getAccounts,
-    executeMoveCall,
+    signAndExecuteTransaction,
     signMessage,
   } = useWallet()
   return (<.../>)
