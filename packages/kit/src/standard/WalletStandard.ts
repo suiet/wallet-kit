@@ -28,9 +28,17 @@ export class StandardWalletAdapter {
   }
 
   get publicKey() {
-    return this.#wallet.accounts.map((account) => ({
-      [account.address]: account.publicKey,
-    }));
+    return this.#wallet.accounts.map((account) => {
+      let publicKey = account.publicKey
+      // FIXME: hack logic for suiet v0.1.23
+      if (this.#wallet.name === 'Suiet' && publicKey.length === 49) {
+        // revert from base64 buffer and convert to hex buffer
+        // @ts-ignore
+        const pkStr = publicKey.toString('base64')
+        publicKey = Buffer.from(pkStr.slice(2), 'hex')
+      }
+      return {[account.address]: publicKey}
+    });
   }
 
   async getAccounts() {
