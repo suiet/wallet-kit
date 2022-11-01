@@ -27,8 +27,8 @@ We present **React Provider & Hooks, UI components** for the DApp (React) develo
 |wallet|name|connected|connecting|select|disconnect|getAccounts|getPublicKey|signMessage|executeMoveCall|executeSerializedMoveCall|
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |[Suiet Wallet](https://github.com/suiet/wallet-adapter)|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|
-|[Sui Wallet](https://github.com/MystenLabs/sui/blob/main/sdk/wallet-adapter/packages/adapters/sui-wallet/src/adapter.ts)|✅|✅|✅|✅|✅|✅|✅|❌|✅|✅|
-|[Ethos Wallet](https://ethoswallet.xyz/)|✅|✅|✅|✅|✅|✅|✅|❌|✅|✅|
+|[Sui Wallet](https://github.com/MystenLabs/sui/blob/main/sdk/wallet-adapter/packages/adapters/sui-wallet/src/adapter.ts)|✅|✅|✅|✅|✅|✅|❌|❌|✅|✅|
+|[Ethos Wallet](https://ethoswallet.xyz/)|✅|✅|✅|✅|✅|✅|❌|❌|✅|✅|
 |[Wave Wallet](https://www.wavewallet.app/) (Not Published)|/|/|/|/|/|/|/|/|/|/|
 |[Hydro Wallet](https://hydro.tech/) (Not Published)|/|/|/|/|/|/|/|/|/|/|
 |[Morphis Wallet](https://twitter.com/morphis_wallet) (Not Published)|/|/|/|/|/|/|/|/|/|/|
