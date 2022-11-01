@@ -125,7 +125,7 @@ function Component() {
 
 ### Execute Move Call
 
-Through the `executeMoveCall` function, our dapp can send `mint` / `transfer` / etc.. function to the wallet extensions.
+Through the `signAndExecuteTransaction` function with kind `moveCall`, our dapp can send `mint` / `transfer` / etc.. function to the wallet extensions.
 
 ```jsx
 import {useWallet} from "@suiet/wallet-kit";
@@ -133,7 +133,7 @@ import {useWallet} from "@suiet/wallet-kit";
 function App() {
   const {
     connected,
-    executeMoveCall,
+    signAndExecuteTransaction
   } = useWallet();
 
   async function mintOneCapybaraForFun() {
@@ -150,7 +150,10 @@ function App() {
         ],
         gasBudget: 10000,
       }
-      const resData = await executeMoveCall(data);
+      const resData = await signAndExecuteTransaction({
+        kind: 'moveCall',
+        data: data,
+      });
       console.log('executeMoveCall success', resData)
       alert('executeMoveCall succeeded (see response in the console)')
     } catch (e) {

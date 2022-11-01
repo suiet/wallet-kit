@@ -11,7 +11,7 @@ import {
 import '@suiet/wallet-kit/style.css';
 
 function App() {
-  const { wallet, connected, connecting, getAccounts, executeMoveCall } =
+  const { wallet, connected, connecting, getAccounts, signAndExecuteTransaction } =
     useWallet();
 
   const [accounts, setAccounts] = useState<string[]>([]);
@@ -39,7 +39,10 @@ function App() {
         ],
         gasBudget: 10000,
       };
-      const resData = await executeMoveCall(data);
+      const resData = await signAndExecuteTransaction({
+        kind: 'moveCall',
+        data
+      });
       console.log('executeMoveCall success', resData);
       alert('executeMoveCall succeeded (see response in the console)');
     } catch (e) {
@@ -63,7 +66,7 @@ function App() {
         ) : (
           <div>
             <div>
-              <p>current wallet: {wallet ? wallet.adapter.name : 'null'}</p>
+              <p>current wallet: {wallet ? wallet.name : 'null'}</p>
               <p>
                 wallet status:{' '}
                 {connecting
