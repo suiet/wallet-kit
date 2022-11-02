@@ -16,6 +16,7 @@ function App() {
     status,
     connected,
     getAccounts,
+    signMessage,
   } = useWallet();
 
   useEffect(() => {
@@ -30,6 +31,29 @@ function App() {
     console.log(k);
     setpbk(k);
   };
+
+  async function handleSignMsg() {
+    try {
+      const msg = 'Hello world!'
+      const result = await signMessage({
+        message: new TextEncoder().encode('Hello world')
+      })
+      if (!result) {
+        alert('signMessage return null')
+        return
+      }
+      console.log('send message to be signed', msg)
+      const textDecoder = new TextDecoder()
+      console.log('signMessage success', result)
+      console.log('signMessage signature', result.signature)
+      console.log('signMessage signedMessage', textDecoder.decode(result.signedMessage).toString())
+      alert('signMessage succeeded (see response in the console)')
+    } catch (e) {
+      console.error('signMessage failed', e)
+      alert('signMessage failed (see response in the console)')
+    }
+  }
+
   const handleClick = async () => {
     // the following example comes from sui wallet official example.
     const res = await signAndExecuteTransaction({
@@ -54,6 +78,7 @@ function App() {
     <div>
       <ConnectButton />
       <div>connectStatus: {status}</div>
+      <p>publickKey: {pbk}</p>
       <br />
       <button
         style={{
@@ -70,7 +95,15 @@ function App() {
         }}
         onClick={publicKey}
       >
-        public key: {pbk}
+        get public key
+      </button>
+      <br/>
+      <button
+        style={{
+          marginTop: 10,
+        }}
+        onClick={handleSignMsg}>
+        handleSignMsg
       </button>
     </div>
   );
