@@ -9,6 +9,8 @@ Suiet wallet kit is a wallet aggregator for DApps to interact with all the walle
 
 Let's try our kit and empower your dapp in minutes. 🪄
 
+> 💡 Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/) + [Vite example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite)
+
 ## 🔨 Setup
 
 First of all, let's install the npm package `@suiet/wallet-kit` to your project.
