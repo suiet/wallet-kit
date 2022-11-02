@@ -19,7 +19,7 @@ import {
   WalletInstance,
   WalletList,
 } from '../adapter/KitAdapter';
-import { keyBy, groupBy } from 'lodash';
+import { keyBy, groupBy } from 'lodash-es';
 import { AccountStatus } from '../types/account';
 import { useAdapters } from '../hooks/useAdapters';
 import { WalletContainer } from '../standard/WalletsContainer';

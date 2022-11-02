@@ -6,16 +6,14 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --emitDeclarationOnly && vite build",
-    "preview": "vite preview",
+    "dev": "rollup -c rollup.config.js --watch",
+    "build": "rollup -c rollup.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "semantic-release": "semantic-release"
   },
   "exports": {
     ".": {
-      "import": "./dist/kit.js",
-      "require": "./dist/kit.umd.cjs"
+      "import": "./dist/index.js"
     },
     "./style.css": "./dist/style.css"
   },
@@ -26,27 +24,34 @@
     "@radix-ui/react-dialog": "^1.0.0",
     "@wallet-standard/app": "^0.1.0-alpha.6",
     "classnames": "^2.3.2",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "mitt": "^3.0.0",
     "swr": "^1.3.0",
     "type-fest": "^3.1.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^9.0.2",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/npm": "^9.0.1",
     "@types/lodash": "^4.14.185",
+    "@types/lodash-es": "^4.17.6",
     "@types/react": "^17",
     "@types/react-dom": "^17",
-    "@vanilla-extract/css": "^1.9.0",
-    "@vanilla-extract/vite-plugin": "^3.4.0",
-    "@vitejs/plugin-react": "^2.1.0",
+    "postcss": "^8.4.18",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "rollup": "^3.2.5",
+    "rollup-plugin-cleaner": "^1.0.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-summary": "^1.4.3",
+    "rollup-plugin-svg": "^2.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-visualizer": "^5.8.3",
+    "sass": "^1.55.0",
     "semantic-release": "^19.0.5",
-    "typescript": "^4.6.4",
-    "typescript-plugin-css-modules": "^3.4.0",
-    "vite": "^3.1.0",
-    "vite-plugin-svgr": "^2.2.1"
+    "typescript": "^4.6.4"
   },
   "repository": {
     "type": "git",
