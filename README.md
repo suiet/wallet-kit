@@ -18,7 +18,7 @@ Now we announce the **[Sui Wallet Standard](https://github.com/MystenLabs/sui/tr
 
 We present **React Provider & Hooks, UI components** for the DApp (React) developers to connect your DApp and all the wallet extensions 🔗 Integration solution or customization are both supported ✅
 
-> 💡 Demo Here: https://kit.suiet.app/
+> 💡 Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/) + [Vite example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite) 
 
 <img src="/assets/wallet-kit.png" />
 
