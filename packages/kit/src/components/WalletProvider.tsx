@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { WalletContext } from "../hooks/useWalletTemp";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
+import {WalletContext} from "../hooks/useWalletTemp";
 import {
   ConnectionStatus,
   IWalletAdapter,
-  IWallet,
   IDefaultWallet,
 } from "../types/wallet";
 import {
@@ -11,40 +10,44 @@ import {
   SuiSignAndExecuteTransactionInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
-import { KitError, WalletError } from "../errors";
-import { AllDefaultWallets } from "../wallet/default-wallets";
+import {KitError, WalletError} from "../errors";
+import {AllDefaultWallets} from "../wallet/default-wallets";
+import {useWalletAdapterDetection} from "../wallet-standard/use-wallet-detection";
+import {Extendable} from "../types";
 
-export type WalletProviderProps = {
-  children?: React.ReactNode;
-  defaultWallets?: Omit<IWallet, "adapter">[];
+export type WalletProviderProps = Extendable & {
+  defaultWallets?: IDefaultWallet[];
 };
 
 const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
-  const [availableWallets, setAvailableWallets] = useState<IWalletAdapter[]>(
+  const {availableWalletAdapters} = useWalletAdapterDetection()
+  const [popularWallets, setPopularWallets] = useState<IWalletAdapter[]>(
     []
   );
+  const [moreWallets, setMoreWallets] = useState<IWalletAdapter[]>(
+    []
+  );
+  const popularWalletNameOrders = useMemo(() => defaultWallets.map(i => i.name), [defaultWallets])
 
   useEffect(() => {
     // detect logic
+
   }, []);
 
   return {
-    data: availableWallets,
+    popular: popularWallets,
+    more: moreWallets,
   };
 };
 
-const WalletProvider = (props: WalletProviderProps) => {
-  const { defaultWallets = AllDefaultWallets, children } = props;
-  const { data: availableWallets } = useAvailableWallets(defaultWallets);
+export const WalletProvider = (props: WalletProviderProps) => {
+  const {defaultWallets = AllDefaultWallets, children} = props;
+  const {popular: popularWallets, more: moreWallets} = useAvailableWallets(defaultWallets);
 
   const [wallet, setWallet] = useState<IWalletAdapter | undefined>();
   const [status, setStatus] = useState<ConnectionStatus>(
     ConnectionStatus.DISCONNECTED
   );
-  const account = useMemo<WalletAccount | undefined>(() => {
-    if (!isCallable(wallet, status)) return;
-    return (wallet as IWalletAdapter).accounts[0]; // use first account by default
-  }, [wallet, status]);
 
   const isCallable = (
     wallet: IWalletAdapter | undefined,
@@ -52,6 +55,12 @@ const WalletProvider = (props: WalletProviderProps) => {
   ) => {
     return wallet && status === ConnectionStatus.CONNECTED;
   };
+
+  const account = useMemo<WalletAccount | undefined>(() => {
+    if (!isCallable(wallet, status)) return;
+    return (wallet as IWalletAdapter).accounts[0]; // use first account by default
+  }, [wallet, status]);
+
 
   const ensureCallable = (
     wallet: IWalletAdapter | undefined,
@@ -126,13 +135,13 @@ const WalletProvider = (props: WalletProviderProps) => {
   return (
     <WalletContext.Provider
       value={{
-        availableWallets,
         wallet,
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
         // FIXME
-        select: () => {},
+        select: () => {
+        },
         connect,
         disconnect,
         getAccounts,
@@ -141,9 +150,7 @@ const WalletProvider = (props: WalletProviderProps) => {
         signMessage,
       }}
     >
-      {children}
+      {props.children}
     </WalletContext.Provider>
   );
 };
-
-export default WalletProvider;

@@ -4,14 +4,14 @@ import { KitError } from "../errors";
 import {
   ConnectInput,
   ConnectOutput,
-  SignMessageOutput,
   SuiSignAndExecuteTransactionInput,
   SuiSignAndExecuteTransactionOutput,
   WalletAccount,
 } from "@mysten/wallet-standard";
+import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
 
 export interface WalletContextState {
-  availableWallets: IWalletAdapter[];
+  // availableWallets: IWalletAdapter[];
   wallet: IWalletAdapter | undefined; // wallet currently connected to
   account: WalletAccount | undefined; // current account (the first account of accounts)
 
@@ -31,8 +31,8 @@ export interface WalletContextState {
     transaction: SuiSignAndExecuteTransactionInput
   ): Promise<SuiSignAndExecuteTransactionOutput>;
 
-  // simplify SignMessageInput
-  signMessage: (message: Uint8Array) => Promise<SignMessageOutput>;
+  // simplify SignMessageInput for users
+  signMessage: (message: Uint8Array) => Promise<ExpSignMessageOutput>;
 }
 
 function missProviderMessage(action: string) {
@@ -41,7 +41,6 @@ function missProviderMessage(action: string) {
 
 const DEFAULT_CONTEXT: WalletContextState = {
   wallet: undefined,
-  availableWallets: [],
   connecting: false,
   connected: false,
   account: undefined,
