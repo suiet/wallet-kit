@@ -1,9 +1,10 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { WalletContext } from "../hooks/useWalletTemp";
 import {
   ConnectionStatus,
   IWalletAdapter,
-  SupportedWallet,
+  IWallet,
+  IDefaultWallet,
 } from "../types/wallet";
 import {
   ConnectInput,
@@ -11,17 +12,31 @@ import {
   WalletAccount,
 } from "@mysten/wallet-standard";
 import { KitError, WalletError } from "../errors";
+import { AllDefaultWallets } from "../wallet/default-wallets";
 
 export type WalletProviderProps = {
   children?: React.ReactNode;
-  supportedWallets?: SupportedWallet[];
+  defaultWallets?: Omit<IWallet, "adapter">[];
 };
 
-const WalletProvider = (props: WalletProviderProps) => {
-  const { supportedWallets, children } = props;
+const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
   const [availableWallets, setAvailableWallets] = useState<IWalletAdapter[]>(
     []
   );
+
+  useEffect(() => {
+    // detect logic
+  }, []);
+
+  return {
+    data: availableWallets,
+  };
+};
+
+const WalletProvider = (props: WalletProviderProps) => {
+  const { defaultWallets = AllDefaultWallets, children } = props;
+  const { data: availableWallets } = useAvailableWallets(defaultWallets);
+
   const [wallet, setWallet] = useState<IWalletAdapter | undefined>();
   const [status, setStatus] = useState<ConnectionStatus>(
     ConnectionStatus.DISCONNECTED
@@ -37,6 +52,7 @@ const WalletProvider = (props: WalletProviderProps) => {
   ) => {
     return wallet && status === ConnectionStatus.CONNECTED;
   };
+
   const ensureCallable = (
     wallet: IWalletAdapter | undefined,
     status: ConnectionStatus
@@ -59,7 +75,7 @@ const WalletProvider = (props: WalletProviderProps) => {
       } catch (e) {
         setWallet(undefined);
         setStatus(ConnectionStatus.DISCONNECTED);
-        throw new WalletError((e as any)?.message);
+        throw e;
       }
     },
     []
@@ -70,8 +86,6 @@ const WalletProvider = (props: WalletProviderProps) => {
     const _wallet = wallet as IWalletAdapter;
     try {
       await _wallet.disconnect();
-    } catch (e) {
-      throw new WalletError((e as any)?.message);
     } finally {
       setWallet(undefined);
       setStatus(ConnectionStatus.DISCONNECTED);
@@ -88,11 +102,7 @@ const WalletProvider = (props: WalletProviderProps) => {
     async (transaction: SuiSignAndExecuteTransactionInput) => {
       ensureCallable(wallet, status);
       const _wallet = wallet as IWalletAdapter;
-      try {
-        return await _wallet.signAndExecuteTransaction(transaction);
-      } catch (e) {
-        throw new WalletError((e as any)?.message);
-      }
+      return await _wallet.signAndExecuteTransaction(transaction);
     },
     [wallet, status]
   );
@@ -105,14 +115,10 @@ const WalletProvider = (props: WalletProviderProps) => {
       }
 
       const _wallet = wallet as IWalletAdapter;
-      try {
-        return await _wallet.signMessage({
-          account,
-          message,
-        });
-      } catch (e) {
-        throw new WalletError((e as any)?.message);
-      }
+      return await _wallet.signMessage({
+        account,
+        message,
+      });
     },
     [wallet, account, status]
   );
