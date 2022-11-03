@@ -10,7 +10,8 @@
     "strict": true,
     "rootDir": "src",
     "declarationDir": "dist",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules",

@@ -1,9 +1,10 @@
-import { ExpSignMessageMethod, IWalletAdapter } from "../types/wallet";
+import {
+  IWalletAdapter
+} from "../types/wallet";
 import {
   ConnectInput,
   ConnectMethod,
   ConnectOutput,
-  StandardWalletAdapterWallet,
   DisconnectMethod,
   EventsListeners,
   EventsOnMethod,
@@ -11,11 +12,15 @@ import {
   SuiSignAndExecuteTransactionOutput,
   EventsNames,
   SuiSignAndExecuteTransactionMethod,
-  SignMessageInput,
-  SignMessageOutput,
+  Wallet,
 } from "@mysten/wallet-standard";
-import { has } from "lodash-es";
-import { WalletNotImplementError } from "../errors";
+import {has} from "lodash-es";
+import {WalletError, WalletNotImplementError} from "../errors";
+import {
+  ExpSignMessageInput,
+  ExpSignMessageMethod,
+  ExpSignMessageOutput
+} from "../wallet-standard/features/exp_sign-message";
 
 export enum FeatureName {
   STANDARD__CONNECT = "standard:connect",
@@ -30,7 +35,11 @@ export enum FeatureName {
  * provider universal interfaces to component usage
  */
 export class WalletAdapter implements IWalletAdapter {
-  private standardWalletAdapter: StandardWalletAdapterWallet;
+  private standardWalletAdapter: Wallet;
+
+  constructor(standardWalletAdapter: Wallet) {
+    this.standardWalletAdapter = standardWalletAdapter;
+  }
 
   get name() {
     return this.standardWalletAdapter.name;
@@ -53,58 +62,74 @@ export class WalletAdapter implements IWalletAdapter {
   }
 
   get features() {
-    return this.standardWalletAdapter.features;
+    return this.standardWalletAdapter.features as any;
   }
 
-  constructor(standardWalletAdapter: StandardWalletAdapterWallet) {
-    this.standardWalletAdapter = standardWalletAdapter;
-  }
-
-  connect(input: ConnectInput | undefined): Promise<ConnectOutput> {
+  async connect(input: ConnectInput | undefined): Promise<ConnectOutput> {
     const feature = this.getFeature<{ connect: ConnectMethod }>(
       FeatureName.STANDARD__CONNECT
     );
-    return feature.connect(input);
+    try {
+      return await feature.connect(input);
+    } catch (e) {
+      throw new WalletError((e as any).message)
+    }
   }
 
-  disconnect(): Promise<void> {
+  async disconnect(): Promise<void> {
     const feature = this.getFeature<{ disconnect: DisconnectMethod }>(
       FeatureName.STANDARD__DISCONNECT
     );
-    return feature.disconnect();
+    try {
+      return await feature.disconnect();
+    } catch (e) {
+      throw new WalletError((e as any).message)
+    }
   }
 
   on<T extends EventsNames>({
-    event,
-    listener,
-  }: {
+                              event,
+                              listener,
+                            }: {
     event: T;
     listener: EventsListeners[T];
   }) {
     const feature = this.getFeature<{ on: EventsOnMethod }>(
       FeatureName.STANDARD__EVENTS
     );
-    feature.on<T>(event, listener);
+    try {
+      feature.on<T>(event, listener);
+    } catch (e) {
+      throw new WalletError((e as any).message)
+    }
   }
 
-  signAndExecuteTransaction(
+  async signAndExecuteTransaction(
     input: SuiSignAndExecuteTransactionInput
   ): Promise<SuiSignAndExecuteTransactionOutput> {
     const feature = this.getFeature<{
       signAndSendTransaction: SuiSignAndExecuteTransactionMethod;
     }>(FeatureName.SUI__SIGN_AND_TRANSACTION);
-    return feature.signAndSendTransaction(input);
+    try {
+      return await feature.signAndSendTransaction(input);
+    } catch (e) {
+      throw new WalletError((e as any).message)
+    }
   }
 
-  signMessage(input: SignMessageInput): Promise<SignMessageOutput> {
+  async signMessage(input: ExpSignMessageInput): Promise<ExpSignMessageOutput> {
     const feature = this.getFeature<{ signMessage: ExpSignMessageMethod }>(
       FeatureName.EXP__SIGN_MESSAGE
     );
-    return feature.signMessage(input);
+    try {
+      return await feature.signMessage(input);
+    } catch (e) {
+      throw new WalletError((e as any).message)
+    }
   }
 
   private getFeature<T = any>(name: string): T {
-    const { features } = this.standardWalletAdapter;
+    const {features} = this.standardWalletAdapter;
     if (!has(features, name)) {
       throw new WalletNotImplementError(name);
     }

@@ -17,8 +17,8 @@ export default defineConfig({
   output: {
     dir: 'dist',
     format: 'esm',
-    preserveModules: true,
-    preserveModulesRoot: 'src',
+    // preserveModules: true,
+    // preserveModulesRoot: 'src',
     sourcemap: true,
   },
   plugins: [
@@ -28,23 +28,23 @@ export default defineConfig({
       ]
     }),
     resolve({
-      browser: true, // specify that it's built for browser
+      // browser: true, // specify that it's built for browser
     }),
-    commonjs(),
     typescript({
       tsconfig: './tsconfig.json',
       declaration: true,
       declarationDir: 'dist',
     }),
+    commonjs(),
     svg(),
     postcss({
       extract: path.resolve('dist/style.css')
     }),
-    terser(),
-    visualizer({
-      filename: 'bundle-analysis.html',
-      open: true,
-    }),
+    // terser(),
+    // visualizer({
+    //   filename: 'bundle-analysis.html',
+    //   open: true,
+    // }),
     summary({
       warnLow: 1000,
       warnHigh: 3000,
