@@ -1,19 +1,37 @@
 {
   "name": "mono",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "vite": "^3"
-      }
-    }
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier": "prettier --write --ignore-unknown .",
+    "lint": "eslint --ext=.js,.js,.tsx,.ts .",
+    "lint:fix": "eslint --fix --ext=.js,.js,.tsx,.ts .",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown",
+    "*.{jsx?,tsx?}": "eslint --fix"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/eslint-parser": "^7.19.1",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^22.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.0.1",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  }
 }
