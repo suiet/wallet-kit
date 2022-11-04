@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
-// import {ConnectButton, useWallet} from "@suiet/wallet-kit";
-// import '@suiet/wallet-kit/style.css';
+import {ConnectButton} from "@suiet/wallet-kit";
+import '@suiet/wallet-kit/style.css';
 
 function App() {
   // const {wallet, connected, connecting, address, signAndExecuteTransaction, signMessage, getPublicKey} =
@@ -20,6 +20,7 @@ function App() {
       </div>
       <h1>Vite + Suiet Kit</h1>
       <div className="card">
+        <ConnectButton />
       </div>
       <p className="read-the-docs">
         Click on the Vite and Suiet logos to learn more

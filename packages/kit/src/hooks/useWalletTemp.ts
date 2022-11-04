@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { ConnectionStatus, IWalletAdapter } from "../types/wallet";
+import {ConnectionStatus, IDefaultWallet, IWalletAdapter} from "../types/wallet";
 import { KitError } from "../errors";
 import {
   ConnectInput,
@@ -11,7 +11,8 @@ import {
 import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
 
 export interface WalletContextState {
-  // availableWallets: IWalletAdapter[];
+  defaultWallets: IDefaultWallet[];
+  availableWalletAdapters: IWalletAdapter[];
   wallet: IWalletAdapter | undefined; // wallet currently connected to
   account: WalletAccount | undefined; // current account (the first account of accounts)
 
@@ -20,10 +21,6 @@ export interface WalletContextState {
   status: "disconnected" | "connected" | "connecting";
 
   select: (walletName: string) => void;
-  connect: (
-    wallet: IWalletAdapter,
-    opts?: ConnectInput
-  ) => Promise<ConnectOutput>;
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
 
@@ -40,6 +37,8 @@ function missProviderMessage(action: string) {
 }
 
 const DEFAULT_CONTEXT: WalletContextState = {
+  defaultWallets: [],
+  availableWalletAdapters: [],
   wallet: undefined,
   connecting: false,
   connected: false,
@@ -47,9 +46,6 @@ const DEFAULT_CONTEXT: WalletContextState = {
   status: ConnectionStatus.DISCONNECTED,
   select() {
     throw new KitError(missProviderMessage("select"));
-  },
-  async connect() {
-    throw new KitError(missProviderMessage("connect"));
   },
   async disconnect() {
     throw new KitError(missProviderMessage("disconnect"));
@@ -62,7 +58,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   },
   async signMessage() {
     throw new KitError(missProviderMessage("signMessage"));
-  },
+  }
 };
 
 export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);

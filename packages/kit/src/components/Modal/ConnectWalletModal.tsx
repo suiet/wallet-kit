@@ -8,6 +8,7 @@ import { WalletInstance } from '../../adapter/KitAdapter';
 import Icon from '../Icon';
 import { SvgArrowLeft, SvgClose } from '../Icon/SvgIcons';
 import { useWallet } from '../../hooks';
+import {BaseModal} from "./BaseModal";
 
 interface ConnectWalletModalProps {
   groupWallets: Record<string, WalletInstance[]>;
@@ -108,73 +109,67 @@ export function ConnectWalletModal({
       }
     } else {
       return (
-        <Dialog.Root open={open}>
-          <Dialog.Trigger asChild>{children}</Dialog.Trigger>
-          <Dialog.Portal>
-            <Dialog.Overlay className={'wkit-dialog__overlay'}>
-              <Dialog.Content
-                className={'wkit-dialog__content'}
-                style={{
-                  minHeight: `${contentHeight}px`,
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <div className={'wkit-dialog__header'}>
-                  <Dialog.Title
-                    className={'wkit-dialog__title'}
-                    style={{ margin: '-8px 12px -6px -8px' }}
-                  >
+        <BaseModal
+          open={open}
+          trigger={children}
+          style={{
+            minHeight: `${contentHeight}px`,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <div className={'wkit-dialog__header'}>
+            <Dialog.Title
+              className={'wkit-dialog__title'}
+              style={{ margin: '-8px 12px -6px -8px' }}
+            >
                     <span
                       className="wkit-dialog__close"
                       onClick={() => setSelectedWallet(undefined)}
                     >
                       <SvgArrowLeft />
                     </span>
-                  </Dialog.Title>
+            </Dialog.Title>
 
-                  <Dialog.Title className={'wkit-dialog__title'}>
-                    Install Wallet
-                  </Dialog.Title>
-                </div>
-                <div className="wkit-install">
-                  <img
-                    className="wkit-install__logo"
-                    src={realIconUrl}
-                    alt={`logo of ${selectedWallet.name}`}
-                  />
-                  <h1 className="wkit-install__title">
-                    You haven’t install this wallet
-                  </h1>
-                  <p className="wkit-install__description">
-                    Install wallet via Chrome Extension Store
-                  </p>
-                  <button
-                    className="wkit-button wkit-install__button"
-                    onClick={() => {
-                      if (selectedWallet.downloadUrl) {
-                        if (selectedWallet.downloadUrl.browserExtension) {
-                          window.open(
-                            selectedWallet.downloadUrl.browserExtension,
-                            '_blank'
-                          );
-                        }
-                        // else if (selectedWallet.downloadUrl.mobile) {
-                        //   window.open(
-                        //     selectedWallet.downloadUrl.mobile,
-                        //     "_blank"
-                        //   );
-                        // }
-                      }
-                    }}
-                  >
-                    Get Wallet
-                  </button>
-                </div>
-              </Dialog.Content>
-            </Dialog.Overlay>
-          </Dialog.Portal>
-        </Dialog.Root>
+            <Dialog.Title className={'wkit-dialog__title'}>
+              Install Wallet
+            </Dialog.Title>
+          </div>
+          <div className="wkit-install">
+            <img
+              className="wkit-install__logo"
+              src={realIconUrl}
+              alt={`logo of ${selectedWallet.name}`}
+            />
+            <h1 className="wkit-install__title">
+              You haven’t install this wallet
+            </h1>
+            <p className="wkit-install__description">
+              Install wallet via Chrome Extension Store
+            </p>
+            <button
+              className="wkit-button wkit-install__button"
+              onClick={() => {
+                if (selectedWallet.downloadUrl) {
+                  if (selectedWallet.downloadUrl.browserExtension) {
+                    window.open(
+                      selectedWallet.downloadUrl.browserExtension,
+                      '_blank'
+                    );
+                  }
+                  // else if (selectedWallet.downloadUrl.mobile) {
+                  //   window.open(
+                  //     selectedWallet.downloadUrl.mobile,
+                  //     "_blank"
+                  //   );
+                  // }
+                }
+              }}
+            >
+              Get Wallet
+            </button>
+          </div>
+        </BaseModal>
       );
     }
   }

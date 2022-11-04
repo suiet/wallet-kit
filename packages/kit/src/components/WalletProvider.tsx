@@ -42,7 +42,7 @@ const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
 
 export const WalletProvider = (props: WalletProviderProps) => {
   const {defaultWallets = AllDefaultWallets, children} = props;
-  const {popular: popularWallets, more: moreWallets} = useAvailableWallets(defaultWallets);
+  const {availableWalletAdapters} = useWalletAdapterDetection()
 
   const [wallet, setWallet] = useState<IWalletAdapter | undefined>();
   const [status, setStatus] = useState<ConnectionStatus>(
@@ -101,6 +101,24 @@ export const WalletProvider = (props: WalletProviderProps) => {
     }
   }, [wallet, status]);
 
+  const select = useCallback(async (walletName: string) => {
+    if (isCallable(wallet, status)) {
+      const _wallet = wallet as IWalletAdapter;
+      // Same wallet, ignore
+      if (walletName === _wallet.name) return;
+
+      // else first disconnect current wallet
+      await disconnect()
+    }
+
+    const availableWalletNames = availableWalletAdapters.map(wallet => wallet.name)
+    if (!availableWalletNames.includes(walletName)) {
+      throw new KitError(`select failed: wallet ${walletName} is not available, all wallets are listed here: [${availableWalletNames.join(', ')}]`)
+    }
+    const _adapter = availableWalletAdapters.find((wallet) => wallet.name === walletName) as IWalletAdapter;
+    await connect(_adapter)
+  }, [wallet, status])
+
   const getAccounts = useCallback(() => {
     ensureCallable(wallet, status);
     const _wallet = wallet as IWalletAdapter;
@@ -135,14 +153,13 @@ export const WalletProvider = (props: WalletProviderProps) => {
   return (
     <WalletContext.Provider
       value={{
+        defaultWallets,
+        availableWalletAdapters,
         wallet,
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
-        // FIXME
-        select: () => {
-        },
-        connect,
+        select,
         disconnect,
         getAccounts,
         account,
@@ -150,7 +167,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         signMessage,
       }}
     >
-      {props.children}
+      {children}
     </WalletContext.Provider>
   );
 };

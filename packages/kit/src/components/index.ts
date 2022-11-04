@@ -1,3 +1,3 @@
-// export { ConnectButton } from './ConnectButton';
-// export { ConnectWalletModal } from './Modal/ConnectWalletModal';
+export * from './Button/ConnectButton';
+export * from './Modal/ConnectModal';
 export * from './WalletProvider';

@@ -22,13 +22,13 @@ export class BaseError extends Error {
 
 export class KitError extends BaseError {
   constructor(message = "kit unknown error", details?: Record<string, any>) {
-    super(message, details, ErrorCode.KIT__UNKNOWN_ERROR);
+    super('[KitError] ' + message, details, ErrorCode.KIT__UNKNOWN_ERROR);
   }
 }
 
 export class WalletError extends BaseError {
   constructor(message = "wallet unknown error", details?: Record<string, any>) {
-    super(message, details, ErrorCode.WALLET__UNKNOWN_ERROR);
+    super('[WalletError] ' + message, details, ErrorCode.WALLET__UNKNOWN_ERROR);
   }
 }
 
