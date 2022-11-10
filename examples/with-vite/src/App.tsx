@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
-import {ConnectButton, useWallet} from "@suiet/wallet-kit";
+import {ConnectButton, useWallet, useAccountBalance} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
 
@@ -10,6 +10,7 @@ function App() {
     useWallet();
 
   const [publicKey, setPublicKey] = useState<Uint8Array>()
+  const {balance} = useAccountBalance()
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return ''
@@ -42,8 +43,6 @@ function App() {
       alert('executeMoveCall failed (see response in the console)');
     }
   }
-
-
 
   async function handleSignMsg() {
     try {
@@ -118,6 +117,7 @@ function App() {
                     : 'disconnected'}
               </p>
               <p>wallet address: {address}</p>
+              <p>wallet balance: {balance}</p>
               <p>wallet publicKey: {uint8arrayToHex(publicKey)}</p>
             </div>
             <div className={'btn-group'} style={{margin: '8px 0'}}>
