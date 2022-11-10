@@ -3,6 +3,7 @@ import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
 import {ConnectButton, useWallet} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
+import * as tweetnacl from 'tweetnacl'
 
 function App() {
   const {wallet, connected, connecting, address, signAndExecuteTransaction, signMessage, getPublicKey} =
@@ -43,6 +44,7 @@ function App() {
   }
 
 
+
   async function handleSignMsg() {
     try {
       const msg = 'Hello world!'
@@ -50,15 +52,25 @@ function App() {
         message: new TextEncoder().encode('Hello world')
       })
       if (!result) {
-        alert('signMessage return null')
-        return
+        throw new Error('signMessage result is null')
       }
       console.log('send message to be signed', msg)
       const textDecoder = new TextDecoder()
       console.log('signMessage success', result)
       console.log('signMessage signature', result.signature)
       console.log('signMessage signedMessage', textDecoder.decode(result.signedMessage).toString())
-      alert('signMessage succeeded (see response in the console)')
+      const publicKey = await getPublicKey();
+      console.log('public key', publicKey)
+      const isCorrect = tweetnacl.sign.detached.verify(
+        result.signedMessage,
+        result.signature,
+        publicKey,
+      )
+      if (!isCorrect) {
+        alert('signMessage succeeded, but verify failed (see response in the console)')
+        return
+      }
+      alert('signMessage succeeded, verify passed (see response in the console)')
     } catch (e) {
       console.error('signMessage failed', e)
       alert('signMessage failed (see response in the console)')
