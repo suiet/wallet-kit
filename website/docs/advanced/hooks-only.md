@@ -82,7 +82,7 @@ function AccountInfo() {
       <div>address: {address}</div>
       <button
         onClick={async () => {
-          const res = await executeMoveCall({
+          const res = await signAndExecuteTransaction({
             // transaction params...
           });
         }}
