@@ -28,7 +28,7 @@ export interface WalletContextState {
   ): Promise<SuiSignAndExecuteTransactionOutput>;
 
   // simplify SignMessageInput for users
-  signMessage: (message: Uint8Array) => Promise<ExpSignMessageOutput>;
+  signMessage: (input: {message: Uint8Array}) => Promise<ExpSignMessageOutput>;
 }
 
 function missProviderMessage(action: string) {

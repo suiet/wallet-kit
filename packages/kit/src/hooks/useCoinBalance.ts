@@ -14,9 +14,12 @@ export type GetOwnedObjParams = { network: Network; address: string };
 async function getCoinsBalance(
   params: GetOwnedObjParams
 ): Promise<Array<{ symbol: string; balance: string }>> {
+  console.log('getCoinsBalance params', params)
   const { network, address } = params;
   const provider = new Provider(network.queryRpcUrl, network.gatewayRpcUrl);
   const objects = await provider.query.getOwnedCoins(address);
+  console.log('getCoinsBalance objects', objects)
+
   const result = new Map();
   for (const object of objects) {
     result.has(object.symbol)
@@ -51,7 +54,7 @@ export function useCoinBalance({
     error,
     isValidating,
   } = useSWR(
-    ['fetchCoinsBalanceMap', address, network, canFetch],
+    ['fetchCoinsBalanceMap' + net, address, net, canFetch],
     fetchCoinsBalanceMap
   );
 
@@ -61,10 +64,12 @@ export function useCoinBalance({
     network: Network,
     canFetch = true
   ) {
+    console.log('fetchCoinsBalanceMap params', address, network, canFetch)
     const map = new Map<string, string>();
     if (!address || !network || !canFetch) return map;
 
     const coinsBalance = await getCoinsBalance({ address, network: net });
+    console.log('coinsBalance', coinsBalance)
     if (!coinsBalance) {
       throw new Error(`fetch coinsBalance failed: ${address}, ${networkId}`);
     }

@@ -30,10 +30,7 @@ const Icon = (props: IconProps) => {
           style={props.elStyle}
         />
       ) : (
-        React.cloneElement(icon as any, {
-          className: props.elClassName,
-          style: props.elStyle,
-        })
+        React.cloneElement(icon as any)
       )}
     </div>
   );

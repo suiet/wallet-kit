@@ -86,6 +86,7 @@
   margin-right: -12px;
   margin-left: -4px;
   max-height: 320px;
+  min-height: 280px;
 }
 
 .wkit-select__container {
@@ -199,6 +200,7 @@
 
 .wkit-connecting,
 .wkit-install {
+  padding: 64px 0;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -240,7 +242,7 @@
   margin-top: 5px;
 }
 
-.wkit-install__button {
+.wkit-button.wkit-install__button {
   width: unset;
   padding: 10px 16px;
   font-size: var(--wkit-font-size-small);

@@ -19,7 +19,8 @@ export type ExpSignMessageInput = {
   message: Uint8Array;
 }
 export type ExpSignMessageOutput = {
-  message: Uint8Array;
+  signature: Uint8Array;
+  signedMessage: Uint8Array;
 }
 
 export type ExpSignMessageMethod = (

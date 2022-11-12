@@ -1,7 +1,6 @@
 import * as React from 'react';
 import type { ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import type { DialogProps } from '@radix-ui/react-dialog';
 
 import './index.scss';
 import { WalletInstance } from '../../adapter/KitAdapter';
