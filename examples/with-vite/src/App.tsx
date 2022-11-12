@@ -16,6 +16,7 @@ function App() {
     signMessage,
     getPublicKey,
   } = useWallet();
+  const {balance} = useAccountBalance();
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return ''
@@ -119,6 +120,7 @@ function App() {
                     : 'disconnected'}
               </p>
               <p>wallet address: {account?.address}</p>
+              <p>wallet balance: {balance} SUI</p>
               <p>wallet publicKey: {uint8arrayToHex(account?.publicKey)}</p>
             </div>
             <div className={'btn-group'} style={{margin: '8px 0'}}>

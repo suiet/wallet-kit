@@ -27,7 +27,7 @@ function WalletInfo(props: ConnectButtonProps) {
         }}
       >
         <span className={"wkit-connected-button__balance"}>
-          {formatCurrency(balance)} SUI
+          {balance} SUI
         </span>
         <div className={"wkit-connected-button__divider"}></div>
         <div className={"wkit-address-select"}>
