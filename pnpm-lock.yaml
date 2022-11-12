@@ -8,7 +8,7 @@ importers:
   packages/kit:
     specifiers:
       '@mysten/sui.js': 0.14.0
-      '@mysten/wallet-standard': 0.1.2
+      '@mysten/wallet-standard': 0.2.1
       '@radix-ui/react-dialog': ^1.0.0
       '@semantic-release/changelog': ^6.0.1
       '@semantic-release/npm': ^9.0.1
@@ -33,7 +33,7 @@ importers:
       vite-plugin-svgr: ^2.2.1
     dependencies:
       '@mysten/sui.js': 0.14.0
-      '@mysten/wallet-standard': 0.1.2
+      '@mysten/wallet-standard': 0.2.1
       '@radix-ui/react-dialog': 1.0.0_hiunvzosbwliizyirxfy6hjyim
       '@wallet-standard/app': 0.1.0-alpha.6
       classnames: 2.3.2
@@ -2598,6 +2598,10 @@ packages:
       bn.js: 5.2.1
     dev: false
 
+  /@mysten/bcs/0.5.0:
+    resolution: {integrity: sha512-FjGnXZfR4dY01Q1l3xjgaU+ruIlVomXZk8vzgsQXPFOv7O4pNiOOpJyMEMUnWcyUiktk4R9MxoJJrygOtdxaUw==}
+    dev: false
+
   /@mysten/sui.js/0.0.0-experimental-20220918004146:
     resolution: {integrity: sha512-rTLp6eDKdWeID4CXQyvHmfnKj+dZD6chz7l8duVljYoK0lVBp3+wAThoWKWX4oqdcgAATwql+aC4ULD1+IlWgw==}
     engines: {node: '>=16'}
@@ -2642,6 +2646,27 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@mysten/sui.js/0.16.0:
+    resolution: {integrity: sha512-/ekVTNfkIkez0152nsu+uZID8TiSucjy9QGIWL4yIev6yn5Touyze3qlloEIj2W0GUnPuP/QUfzUsO8mu1Dt/g==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@mysten/bcs': 0.5.0
+      '@noble/hashes': 1.1.3
+      '@noble/secp256k1': 1.7.0
+      '@scure/bip32': 1.1.1
+      '@scure/bip39': 1.1.0
+      cross-fetch: 3.1.5
+      jayson: 3.7.0
+      js-sha3: 0.8.0
+      lossless-json: 1.0.5
+      rpc-websockets: 7.5.0
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   /@mysten/wallet-adapter-base/0.0.0-experimental-20220918004146:
     resolution: {integrity: sha512-NGjVvy1u05g5TNJygaIbv5i04HIptj8nfJNKD/T2nqfZ+qTyclkxdRoBdFLKdkP+VEReuKFCS7AOlQKzu3A2ow==}
     dependencies:
@@ -2663,13 +2688,11 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard/0.1.2:
-    resolution: {integrity: sha512-GITrfRPv2jkIB2pSfJ9kgttc1VcWhNHJiKi3BkhAu9uxo3UC5spuuMyu9CmSn+pcx+s0pjsy4zI7FjLZPVBQHw==}
+  /@mysten/wallet-standard/0.2.1:
+    resolution: {integrity: sha512-69VzhvkbnwUy80q98JTR6kBV3w9Vilk67BltXLPZh6s+EgjE66BCpeEsvNMN8cYKnjO22YfJ2p7kckU4xN78mw==}
     dependencies:
-      '@mysten/sui.js': 0.14.0
-      '@wallet-standard/features': 0.1.0-alpha.4
-      '@wallet-standard/standard': 0.1.0-alpha.5
-      '@wallet-standard/util': 0.1.0-alpha.6
+      '@mysten/sui.js': 0.16.0
+      '@wallet-standard/core': 1.0.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -3626,20 +3649,44 @@ packages:
       '@wallet-standard/standard': 0.1.0-alpha.5
     dev: false
 
-  /@wallet-standard/features/0.1.0-alpha.4:
-    resolution: {integrity: sha512-HF7i//1oqadV8269Jp8rEFxSf+nCxLZ+CGKT5giuavSb/hdbiPPDbQLMhWfyLRatSnssIZN1LtsyzGe9kDFJrg==}
+  /@wallet-standard/app/1.0.0:
+    resolution: {integrity: sha512-ElUzbW0QpqNEVcjfak1oE/abd0CgjXH2URJmj60VjSx5/g30HPZxynfBAyUV3EiSPyvo4CgM1HyLQ73Y+cDy3w==}
+    engines: {node: '>=16'}
     dependencies:
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0
+    dev: false
+
+  /@wallet-standard/base/1.0.0:
+    resolution: {integrity: sha512-MxGmm4vFvz2zZ/NPphdsQxSsAEtHMFSgDLqo6WNaI0w1MLxj1S93cRIjhHCn7Ny7lpNJ6jVEZqhB3F/dqRkFlg==}
+    engines: {node: '>=16'}
+    dev: false
+
+  /@wallet-standard/core/1.0.0:
+    resolution: {integrity: sha512-T6D/qONZF21tGpF7amwc4NlKNL9I6ioi+Lezdg8YTx+5apvzevyM1MkivYJT0WUZeUfhSjmGw9RbsaXL957V6A==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@wallet-standard/app': 1.0.0
+      '@wallet-standard/base': 1.0.0
+      '@wallet-standard/features': 1.0.0
+      '@wallet-standard/wallet': 1.0.0
+    dev: false
+
+  /@wallet-standard/features/1.0.0:
+    resolution: {integrity: sha512-t0Fr+ds2e1L53NoIht8jLAt2pZJYupOouI9ztk4DEXRWZAC+iiPvIrH/fqI2YKmsfvNBRn6hUVsd3UsV3Uw3Sg==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@wallet-standard/base': 1.0.0
     dev: false
 
   /@wallet-standard/standard/0.1.0-alpha.5:
     resolution: {integrity: sha512-rqs9vD+Hww8kWtF8/8wi+hhLIWN1ank/ZfK7mGALen+9XhxAcgOJwl96l30MCSL2w1AHykOEELOZK6lUbg13gQ==}
     dev: false
 
-  /@wallet-standard/util/0.1.0-alpha.6:
-    resolution: {integrity: sha512-dyfgryEo5PU3XXZ20Zs9jRtyVuP/7qsKD9yNyPy9XlcZpB6HR3OtdqiXJQsm1KOxz8VsOsfRIdmzri4O/1MR7Q==}
+  /@wallet-standard/wallet/1.0.0:
+    resolution: {integrity: sha512-w+eiUj05Z0JCXYFEuFvzy6IkdAC46VvVe7nl33FPQ2MUmCfDTX7Q39dIOtf6g8yM+O3fzFNlvnTcuXgcqqmRrg==}
+    engines: {node: '>=16'}
     dependencies:
-      '@wallet-standard/standard': 0.1.0-alpha.5
+      '@wallet-standard/base': 1.0.0
     dev: false
 
   /@webassemblyjs/ast/1.11.1:
