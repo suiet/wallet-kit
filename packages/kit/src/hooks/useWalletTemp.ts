@@ -1,9 +1,7 @@
 import { createContext, useContext } from "react";
-import {ConnectionStatus, IDefaultWallet, IWalletAdapter} from "../types/wallet";
+import {ConnectionStatus, IWallet, IWalletAdapter} from "../types/wallet";
 import { KitError } from "../errors";
 import {
-  ConnectInput,
-  ConnectOutput,
   SuiSignAndExecuteTransactionInput,
   SuiSignAndExecuteTransactionOutput,
   WalletAccount,
@@ -11,8 +9,9 @@ import {
 import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
 
 export interface WalletContextState {
-  defaultWallets: IDefaultWallet[];
-  availableWalletAdapters: IWalletAdapter[];
+  configuredWallets: IWallet[];
+  detectedWallets: IWallet[];
+  allAvailableWallets: IWallet[];
   wallet: IWalletAdapter | undefined; // wallet currently connected to
   account: WalletAccount | undefined; // current account (the first account of accounts)
 
@@ -37,8 +36,9 @@ function missProviderMessage(action: string) {
 }
 
 const DEFAULT_CONTEXT: WalletContextState = {
-  defaultWallets: [],
-  availableWalletAdapters: [],
+  configuredWallets: [],
+  detectedWallets: [],
+  allAvailableWallets: [],
   wallet: undefined,
   connecting: false,
   connected: false,

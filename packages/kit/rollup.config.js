@@ -1,11 +1,12 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
-
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 import postcss from "rollup-plugin-postcss";
 import {visualizer} from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
-import svg from 'rollup-plugin-svg'
+// import svg from 'rollup-plugin-svg';
+import svgr from '@svgr/rollup';
 import cleaner from 'rollup-plugin-cleaner';
 import {summary} from "rollup-plugin-summary";
 
@@ -27,29 +28,30 @@ export default defineConfig({
         './dist'
       ]
     }),
+    nodePolyfills(),
     resolve({
-      // browser: true, // specify that it's built for browser
+      browser: true, // specify that it's built for browser
     }),
+    commonjs(),
     typescript({
       tsconfig: './tsconfig.json',
       declaration: true,
       declarationDir: 'dist',
     }),
-    commonjs(),
-    svg(),
+    svgr(),
     postcss({
-      extract: path.resolve('dist/style.css')
+      extract: path.resolve('./dist/style.css')
     }),
     // terser(),
     // visualizer({
     //   filename: 'bundle-analysis.html',
     //   open: true,
     // }),
-    summary({
-      warnLow: 1000,
-      warnHigh: 3000,
-      showMinifiedSize: false,
-    }),
+    // summary({
+    //   warnLow: 1000,
+    //   warnHigh: 3000,
+    //   showMinifiedSize: false,
+    // }),
   ],
   external: ['react', 'react-dom'],
 })

@@ -35,7 +35,9 @@ export class StandardWalletAdapter {
         // revert from base64 buffer and convert to hex buffer
         // @ts-ignore
         const pkStr = publicKey.toString('base64')
-        publicKey = Buffer.from(pkStr.slice(2), 'hex')
+        // publicKey = Buffer.from(pkStr.slice(2), 'hex')
+        // TODO: public Key
+        publicKey = new Uint8Array()
       }
       return {[account.address]: publicKey}
     });

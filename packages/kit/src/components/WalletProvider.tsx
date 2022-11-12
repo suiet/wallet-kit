@@ -1,72 +1,121 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {WalletContext} from "../hooks/useWalletTemp";
 import {
   ConnectionStatus,
   IWalletAdapter,
-  IDefaultWallet,
+  IDefaultWallet, IWallet,
 } from "../types/wallet";
 import {
   ConnectInput,
   SuiSignAndExecuteTransactionInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
-import {KitError, WalletError} from "../errors";
+import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/default-wallets";
 import {useWalletAdapterDetection} from "../wallet-standard/use-wallet-detection";
 import {Extendable} from "../types";
+import {isNonEmptyArray} from "../utils";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
 };
 
 const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
-  const {availableWalletAdapters} = useWalletAdapterDetection()
-  const [popularWallets, setPopularWallets] = useState<IWalletAdapter[]>(
-    []
-  );
-  const [moreWallets, setMoreWallets] = useState<IWalletAdapter[]>(
-    []
-  );
-  const popularWalletNameOrders = useMemo(() => defaultWallets.map(i => i.name), [defaultWallets])
+  const {data: availableWalletAdapters} = useWalletAdapterDetection()
+  // configured wallets
+  const configuredWallets = useMemo(() => {
+    if (!isNonEmptyArray(defaultWallets)) return [];
+    if (!isNonEmptyArray(availableWalletAdapters)) {
+      return defaultWallets.map(item => ({
+        ...item,
+        adapter: undefined,
+        installed: false,
+      }) as IWallet)
+    }
 
-  useEffect(() => {
-    // detect logic
+    return defaultWallets.map((item) => {
+      const foundAdapter = availableWalletAdapters.find(walletAdapter => item.name === walletAdapter.name);
+      if (foundAdapter) {
+        return {
+          ...item,
+          adapter: foundAdapter,
+          installed: true,
+        } as IWallet
+      }
+      return {
+        ...item,
+        adapter: undefined,
+        installed: false,
+      } as IWallet
+    });
+  }, [defaultWallets, availableWalletAdapters])
 
-  }, []);
+  // detected wallets
+  const detectedWallets = useMemo(() => {
+    if (!isNonEmptyArray(availableWalletAdapters)) return [];
+    return availableWalletAdapters.filter(adapter => {
+      // filter adapters not shown in the configured list
+      return !defaultWallets.find(wallet => wallet.name === adapter.name)
+    }).map((adapter) => {
+      // normalized detected adapter to IWallet
+      return {
+        name: adapter.name,
+        adapter: adapter,
+        installed: true,
+        iconUrl: adapter.icon,
+        downloadUrl: {
+          browserExtension: '',  // no need to know
+        },
+      }
+    })
+  }, [defaultWallets, availableWalletAdapters]);
+
+  // filter installed wallets
+  const allAvailableWallets = useMemo(() => {
+    return [
+      ...configuredWallets,
+      ...detectedWallets,
+    ].filter(wallet => wallet.installed)
+  }, [configuredWallets, detectedWallets])
 
   return {
-    popular: popularWallets,
-    more: moreWallets,
+    allAvailableWallets,
+    configuredWallets,
+    detectedWallets,
   };
 };
 
 export const WalletProvider = (props: WalletProviderProps) => {
   const {defaultWallets = AllDefaultWallets, children} = props;
-  const {availableWalletAdapters} = useWalletAdapterDetection()
+  const {
+    allAvailableWallets,
+    configuredWallets,
+    detectedWallets
+  } = useAvailableWallets(defaultWallets);
 
-  const [wallet, setWallet] = useState<IWalletAdapter | undefined>();
+  const [walletAdapter, setWalletAdapter] = useState<IWalletAdapter | undefined>();
   const [status, setStatus] = useState<ConnectionStatus>(
     ConnectionStatus.DISCONNECTED
   );
 
   const isCallable = (
-    wallet: IWalletAdapter | undefined,
+    walletAdapter: IWalletAdapter | undefined,
     status: ConnectionStatus
   ) => {
-    return wallet && status === ConnectionStatus.CONNECTED;
+    return walletAdapter && status === ConnectionStatus.CONNECTED;
   };
 
   const account = useMemo<WalletAccount | undefined>(() => {
-    if (!isCallable(wallet, status)) return;
-    return (wallet as IWalletAdapter).accounts[0]; // use first account by default
-  }, [wallet, status]);
+    if (!isCallable(walletAdapter, status)) return;
+    return (walletAdapter as IWalletAdapter).accounts[0]; // use first account by default
+  }, [walletAdapter, status]);
 
 
   const ensureCallable = (
-    wallet: IWalletAdapter | undefined,
+    walletAdapter: IWalletAdapter | undefined,
     status: ConnectionStatus
   ) => {
-    if (!isCallable(wallet, status)) {
+    if (!isCallable(walletAdapter, status)) {
       throw new KitError("Failed to call function, wallet not connected");
     }
   };
@@ -78,11 +127,11 @@ export const WalletProvider = (props: WalletProviderProps) => {
       setStatus(ConnectionStatus.CONNECTING);
       try {
         const res = await adapter.connect(opts);
-        setWallet(adapter);
+        setWalletAdapter(adapter);
         setStatus(ConnectionStatus.CONNECTED);
         return res;
       } catch (e) {
-        setWallet(undefined);
+        setWalletAdapter(undefined);
         setStatus(ConnectionStatus.DISCONNECTED);
         throw e;
       }
@@ -91,71 +140,73 @@ export const WalletProvider = (props: WalletProviderProps) => {
   );
 
   const disconnect = useCallback(async () => {
-    ensureCallable(wallet, status);
-    const _wallet = wallet as IWalletAdapter;
+    ensureCallable(walletAdapter, status);
+    const _wallet = walletAdapter as IWalletAdapter;
     try {
       await _wallet.disconnect();
     } finally {
-      setWallet(undefined);
+      setWalletAdapter(undefined);
       setStatus(ConnectionStatus.DISCONNECTED);
     }
-  }, [wallet, status]);
+  }, [walletAdapter, status]);
 
   const select = useCallback(async (walletName: string) => {
-    if (isCallable(wallet, status)) {
-      const _wallet = wallet as IWalletAdapter;
+    // disconnect previous connection if it exists
+    if (isCallable(walletAdapter, status)) {
+      const adapter = walletAdapter as IWalletAdapter;
       // Same wallet, ignore
-      if (walletName === _wallet.name) return;
+      if (walletName === adapter.name) return;
 
       // else first disconnect current wallet
       await disconnect()
     }
 
-    const availableWalletNames = availableWalletAdapters.map(wallet => wallet.name)
-    if (!availableWalletNames.includes(walletName)) {
+    const wallet = allAvailableWallets.find((wallet) => wallet.name === walletName);
+    if (!wallet) {
+      const availableWalletNames = allAvailableWallets.map(wallet => wallet.name)
       throw new KitError(`select failed: wallet ${walletName} is not available, all wallets are listed here: [${availableWalletNames.join(', ')}]`)
     }
-    const _adapter = availableWalletAdapters.find((wallet) => wallet.name === walletName) as IWalletAdapter;
-    await connect(_adapter)
-  }, [wallet, status])
+    await connect(wallet.adapter as IWalletAdapter)
+  }, [walletAdapter, status, allAvailableWallets])
 
   const getAccounts = useCallback(() => {
-    ensureCallable(wallet, status);
-    const _wallet = wallet as IWalletAdapter;
+    ensureCallable(walletAdapter, status);
+    const _wallet = walletAdapter as IWalletAdapter;
     return _wallet.accounts;
-  }, [wallet, status]);
+  }, [walletAdapter, status]);
 
   const signAndExecuteTransaction = useCallback(
     async (transaction: SuiSignAndExecuteTransactionInput) => {
-      ensureCallable(wallet, status);
-      const _wallet = wallet as IWalletAdapter;
+      ensureCallable(walletAdapter, status);
+      const _wallet = walletAdapter as IWalletAdapter;
       return await _wallet.signAndExecuteTransaction(transaction);
     },
-    [wallet, status]
+    [walletAdapter, status]
   );
 
   const signMessage = useCallback(
     async (message: Uint8Array) => {
-      ensureCallable(wallet, status);
+      ensureCallable(walletAdapter, status);
       if (!account) {
         throw new KitError("no active account");
       }
 
-      const _wallet = wallet as IWalletAdapter;
+      const _wallet = walletAdapter as IWalletAdapter;
       return await _wallet.signMessage({
         account,
         message,
       });
     },
-    [wallet, account, status]
+    [walletAdapter, account, status]
   );
 
   return (
     <WalletContext.Provider
       value={{
-        defaultWallets,
-        availableWalletAdapters,
-        wallet,
+        allAvailableWallets,
+        configuredWallets,
+        detectedWallets,
+        wallet: walletAdapter,
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,

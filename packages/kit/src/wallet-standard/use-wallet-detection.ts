@@ -7,6 +7,7 @@ import {isEmpty} from "lodash-es";
 /**
  * detect wallet adapters that support wallet-standard from window and register event
  * normalize them to WalletAdapter
+ * Notice: call once only in provider, cuz there is event registration
  */
 export function useWalletAdapterDetection() {
   const standardWalletManager = useRef<Wallets>()
@@ -31,6 +32,6 @@ export function useWalletAdapterDetection() {
   }, [])
 
   return {
-    availableWalletAdapters,
+    data: availableWalletAdapters,
   }
 }
