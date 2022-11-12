@@ -1,9 +1,10 @@
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import classnames from "classnames";
 import {Extendable} from "../../types";
 import ConnectModal from "../Modal/ConnectModal";
 import {useWallet} from "../../hooks/useWalletTemp";
 import './index.scss';
+import WalletInfo from "../WalletInfo";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
@@ -13,8 +14,19 @@ export type ConnectButtonProps = Extendable & {
 export const ConnectButton = (props: ConnectButtonProps) => {
   const {label = 'Connect Button'} = props
   const [showModal, setShowModal] = useState(false)
-  // const {connected} = useWallet()
+  const {connected} = useWallet()
 
+  useEffect(() => {
+    if (connected) {
+      setShowModal(false);
+    }
+  }, [connected])
+
+  if (connected) {
+    return (
+      <WalletInfo />
+    )
+  }
   return (
     <ConnectModal
       open={showModal}

@@ -141,9 +141,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   const disconnect = useCallback(async () => {
     ensureCallable(walletAdapter, status);
-    const _wallet = walletAdapter as IWalletAdapter;
+    const adapter = walletAdapter as IWalletAdapter;
+    console.log('adapter', adapter)
     try {
-      await _wallet.disconnect();
+      await adapter.disconnect();
     } finally {
       setWalletAdapter(undefined);
       setStatus(ConnectionStatus.DISCONNECTED);
@@ -185,16 +186,16 @@ export const WalletProvider = (props: WalletProviderProps) => {
   );
 
   const signMessage = useCallback(
-    async (message: Uint8Array) => {
+    async (input: {message: Uint8Array}) => {
       ensureCallable(walletAdapter, status);
       if (!account) {
         throw new KitError("no active account");
       }
 
-      const _wallet = walletAdapter as IWalletAdapter;
-      return await _wallet.signMessage({
+      const adapter = walletAdapter as IWalletAdapter;
+      return await adapter.signMessage({
         account,
-        message,
+        message: input.message,
       });
     },
     [walletAdapter, account, status]

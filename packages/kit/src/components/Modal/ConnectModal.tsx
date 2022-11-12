@@ -1,13 +1,14 @@
-import React, {ReactNode, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {BaseModal} from "./BaseModal";
 import {Extendable} from "../../types";
 import * as Dialog from "@radix-ui/react-dialog";
-import {SvgClose} from "../Icon/SvgIcons";
+import {SvgArrowLeft, SvgClose} from "../Icon/SvgIcons";
 import {useWallet} from "../../hooks";
 import {isNonEmptyArray} from "../../utils";
 import Icon from "../Icon";
 import {IWallet} from "../../types/wallet";
 import './index.scss';
+import {KitError} from "../../errors";
 
 export type ConnectModalProps = Extendable & {
   open?: boolean;
@@ -16,6 +17,7 @@ export type ConnectModalProps = Extendable & {
 
 type WalletItemProps = Extendable & {
   wallet: IWallet;
+  onSelect?: (wallet: IWallet) => void;
 }
 
 const Header = () => {
@@ -56,14 +58,14 @@ const WalletItem = (props: WalletItemProps) => {
   useEffect(() => {
     if (!wallet.iconUrl) return;
     setIcon(wallet.iconUrl);
-  },  [wallet.iconUrl])
+  }, [wallet.iconUrl])
 
   return (
     <div
       className={'wkit-select-item'}
       key={wallet.name}
       onClick={() => {
-
+        props.onSelect?.(wallet);
       }}
     >
       <Icon
@@ -79,6 +81,7 @@ const WalletItem = (props: WalletItemProps) => {
 const WalletList = (props: {
   title: string;
   wallets: IWallet[];
+  onSelect?: (wallet: IWallet) => void;
 }) => {
   if (!isNonEmptyArray(props.wallets)) return null;
   return (
@@ -86,15 +89,178 @@ const WalletList = (props: {
       <div className={'wkit-select__title'}>{props.title}</div>
       {isNonEmptyArray(props.wallets) && props.wallets.map(wallet => {
         return (
-          <WalletItem key={wallet.name} wallet={wallet} />
+          <WalletItem
+            key={wallet.name}
+            wallet={wallet}
+            onSelect={props.onSelect}
+          />
         )
       })}
     </div>
   )
 }
 
+
+type InstallGuideProps = Extendable & {
+  wallet: IWallet;
+  onNavBack?: () => void;
+}
+const InstallGuide = (props: InstallGuideProps) => {
+  const {wallet} = props;
+  return (
+    <section>
+      <div className={'wkit-dialog__header'}>
+        <Dialog.Title
+          className={'wkit-dialog__title'}
+          style={{margin: '-8px 12px -6px -8px'}}
+        >
+          <span
+            className="wkit-dialog__close"
+            onClick={props.onNavBack}
+          >
+            <SvgArrowLeft/>
+          </span>
+        </Dialog.Title>
+
+        <Dialog.Title className={'wkit-dialog__title'}>
+          Install Wallet
+        </Dialog.Title>
+      </div>
+      <div className="wkit-install">
+        <img
+          className="wkit-install__logo"
+          src={wallet.iconUrl}
+          alt={`${wallet.name} logo`}
+        />
+        <h1 className="wkit-install__title">
+          You haven’t install this wallet
+        </h1>
+        <p className="wkit-install__description">
+          Install wallet via Chrome Extension Store
+        </p>
+        <button
+          className="wkit-button wkit-install__button"
+          onClick={() => {
+            if (!wallet.downloadUrl?.browserExtension) {
+              throw new KitError(`no downloadUrl config on this wallet: ${wallet.name}`)
+            }
+            window.open(
+              wallet.downloadUrl.browserExtension,
+              '_blank'
+            );
+          }}
+        >
+          Get Wallet
+        </button>
+      </div>
+    </section>
+  )
+}
+
+type ConnectingProps = Extendable & {
+  wallet: IWallet;
+  onNavBack?: () => void;
+}
+const Connecting = (props: ConnectingProps) => {
+  const {wallet} = props;
+  return (
+    <section>
+      <div className={'wkit-dialog__header'}>
+        <Dialog.Title
+          className={'wkit-dialog__title'}
+          style={{margin: '-6px 12px -6px -8px'}}
+        >
+                      <span
+                        className="wkit-dialog__close"
+                        onClick={props.onNavBack}
+                      >
+                        <SvgArrowLeft/>
+                      </span>
+        </Dialog.Title>
+
+        <Dialog.Title className={'wkit-dialog__title'}>
+          Connecting
+        </Dialog.Title>
+      </div>
+      <div className="wkit-connecting">
+        <img
+          className="wkit-connecting__logo"
+          src={wallet.iconUrl}
+          alt={`logo of ${wallet.name}`}
+        />
+        <h1 className="wkit-connecting__title">
+          Opening {wallet.name}
+        </h1>
+        <p className="wkit-connecting__description">
+          Confirm connection in the extension
+        </p>
+      </div>
+    </section>
+  )
+}
+
 export const ConnectModal = (props: ConnectModalProps) => {
-  const {configuredWallets, detectedWallets} = useWallet()
+  const {
+    configuredWallets,
+    detectedWallets,
+    select,
+    connecting,
+    allAvailableWallets
+  } = useWallet();
+
+  const [activeWallet, setActiveWallet] = useState<IWallet | undefined>()
+
+  const handleSelectWallet = useCallback((wallet: IWallet) => {
+    setActiveWallet(wallet);
+    if (allAvailableWallets.find(w => w.name === wallet.name)) {
+      select(wallet.name);
+    }
+  }, [select]);
+
+  function renderBody() {
+    if (activeWallet) {
+      if (!activeWallet.installed) {
+        return (
+          <InstallGuide
+            wallet={activeWallet}
+            onNavBack={() => {
+              setActiveWallet(undefined)
+            }}
+          />
+        )
+      }
+      if (connecting) {
+        return (
+          <Connecting
+            wallet={activeWallet}
+            onNavBack={() => {
+              setActiveWallet(undefined)
+            }}
+          />
+        )
+      }
+    }
+    return (
+      <>
+        <Header/>
+        <div className="wkit-select__scroll">
+          <WalletList
+            title={'Popular'}
+            wallets={configuredWallets}
+            onSelect={handleSelectWallet}
+          />
+          <WalletList
+            title={'Others'}
+            wallets={detectedWallets}
+            onSelect={handleSelectWallet}
+          />
+        </div>
+        <div style={{height: '41px', flexShrink: '0'}}></div>
+        <Footer/>
+      </>
+    )
+  }
+
   return (
     <BaseModal
       open={props.open}
@@ -106,13 +272,7 @@ export const ConnectModal = (props: ConnectModalProps) => {
         }
       }}
     >
-      <Header/>
-      <div className="wkit-select__scroll">
-        <WalletList title={'Popular'} wallets={configuredWallets} />
-        <WalletList title={'Others'} wallets={detectedWallets} />
-      </div>
-      <div style={{height: '41px', flexShrink: '0'}}></div>
-      <Footer/>
+      {renderBody()}
     </BaseModal>
   );
 };

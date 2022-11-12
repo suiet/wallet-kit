@@ -1,16 +1,18 @@
 import { Token } from '../constants/token';
 import { NetworkType } from '../core/types/network';
-import { useWallet } from './useWallet';
+import { useWallet } from './useWalletTemp';
 import { useCoinBalance } from './useCoinBalance';
+import {WalletAccount} from "@mysten/wallet-standard";
 
 export enum CoinSymbol {
   SUI = 'SUI',
 }
 
 export function useAccountBalance(token = Token.SUI) {
-  const { address, connected } = useWallet();
+  const { account, connected } = useWallet();
+  console.log('connected', connected)
   const { error, loading, getBalance } = useCoinBalance({
-    address,
+    address: (account as WalletAccount).address,
     opts: {
       networkId: NetworkType.devnet,
       canFetch: connected,

@@ -27,7 +27,7 @@ export enum FeatureName {
   STANDARD__DISCONNECT = "standard:disconnect",
   STANDARD__EVENTS = "standard:events",
   SUI__SIGN_AND_TRANSACTION = "sui:signAndExecuteTransaction",
-  EXP__SIGN_MESSAGE = "experimental:signMessage",
+  EXP__SIGN_MESSAGE = "exp:signMessage",
 }
 
 /**
@@ -108,10 +108,10 @@ export class WalletAdapter implements IWalletAdapter {
     input: SuiSignAndExecuteTransactionInput
   ): Promise<SuiSignAndExecuteTransactionOutput> {
     const feature = this.getFeature<{
-      signAndSendTransaction: SuiSignAndExecuteTransactionMethod;
+      signAndExecuteTransaction: SuiSignAndExecuteTransactionMethod;
     }>(FeatureName.SUI__SIGN_AND_TRANSACTION);
     try {
-      return await feature.signAndSendTransaction(input);
+      return await feature.signAndExecuteTransaction(input);
     } catch (e) {
       throw new WalletError((e as any).message)
     }
