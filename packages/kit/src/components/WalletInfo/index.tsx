@@ -1,9 +1,8 @@
 import classnames from 'classnames';
 import React, { useState } from 'react';
-
 import './index.scss';
 import { useAccountBalance } from '../../hooks/useAccountBalance';
-import { useWallet } from '../../hooks/useWalletTemp';
+import { useWallet } from '../../hooks/useWallet';
 import { Extendable } from '../../types';
 import { addressEllipsis } from "../../utils/addressEllipsis";
 import { formatCurrency } from '../../utils/formatCurrency';

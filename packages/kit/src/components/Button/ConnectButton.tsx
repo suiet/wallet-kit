@@ -1,8 +1,8 @@
-import React, {ReactNode, useEffect, useState} from 'react';
+import React, {ReactNode, useState} from 'react';
 import classnames from "classnames";
 import {Extendable} from "../../types";
 import ConnectModal from "../Modal/ConnectModal";
-import {useWallet} from "../../hooks/useWalletTemp";
+import {useWallet} from "../../hooks/useWallet";
 import './index.scss';
 import WalletInfo from "../WalletInfo";
 
@@ -16,18 +16,9 @@ export const ConnectButton = (props: ConnectButtonProps) => {
   const [showModal, setShowModal] = useState(false)
   const {connected} = useWallet()
 
-  useEffect(() => {
-    if (connected) {
-      setShowModal(false);
-    }
-  }, [connected])
-
-  if (connected) {
-    return (
-      <WalletInfo />
-    )
-  }
-  return (
+  return connected ? (
+    <WalletInfo/>
+  ) : (
     <ConnectModal
       open={showModal}
       onOpenChange={(open) => setShowModal(open)}

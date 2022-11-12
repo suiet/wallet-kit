@@ -1,23 +1,30 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "target": "esnext",
-    "lib": ["dom", "esnext"],
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "jsx": "react",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
-    "strict": true,
-    "rootDir": "src",
-    "declarationDir": "dist",
+    "skipLibCheck": true,
+    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "declaration": true,
+    "declarationDir": "dist",
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "camelcase"
+        }
+      }
+    ]
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "webpack",
-    "jest"
-  ],
-  "typeRoots": ["node_modules/@types", "src/types"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

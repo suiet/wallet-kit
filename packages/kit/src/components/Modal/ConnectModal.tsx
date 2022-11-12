@@ -205,10 +205,17 @@ export const ConnectModal = (props: ConnectModalProps) => {
     detectedWallets,
     select,
     connecting,
+    connected,
     allAvailableWallets
   } = useWallet();
 
   const [activeWallet, setActiveWallet] = useState<IWallet | undefined>()
+
+  useEffect(() => {
+    if (connected) {
+      props.onOpenChange?.(false);
+    }
+  }, [connected])
 
   const handleSelectWallet = useCallback((wallet: IWallet) => {
     setActiveWallet(wallet);

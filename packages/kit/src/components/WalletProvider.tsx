@@ -1,5 +1,5 @@
 import React, {useCallback, useMemo, useState} from "react";
-import {WalletContext} from "../hooks/useWalletTemp";
+import {WalletContext} from "../hooks/useWallet";
 import {
   ConnectionStatus,
   IWalletAdapter,
@@ -142,7 +142,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const disconnect = useCallback(async () => {
     ensureCallable(walletAdapter, status);
     const adapter = walletAdapter as IWalletAdapter;
-    console.log('adapter', adapter)
     try {
       await adapter.disconnect();
     } finally {
