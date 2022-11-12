@@ -12,11 +12,18 @@ If you want to use your own button, you can use `ConnectWalletModal` to wrap you
 
 ```jsx
 // index.tsx
+import ReactDOM from 'react-dom';
+import { getDefaultWallets, useWallet, WalletProvider } from '@suiet/wallet-kit';
+
 const supportedWallets = getDefaultWallets();
 
-<WalletProvider supportedWallets={supportedWallets}>
-  <App />
-</WalletProvider>;
+function Root() {
+  <WalletProvider supportedWallets={supportedWallets}>
+    <App />
+  </WalletProvider>;
+}
+
+ReactDOM.render(<Root />, docoument.getElementById('root'));
 
 // App.tsx
 function App() {
