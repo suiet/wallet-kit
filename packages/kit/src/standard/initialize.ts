@@ -1,46 +1,18 @@
 import type {
+  DEPRECATED_WalletsCallback,
+  DEPRECATED_WalletsWindow,
   Wallet,
-  WalletsCallback,
-  WalletsWindow,
+  WalletEventsWindow,
+  WindowAppReadyEvent,
+  WindowAppReadyEventAPI,
 } from '@mysten/wallet-standard';
 
-declare const window: WalletsWindow;
-
-let initializedWallets: InitializedWallets | undefined = undefined;
-
-/**
- * TODO: docs
- */
-export function initialize(): InitializedWallets {
-  // If the API is already initialized by us, just return.
-  if (initializedWallets) return initializedWallets;
-
-  // If we're not in a window (e.g. server-side rendering), initialize and return.
-  if (typeof window === 'undefined')
-    return (initializedWallets = Object.freeze({ register, get, on }));
-
-  // Since we didn't initialize the API, if it's not array, it was initialized externally, so throw an error.
-  const wallets = (window.navigator.wallets ||= []);
-  if (!Array.isArray(wallets))
-    throw new Error('window.navigator.wallets was already initialized');
-
-  // Initialize the API and overwrite window.navigator.wallets with a non-writable push API.
-  initializedWallets = Object.freeze({ register, get, on });
-  //   Object.defineProperty(window.navigator, 'wallets', {
-  //     value: Object.freeze({ push }),
-  //   });
-
-  // Call all the wallet callbacks and return.
-  push(...wallets);
-  return initializedWallets;
-}
-
 /** TODO: docs */
-export interface InitializedWallets {
+export interface Wallets {
   /**
    * TODO: docs
    */
-  register(...wallets: ReadonlyArray<Wallet>): () => void;
+  register(...wallets: Wallet[]): () => void;
 
   /**
    * TODO: docs
@@ -50,42 +22,69 @@ export interface InitializedWallets {
   /**
    * TODO: docs
    */
-  on<E extends InitializedWalletsEventNames = InitializedWalletsEventNames>(
+  on<E extends WalletsEventNames = WalletsEventNames>(
     event: E,
-    listener: InitializedWalletsEvents[E]
+    listener: WalletsEvents[E]
   ): () => void;
 }
 
-/** Events emitted by the global `wallets` object. */
-export interface InitializedWalletsEvents {
+/** TODO: docs */
+export interface WalletsEvents {
   /**
    * Emitted when wallets are registered.
    *
    * @param wallets Wallets that were registered.
    */
-  register(...wallets: ReadonlyArray<Wallet>): void;
+  register(...wallets: Wallet[]): void;
 
   /**
    * Emitted when wallets are unregistered.
    *
    * @param wallets Wallets that were unregistered.
    */
-  unregister(...wallets: ReadonlyArray<Wallet>): void;
+  unregister(...wallets: Wallet[]): void;
 }
 
 /** TODO: docs */
-export type InitializedWalletsEventNames = keyof InitializedWalletsEvents;
+export type WalletsEventNames = keyof WalletsEvents;
 
+let wallets: Wallets | undefined = undefined;
 const registered = new Set<Wallet>();
-const listeners: {
-  [E in InitializedWalletsEventNames]?: InitializedWalletsEvents[E][];
-} = {};
+const listeners: { [E in WalletsEventNames]?: WalletsEvents[E][] } = {};
 
-function push(...callbacks: ReadonlyArray<WalletsCallback>): void {
-  callbacks.forEach((callback) => guard(() => callback({ register })));
+/**
+ * TODO: docs
+ */
+export function getWallets(): Wallets {
+  if (wallets) return wallets;
+  wallets = Object.freeze({ register, get, on });
+  if (typeof window === 'undefined') return wallets;
+
+  const api = Object.freeze({ register });
+  try {
+    (window as WalletEventsWindow).addEventListener(
+      'wallet-standard:register-wallet',
+      ({ detail: callback }) => callback(api)
+    );
+  } catch (error) {
+    console.error(
+      'wallet-standard:register-wallet event listener could not be added\n',
+      error
+    );
+  }
+  try {
+    (window as WalletEventsWindow).dispatchEvent(new AppReadyEvent(api));
+  } catch (error) {
+    console.error(
+      'wallet-standard:app-ready event could not be dispatched\n',
+      error
+    );
+  }
+
+  return wallets;
 }
 
-function register(...wallets: ReadonlyArray<Wallet>): () => void {
+function register(...wallets: Wallet[]): () => void {
   // Filter out wallets that have already been registered.
   // This prevents the same wallet from being registered twice, but it also prevents wallets from being
   // unregistered by reusing a reference to the wallet to obtain the unregister function for it.
@@ -111,9 +110,9 @@ function get(): ReadonlyArray<Wallet> {
   return [...registered];
 }
 
-function on<E extends InitializedWalletsEventNames>(
+function on<E extends WalletsEventNames>(
   event: E,
-  listener: InitializedWalletsEvents[E]
+  listener: WalletsEvents[E]
 ): () => void {
   listeners[event]?.push(listener) || (listeners[event] = [listener]);
   // Return a function that removes the event listener.
@@ -130,4 +129,61 @@ function guard(callback: () => void) {
   } catch (error) {
     console.error(error);
   }
+}
+
+class AppReadyEvent extends Event implements WindowAppReadyEvent {
+  readonly #detail: WindowAppReadyEventAPI;
+
+  get detail() {
+    return this.#detail;
+  }
+
+  get type() {
+    return 'wallet-standard:app-ready' as const;
+  }
+
+  constructor(api: WindowAppReadyEventAPI) {
+    super('wallet-standard:app-ready', {
+      bubbles: false,
+      cancelable: false,
+      composed: false,
+    });
+    this.#detail = api;
+  }
+
+  /** @deprecated */
+  preventDefault(): never {
+    throw new Error('preventDefault cannot be called');
+  }
+
+  /** @deprecated */
+  stopImmediatePropagation(): never {
+    throw new Error('stopImmediatePropagation cannot be called');
+  }
+
+  /** @deprecated */
+  stopPropagation(): never {
+    throw new Error('stopPropagation cannot be called');
+  }
+}
+
+/** @deprecated */
+export function DEPRECATED_getWallets(): Wallets {
+  if (wallets) return wallets;
+  wallets = getWallets();
+  if (typeof window === 'undefined') return wallets;
+
+  const callbacks =
+    (window as DEPRECATED_WalletsWindow).navigator.wallets || [];
+  if (!Array.isArray(callbacks)) {
+    console.error('window.navigator.wallets is not an array');
+    return wallets;
+  }
+
+  const { register } = wallets;
+  const push = (...callbacks: DEPRECATED_WalletsCallback[]): void =>
+    callbacks.forEach((callback) => guard(() => callback({ register })));
+
+  push(...callbacks);
+  return wallets;
 }
