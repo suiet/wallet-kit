@@ -21,7 +21,7 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@mysten/sui.js": "0.14.0",
+    "@mysten/sui.js": "0.16.0",
     "@mysten/wallet-standard": "0.2.1",
     "@radix-ui/react-dialog": "^1.0.0",
     "@wallet-standard/app": "^0.1.0-alpha.6",
