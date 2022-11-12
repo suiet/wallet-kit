@@ -3,6 +3,7 @@ import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
 import {ConnectButton} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
+import * as tweetnacl from 'tweetnacl'
 
 function App() {
   // const {wallet, connected, connecting, address, signAndExecuteTransaction, signMessage, getPublicKey} =
