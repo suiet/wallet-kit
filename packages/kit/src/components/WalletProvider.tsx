@@ -15,6 +15,7 @@ import {AllDefaultWallets} from "../wallet/default-wallets";
 import {useWalletAdapterDetection} from "../wallet-standard/use-wallet-detection";
 import {Extendable} from "../types";
 import {isNonEmptyArray} from "../utils";
+import {MoveCallTransaction} from "@mysten/sui.js";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -200,6 +201,21 @@ export const WalletProvider = (props: WalletProviderProps) => {
     [walletAdapter, account, status]
   );
 
+  const executeMoveCall = useCallback((data: MoveCallTransaction) => {
+    ensureCallable(walletAdapter, status);
+    return signAndExecuteTransaction({
+      transaction: {
+        kind: 'moveCall',
+        data: data
+      }
+    });
+  }, [signAndExecuteTransaction, walletAdapter, status])
+
+  const getPublicKey = useCallback(() => {
+    ensureCallable(walletAdapter, status);
+    return Promise.resolve((account as WalletAccount).publicKey);
+  }, [walletAdapter, account, status])
+
   return (
     <WalletContext.Provider
       value={{
@@ -216,6 +232,9 @@ export const WalletProvider = (props: WalletProviderProps) => {
         account,
         signAndExecuteTransaction,
         signMessage,
+        address: account?.address,
+        executeMoveCall,
+        getPublicKey,
       }}
     >
       {children}

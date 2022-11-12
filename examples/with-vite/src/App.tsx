@@ -12,7 +12,9 @@ function App() {
     connecting,
     account,
     signAndExecuteTransaction,
+    // executeMoveCall,
     signMessage,
+    getPublicKey,
   } = useWallet();
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
@@ -41,6 +43,7 @@ function App() {
           data
         }
       });
+      // const resData = await executeMoveCall(data);
       console.log('executeMoveCall success', resData);
       alert('executeMoveCall succeeded (see response in the console)');
     } catch (e) {
@@ -73,6 +76,17 @@ function App() {
     } catch (e) {
       console.error('signMessage failed', e)
       alert('signMessage failed (see response in the console)')
+    }
+  }
+
+  async function handleGetPublicKey() {
+    try {
+      const publicKey = await getPublicKey()
+      alert('getPublicKey succeed (see console for details)')
+      console.log('[Deprecated] getPublicKey succeed', publicKey)
+    } catch (e) {
+      console.error('[Deprecated] getPublicKey failed', e)
+      throw e
     }
   }
 
@@ -110,6 +124,7 @@ function App() {
             <div className={'btn-group'} style={{margin: '8px 0'}}>
               <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
               <button onClick={handleSignMsg}>signMessage</button>
+              <button onClick={handleGetPublicKey}>getPublicKey</button>
             </div>
           </div>
         )}
