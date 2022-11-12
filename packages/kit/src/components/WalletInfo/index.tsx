@@ -11,6 +11,7 @@ import {WalletAccount} from "@mysten/wallet-standard";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
+  onDisconnect?: () => void;
 };
 
 function WalletInfo(props: ConnectButtonProps) {
@@ -44,7 +45,9 @@ function WalletInfo(props: ConnectButtonProps) {
             className={"wkit-disconnect-button"}
             onClick={() => {
               setShowDisconnectButton(false);
-              disconnect();
+              disconnect().then(() => {
+                props.onDisconnect?.();
+              });
             }}
           >
             Disconnect

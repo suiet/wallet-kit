@@ -128,6 +128,11 @@ export class WalletAdapter implements IWalletAdapter {
     }
   }
 
+  hasFeature(name: string): boolean {
+    const {features} = this.standardWalletAdapter;
+    return has(features, name)
+  }
+
   private getFeature<T = any>(name: string): T {
     const {features} = this.standardWalletAdapter;
     if (!has(features, name)) {

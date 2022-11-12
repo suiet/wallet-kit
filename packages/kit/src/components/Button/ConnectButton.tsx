@@ -17,7 +17,11 @@ export const ConnectButton = (props: ConnectButtonProps) => {
   const {connected} = useWallet()
 
   return connected ? (
-    <WalletInfo/>
+    <WalletInfo
+      onDisconnect={() => {
+        setShowModal(false);
+      }}
+    />
   ) : (
     <ConnectModal
       open={showModal}

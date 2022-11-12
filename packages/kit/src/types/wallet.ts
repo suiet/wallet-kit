@@ -42,6 +42,7 @@ export type IWalletAdapter = WalletWithFeatures<
   SuiSignAndExecuteTransactionFeature &
   Partial<DisconnectFeature>
 > & {
+  hasFeature: (name: string) => boolean;
   connect: ConnectMethod;
   disconnect: DisconnectMethod;
   signAndExecuteTransaction: SuiSignAndExecuteTransactionMethod;

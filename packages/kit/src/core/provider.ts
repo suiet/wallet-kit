@@ -30,7 +30,6 @@ export class QueryProvider {
 
   constructor(queryEndpoint: string) {
     this.provider = new JsonRpcProvider(queryEndpoint);
-    console.log('provider', this.provider)
   }
 
   public async getActiveValidators(): Promise<SuiMoveObject[]> {
