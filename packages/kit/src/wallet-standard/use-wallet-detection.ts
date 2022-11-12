@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import {DEPRECATED_getWallets, Wallet, Wallets} from '@wallet-standard/core'
 import {IWalletAdapter} from "../types/wallet";
 import {WalletAdapter} from "../wallet/wallet-adapter";
-import {isEmpty} from "lodash-es";
+import {isNonEmptyArray, isStandardWalletAdapterCompatibleWallet} from "../utils";
 
 /**
  * detect wallet adapters that support wallet-standard from window and register event
@@ -19,12 +19,23 @@ export function useWalletAdapterDetection() {
     standardWalletManager.current = DEPRECATED_getWallets();
     const initWalletAdapters = standardWalletManager.current.get()
 
-    if (!isEmpty(initWalletAdapters)) {
+    if (isNonEmptyArray(initWalletAdapters)) {
       setAvailableWalletAdapters(initWalletAdapters.map((wallet => new WalletAdapter(wallet))))
     }
-    const clearListeners = standardWalletManager.current.on('register', (...wallets: Wallet[]) => {
-      // normalize to WalletAdapter
-      setAvailableWalletAdapters(wallets.map((wallet => new WalletAdapter(wallet))))
+
+    const clearListeners = standardWalletManager.current.on('register', (...newAdapters: Wallet[]) => {
+      if (!standardWalletManager.current) return;
+      const initWalletAdapters = standardWalletManager.current.get()
+      const allAdapters = [...initWalletAdapters]
+      // filter out duplicate & not standard sui adapters & merged into existed list
+      newAdapters
+        .filter(newAdapter => !allAdapters.find(existAdapter => existAdapter.name === newAdapter.name))
+        .filter(newAdapter => isStandardWalletAdapterCompatibleWallet(newAdapter))
+        .forEach(newAdapter => {
+          allAdapters.push(newAdapter)
+        })
+      // normalize adapters
+      setAvailableWalletAdapters(allAdapters.map((wallet => new WalletAdapter(wallet))))
     })
     return () => {
       clearListeners()
