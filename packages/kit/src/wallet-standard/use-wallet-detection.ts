@@ -13,28 +13,33 @@ export function useWalletAdapterDetection() {
   const standardWalletManager = useRef<Wallets>()
   // normalized adapters
   const [availableWalletAdapters, setAvailableWalletAdapters] = useState<IWalletAdapter[]>([])
-  console.log('availableWalletAdapters', availableWalletAdapters)
+  // console.log('availableWalletAdapters', availableWalletAdapters)
+
+  function getInitStandardWalletAdapters(): Wallet[] {
+    if (!standardWalletManager.current) return [];
+    const initWalletAdapters = standardWalletManager.current.get()
+    return initWalletAdapters.filter(isStandardWalletAdapterCompatibleWallet)
+  }
 
   useEffect(() => {
     standardWalletManager.current = DEPRECATED_getWallets();
-    const initWalletAdapters = standardWalletManager.current.get()
-    console.log('initWalletAdapters', initWalletAdapters)
+    const initWalletAdapters = getInitStandardWalletAdapters();
+    // console.log('initWalletAdapters', initWalletAdapters)
 
     if (isNonEmptyArray(initWalletAdapters)) {
       setAvailableWalletAdapters(initWalletAdapters
-        .filter(newAdapter => isStandardWalletAdapterCompatibleWallet(newAdapter))
         .map((newAdapter => new WalletAdapter(newAdapter)))
       )
     }
 
     const clearListeners = standardWalletManager.current.on('register', (...newAdapters: Wallet[]) => {
-      console.log('register newAdapters', newAdapters)
+      // console.log('register newAdapters', newAdapters)
       if (!standardWalletManager.current) return;
-      const initWalletAdapters = standardWalletManager.current.get()
+      const initWalletAdapters = getInitStandardWalletAdapters();
       const allAdapters = [...initWalletAdapters]
       // filter out duplicate & not standard sui adapters & merged into existed list
       newAdapters
-        .filter(newAdapter => isStandardWalletAdapterCompatibleWallet(newAdapter))
+        .filter(isStandardWalletAdapterCompatibleWallet)
         .filter(newAdapter => !allAdapters.find(existAdapter => existAdapter.name === newAdapter.name))
         .forEach(newAdapter => {
           allAdapters.push(newAdapter)
