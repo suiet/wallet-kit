@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "rollup -c rollup.config.js --watch",
     "build": "rollup -c rollup.config.js",
+    "build:vite": "tsc --emitDeclarationOnly && vite build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "semantic-release": "semantic-release"
   },
@@ -15,7 +16,8 @@
   "module": "dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
     },
     "./style.css": "./dist/style.css"
   },
@@ -57,7 +59,13 @@
     "rollup-plugin-visualizer": "^5.8.3",
     "sass": "^1.56.1",
     "semantic-release": "^19.0.5",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "@vanilla-extract/css": "^1.9.0",
+    "@vanilla-extract/vite-plugin": "^3.4.0",
+    "@vitejs/plugin-react": "^2.1.0",
+    "typescript-plugin-css-modules": "^3.4.0",
+    "vite": "^3.1.0",
+    "vite-plugin-svgr": "^2.2.1"
   },
   "repository": {
     "type": "git",

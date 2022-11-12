@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
-import {ConnectButton, useWallet} from "@suiet/wallet-kit";
+import {ConnectButton, useAccountBalance, useWallet} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
 

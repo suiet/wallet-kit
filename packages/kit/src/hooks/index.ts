@@ -1,3 +1,2 @@
-export * from './useWalletTemp';
-// export * from './useWallet';
+export * from './useWallet';
 export * from './useAccountBalance';
