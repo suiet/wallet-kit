@@ -16,6 +16,7 @@ import {useWalletAdapterDetection} from "../wallet-standard/use-wallet-detection
 import {Extendable} from "../types";
 import {isNonEmptyArray} from "../utils";
 import {MoveCallTransaction} from "@mysten/sui.js";
+import {FeatureName} from "../wallet/wallet-adapter";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -144,7 +145,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
     ensureCallable(walletAdapter, status);
     const adapter = walletAdapter as IWalletAdapter;
     try {
-      await adapter.disconnect();
+      // disconnect is an optional action for wallet
+      if (adapter.hasFeature(FeatureName.STANDARD__DISCONNECT)) {
+        await adapter.disconnect();
+      }
     } finally {
       setWalletAdapter(undefined);
       setStatus(ConnectionStatus.DISCONNECTED);

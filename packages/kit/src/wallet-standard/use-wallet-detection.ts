@@ -13,7 +13,7 @@ export function useWalletAdapterDetection() {
   const standardWalletManager = useRef<Wallets>()
   // normalized adapters
   const [availableWalletAdapters, setAvailableWalletAdapters] = useState<IWalletAdapter[]>([])
-  console.log('availableWalletAdapters', availableWalletAdapters)
+  // console.log('availableWalletAdapters', availableWalletAdapters)
 
   useEffect(() => {
     standardWalletManager.current = DEPRECATED_getWallets();
