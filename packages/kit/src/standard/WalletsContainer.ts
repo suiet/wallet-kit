@@ -2,7 +2,7 @@ import type { InitializedWallets } from '@wallet-standard/app';
 import mitt, { Emitter } from 'mitt';
 import { isStandardWalletAdapterCompatibleWallet } from '@mysten/wallet-standard';
 import { StandardWalletAdapter } from './WalletStandard';
-import { initialize } from './initialize';
+import { DEPRECATED_getWallets } from './initialize';
 
 type Events = {
   changed: void;
@@ -15,7 +15,7 @@ export class WalletContainer {
 
   constructor() {
     this.#adapters = new Map();
-    this.#wallets = initialize();
+    this.#wallets = DEPRECATED_getWallets();
     this.#events = mitt();
 
     this.#wallets.on('register', () => {
