@@ -9,7 +9,7 @@ import {ExpSignMessageMethod} from "../wallet-standard/features/exp_sign-message
 
 export enum SupportedWallet {
   SUI_WALLET = "Sui Wallet",
-  SUIET_WALLET = "Suiet Wallet",
+  SUIET_WALLET = "Suiet",
   ETHOS_WALLET = "Ethos Wallet",
 }
 
@@ -17,7 +17,7 @@ export interface IWallet {
   name: string;
   adapter: IWalletAdapter | undefined;
   installed: boolean | undefined;
-  iconUrl: string | (() => Promise<string>);
+  iconUrl: string;
   downloadUrl: {
     browserExtension?: string; // chrome default
   };

@@ -3,6 +3,7 @@ import classnames from "classnames";
 import {Extendable} from "../../types";
 import ConnectModal from "../Modal/ConnectModal";
 import {useWallet} from "../../hooks/useWalletTemp";
+import './index.scss';
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
@@ -28,3 +29,5 @@ export const ConnectButton = (props: ConnectButtonProps) => {
     </ConnectModal>
   );
 };
+
+export default ConnectButton
