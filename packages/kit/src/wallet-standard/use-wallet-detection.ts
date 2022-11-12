@@ -20,7 +20,10 @@ export function useWalletAdapterDetection() {
     const initWalletAdapters = standardWalletManager.current.get()
 
     if (isNonEmptyArray(initWalletAdapters)) {
-      setAvailableWalletAdapters(initWalletAdapters.map((wallet => new WalletAdapter(wallet))))
+      setAvailableWalletAdapters(initWalletAdapters
+        .filter(newAdapter => isStandardWalletAdapterCompatibleWallet(newAdapter))
+        .map((newAdapter => new WalletAdapter(newAdapter)))
+      )
     }
 
     const clearListeners = standardWalletManager.current.on('register', (...newAdapters: Wallet[]) => {
@@ -29,8 +32,8 @@ export function useWalletAdapterDetection() {
       const allAdapters = [...initWalletAdapters]
       // filter out duplicate & not standard sui adapters & merged into existed list
       newAdapters
-        .filter(newAdapter => !allAdapters.find(existAdapter => existAdapter.name === newAdapter.name))
         .filter(newAdapter => isStandardWalletAdapterCompatibleWallet(newAdapter))
+        .filter(newAdapter => !allAdapters.find(existAdapter => existAdapter.name === newAdapter.name))
         .forEach(newAdapter => {
           allAdapters.push(newAdapter)
         })
