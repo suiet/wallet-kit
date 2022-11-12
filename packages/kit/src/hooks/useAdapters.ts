@@ -5,7 +5,9 @@ export function useAdapters(adapterProvider: WalletContainer) {
   const [wallets, setWallets] = useState(() => adapterProvider.get());
 
   useEffect(() => {
+    setWallets(adapterProvider.get());
     const unsubcribe = adapterProvider.on('changed', () => {
+      window.console.log('wallet changed', adapterProvider.get());
       setWallets(adapterProvider.get());
     });
 

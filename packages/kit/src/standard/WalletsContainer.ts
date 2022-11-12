@@ -8,6 +8,8 @@ type Events = {
   changed: void;
 };
 
+window.console.log('kit version: debug');
+
 export class WalletContainer {
   #wallets: InitializedWallets;
   #adapters: Map<string, StandardWalletAdapter>;
@@ -16,6 +18,7 @@ export class WalletContainer {
   constructor() {
     this.#adapters = new Map();
     this.#wallets = DEPRECATED_getWallets();
+    window.console.log('wallets:', this.#wallets.get());
     this.#events = mitt();
 
     this.#wallets.on('register', () => {
