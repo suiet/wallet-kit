@@ -13,11 +13,12 @@ export function useWalletAdapterDetection() {
   const standardWalletManager = useRef<Wallets>()
   // normalized adapters
   const [availableWalletAdapters, setAvailableWalletAdapters] = useState<IWalletAdapter[]>([])
-  // console.log('availableWalletAdapters', availableWalletAdapters)
+  console.log('availableWalletAdapters', availableWalletAdapters)
 
   useEffect(() => {
     standardWalletManager.current = DEPRECATED_getWallets();
     const initWalletAdapters = standardWalletManager.current.get()
+    console.log('initWalletAdapters', initWalletAdapters)
 
     if (isNonEmptyArray(initWalletAdapters)) {
       setAvailableWalletAdapters(initWalletAdapters
@@ -27,6 +28,7 @@ export function useWalletAdapterDetection() {
     }
 
     const clearListeners = standardWalletManager.current.on('register', (...newAdapters: Wallet[]) => {
+      console.log('register newAdapters', newAdapters)
       if (!standardWalletManager.current) return;
       const initWalletAdapters = standardWalletManager.current.get()
       const allAdapters = [...initWalletAdapters]
