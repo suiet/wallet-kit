@@ -1,3 +1,5 @@
+export * from './wallet'
+
 import { CSSProperties, ReactNode } from 'react';
 
 export interface StyleExtendable {
@@ -8,3 +10,5 @@ export interface StyleExtendable {
 export type Extendable<T = ReactNode> = StyleExtendable & {
   children?: T;
 };
+
+
