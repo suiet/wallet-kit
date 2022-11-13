@@ -63,9 +63,7 @@ Feel free to choose the wallets you want to support.
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  WalletProvider,
-  getAllWallets, // support all the wallets
-  getDefaultWallets, // if you only support Sui wallet
+  WalletProvider
 } from '@suiet/wallet-kit';
 
 ReactDOM.render(
