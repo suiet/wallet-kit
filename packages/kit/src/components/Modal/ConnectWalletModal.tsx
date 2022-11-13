@@ -1,7 +1,6 @@
 import * as React from 'react';
 import type { ReactNode } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import type { DialogProps } from '@radix-ui/react-dialog';
 
 import './index.scss';
 import { WalletInstance } from '../../adapter/KitAdapter';
@@ -28,7 +27,6 @@ export function ConnectWalletModal({
 
   const [open, setOpen] = React.useState(false);
   const [selectedWallet, setSelectedWallet] = React.useState<WalletInstance>();
-  const [realIconUrl, setRealIconUrl] = React.useState<string>();
   const { connecting, connected } = useWallet();
 
   const [contentHeight, setContentHeight] = React.useState(0);
@@ -39,16 +37,6 @@ export function ConnectWalletModal({
       setContentHeight(r.height);
     }
   }, [contentRef, contentRef.current]);
-
-  React.useEffect(() => {
-    if (typeof selectedWallet?.iconUrl === 'function') {
-      selectedWallet?.iconUrl().then((url) => {
-        setRealIconUrl(url);
-      });
-    } else if (typeof selectedWallet?.iconUrl === 'string') {
-      setRealIconUrl(selectedWallet?.iconUrl);
-    }
-  }, [selectedWallet]);
 
   if (connected) {
     return null;
@@ -90,7 +78,7 @@ export function ConnectWalletModal({
                   <div className="wkit-connecting">
                     <img
                       className="wkit-connecting__logo"
-                      src={realIconUrl}
+                      src={selectedWallet.iconUrl}
                       alt={`logo of ${selectedWallet.name}`}
                     />
                     <h1 className="wkit-connecting__title">
@@ -140,7 +128,7 @@ export function ConnectWalletModal({
                 <div className="wkit-install">
                   <img
                     className="wkit-install__logo"
-                    src={realIconUrl}
+                    src={selectedWallet.iconUrl}
                     alt={`logo of ${selectedWallet.name}`}
                   />
                   <h1 className="wkit-install__title">
