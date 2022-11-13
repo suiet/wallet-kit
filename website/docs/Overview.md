@@ -147,8 +147,10 @@ function App() {
         gasBudget: 10000,
       }
       const resData = await signAndExecuteTransaction({
-        kind: 'moveCall',
-        data: data,
+        transaction:{
+          kind: 'moveCall',
+          data
+        }
       });
       console.log('executeMoveCall success', resData)
       alert('executeMoveCall succeeded (see response in the console)')
