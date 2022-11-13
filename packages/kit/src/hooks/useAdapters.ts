@@ -1,18 +1,23 @@
-import { useEffect, useState } from 'react';
-import { WalletContainer } from '../standard/WalletsContainer';
+import {useEffect, useRef, useState} from 'react';
+import {StandardWalletAdapter} from "../standard/WalletStandard";
+import {WalletContainer} from "../standard/WalletsContainer";
 
-export function useAdapters(adapterProvider: WalletContainer) {
-  const [wallets, setWallets] = useState(() => adapterProvider.get());
+export function useAdapters() {
+  const adapterProvider = useRef<WalletContainer>()
+  const [wallets, setWallets] = useState<StandardWalletAdapter[]>([]);
 
   useEffect(() => {
-    const unsubcribe = adapterProvider.on('changed', () => {
-      setWallets(adapterProvider.get());
+    adapterProvider.current = new WalletContainer();
+    setWallets(adapterProvider.current.get());
+    const unsubscribe = adapterProvider.current.on('changed', (wallets) => {
+      if (!adapterProvider.current) return;
+      setWallets(adapterProvider.current.get());
     });
 
     return () => {
-      unsubcribe();
+      unsubscribe();
     };
-  }, [adapterProvider]);
+  }, []);
 
   return wallets;
 }

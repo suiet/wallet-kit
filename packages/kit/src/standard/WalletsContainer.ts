@@ -1,11 +1,11 @@
 import type { InitializedWallets } from '@wallet-standard/app';
 import mitt, { Emitter } from 'mitt';
-import { isStandardWalletAdapterCompatibleWallet } from '@mysten/wallet-standard';
+import {isStandardWalletAdapterCompatibleWallet, Wallet} from '@mysten/wallet-standard';
 import { StandardWalletAdapter } from './WalletStandard';
 import { DEPRECATED_getWallets } from './initialize';
 
 type Events = {
-  changed: void;
+  changed: { wallets: readonly Wallet[] };
 };
 
 export class WalletContainer {
@@ -16,15 +16,16 @@ export class WalletContainer {
   constructor() {
     this.#adapters = new Map();
     this.#wallets = DEPRECATED_getWallets();
-    this.#events = mitt();
-
-    this.#wallets.on('register', () => {
-      this.#events.emit('changed');
+    this.#events = mitt<Events>();
+    console.log('this.#wallets', this.#wallets.get())
+    this.#wallets.on('register', (...wallets) => {
+      console.log('register', { wallets })
+      this.#events.emit('changed', { wallets });
     });
 
-    this.#wallets.on('unregister', () => {
-      this.#events.emit('changed');
-    });
+    // this.#wallets.on('unregister', (...wallets) => {
+    //   this.#events.emit('changed', { wallets });
+    // });
   }
 
   get() {
