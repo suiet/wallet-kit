@@ -17,6 +17,7 @@ async function getCoinsBalance(
   const { network, address } = params;
   const provider = new Provider(network.queryRpcUrl, network.gatewayRpcUrl);
   const objects = await provider.query.getOwnedCoins(address);
+
   const result = new Map();
   for (const object of objects) {
     result.has(object.symbol)
@@ -32,26 +33,23 @@ async function getCoinsBalance(
 export function useCoinBalance({
   address,
   symbol,
-  opts = {
-    canFetch: true,
-  },
+  opts = {},
 }: {
   address: string;
   symbol?: CoinSymbol;
   opts: {
     networkId?: string;
-    canFetch?: boolean;
   };
 }) {
   const [balance, setBalance] = useState<string>('0');
-  const { networkId = 'devnet', canFetch } = opts;
+  const { networkId = 'devnet' } = opts;
   const net = network.getNetwork(NetworkType.devnet);
   const {
     data: coinsBalanceMap,
     error,
     isValidating,
   } = useSWR(
-    ['fetchCoinsBalanceMap', address, network, canFetch],
+    [`a?network=${networkId}`, address, net],
     fetchCoinsBalanceMap
   );
 
@@ -59,10 +57,11 @@ export function useCoinBalance({
     _: string,
     address: string,
     network: Network,
-    canFetch = true
   ) {
     const map = new Map<string, string>();
-    if (!address || !network || !canFetch) return map;
+    if (!address || !network) {
+      return map;
+    }
 
     const coinsBalance = await getCoinsBalance({ address, network: net });
     if (!coinsBalance) {
@@ -71,7 +70,6 @@ export function useCoinBalance({
     coinsBalance.forEach((item) => {
       map.set(item.symbol, item.balance);
     });
-
     return map;
   }
 
