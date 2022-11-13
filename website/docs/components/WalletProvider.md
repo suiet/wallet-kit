@@ -12,12 +12,10 @@ You must wrap all kit hooks or components in `WalletProvider`. Then you can use 
 
 ```jsx
 import ReactDOM from 'react-dom';
-import { getDefaultWallets, useWallet } from '@suiet/wallet-kit';
-
-const supportedWallets = getDefaultWallets();
+import { useWallet } from '@suiet/wallet-kit';
 
 function Root() {
-  <WalletProvider supportedWallets={supportedWallets}>
+  <WalletProvider>
     <App />
   </WalletProvider>;
 }
