@@ -1,6 +1,5 @@
 import classnames from 'classnames';
-import React, { CSSProperties, useState } from 'react';
-
+import React, { useState } from 'react';
 import './index.scss';
 import { useAccountBalance } from '../../hooks/useAccountBalance';
 import { useWallet } from '../../hooks/useWallet';
@@ -8,14 +7,15 @@ import { Extendable } from '../../types';
 import { addressEllipsis } from "../../utils/addressEllipsis";
 import { formatCurrency } from '../../utils/formatCurrency';
 import { SvgArrowDown } from '../Icon/SvgIcons';
+import {WalletAccount} from "@mysten/wallet-standard";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
+  onDisconnect?: () => void;
 };
 
 function WalletInfo(props: ConnectButtonProps) {
-  const { disconnect, address } = useWallet();
-
+  const { disconnect, account } = useWallet();
   const { balance } = useAccountBalance();
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
   return (
@@ -27,12 +27,12 @@ function WalletInfo(props: ConnectButtonProps) {
         }}
       >
         <span className={"wkit-connected-button__balance"}>
-          {formatCurrency(balance)} SUI
+          {balance} SUI
         </span>
         <div className={"wkit-connected-button__divider"}></div>
         <div className={"wkit-address-select"}>
           <span className={"wkit-address-select__address"}>
-            {addressEllipsis(address)}
+            {addressEllipsis((account as WalletAccount).address)}
           </span>
           <span className={"wkit-address-select__right-arrow"}>
             <SvgArrowDown />
@@ -45,7 +45,9 @@ function WalletInfo(props: ConnectButtonProps) {
             className={"wkit-disconnect-button"}
             onClick={() => {
               setShowDisconnectButton(false);
-              disconnect();
+              disconnect().then(() => {
+                props.onDisconnect?.();
+              });
             }}
           >
             Disconnect

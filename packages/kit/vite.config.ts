@@ -15,15 +15,15 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, './src/index.ts'),
-      fileName: 'kit',
-      name: 'suietWalletKit',
+      fileName: 'index',
+      name: 'suietWalletKit'
     },
     emptyOutDir: false,
     rollupOptions: {
       external: ['react', 'react-dom'],
       output: {
         // Provide global variables to use in the UMD build
-        // for externalized deps
+        // for externalized deps.
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',

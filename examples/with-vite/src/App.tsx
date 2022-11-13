@@ -1,16 +1,22 @@
-import { useState } from 'react'
+import {useState} from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
-import {ConnectButton, useWallet, useAccountBalance} from "@suiet/wallet-kit";
+import {ConnectButton, useAccountBalance, useWallet} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
 
 function App() {
-  const {wallet, connected, connecting, address, signAndExecuteTransaction, signMessage, getPublicKey} =
-    useWallet();
-
-  const [publicKey, setPublicKey] = useState<Uint8Array>()
-  const {balance} = useAccountBalance()
+  const {
+    wallet,
+    connected,
+    connecting,
+    account,
+    signAndExecuteTransaction,
+    // executeMoveCall,
+    signMessage,
+    getPublicKey,
+  } = useWallet();
+  const {balance} = useAccountBalance();
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return ''
@@ -33,9 +39,12 @@ function App() {
         gasBudget: 10000,
       };
       const resData = await signAndExecuteTransaction({
-        kind: 'moveCall',
-        data
+        transaction: {
+          kind: 'moveCall',
+          data
+        }
       });
+      // const resData = await executeMoveCall(data);
       console.log('executeMoveCall success', resData);
       alert('executeMoveCall succeeded (see response in the console)');
     } catch (e) {
@@ -51,25 +60,20 @@ function App() {
         message: new TextEncoder().encode('Hello world')
       })
       if (!result) {
-        throw new Error('signMessage result is null')
+        alert('signMessage return null')
+        return
       }
       console.log('send message to be signed', msg)
       const textDecoder = new TextDecoder()
       console.log('signMessage success', result)
       console.log('signMessage signature', result.signature)
       console.log('signMessage signedMessage', textDecoder.decode(result.signedMessage).toString())
-      const publicKey = await getPublicKey();
-      console.log('public key', publicKey)
-      const isCorrect = tweetnacl.sign.detached.verify(
+      console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
         result.signedMessage,
         result.signature,
-        publicKey,
-      )
-      if (!isCorrect) {
-        alert('signMessage succeeded, but verify failed (see response in the console)')
-        return
-      }
-      alert('signMessage succeeded, verify passed (see response in the console)')
+        account?.publicKey as Uint8Array,
+      ))
+      alert('signMessage succeeded (see response in the console)')
     } catch (e) {
       console.error('signMessage failed', e)
       alert('signMessage failed (see response in the console)')
@@ -78,13 +82,12 @@ function App() {
 
   async function handleGetPublicKey() {
     try {
-      const result = await getPublicKey()
-      setPublicKey(result)
-      alert('getPublicKey succeeded')
-      console.log('getPublicKey success', result);
+      const publicKey = await getPublicKey()
+      alert('getPublicKey succeed (see console for details)')
+      console.log('[Deprecated] getPublicKey succeed', publicKey)
     } catch (e) {
-      alert('getPublicKey failed')
-      console.error(e)
+      console.error('[Deprecated] getPublicKey failed', e)
+      throw e
     }
   }
 
@@ -92,15 +95,15 @@ function App() {
     <div className="App">
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
+          <img src="/vite.svg" className="logo" alt="Vite logo"/>
         </a>
         <a href="https://github.com/suiet/wallet-kit" target="_blank">
-          <img src={suietLogo} className="logo" alt="Suiet logo" />
+          <img src={suietLogo} className="logo" alt="Suiet logo"/>
         </a>
       </div>
       <h1>Vite + Suiet Kit</h1>
       <div className="card">
-        <ConnectButton />
+        <ConnectButton/>
 
         {!connected ? (
           <p>Connect DApp with Suiet wallet from now!</p>
@@ -116,14 +119,14 @@ function App() {
                     ? 'connected'
                     : 'disconnected'}
               </p>
-              <p>wallet address: {address}</p>
-              <p>wallet balance: {balance}</p>
-              <p>wallet publicKey: {uint8arrayToHex(publicKey)}</p>
+              <p>wallet address: {account?.address}</p>
+              <p>wallet balance: {balance} SUI</p>
+              <p>wallet publicKey: {uint8arrayToHex(account?.publicKey)}</p>
             </div>
             <div className={'btn-group'} style={{margin: '8px 0'}}>
               <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
-              <button onClick={handleGetPublicKey}>getPublicKey</button>
               <button onClick={handleSignMsg}>signMessage</button>
+              <button onClick={handleGetPublicKey}>getPublicKey</button>
             </div>
           </div>
         )}

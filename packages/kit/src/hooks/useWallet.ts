@@ -1,91 +1,88 @@
+import { createContext, useContext } from "react";
+import {ConnectionStatus, IWallet, IWalletAdapter} from "../types/wallet";
+import { KitError } from "../errors";
 import {
-  MoveCallTransaction,
-  SuiAddress,
-  SuiTransactionResponse,
-  SignableTransaction,
-} from '@mysten/sui.js';
-import { createContext, useContext } from 'react';
-import {
-  SignMessageInput,
-  SignMessageOutput,
-  WalletInstance,
-} from '../adapter/KitAdapter';
-import { StandardWalletAdapter } from '../standard/WalletStandard';
+  SuiSignAndExecuteTransactionInput,
+  SuiSignAndExecuteTransactionOutput,
+  WalletAccount,
+} from "@mysten/wallet-standard";
+import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
+import {MoveCallTransaction} from "@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer";
+import {SuiTransactionResponse} from "@mysten/sui.js";
 
 export interface WalletContextState {
-  // Supported Wallets
-  supportedWallets: WalletInstance[];
-  groupWallets: Record<string, WalletInstance[]>;
-  // Wallet that we are currently connected to
-  wallet: StandardWalletAdapter | null;
-
+  configuredWallets: IWallet[];
+  detectedWallets: IWallet[];
+  allAvailableWallets: IWallet[];
+  wallet: IWalletAdapter | undefined; // wallet currently connected to
+  account: WalletAccount | undefined; // current account (the first account of accounts)
   connecting: boolean;
   connected: boolean;
-  status: 'disconnected' | 'connected' | 'connecting';
-  address: string;
-
+  status: "disconnected" | "connected" | "connecting";
   select: (walletName: string) => void;
-  connect: (walletInstance: WalletInstance) => Promise<void>;
   disconnect: () => Promise<void>;
+  getAccounts: () => readonly WalletAccount[];
 
-  getAccounts: () => Promise<SuiAddress[]>;
   signAndExecuteTransaction(
-    transaction: SignableTransaction
-  ): Promise<SuiTransactionResponse>;
+    transaction: SuiSignAndExecuteTransactionInput
+  ): Promise<SuiSignAndExecuteTransactionOutput>;
 
-  // /** @deprecated Prefer `signAndExecuteTransaction` when available. */
-  // executeMoveCall: (
-  //   transaction: MoveCallTransaction
-  // ) => Promise<SuiTransactionResponse>;
-  // /** @deprecated Prefer `signAndExecuteTransaction` when available. */
-  // executeSerializedMoveCall: (
-  //   transactionBytes: Uint8Array
-  // ) => Promise<SuiTransactionResponse>;
-  signMessage: (input: SignMessageInput) => Promise<SignMessageOutput | null>;
+  signMessage: (input: {message: Uint8Array}) => Promise<ExpSignMessageOutput>;
+
+  /**
+   * @deprecated use allAvailableWallets instead
+   */
+  supportedWallets: any[];
+  /**
+   * @deprecated use account.address instead
+   */
+  address: string | undefined;
+  /**
+   * @deprecated use signAndExecuteTransaction instead
+   */
+  executeMoveCall: (transaction: MoveCallTransaction) => Promise<SuiTransactionResponse>;
+  /**
+   * @deprecated use account.publicKey instea
+   */
   getPublicKey: () => Promise<Uint8Array>;
 }
 
 function missProviderMessage(action: string) {
-  return `Error to run method ${action}, please make sure useWallet use in a proper provider`;
+  return `Failed to call ${action}, missing context provider to run within`;
 }
 
 const DEFAULT_CONTEXT: WalletContextState = {
-  supportedWallets: [],
-  groupWallets: {},
-  wallet: null,
+  configuredWallets: [],
+  detectedWallets: [],
+  allAvailableWallets: [],
+  wallet: undefined,
   connecting: false,
   connected: false,
-  address: '',
-  status: 'disconnected',
-  select(_name: string) {
-    console.error(missProviderMessage('select'));
-  },
-  async signMessage() {
-    return await Promise.reject(console.error(missProviderMessage('connect')));
-  },
-  async connect() {
-    return await Promise.reject(console.error(missProviderMessage('connect')));
+  account: undefined,
+  status: ConnectionStatus.DISCONNECTED,
+  address: undefined,
+  supportedWallets: [],
+  select() {
+    throw new KitError(missProviderMessage("select"));
   },
   async disconnect() {
-    return await Promise.reject(
-      console.error(missProviderMessage('disconnect'))
-    );
+    throw new KitError(missProviderMessage("disconnect"));
   },
-  async getAccounts() {
-    return await Promise.reject(
-      console.error(missProviderMessage('getAccounts'))
-    );
+  getAccounts() {
+    throw new KitError(missProviderMessage("getAccounts"));
   },
   async signAndExecuteTransaction() {
-    return await Promise.reject(
-      console.error(missProviderMessage('signAndExecuteTransaction'))
-    );
+    throw new KitError(missProviderMessage("signAndExecuteTransaction"));
+  },
+  async signMessage() {
+    throw new KitError(missProviderMessage("signMessage"));
+  },
+  async executeMoveCall() {
+    throw new KitError(missProviderMessage("executeMoveCall"));
   },
   async getPublicKey() {
-    return await Promise.reject(
-      console.error(missProviderMessage('getPublicKey'))
-    );
-  },
+    throw new KitError(missProviderMessage("getPublicKey"));
+  }
 };
 
 export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);
