@@ -63,16 +63,12 @@ Feel free to choose the wallets you want to support.
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  WalletProvider,
-  getAllWallets, // support all the wallets
-  getDefaultWallets, // if you only support Sui wallet
+  WalletProvider
 } from '@suiet/wallet-kit';
-
-const supportedWallets = getAllWallets(); // let's say we support all the wallets
 
 ReactDOM.render(
   <React.StrictMode>
-    <WalletProvider supportedWallets={supportedWallets}>
+    <WalletProvider>
       <App />
     </WalletProvider>
   </React.StrictMode>
