@@ -1,10 +1,12 @@
-# Upgrade to `v0.1.0`
+# Upgrade to `v0.1.1`
 
 ## Break changes:
 
 ### deprecated `supportedWallets` in `WalletProvider`
 
-We have deprecated [`WalletProvider`](/docs/components/WalletProvider) input `supportedWallets` in `v0.1.0`. You will no longer need to pass `supportedWallets` to the provider
+> If you still bypassing `supportedWallets`, it will not break your code but also take no effect. You will see an warning message in the console.
+
+We have deprecated [`WalletProvider`](/docs/components/WalletProvider) input `supportedWallets` in `v0.1.1`. You will no longer need to pass `supportedWallets` to the provider
 
 ```diff
 import ReactDOM from 'react-dom';
