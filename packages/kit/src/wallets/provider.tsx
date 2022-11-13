@@ -75,7 +75,7 @@ export function WalletProvider({
   supportedWallets,
   children,
 }: WalletProviderProps) {
-  const adapters = useAdapters(new WalletContainer());
+  const adapters = useAdapters();
   const [{ wallet, status, address }, dispatch] = useReducer(
     walletReducer,
     initialWalletState
