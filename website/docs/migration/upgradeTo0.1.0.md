@@ -1,10 +1,10 @@
-# Upgrade to `v0.1.1`
+# Upgrade to `v0.1.x`
 
-Upgrade command: `npm install @suiet/wallet-kit@0.1.2`
+Upgrade command: `npm install @suiet/wallet-kit@0.1`
 
 You can replace `npm` with the package mananger you are using(e.g. npm, yarn, pnpm, etc)
 
-## Break changes:
+## Breaking changes:
 
 ### `wallet-standard` updated the `signAndExecuteTransaction` structure
 
@@ -61,6 +61,8 @@ function Root() {
 
 ReactDOM.render(<Root />, docoument.getElementById('root'));
 ```
+
+If you want to customize your wallet list, see tutorial for details [#customize-your-wallet-list](https://github.com/suiet/wallet-kit/blob/main/website/docs/components/WalletProvider.md#customize-your-wallet-list)
 
 ## internal changes(doesn't affect your code)
 
