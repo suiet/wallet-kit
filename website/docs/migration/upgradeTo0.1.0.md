@@ -1,5 +1,9 @@
 # Upgrade to `v0.1.1`
 
+Upgrade command: `npm install @suiet/wallet-kit@0.1.2`
+
+You can replace `npm` with the package mananger you are using(e.g. npm, yarn, pnpm, etc)
+
 ## Break changes:
 
 ### `wallet-standard` updated the `signAndExecuteTransaction` structure
