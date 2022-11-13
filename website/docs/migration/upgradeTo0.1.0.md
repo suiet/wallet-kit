@@ -4,7 +4,7 @@
 
 ### deprecated `supportedWallets` in `WalletProvider`
 
-We have deprecated [`WalletProvider`](/docs/components/WalletProvider) input `supportedWallets` and `v0.1.0`. You will no loger using the
+We have deprecated [`WalletProvider`](/docs/components/WalletProvider) input `supportedWallets` and `v0.1.0`. You will no longer need to pass `supportedWallets`
 
 ```diff
 import ReactDOM from 'react-dom';
