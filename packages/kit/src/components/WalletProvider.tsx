@@ -17,6 +17,7 @@ import {Extendable} from "../types";
 import {isNonEmptyArray} from "../utils";
 import {MoveCallTransaction} from "@mysten/sui.js";
 import {FeatureName} from "../wallet/wallet-adapter";
+import {deprecatedWarn} from "../legacy/tips";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -225,7 +226,11 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   useEffect(() => {
     if (props.supportedWallets) {
-      console.warn('prop supportedWallets is deprecated, use defaultWallets to customize wallet list. migration doc: https://kit.suiet.app/docs/migration/upgradeTo0.1.0')
+      deprecatedWarn({
+        name: 'supportedWallets',
+        message: 'use defaultWallets to customize wallet list',
+        migrationDoc: 'https://kit.suiet.app/docs/migration/upgradeTo0.1.0'
+      })
     }
   }, [])
 
