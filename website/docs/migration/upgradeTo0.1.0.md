@@ -8,6 +8,8 @@ You can replace `npm` with the package mananger you are using(e.g. npm, yarn, pn
 
 ### `wallet-standard` updated the `signAndExecuteTransaction` structure
 
+`wallet-standard` updated the `signAndExecuteTransaction` api, you will need to put previous input of `signAndExecuteTransaction` under `transaction` field instead
+
 ```diff
 export function Transaction() {
   const { signAndExecuteTransaction } = useWallet();
