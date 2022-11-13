@@ -28,7 +28,7 @@ export type SignMessageOutput = Readonly<{
 export interface Wallet {
   installed: boolean | undefined;
   name: string;
-  iconUrl: string | (() => Promise<string>);
+  iconUrl: string;
   downloadUrl?: {
     browserExtension?: string; // chrome default
   };
