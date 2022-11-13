@@ -1,10 +1,12 @@
-# Upgrade to `v0.1.0`
+# Upgrade to `v0.1.1`
 
 ## Break changes:
 
 ### deprecated `supportedWallets` in `WalletProvider`
 
-We have deprecated [`WalletProvider`](/docs/components/WalletProvider) input `supportedWallets` and `v0.1.0`. You will no longer need to pass `supportedWallets`
+> If you still bypassing `supportedWallets`, it will not break your code but also take no effect. You will see an warning message in the console.
+
+We have deprecated [`WalletProvider`](/docs/components/WalletProvider) input `supportedWallets` in `v0.1.1`. You will no longer need to pass `supportedWallets` to the provider
 
 ```diff
 import ReactDOM from 'react-dom';
@@ -32,7 +34,6 @@ ReactDOM.render(<Root />, docoument.getElementById('root'));
 With the update of MIST, now 100,000,000 SUI becomes 1 SUI. We have made adjustments in the balance display in UI components.
 
 And if you are using the `useAccountBalance` hook, you the balance you got will also change to smallest unit, `MIST`. You can manually convert it to `SUI` by dividing 1000,000,000.
-
 
 ### deprecated `wallet-adapter` logic to connect wallets, use `wallet-standard` insted
 
