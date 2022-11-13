@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {WalletContext} from "../hooks/useWallet";
 import {
   ConnectionStatus,
@@ -20,6 +20,10 @@ import {FeatureName} from "../wallet/wallet-adapter";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
+  /**
+   * @deprecated use defaultWallets to customize wallet list
+   */
+  supportedWallets?: any[];
 };
 
 const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
@@ -111,7 +115,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
     if (!isCallable(walletAdapter, status)) return;
     return (walletAdapter as IWalletAdapter).accounts[0]; // use first account by default
   }, [walletAdapter, status]);
-
 
   const ensureCallable = (
     walletAdapter: IWalletAdapter | undefined,
@@ -220,6 +223,12 @@ export const WalletProvider = (props: WalletProviderProps) => {
     return Promise.resolve((account as WalletAccount).publicKey);
   }, [walletAdapter, account, status])
 
+  useEffect(() => {
+    if (props.supportedWallets) {
+      console.warn('prop supportedWallets is deprecated, use defaultWallets to customize wallet list. migration doc: https://kit.suiet.app/docs/migration/upgradeTo0.1.0')
+    }
+  }, [])
+
   return (
     <WalletContext.Provider
       value={{
@@ -237,6 +246,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         signAndExecuteTransaction,
         signMessage,
         address: account?.address,
+        supportedWallets: props.supportedWallets ?? [],
         executeMoveCall,
         getPublicKey,
       }}

@@ -30,6 +30,10 @@ export interface WalletContextState {
   signMessage: (input: {message: Uint8Array}) => Promise<ExpSignMessageOutput>;
 
   /**
+   * @deprecated use allAvailableWallets instead
+   */
+  supportedWallets: any[];
+  /**
    * @deprecated use account.address instead
    */
   address: string | undefined;
@@ -57,6 +61,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   account: undefined,
   status: ConnectionStatus.DISCONNECTED,
   address: undefined,
+  supportedWallets: [],
   select() {
     throw new KitError(missProviderMessage("select"));
   },
