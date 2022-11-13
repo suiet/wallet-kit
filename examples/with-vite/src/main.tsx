@@ -9,7 +9,7 @@ import {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <WalletProvider supportedWallets={[]}>
+    <WalletProvider>
       <App />
     </WalletProvider>
   </React.StrictMode>
