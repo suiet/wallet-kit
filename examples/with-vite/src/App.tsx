@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
 import {ConnectButton, useAccountBalance, useWallet} from "@suiet/wallet-kit";
@@ -9,7 +9,6 @@ import * as tweetnacl from 'tweetnacl'
 function App() {
   const {
     wallet,
-    connected,
     connecting,
     account,
     signAndExecuteTransaction,
@@ -19,8 +18,21 @@ function App() {
     configuredWallets,
     detectedWallets,
     allAvailableWallets,
+    on, connected,
   } = useWallet();
   const {balance} = useAccountBalance();
+
+  const {} = useWallet()
+  useEffect(() => {
+    if (!connected) return;
+    console.log('listen to change event')
+    const off = on('change', (...args) => {
+      console.log('wallet changed', ...args)
+    })
+    return () => {
+      off()
+    }
+  }, [connected, on])
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return ''
@@ -94,6 +106,7 @@ function App() {
       throw e
     }
   }
+
 
   return (
     <div className="App">

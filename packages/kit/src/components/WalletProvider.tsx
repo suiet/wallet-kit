@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks/useWallet";
 import {
   ConnectionStatus,
@@ -6,7 +6,7 @@ import {
   IDefaultWallet, IWallet,
 } from "../types/wallet";
 import {
-  ConnectInput,
+  ConnectInput, EventsListeners, EventsNames,
   SuiSignAndExecuteTransactionInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
@@ -104,6 +104,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const [status, setStatus] = useState<ConnectionStatus>(
     ConnectionStatus.DISCONNECTED
   );
+  const walletOffListeners = useRef<(() => void)[]>([])
 
   const isCallable = (
     walletAdapter: IWalletAdapter | undefined,
@@ -148,6 +149,18 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const disconnect = useCallback(async () => {
     ensureCallable(walletAdapter, status);
     const adapter = walletAdapter as IWalletAdapter;
+    // try to clear listeners
+    if (isNonEmptyArray(walletOffListeners.current)) {
+      console.log('clear wallet listeners', walletOffListeners.current)
+        walletOffListeners.current.forEach(off => {
+          try {
+            off()
+          } catch (e) {
+            console.error('error when clearing wallet listener', (e as any).message)
+          }
+        })
+      walletOffListeners.current = []  // empty array
+    }
     try {
       // disconnect is an optional action for wallet
       if (adapter.hasFeature(FeatureName.STANDARD__DISCONNECT)) {
@@ -178,6 +191,17 @@ export const WalletProvider = (props: WalletProviderProps) => {
     await connect(wallet.adapter as IWalletAdapter)
   }, [walletAdapter, status, allAvailableWallets])
 
+  const on = useCallback((
+    event: EventsNames,
+    listener: EventsListeners[EventsNames]
+  ) => {
+    ensureCallable(walletAdapter, status);
+    const _wallet = walletAdapter as IWalletAdapter;
+    const off = _wallet.on(event, listener)
+    walletOffListeners.current.push(off);  // should help user manage off cleaners
+    return off
+  }, [walletAdapter, status])
+
   const getAccounts = useCallback(() => {
     ensureCallable(walletAdapter, status);
     const _wallet = walletAdapter as IWalletAdapter;
@@ -194,7 +218,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   );
 
   const signMessage = useCallback(
-    async (input: {message: Uint8Array}) => {
+    async (input: { message: Uint8Array }) => {
       ensureCallable(walletAdapter, status);
       if (!account) {
         throw new KitError("no active account");
@@ -246,6 +270,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         connected: status === ConnectionStatus.CONNECTED,
         select,
         disconnect,
+        on,
         getAccounts,
         account,
         signAndExecuteTransaction,
