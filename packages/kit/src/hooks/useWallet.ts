@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import {ConnectionStatus, IWallet, IWalletAdapter} from "../types/wallet";
 import { KitError } from "../errors";
 import {
+  EventsOnMethod,
   SuiSignAndExecuteTransactionInput,
   SuiSignAndExecuteTransactionOutput,
   WalletAccount,
@@ -28,6 +29,8 @@ export interface WalletContextState {
   ): Promise<SuiSignAndExecuteTransactionOutput>;
 
   signMessage: (input: {message: Uint8Array}) => Promise<ExpSignMessageOutput>;
+
+  on: EventsOnMethod;
 
   /**
    * @deprecated use allAvailableWallets instead
@@ -64,6 +67,9 @@ const DEFAULT_CONTEXT: WalletContextState = {
   supportedWallets: [],
   select() {
     throw new KitError(missProviderMessage("select"));
+  },
+  on() {
+    throw new KitError(missProviderMessage("on"));
   },
   async disconnect() {
     throw new KitError(missProviderMessage("disconnect"));
