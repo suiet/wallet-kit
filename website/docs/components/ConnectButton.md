@@ -6,25 +6,23 @@ sidebar_position: 2
 
 ## Description
 
-We recommend using `ConnectButton` component to integrate Suiet wallet kit 🥳
+ConnectButton is the entry for users to connect their wallet. 
 
-By using `ConnectButton`, you can use all the features of Suiet kit, such as wallet selection modal, account info display and so on.
+It manages the cycle of wallet connection, such as launching the wallet-select modal, displaying info of the account and showing the disconnect button when connected.
+
+We recommend using `ConnectButton` component to integrate Suiet wallet kit 🥳 But you can customize your own ConnectButton with our api, check [#Advanced-Use Hooks Only](/docs/advanced/hooks-only) for details.
 
 ## Example
 
 ```jsx
-import ReactDOM from 'react-dom';
 import {
-  getDefaultWallets,
   ConnectButton,
   WalletProvider,
 } from '@suiet/wallet-kit';
 
-const supportedWallets = getDefaultWallets();
-
 function App() {
   return (
-    <WalletProvider supportedWallets={supportedWallets}>
+    <WalletProvider>
       <ConnectButton>Connect Wallet</ConnectButton>
     </WalletProvider>
   );
@@ -33,8 +31,8 @@ function App() {
 
 ## API
 
-| Properties | Description        | Type                | Default          |
-| ---------- | ------------------ | ------------------- | ---------------- |
-| children   | show in button     | ReactNode           | 'Connect Wallet' |
-| style      | button's style     | React.CSSProperties |                  |
-| className  | button's className | string              |                  |
+| Properties | Description | Type                | Default          |
+| ---------- | ----------- | ------------------- | ---------------- |
+| children   | --          | ReactNode           | 'Connect Wallet' |
+| style      | --          | React.CSSProperties |                  |
+| className  | --          | string              |                  |
