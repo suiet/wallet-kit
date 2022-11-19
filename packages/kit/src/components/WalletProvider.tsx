@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks/useWallet";
 import {
   ConnectionStatus,
@@ -13,11 +13,12 @@ import {
 import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/default-wallets";
 import {useWalletAdapterDetection} from "../wallet-standard/use-wallet-detection";
-import {Extendable} from "../types";
+import { Extendable } from '../types/utils';
 import {isNonEmptyArray} from "../utils";
-import {MoveCallTransaction} from "@mysten/sui.js";
+import {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {FeatureName} from "../wallet/wallet-adapter";
 import {deprecatedWarn} from "../legacy/tips";
+import {WalletEvent, WalletEventListeners} from "../types/events";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -104,6 +105,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const [status, setStatus] = useState<ConnectionStatus>(
     ConnectionStatus.DISCONNECTED
   );
+  const walletOffListeners = useRef<(() => void)[]>([])
 
   const isCallable = (
     walletAdapter: IWalletAdapter | undefined,
@@ -148,6 +150,17 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const disconnect = useCallback(async () => {
     ensureCallable(walletAdapter, status);
     const adapter = walletAdapter as IWalletAdapter;
+    // try to clear listeners
+    if (isNonEmptyArray(walletOffListeners.current)) {
+        walletOffListeners.current.forEach(off => {
+          try {
+            off()
+          } catch (e) {
+            console.error('error when clearing wallet listener', (e as any).message)
+          }
+        })
+      walletOffListeners.current = []  // empty array
+    }
     try {
       // disconnect is an optional action for wallet
       if (adapter.hasFeature(FeatureName.STANDARD__DISCONNECT)) {
@@ -178,6 +191,40 @@ export const WalletProvider = (props: WalletProviderProps) => {
     await connect(wallet.adapter as IWalletAdapter)
   }, [walletAdapter, status, allAvailableWallets])
 
+  const on = useCallback((
+    event: WalletEvent,
+    listener: WalletEventListeners[WalletEvent]
+  ) => {
+    ensureCallable(walletAdapter, status);
+    const _wallet = walletAdapter as IWalletAdapter;
+
+    // filter event and params to decide when to emit
+    const off = _wallet.on('change', (params) => {
+      if (event === 'change') {
+        const _listener = listener as WalletEventListeners['change']
+        _listener(params)
+        return
+      }
+      if (isNonEmptyArray(params.chains) && event === 'chainChange') {
+        const _listener = listener as WalletEventListeners['chainChange']
+        _listener({ chain: (params.chains as any)[0] })
+        return
+      }
+      if (isNonEmptyArray(params.accounts) && event === 'accountChange') {
+        const _listener = listener as WalletEventListeners['accountChange']
+        _listener({ account: (params.accounts as any)[0] })
+        return
+      }
+      if (Array.isArray(params.features) && event === 'featureChange') {
+        const _listener = listener as WalletEventListeners['featureChange']
+        _listener({ features: params.features })
+        return
+      }
+    })
+    walletOffListeners.current.push(off);  // should help user manage off cleaners
+    return off
+  }, [walletAdapter, status])
+
   const getAccounts = useCallback(() => {
     ensureCallable(walletAdapter, status);
     const _wallet = walletAdapter as IWalletAdapter;
@@ -194,7 +241,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   );
 
   const signMessage = useCallback(
-    async (input: {message: Uint8Array}) => {
+    async (input: { message: Uint8Array }) => {
       ensureCallable(walletAdapter, status);
       if (!account) {
         throw new KitError("no active account");
@@ -216,7 +263,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         kind: 'moveCall',
         data: data
       }
-    });
+    }) as Promise<SuiTransactionResponse>;
   }, [signAndExecuteTransaction, walletAdapter, status])
 
   const getPublicKey = useCallback(() => {
@@ -237,15 +284,18 @@ export const WalletProvider = (props: WalletProviderProps) => {
   return (
     <WalletContext.Provider
       value={{
+        name: walletAdapter?.name,
         allAvailableWallets,
         configuredWallets,
         detectedWallets,
+        adapter: walletAdapter,
         wallet: walletAdapter,
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
         select,
         disconnect,
+        on,
         getAccounts,
         account,
         signAndExecuteTransaction,
