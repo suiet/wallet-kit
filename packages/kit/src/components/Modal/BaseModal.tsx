@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import * as React from "react";
-import {Extendable} from "../../types";
+import { Extendable } from "../../types/utils";
 import classnames from "classnames";
 import {DialogContentProps} from "@radix-ui/react-dialog";
 

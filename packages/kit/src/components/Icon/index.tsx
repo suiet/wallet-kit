@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from 'react';
-import { Extendable } from '../../types';
+import { Extendable } from '../../types/utils';
 
 export type IconProps = Extendable & {
   icon: string | ReactNode;

@@ -1,6 +1,6 @@
 import React, {ReactNode, useState} from 'react';
 import classnames from "classnames";
-import {Extendable} from "../../types";
+import { Extendable } from "../../types/utils";
 import ConnectModal from "../Modal/ConnectModal";
 import {useWallet} from "../../hooks/useWallet";
 import './index.scss';
