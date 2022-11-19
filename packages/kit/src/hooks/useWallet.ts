@@ -17,6 +17,7 @@ export interface WalletContextState {
   name: string | undefined;  // name of the connected wallet
   adapter: IWalletAdapter | undefined;  // adapter provided by the connected wallet
   account: WalletAccount | undefined; // current account (the first account of accounts)
+  address: string | undefined;  // alias for account.address
   connecting: boolean;
   connected: boolean;
   status: "disconnected" | "connected" | "connecting";
@@ -43,10 +44,6 @@ export interface WalletContextState {
    * @deprecated use allAvailableWallets instead
    */
   supportedWallets: any[];
-  /**
-   * @deprecated use account.address instead
-   */
-  address: string | undefined;
   /**
    * @deprecated use signAndExecuteTransaction instead
    */
