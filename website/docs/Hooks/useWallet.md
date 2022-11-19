@@ -214,6 +214,10 @@ function printAccountInfo() {
 }
 ```
 
+### address
+
+Alias for `account.address`
+
 ### select
 
 | Type                         | Default |
@@ -304,12 +308,6 @@ All the wallet events:
 
 :::caution
 Deprecated, use [adapter](#adapter) instead.
-:::
-
-### address
-
-:::caution
-Deprecated, use [account.address](#account) instead.
 :::
 
 ### getPublicKey

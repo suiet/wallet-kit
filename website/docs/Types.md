@@ -3,6 +3,10 @@ title: Types
 sidebar_position: 999
 ---
 
+## Types of Sui SDK
+
+https://github.com/MystenLabs/sui/tree/main/sdk/typescript/src/types
+
 ## IDefaultWallet
 
 ```typescript
@@ -56,8 +60,6 @@ export interface WalletAccount {
 ## IWalletAdapter
 
 https://github.com/suiet/wallet-kit/blob/main/packages/kit/src/types/wallet.ts#L39
-
-## SuiSignAndExecuteTransactionInput
 
 
 
