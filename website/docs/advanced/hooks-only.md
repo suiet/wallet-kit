@@ -1,17 +1,21 @@
 # Use Hooks Only
 
-This section will introduce how to only use the provided hooks. It could be useful when you want to customize your UI components together with our hooks. 
+This section will introduce how to only use the provided hooks. 
+
+It could be useful when you want to customize your UI components together with our hooks. 
+
+### Customize your UI components with Kit Hooks
 
 Firstly, add `WalletProvider` to wrap your App. The WalletProvider component provides the context of data and functions.
 
-```jsx
-import { WalletProvider, getDefaultWallets } from '@suiet/wallet-kit';
+> For customizing the default wallet list, check [WalletProvider](/docs/components/WalletProvider#customize-your-wallet-list-on-modal)
 
-const supportedWallets = getDefaultWallets();
+```jsx
+import { WalletProvider } from '@suiet/wallet-kit';
 
 function RootComponent() {
   return (
-    <WalletProvider supportedWallets={supportedWallets}>
+    <WalletProvider>
       <App />
     </WalletProvider>
   );
@@ -28,31 +32,32 @@ import {useWallet} from '@suiet/wallet-kit';
 import {useState, useEffect} from "react";
 
 function App() {
-  const {connected, address} = useWallet();
+  const wallet = useWallet();
 
   return (
     <div>
-      {connected ? <AccountInfo address={address} /> : <ConnectButton />}
+      {wallet.connected ? <AccountInfo address={wallet.address} /> : <ConnectButton />}
     </div>
   )
 }
 ```
 
-For your component of wallet selection, let's just call it WalletSelector. 
+For your wallet-select modal component, let's just call it WalletSelector. 
 
 You can use `select` method from `useWallet` hook to connect the one of the SUI wallets. 
-
-:::tip
-Make sure wallets are installed before using! Remember to handle scenarios that users have not installed specific wallets.
-:::
 
 ```jsx
 import { useWallet } from '@suiet/wallet-kit';
 
 function WalletSelector() {
-  const { select, supportedWallets } = useWallet();
+  const { 
+    select,  // select 
+    configuredWallets,  // default wallets
+    detectedWallets,  // Sui-standard wallets detected from browser env
+    allAvailableWallets,  // all the installed Sui-standard wallets
+  } = useWallet();
 
-  return supportedWallets.map((wallet) => (
+  return [...configuredWallets, ...detectedWallets].map((wallet) => (
     <button
       key={wallet.name}
       onClick={() => {
@@ -70,35 +75,4 @@ function WalletSelector() {
 }
 ```
 
-After a successful connection, you can read account info and make use of all the functions from `useWallet` such as `executeMoveCall` and `signMessage`.
-
-```jsx
-import { useWallet } from '@suiet/wallet-kit';
-
-function AccountInfo() {
-  const { address, executeMoveCall, signMessage } = useWallet();
-  return (
-    <div>
-      <div>address: {address}</div>
-      <button
-        onClick={async () => {
-          const res = await signAndExecuteTransaction({
-            // transaction params...
-          });
-        }}
-      >
-        do trasaction
-      </button>
-      <button
-        onClick={async () => {
-          const res = await signMessage({
-            message: 'hello world!'
-          });
-        }}
-      >
-        sign messages
-      </button>
-    </div>
-  );
-}
-```
+T
