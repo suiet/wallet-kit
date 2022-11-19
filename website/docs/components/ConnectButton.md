@@ -12,7 +12,7 @@ It manages the cycle of wallet connection, such as launching the wallet-select m
 
 We recommend using `ConnectButton` component to integrate Suiet wallet kit 🥳 But you can customize your own ConnectButton with our api, check [#Advanced-Use Hooks Only](/docs/advanced/hooks-only) for details.
 
-## Example
+## Examples
 
 ```jsx
 import {
@@ -30,6 +30,8 @@ function App() {
 ```
 
 ## API
+
+### Props
 
 | Properties | Description | Type                | Default          |
 | ---------- | ----------- | ------------------- | ---------------- |
