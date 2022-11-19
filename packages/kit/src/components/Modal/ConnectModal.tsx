@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {BaseModal} from "./BaseModal";
-import {Extendable} from "../../types";
+import { Extendable } from "../../types/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import {SvgArrowLeft, SvgClose} from "../Icon/SvgIcons";
 import {useWallet} from "../../hooks";
@@ -274,7 +274,7 @@ export const ConnectModal = (props: ConnectModalProps) => {
       onOpenChange={props.onOpenChange}
       trigger={props.children}
       contentProps={{
-        onOpenAutoFocus: (e) => {
+        onOpenAutoFocus: (e: Event) => {
           e.preventDefault()
         }
       }}

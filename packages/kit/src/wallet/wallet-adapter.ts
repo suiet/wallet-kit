@@ -87,18 +87,12 @@ export class WalletAdapter implements IWalletAdapter {
     }
   }
 
-  on<T extends EventsNames>({
-                              event,
-                              listener,
-                            }: {
-    event: T;
-    listener: EventsListeners[T];
-  }) {
+  on(event: EventsNames, listener: EventsListeners[EventsNames]): () => void {
     const feature = this.getFeature<{ on: EventsOnMethod }>(
       FeatureName.STANDARD__EVENTS
     );
     try {
-      feature.on<T>(event, listener);
+      return feature.on<EventsNames>(event, listener);
     } catch (e) {
       throw new WalletError((e as any).message)
     }

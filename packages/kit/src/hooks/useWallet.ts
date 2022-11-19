@@ -7,14 +7,15 @@ import {
   WalletAccount,
 } from "@mysten/wallet-standard";
 import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
-import {MoveCallTransaction} from "@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer";
-import {SuiTransactionResponse} from "@mysten/sui.js";
+import {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
+import {WalletEvent, WalletEventListeners} from "../types/events";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
   detectedWallets: IWallet[];
   allAvailableWallets: IWallet[];
-  wallet: IWalletAdapter | undefined; // wallet currently connected to
+  name: string | undefined;  // name of the connected wallet
+  adapter: IWalletAdapter | undefined;  // adapter provided by the connected wallet
   account: WalletAccount | undefined; // current account (the first account of accounts)
   connecting: boolean;
   connected: boolean;
@@ -29,6 +30,15 @@ export interface WalletContextState {
 
   signMessage: (input: {message: Uint8Array}) => Promise<ExpSignMessageOutput>;
 
+  on: <E extends WalletEvent>(
+    event: E,
+    listener: WalletEventListeners[E],
+  ) => () => void;
+
+  /**
+   * @deprecated use adapter instead
+   */
+  wallet: IWalletAdapter | undefined;
   /**
    * @deprecated use allAvailableWallets instead
    */
@@ -55,15 +65,20 @@ const DEFAULT_CONTEXT: WalletContextState = {
   configuredWallets: [],
   detectedWallets: [],
   allAvailableWallets: [],
-  wallet: undefined,
+  name: undefined,
+  adapter: undefined,
   connecting: false,
   connected: false,
   account: undefined,
   status: ConnectionStatus.DISCONNECTED,
+  wallet: undefined,
   address: undefined,
   supportedWallets: [],
   select() {
     throw new KitError(missProviderMessage("select"));
+  },
+  on() {
+    throw new KitError(missProviderMessage("on"));
   },
   async disconnect() {
     throw new KitError(missProviderMessage("disconnect"));
