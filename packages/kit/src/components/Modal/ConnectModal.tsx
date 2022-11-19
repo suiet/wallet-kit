@@ -274,7 +274,7 @@ export const ConnectModal = (props: ConnectModalProps) => {
       onOpenChange={props.onOpenChange}
       trigger={props.children}
       contentProps={{
-        onOpenAutoFocus: (e) => {
+        onOpenAutoFocus: (e: Event) => {
           e.preventDefault()
         }
       }}
