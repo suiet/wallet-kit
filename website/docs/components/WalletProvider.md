@@ -6,7 +6,13 @@ sidebar_position: 1
 
 ## Description
 
-You must wrap all kit hooks or components in `WalletProvider`. Then you can use all hooks and components provided by `@suiet/wallet-kit`.
+The `WalletProvider` provides the essential data and functions for our kit. And it is the entrypoint for customized configurations.
+
+:::tip
+
+So you need to wrap all the kit hooks and components under `WalletProvider` before you start to use them.
+
+:::
 
 ## Example
 
@@ -15,6 +21,7 @@ import ReactDOM from 'react-dom';
 import { useWallet } from '@suiet/wallet-kit';
 
 function Root() {
+  // wrap your app component
   <WalletProvider>
     <App />
   </WalletProvider>;
@@ -23,16 +30,25 @@ function Root() {
 ReactDOM.render(<Root />, docoument.getElementById('root'));
 ```
 
-### Customize your wallet list
- 
-You can configure your wallet list by passing `defaultWallets` param throught `<WalletProvider />`.
+### Customize your wallet list on modal
+
+You can configure your wallet list on the select modal by passing `defaultWallets` throught `<WalletProvider />`.
+
+We've prepared a set of [preset wallets](../CanIUse#preset-wallets) that you can import directly, also you can customize new wallet items following the IDefaultWallet Interface. By default we include all the preset wallets.
+
+:::tip
+
+All the `defaultWallets` will be listed in the Popular section on the wallet-select modal.
+
+:::
 
 ```jsx
 import {
   WalletProvider,
   SuietWallet,
   SuiWallet,
-  EthosWallet, IDefaultWallet,
+  EthosWallet, 
+  IDefaultWallet,
 } from '@suiet/wallet-kit';
 
 // customized wallet must support @mysten/wallet-standard
@@ -84,7 +100,7 @@ function App() {
 
 |Prop|Type|Default|Description|
 |:-:|:-:|:-:|:-:|
-|defaultWallets|[IDefaultWallet](./WalletProvider.md#idefaultwallet)|[...[AllPresetWallets](./WalletProvider.md#allDefaultWallets)]|Configure wallet list for dapp, by default we load all the preset wallets|
+|defaultWallets|[IDefaultWallet](./WalletProvider.md#idefaultwallet)|[...[AllPresetWallets](../CanIUse#preset-wallets)]|Configure wallet list for dapp, by default we load all the preset wallets|
 |[Deprecated] supportedWallets|`Array<any>`|[]|default wallets show on ConnectWalletModal, use defaultWallets instead (Not used anymore since v0.1.x)|
 
 ### Types
@@ -114,19 +130,3 @@ const myWallet: IDefaultWallet = {
   },
 }
 ```
-
-### Others
-
-#### AllDefaultWallets
-
-All preset wallets are listed as enumeration.
-
-```typescript
-enum PresetWallet {
-  SUI_WALLET = "Sui Wallet",
-  SUIET_WALLET = "Suiet",
-  ETHOS_WALLET = "Ethos Wallet",
-}
-```
-
-

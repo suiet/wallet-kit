@@ -9,7 +9,7 @@ Suiet wallet kit is a wallet aggregator for DApps to interact with all the walle
 
 Let's try our kit and empower your dapp in minutes. 🪄
 
-> 💡 Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/) + [Vite example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite)
+> ⭐️ Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/) + [Example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite)
 
 ## 🔨 Setup
 
@@ -31,24 +31,23 @@ Oh don't forget to import our css to enable default styles 🎨
 import { WalletProvider } from '@suiet/wallet-kit';
 import '@suiet/wallet-kit/style.css';
 
-const App = () => {
-  return (
-    <WalletProvider>
-      <Yourapp />
-    </WalletProvider>
-  );
-};
+// take react@18 project as an example
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <WalletProvider>
+    <App />
+  </WalletProvider>
+);
 ```
 
-> By default, suiet kit will load all the supported wallets to the list💡
+> By default, suiet kit will load all the [preset wallets](./CanIUse#preset-wallets) to the list💡
 
 ## 🕹 Place ConnectButton
 
 :::tip
-We recommend to use hooks together with our components. But if you only want to use our hooks, follow the instruction [#Advanced-Use Hooks Only](/docs/advanced/hooks-only)
+We recommend to use hooks together with our components. But if you want to use our hooks only with your customized UI components, follow the instruction [#Advanced-Use Hooks Only](/docs/advanced/hooks-only)
 :::
 
-Just import our `<ConnectButton />` and place it to anywhere you like, such as Header.
+Just import our `<ConnectButton />` and place it to wherever you like, such as Header.
 
 ```jsx
 import { ConnectButton } from '@suiet/wallet-kit';
@@ -65,35 +64,46 @@ const App = () => {
 };
 ```
 
-## 🪝 Use Wallet Capacities
+## 🪝 Use Wallet Capabilities
 
-Now your dapp is already empowered and able to call wallet capacities.🎉
+After your dapp connects to a wallet that supports [Sui wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard), your dapp is already empowered and able to call wallet capabilities.🎉
 
-Continue to BUIDL your amazing dapp and join the incoming Sui-nami! 🌊
+> Please explore the docs for further usage information 💡
 
 ```jsx
 import { useWallet } from '@suiet/wallet-kit';
 
 const App = () => {
-  const {
-    wallet,
-    connected,
-    connecting,
-    getAccounts,
-    signAndExecuteTransaction,
-    signMessage,
-  } = useWallet()
+  const wallet = useWallet()
+  
+  useEffect(() => {
+    if (!wallet.connected) return;
+    console.log('connected wallet name: ', wallet.name)
+    console.log('account address: ', wallet.account?.address)
+    console.log('account publicKey: ', wallet.account?.publicKey)
+  }, [wallet.connected])
+  
+  async function handleExecuteMoveCall() {
+    await wallet.executeMoveCall(...);
+  }
+  async function handleExecuteTransaction() {
+    await wallet.signAndExecuteTransaction(...);
+  }
+  async function handleSignMessage() {
+    await wallet.signMessage(...);
+  }
+
   return (<.../>)
 };
 ```
 
+Continue to BUIDL your amazing dapp and join the incoming Sui-nami! 🌊
+
 ## 💧 Demo Playground
 
-Feel free to play with our [Create-React-App Demo](https://wallet-kit-demo.vercel.app) 🔗
+Feel free to play with our [Demo Playground](https://wallet-kit-demo.vercel.app) 🔗 ([Github repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite))
 
-> Github repo: https://github.com/suiet/wallet-kit/tree/main/examples/with-cra
-
-<img src="/img/integration-example.png" />
+<img src="/img/integration-example.jpg" />
 
 
 ## 🤝 Trusted by great Sui projects
