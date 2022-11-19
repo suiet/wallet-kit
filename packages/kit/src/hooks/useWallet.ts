@@ -7,8 +7,7 @@ import {
   WalletAccount,
 } from "@mysten/wallet-standard";
 import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
-import {MoveCallTransaction} from "@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer";
-import {SuiTransactionResponse} from "@mysten/sui.js";
+import {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {WalletEvent, WalletEventListeners} from "../types/events";
 
 export interface WalletContextState {
