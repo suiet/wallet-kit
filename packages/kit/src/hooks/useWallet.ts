@@ -15,7 +15,8 @@ export interface WalletContextState {
   configuredWallets: IWallet[];
   detectedWallets: IWallet[];
   allAvailableWallets: IWallet[];
-  wallet: IWalletAdapter | undefined; // wallet currently connected to
+  name: string | undefined;  // name of the connected wallet
+  adapter: IWalletAdapter | undefined;  // adapter provided by the connected wallet
   account: WalletAccount | undefined; // current account (the first account of accounts)
   connecting: boolean;
   connected: boolean;
@@ -35,6 +36,10 @@ export interface WalletContextState {
     listener: WalletEventListeners[E],
   ) => () => void;
 
+  /**
+   * @deprecated use adapter instead
+   */
+  wallet: IWalletAdapter | undefined;
   /**
    * @deprecated use allAvailableWallets instead
    */
@@ -61,11 +66,13 @@ const DEFAULT_CONTEXT: WalletContextState = {
   configuredWallets: [],
   detectedWallets: [],
   allAvailableWallets: [],
-  wallet: undefined,
+  name: undefined,
+  adapter: undefined,
   connecting: false,
   connected: false,
   account: undefined,
   status: ConnectionStatus.DISCONNECTED,
+  wallet: undefined,
   address: undefined,
   supportedWallets: [],
   select() {
