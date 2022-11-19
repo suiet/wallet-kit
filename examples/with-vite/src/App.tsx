@@ -5,7 +5,6 @@ import {ConnectButton, useAccountBalance, useWallet} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
 
-
 function App() {
   const wallet = useWallet();
   const {balance} = useAccountBalance();
