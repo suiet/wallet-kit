@@ -15,7 +15,7 @@ import {AllDefaultWallets} from "../wallet/default-wallets";
 import {useWalletAdapterDetection} from "../wallet-standard/use-wallet-detection";
 import { Extendable } from '../types/utils';
 import {isNonEmptyArray} from "../utils";
-import {MoveCallTransaction} from "@mysten/sui.js";
+import {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {FeatureName} from "../wallet/wallet-adapter";
 import {deprecatedWarn} from "../legacy/tips";
 import {WalletEvent, WalletEventListeners} from "../types/events";
@@ -263,7 +263,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         kind: 'moveCall',
         data: data
       }
-    });
+    }) as Promise<SuiTransactionResponse>;
   }, [signAndExecuteTransaction, walletAdapter, status])
 
   const getPublicKey = useCallback(() => {
