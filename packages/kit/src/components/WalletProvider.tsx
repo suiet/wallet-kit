@@ -152,7 +152,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
     const adapter = walletAdapter as IWalletAdapter;
     // try to clear listeners
     if (isNonEmptyArray(walletOffListeners.current)) {
-      console.log('clear wallet listeners', walletOffListeners.current)
         walletOffListeners.current.forEach(off => {
           try {
             off()
@@ -285,9 +284,11 @@ export const WalletProvider = (props: WalletProviderProps) => {
   return (
     <WalletContext.Provider
       value={{
+        name: walletAdapter?.name,
         allAvailableWallets,
         configuredWallets,
         detectedWallets,
+        adapter: walletAdapter,
         wallet: walletAdapter,
         status,
         connecting: status === ConnectionStatus.CONNECTING,

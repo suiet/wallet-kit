@@ -125,7 +125,7 @@ function App() {
         ) : (
           <div>
             <div>
-              <p>current wallet: {wallet.wallet ? wallet.wallet.name : 'null'}</p>
+              <p>current wallet: {wallet.name}</p>
               <p>
                 wallet status:{' '}
                 {wallet.connecting
