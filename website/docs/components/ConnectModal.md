@@ -14,7 +14,7 @@ Usually you won't need to import it because we hide it inside our ConnectButton.
 
 :::
 
-## Example
+## Examples
 
 Here is an example for you to use with your own connect button.
 
@@ -42,6 +42,8 @@ function App() {
 ```
 
 ## API
+
+### Props
 
 | Properties   | Description                     | Type                    | Default |
 | ------------ | ------------------------------- | ----------------------- | ------- |

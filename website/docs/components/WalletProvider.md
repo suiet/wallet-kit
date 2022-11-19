@@ -14,7 +14,7 @@ So you need to wrap all the kit hooks and components under `WalletProvider` befo
 
 :::
 
-## Example
+## Examples
 
 ```jsx
 import ReactDOM from 'react-dom';
@@ -100,33 +100,5 @@ function App() {
 
 |Prop|Type|Default|Description|
 |:-:|:-:|:-:|:-:|
-|defaultWallets|[IDefaultWallet](./WalletProvider.md#idefaultwallet)|[...[AllPresetWallets](../CanIUse#preset-wallets)]|Configure wallet list for dapp, by default we load all the preset wallets|
+|defaultWallets|[IDefaultWallet](/docs/Types#idefaultwallet)|[...[AllPresetWallets](../CanIUse#preset-wallets)]|Configure wallet list for dapp, by default we load all the preset wallets|
 |[Deprecated] supportedWallets|`Array<any>`|[]|default wallets show on ConnectWalletModal, use defaultWallets instead (Not used anymore since v0.1.x)|
-
-### Types
-
-#### IDefaultWallet
-
-```typescript
-export interface IDefaultWallet {
-  name: string;  // wallet name
-  iconUrl: string;  // wallet icon url (external url or data url)
-  downloadUrl: {
-    browserExtension?: string;  // provide download link if this wallet is not installed
-  };
-}
-```
-
-example for customized defaultWallet item: 
-
-```typescript
-import IDefaultWallet from '@suiet/wallet-kit';
-
-const myWallet: IDefaultWallet = {
-  name: "myWallet",
-  iconUrl: "external url or data url",
-  downloadUrl: {
-    browserExtension: 'chrome extension store url...'
-  },
-}
-```
