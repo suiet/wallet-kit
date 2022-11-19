@@ -2,7 +2,6 @@ import { createContext, useContext } from "react";
 import {ConnectionStatus, IWallet, IWalletAdapter} from "../types/wallet";
 import { KitError } from "../errors";
 import {
-  EventsOnMethod,
   SuiSignAndExecuteTransactionInput,
   SuiSignAndExecuteTransactionOutput,
   WalletAccount,
@@ -10,6 +9,7 @@ import {
 import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
 import {MoveCallTransaction} from "@mysten/sui.js/src/signers/txn-data-serializers/txn-data-serializer";
 import {SuiTransactionResponse} from "@mysten/sui.js";
+import {WalletEvent, WalletEventListeners} from "../types/events";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -30,7 +30,10 @@ export interface WalletContextState {
 
   signMessage: (input: {message: Uint8Array}) => Promise<ExpSignMessageOutput>;
 
-  on: EventsOnMethod;
+  on: <E extends WalletEvent>(
+    event: E,
+    listener: WalletEventListeners[E],
+  ) => () => void;
 
   /**
    * @deprecated use allAvailableWallets instead

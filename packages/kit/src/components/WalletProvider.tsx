@@ -6,18 +6,19 @@ import {
   IDefaultWallet, IWallet,
 } from "../types/wallet";
 import {
-  ConnectInput, EventsListeners, EventsNames,
+  ConnectInput,
   SuiSignAndExecuteTransactionInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
 import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/default-wallets";
 import {useWalletAdapterDetection} from "../wallet-standard/use-wallet-detection";
-import {Extendable} from "../types";
+import { Extendable } from '../types/utils';
 import {isNonEmptyArray} from "../utils";
 import {MoveCallTransaction} from "@mysten/sui.js";
 import {FeatureName} from "../wallet/wallet-adapter";
 import {deprecatedWarn} from "../legacy/tips";
+import {WalletEvent, WalletEventListeners} from "../types/events";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -192,12 +193,35 @@ export const WalletProvider = (props: WalletProviderProps) => {
   }, [walletAdapter, status, allAvailableWallets])
 
   const on = useCallback((
-    event: EventsNames,
-    listener: EventsListeners[EventsNames]
+    event: WalletEvent,
+    listener: WalletEventListeners[WalletEvent]
   ) => {
     ensureCallable(walletAdapter, status);
     const _wallet = walletAdapter as IWalletAdapter;
-    const off = _wallet.on(event, listener)
+
+    // filter event and params to decide when to emit
+    const off = _wallet.on('change', (params) => {
+      if (event === 'change') {
+        const _listener = listener as WalletEventListeners['change']
+        _listener(params)
+        return
+      }
+      if (isNonEmptyArray(params.chains) && event === 'chainChange') {
+        const _listener = listener as WalletEventListeners['chainChange']
+        _listener({ chain: (params.chains as any)[0] })
+        return
+      }
+      if (isNonEmptyArray(params.accounts) && event === 'accountChange') {
+        const _listener = listener as WalletEventListeners['accountChange']
+        _listener({ account: (params.accounts as any)[0] })
+        return
+      }
+      if (Array.isArray(params.features) && event === 'featureChange') {
+        const _listener = listener as WalletEventListeners['featureChange']
+        _listener({ features: params.features })
+        return
+      }
+    })
     walletOffListeners.current.push(off);  // should help user manage off cleaners
     return off
   }, [walletAdapter, status])

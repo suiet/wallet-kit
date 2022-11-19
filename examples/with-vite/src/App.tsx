@@ -7,32 +7,30 @@ import * as tweetnacl from 'tweetnacl'
 
 
 function App() {
-  const {
-    wallet,
-    connecting,
-    account,
-    signAndExecuteTransaction,
-    // executeMoveCall,
-    signMessage,
-    getPublicKey,
-    configuredWallets,
-    detectedWallets,
-    allAvailableWallets,
-    on, connected,
-  } = useWallet();
+  const wallet = useWallet();
   const {balance} = useAccountBalance();
 
-  const {} = useWallet()
   useEffect(() => {
-    if (!connected) return;
-    console.log('listen to change event')
-    const off = on('change', (...args) => {
+    if (!wallet.connected) return;
+    console.log('listen to all change event')
+    const off = wallet.on('change', (...args) => {
       console.log('wallet changed', ...args)
     })
     return () => {
       off()
     }
-  }, [connected, on])
+  }, [wallet.connected])
+
+  useEffect(() => {
+    if (!wallet.connected) return;
+    console.log('listen to chainChange event only')
+    const off = wallet.on('chainChange', ({chain}) => {
+      console.log('chainChange', chain)
+    })
+    return () => {
+      off()
+    }
+  }, [wallet.connected])
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return ''
@@ -54,7 +52,7 @@ function App() {
         ],
         gasBudget: 10000,
       };
-      const resData = await signAndExecuteTransaction({
+      const resData = await wallet.signAndExecuteTransaction({
         transaction: {
           kind: 'moveCall',
           data
@@ -72,7 +70,7 @@ function App() {
   async function handleSignMsg() {
     try {
       const msg = 'Hello world!'
-      const result = await signMessage({
+      const result = await wallet.signMessage({
         message: new TextEncoder().encode('Hello world')
       })
       if (!result) {
@@ -87,7 +85,7 @@ function App() {
       console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
         result.signedMessage,
         result.signature,
-        account?.publicKey as Uint8Array,
+        wallet.account?.publicKey as Uint8Array,
       ))
       alert('signMessage succeeded (see response in the console)')
     } catch (e) {
@@ -98,7 +96,7 @@ function App() {
 
   async function handleGetPublicKey() {
     try {
-      const publicKey = await getPublicKey()
+      const publicKey = await wallet.getPublicKey()
       alert('getPublicKey succeed (see console for details)')
       console.log('[Deprecated] getPublicKey succeed', publicKey)
     } catch (e) {
@@ -122,23 +120,23 @@ function App() {
       <div className="card">
         <ConnectButton/>
 
-        {!connected ? (
+        {!wallet.connected ? (
           <p>Connect DApp with Suiet wallet from now!</p>
         ) : (
           <div>
             <div>
-              <p>current wallet: {wallet ? wallet.name : 'null'}</p>
+              <p>current wallet: {wallet.wallet ? wallet.wallet.name : 'null'}</p>
               <p>
                 wallet status:{' '}
-                {connecting
+                {wallet.connecting
                   ? 'connecting'
-                  : connected
+                  : wallet.connected
                     ? 'connected'
                     : 'disconnected'}
               </p>
-              <p>wallet address: {account?.address}</p>
+              <p>wallet address: {wallet.account?.address}</p>
               <p>wallet balance: {balance} SUI</p>
-              <p>wallet publicKey: {uint8arrayToHex(account?.publicKey)}</p>
+              <p>wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}</p>
             </div>
             <div className={'btn-group'} style={{margin: '8px 0'}}>
               <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
