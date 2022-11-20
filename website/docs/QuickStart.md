@@ -15,6 +15,8 @@ Let's try our kit and empower your dapp in minutes. 🪄
 
 First of all, let's install the npm package `@suiet/wallet-kit` to your project.
 
+> npm package: https://www.npmjs.com/package/@suiet/wallet-kit
+
 ```shell
 npm install @suiet/wallet-kit
 # or
