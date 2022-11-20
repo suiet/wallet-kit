@@ -1,13 +1,13 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
-import {ConnectButton, useAccountBalance, useWallet} from "@suiet/wallet-kit";
+import { ConnectButton, useAccountBalance, useWallet, useSuiProvider } from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
 
 function App() {
   const wallet = useWallet();
-  const {balance} = useAccountBalance();
+  const { balance } = useAccountBalance();
 
   useEffect(() => {
     if (!wallet.connected) return;
@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     if (!wallet.connected) return;
     console.log('listen to chainChange event only')
-    const off = wallet.on('chainChange', ({chain}) => {
+    const off = wallet.on('chainChange', ({ chain }) => {
       console.log('chainChange', chain)
     })
     return () => {
@@ -109,15 +109,15 @@ function App() {
     <div className="App">
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo"/>
+          <img src="/vite.svg" className="logo" alt="Vite logo" />
         </a>
         <a href="https://github.com/suiet/wallet-kit" target="_blank">
-          <img src={suietLogo} className="logo" alt="Suiet logo"/>
+          <img src={suietLogo} className="logo" alt="Suiet logo" />
         </a>
       </div>
       <h1>Vite + Suiet Kit</h1>
       <div className="card">
-        <ConnectButton/>
+        <ConnectButton />
 
         {!wallet.connected ? (
           <p>Connect DApp with Suiet wallet from now!</p>
@@ -137,7 +137,7 @@ function App() {
               <p>wallet balance: {balance} SUI</p>
               <p>wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}</p>
             </div>
-            <div className={'btn-group'} style={{margin: '8px 0'}}>
+            <div className={'btn-group'} style={{ margin: '8px 0' }}>
               <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
               <button onClick={handleSignMsg}>signMessage</button>
               <button onClick={handleGetPublicKey}>getPublicKey</button>
