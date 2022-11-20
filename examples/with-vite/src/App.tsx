@@ -65,6 +65,28 @@ function App() {
       alert('executeMoveCall failed (see response in the console)');
     }
   }
+  async function handlePaySui() {
+    try {
+      const resData = await wallet.signAndExecuteTransaction({
+        transaction: {
+          kind: 'pay',
+          data: {
+            inputCoins: ["0xec292d1ee26868555f6d04a6cea9f8be8f0eefdf"],
+            recipients: ["0x79bb7c87f92372a0483559f56c79a58ede83776c"],
+            amounts: [1000],
+            gasPayment: '0xe204bce22a174667ab55877835014336e8c8d4e7',
+            gasBudget: 10000,
+          }
+        }
+      });
+      // const resData = await executeMoveCall(data);
+      console.log('executeMoveCall success', resData);
+      alert('executeMoveCall succeeded (see response in the console)');
+    } catch (e) {
+      console.error('executeMoveCall failed', e);
+      alert('executeMoveCall failed (see response in the console)');
+    }
+  }
 
   async function handleSignMsg() {
     try {
@@ -124,7 +146,7 @@ function App() {
         ) : (
           <div>
             <div>
-              <p>current wallet: {wallet.name}</p>
+              <p>current wallet: {wallet.wallet?.name}</p>
               <p>
                 wallet status:{' '}
                 {wallet.connecting
@@ -141,6 +163,7 @@ function App() {
               <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
               <button onClick={handleSignMsg}>signMessage</button>
               <button onClick={handleGetPublicKey}>getPublicKey</button>
+              <button onClick={handlePaySui}> paySui </button>
             </div>
           </div>
         )}

@@ -5,33 +5,14 @@ import './index.css'
 
 import {
   WalletProvider,
-  // SuietWallet,
-  // SuiWallet,
-  // EthosWallet, IDefaultWallet,
-  // PresetWallet,
 } from '@suiet/wallet-kit';
-
-// const CustomizeWallet: IDefaultWallet = {
-//   name: "myWallet",
-//   iconUrl: "external url or data url",
-//   downloadUrl: {
-//     browserExtension: 'chrome extension store url...'
-//   },
-// }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <WalletProvider>
-      {/* <WalletProvider
-        defaultWallets={[
-        // order defined by you
-        SuietWallet,
-        SuiWallet,
-        EthosWallet,
-        // ...
-      ]}> */}
-      {/* or just leave it as default which contains all preset wallets */}
-      {/*<WalletProvider>*/}
+      {/* if you want to custiomize you wallet list, please check this doc
+          https://kit.suiet.app/docs/components/WalletProvider#customize-your-wallet-list-on-modal
+       */}
       <App />
     </WalletProvider>
   </React.StrictMode>
