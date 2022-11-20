@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const version = require('../packages/kit/package.json').version;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -70,7 +71,7 @@ const config = {
             type: 'doc',
             docId: 'QuickStart',
             position: 'left',
-            label: 'Docs',
+            label: `Docs (v${version})`,
           },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {
