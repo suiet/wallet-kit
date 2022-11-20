@@ -15,6 +15,7 @@ This hook is internally **JUST** importing the `JsonRpcProvider` interface and *
 :::
 
 ```jsx
+import { useSuiProvider } from '@suiet/wallet';
 function YourComponent() {
   const {
     getObjectsOwnedByAddress,
