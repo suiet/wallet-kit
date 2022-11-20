@@ -209,8 +209,8 @@ const { connected, account } = useWallet();
 
 function printAccountInfo() {
   if (!connected) return
-  console.log(account.address)
-  console.log(account.publicKey)
+  console.log(account?.address)
+  console.log(account?.publicKey)
 }
 ```
 

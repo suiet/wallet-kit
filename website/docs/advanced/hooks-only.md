@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div>
-      {wallet.connected ? <AccountInfo address={wallet.address} /> : <ConnectButton />}
+      {wallet.connected ? <AccountInfo address={wallet?.address} /> : <ConnectButton />}
     </div>
   )
 }
