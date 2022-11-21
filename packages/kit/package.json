@@ -6,6 +6,7 @@
     "dist"
   ],
   "scripts": {
+    "dev": "vite",
     "build": "tsc --emitDeclarationOnly && vite build",
     "dev:rollup": "rollup -c rollup.config.js --watch",
     "build:rollup": "rollup -c rollup.config.js",
