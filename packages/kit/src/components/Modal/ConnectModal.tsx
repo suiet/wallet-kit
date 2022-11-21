@@ -205,16 +205,9 @@ export const ConnectModal = (props: ConnectModalProps) => {
     detectedWallets,
     select,
     connecting,
-    connected,
   } = useWallet();
 
   const [activeWallet, setActiveWallet] = useState<IWallet | undefined>()
-
-  useEffect(() => {
-    if (connected) {
-      props.onOpenChange?.(false);
-    }
-  }, [connected])
 
   const handleSelectWallet = useCallback((wallet: IWallet) => {
     setActiveWallet(wallet);
@@ -247,7 +240,7 @@ export const ConnectModal = (props: ConnectModalProps) => {
       }
     }
     return (
-      <>
+      <div>
         <Header/>
         <div className="wkit-select__scroll">
           <WalletList
@@ -263,7 +256,7 @@ export const ConnectModal = (props: ConnectModalProps) => {
         </div>
         <div style={{height: '41px', flexShrink: '0'}}></div>
         <Footer/>
-      </>
+      </div>
     )
   }
 
