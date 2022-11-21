@@ -12,12 +12,8 @@ export type BaseModalProps = Extendable & {
 }
 
 export const BaseModal = (props: BaseModalProps) => {
-  const {
-    open = false,
-  } = props;
-
   return (
-    <Dialog.Root open={open} onOpenChange={props.onOpenChange}>
+    <Dialog.Root open={props.open} onOpenChange={props.onOpenChange}>
       <Dialog.Trigger asChild>{props.trigger}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={'wkit-dialog__overlay'}>
