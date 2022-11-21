@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "type": "module",
   "files": [
     "dist"
@@ -25,8 +25,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@mysten/sui.js": "0.17.0",
-    "@mysten/wallet-standard": "0.2.1",
+    "@mysten/sui.js": "0.17.1",
+    "@mysten/wallet-standard": "0.2.3",
     "@radix-ui/react-dialog": "^1.0.2",
     "@svgr/rollup": "^6.5.1",
     "@wallet-standard/core": "1.0.0",
