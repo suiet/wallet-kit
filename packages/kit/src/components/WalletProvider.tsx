@@ -19,6 +19,9 @@ import {FeatureName} from "../wallet/wallet-adapter";
 import {deprecatedWarn} from "../legacy/tips";
 import {WalletEvent, WalletEventListeners} from "../types/events";
 import {useAvailableWallets} from "../hooks/useAvaibleWallets";
+import {useAutoConnect} from "../hooks/useAutoConnect";
+import {Storage} from "../utils/storage";
+import {StorageKey} from "../constants/storage";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -30,6 +33,8 @@ export type WalletProviderProps = Extendable & {
 
 export const WalletProvider = (props: WalletProviderProps) => {
   const {defaultWallets = AllDefaultWallets, children} = props;
+  const storage = useRef(new Storage())
+
   const {
     allAvailableWallets,
     configuredWallets,
@@ -72,6 +77,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         const res = await adapter.connect(opts);
         setWalletAdapter(adapter);
         setStatus(ConnectionStatus.CONNECTED);
+        storage.current.setItem(StorageKey.LAST_CONNECT_WALLET_NAME, adapter.name)
         return res;
       } catch (e) {
         setWalletAdapter(undefined);
@@ -206,6 +212,9 @@ export const WalletProvider = (props: WalletProviderProps) => {
     return Promise.resolve((account as WalletAccount).publicKey);
   }, [walletAdapter, account, status])
 
+  useAutoConnect(select, allAvailableWallets)
+
+  // deprecated warnings
   useEffect(() => {
     if (props.supportedWallets) {
       deprecatedWarn({
