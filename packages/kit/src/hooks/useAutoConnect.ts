@@ -10,7 +10,6 @@ export function useAutoConnect(
   autoConnect: boolean,
 ) {
   const init = useRef(false)
-  const storage = useRef(new Storage())
 
   // auto connect
   useEffect(() => {
@@ -19,7 +18,8 @@ export function useAutoConnect(
       !isNonEmptyArray(allAvailableWallets)
     ) return
 
-    const lastConnectedWalletName = storage.current.getItem(StorageKey.LAST_CONNECT_WALLET_NAME)
+    const storage = new Storage()
+    const lastConnectedWalletName = storage.getItem(StorageKey.LAST_CONNECT_WALLET_NAME)
     if (!lastConnectedWalletName) return
 
     if (allAvailableWallets.find(item => item.name == lastConnectedWalletName)) {
