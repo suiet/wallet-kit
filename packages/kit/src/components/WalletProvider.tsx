@@ -25,6 +25,7 @@ import {StorageKey} from "../constants/storage";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
+  autoConnect?: boolean;
   /**
    * @deprecated use defaultWallets to customize wallet list
    */
@@ -32,7 +33,11 @@ export type WalletProviderProps = Extendable & {
 };
 
 export const WalletProvider = (props: WalletProviderProps) => {
-  const {defaultWallets = AllDefaultWallets, children} = props;
+  const {
+    defaultWallets = AllDefaultWallets,
+    autoConnect = true,
+    children
+  } = props;
   const storage = useRef(new Storage())
 
   const {
@@ -212,7 +217,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
     return Promise.resolve((account as WalletAccount).publicKey);
   }, [walletAdapter, account, status])
 
-  useAutoConnect(select, allAvailableWallets)
+  useAutoConnect(select, allAvailableWallets, autoConnect)
 
   // deprecated warnings
   useEffect(() => {
