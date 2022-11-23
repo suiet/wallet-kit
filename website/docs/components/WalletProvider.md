@@ -16,6 +16,8 @@ So you need to wrap all the kit hooks and components under `WalletProvider` befo
 
 ## Examples
 
+### Basic Usage
+
 ```jsx
 import ReactDOM from 'react-dom';
 import { useWallet } from '@suiet/wallet-kit';
@@ -101,4 +103,5 @@ function App() {
 |Prop|Type|Default|Description|
 |:-:|:-:|:-:|:-:|
 |defaultWallets|[IDefaultWallet](/docs/Types#idefaultwallet)|[...[AllPresetWallets](../CanIUse#preset-wallets)]|Configure wallet list for dapp, by default we load all the preset wallets|
+|autoConnect|boolean|true|Auto connect to the last connected wallet when launched|
 |[Deprecated] supportedWallets|`Array<any>`|[]|default wallets show on ConnectWalletModal, use defaultWallets instead (Not used anymore since v0.1.x)|
