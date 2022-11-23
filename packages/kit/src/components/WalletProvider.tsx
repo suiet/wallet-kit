@@ -38,7 +38,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
     autoConnect = true,
     children
   } = props;
-  const storage = useRef(new Storage())
 
   const {
     allAvailableWallets,
@@ -82,7 +81,8 @@ export const WalletProvider = (props: WalletProviderProps) => {
         const res = await adapter.connect(opts);
         setWalletAdapter(adapter);
         setStatus(ConnectionStatus.CONNECTED);
-        storage.current.setItem(StorageKey.LAST_CONNECT_WALLET_NAME, adapter.name)
+        const storage = new Storage()
+        storage.setItem(StorageKey.LAST_CONNECT_WALLET_NAME, adapter.name)
         return res;
       } catch (e) {
         setWalletAdapter(undefined);
