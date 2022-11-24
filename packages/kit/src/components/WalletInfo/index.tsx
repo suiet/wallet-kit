@@ -1,13 +1,14 @@
 import classnames from 'classnames';
-import React, { useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import './index.scss';
-import { useAccountBalance } from '../../hooks/useAccountBalance';
 import { useWallet } from '../../hooks/useWallet';
 import { Extendable } from '../../types/utils';
 import { addressEllipsis } from "../../utils/addressEllipsis";
 import { formatCurrency } from '../../utils/formatCurrency';
 import { SvgArrowDown } from '../Icon/SvgIcons';
-import {WalletAccount} from "@mysten/wallet-standard";
+import type {WalletAccount} from "@mysten/wallet-standard";
+import {useAccountBalance} from "../../hooks";
+import {UnknownChain} from "../../constants/chain";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
@@ -15,9 +16,18 @@ export type ConnectButtonProps = Extendable & {
 };
 
 function WalletInfo(props: ConnectButtonProps) {
-  const { disconnect, account } = useWallet();
+  const { disconnect, account, chain, connected } = useWallet();
   const { balance } = useAccountBalance();
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
+
+  const renderBalance = useCallback(() => {
+    if (!chain || chain.id === UnknownChain.id) {
+      return <>Unknown Chain</>
+    }
+    return <>{formatCurrency(balance)} SUI</>
+  }, [balance, chain])
+
+  if (!connected) return null;
   return (
     <div className={classnames("wkit-connected-container")}>
       <button
@@ -27,7 +37,7 @@ function WalletInfo(props: ConnectButtonProps) {
         }}
       >
         <span className={"wkit-connected-button__balance"}>
-          {formatCurrency(balance)} SUI
+          {renderBalance()}
         </span>
         <div className={"wkit-connected-button__divider"}></div>
         <div className={"wkit-address-select"}>

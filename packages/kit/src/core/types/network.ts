@@ -2,7 +2,6 @@ export type Network = {
   id: string;
   name: string;
   queryRpcUrl: string;
-  gatewayRpcUrl: string;
 };
 
 export interface INetworkApi {

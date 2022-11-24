@@ -5,16 +5,16 @@ import {
   IWalletAdapter,
   IDefaultWallet,
 } from "../types/wallet";
-import {
+import type {
   ConnectInput,
   SuiSignAndExecuteTransactionInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
+import type {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/default-wallets";
-import { Extendable } from '../types/utils';
+import {Extendable} from '../types/utils';
 import {isNonEmptyArray} from "../utils";
-import {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {FeatureName} from "../wallet/wallet-adapter";
 import {deprecatedWarn} from "../legacy/tips";
 import {WalletEvent, WalletEventListeners} from "../types/events";
@@ -22,9 +22,12 @@ import {useAvailableWallets} from "../hooks/useAvaibleWallets";
 import {useAutoConnect} from "../hooks/useAutoConnect";
 import {Storage} from "../utils/storage";
 import {StorageKey} from "../constants/storage";
+import {Chain} from "../types/chain";
+import {DefaultChains, UnknownChain} from "../constants/chain";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
+  chains?: Chain[];
   autoConnect?: boolean;
   /**
    * @deprecated use defaultWallets to customize wallet list
@@ -35,6 +38,7 @@ export type WalletProviderProps = Extendable & {
 export const WalletProvider = (props: WalletProviderProps) => {
   const {
     defaultWallets = AllDefaultWallets,
+    chains = DefaultChains,
     autoConnect = true,
     children
   } = props;
@@ -49,6 +53,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const [status, setStatus] = useState<ConnectionStatus>(
     ConnectionStatus.DISCONNECTED
   );
+  const [chain, setChain] = useState(() => {
+    if (isNonEmptyArray(chains)) return chains[0];  // first one as default chain
+    return UnknownChain;
+  });
   const walletOffListeners = useRef<(() => void)[]>([])
 
   const isCallable = (
@@ -98,13 +106,13 @@ export const WalletProvider = (props: WalletProviderProps) => {
     const adapter = walletAdapter as IWalletAdapter;
     // try to clear listeners
     if (isNonEmptyArray(walletOffListeners.current)) {
-        walletOffListeners.current.forEach(off => {
-          try {
-            off()
-          } catch (e) {
-            console.error('error when clearing wallet listener', (e as any).message)
-          }
-        })
+      walletOffListeners.current.forEach(off => {
+        try {
+          off()
+        } catch (e) {
+          console.error('error when clearing wallet listener', (e as any).message)
+        }
+      })
       walletOffListeners.current = []  // empty array
     }
     try {
@@ -151,19 +159,19 @@ export const WalletProvider = (props: WalletProviderProps) => {
         _listener(params)
         return
       }
-      if (isNonEmptyArray(params.chains) && event === 'chainChange') {
+      if (params.chains && event === 'chainChange') {
         const _listener = listener as WalletEventListeners['chainChange']
-        _listener({ chain: (params.chains as any)[0] })
+        _listener({chain: (params.chains as any)?.[0]})
         return
       }
-      if (isNonEmptyArray(params.accounts) && event === 'accountChange') {
+      if (params.accounts && event === 'accountChange') {
         const _listener = listener as WalletEventListeners['accountChange']
-        _listener({ account: (params.accounts as any)[0] })
+        _listener({account: (params.accounts as any)?.[0]})
         return
       }
-      if (Array.isArray(params.features) && event === 'featureChange') {
+      if (params.features && event === 'featureChange') {
         const _listener = listener as WalletEventListeners['featureChange']
-        _listener({ features: params.features })
+        _listener({features: params.features})
         return
       }
     })
@@ -219,6 +227,23 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   useAutoConnect(select, allAvailableWallets, autoConnect)
 
+  // sync kit's chain with wallet's active chain
+  useEffect(() => {
+    if (status !== 'connected') return;
+    const off = on('chainChange', (params: { chain: string }) => {
+      if (params.chain === chain.id) return;
+      const newChain = chains.find((item) => item.id === params.chain);
+      if (!newChain) {
+        setChain(UnknownChain);
+        return;
+      }
+      setChain(newChain);
+    })
+    return () => {
+      off();
+    };
+  }, [status, chain, chains, on])
+
   // deprecated warnings
   useEffect(() => {
     if (props.supportedWallets) {
@@ -234,6 +259,8 @@ export const WalletProvider = (props: WalletProviderProps) => {
     <WalletContext.Provider
       value={{
         name: walletAdapter?.name,
+        chains,
+        chain,
         allAvailableWallets,
         configuredWallets,
         detectedWallets,

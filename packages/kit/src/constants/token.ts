@@ -1,3 +1,3 @@
-export const Token = {
-  SUI: 'SUI',
-};
+export enum Token  {
+  SUI= 'SUI'
+}
