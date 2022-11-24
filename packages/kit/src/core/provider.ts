@@ -1,18 +1,11 @@
 import {
   getObjectExistsResponse,
   JsonRpcProvider,
-  RpcTxnDataSerializer,
   SuiMoveObject,
   SuiObject,
-  getTransferObjectTransaction,
-  getTransferSuiTransaction,
-  getTransactionData,
-  getExecutionStatusType,
   getMoveObject,
-  getMoveCallTransaction,
 } from '@mysten/sui.js';
 import { Coin, CoinObject, Nft, NftObject } from './types/object';
-import { TxnHistoryEntry, TxObject } from './types/storage';
 
 export const SUI_SYSTEM_STATE_OBJECT_ID =
   '0x0000000000000000000000000000000000000005';
@@ -20,7 +13,7 @@ export const SUI_SYSTEM_STATE_OBJECT_ID =
 export class Provider {
   query: QueryProvider;
 
-  constructor(queryEndpoint: string, gatewayEndpoint: string) {
+  constructor(queryEndpoint: string) {
     this.query = new QueryProvider(queryEndpoint);
   }
 }

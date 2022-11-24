@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
-import { ConnectButton, WalletProvider } from './components';
+import { WalletProvider, ConnectButton } from './components';
 
 function App() {
   return (
-    <div>
+    <div style={{
+      height: '100vh',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: 'center',
+    }}>
       <ConnectButton />
     </div>
-  );
+  )
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
