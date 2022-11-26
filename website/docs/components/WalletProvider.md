@@ -82,7 +82,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 If you use our `useWallet` hook only and have a customized wallet-select modal, then you can access configured wallet list by `configuredWallets` from `useWallet`. Also we provide `detectedWallets` for those wallets which are not preconfigured but detected from user browser.
 
-```
+```tsx
 // make sure this code is under <WalletProvider />
 
 function App() {
@@ -96,6 +96,44 @@ function App() {
 }
 ```
 
+### Configure supported chains (networks)
+
+You can configure the supported chains (networks) for your dapp. 
+
+```tsx
+import {
+  WalletProvider,
+  Chain,
+  SuiDevnetChain,
+  SuiTestnetChain,
+  DefaultChains,
+} from '@suiet/wallet-kit';
+
+const customChain: Chain = {
+  id: "",
+  name: "",
+  rpcUrl: ""
+}
+
+const SupportedChains: Chain[] = [
+  // ...DefaultChains,
+  SuiDevnetChain,
+  SuiTestnetChain,
+  // NOTE: you can add custom chain (network),
+  // but make sure the connected wallet does support it
+  // customChain,
+]
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <WalletProvider chains={SupportedChains}>
+      <App/>
+    </WalletProvider>
+  </React.StrictMode>
+)
+
+```
+
 ## API
 
 ### Props
@@ -103,5 +141,6 @@ function App() {
 |Prop|Type|Default|Description|
 |:-:|:-:|:-:|:-:|
 |defaultWallets|[IDefaultWallet](/docs/Types#idefaultwallet)|[...[AllPresetWallets](../CanIUse#preset-wallets)]|Configure wallet list for dapp, by default we load all the preset wallets|
+|chains|[Chain](/docs/Types#Chain)[]|[DefaultChains](/docs/Types#Chain)|Configure supported chains (networks) for dapp|
 |autoConnect|boolean|true|Auto connect to the last connected wallet when launched|
 |[Deprecated] supportedWallets|`Array<any>`|[]|default wallets show on ConnectWalletModal, use defaultWallets instead (Not used anymore since v0.1.x)|

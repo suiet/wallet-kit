@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
 import { ConnectButton, useAccountBalance, useWallet, useSuiProvider } from "@suiet/wallet-kit";
@@ -112,7 +112,7 @@ function App() {
         ) : (
           <div>
             <div>
-              <p>current wallet: {wallet.wallet?.name}</p>
+              <p>current wallet: {wallet.adapter?.name}</p>
               <p>
                 wallet status:{' '}
                 {wallet.connecting
@@ -122,6 +122,7 @@ function App() {
                     : 'disconnected'}
               </p>
               <p>wallet address: {wallet.account?.address}</p>
+              <p>current network: {wallet.chain?.name}</p>
               <p>wallet balance: {balance} SUI</p>
               <p>wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}</p>
             </div>

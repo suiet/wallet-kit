@@ -1,17 +1,8 @@
-import {
-  JsonRpcProvider
-} from '@mysten/sui.js';
-import { useRef } from 'react';
+import {JsonRpcProvider} from '@mysten/sui.js';
+import {useMemo} from 'react';
 
-interface SuiProvider extends JsonRpcProvider {
-}
+export type SuiProvider = JsonRpcProvider;
 
 export function useSuiProvider(endpoint: string): SuiProvider {
-  const provider = useRef<JsonRpcProvider>();
-
-  if (!provider.current) {
-    provider.current = new JsonRpcProvider(endpoint);
-  }
-
-  return provider.current;
+  return useMemo<JsonRpcProvider>(() => new JsonRpcProvider(endpoint), [endpoint]);
 }
