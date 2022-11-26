@@ -23,7 +23,7 @@ import {useAutoConnect} from "../hooks/useAutoConnect";
 import {Storage} from "../utils/storage";
 import {StorageKey} from "../constants/storage";
 import {Chain} from "../types/chain";
-import {DefaultChains, UnknownChain} from "../constants/chain";
+import {DefaultChains, UnknownChain} from "../chain/constants";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];

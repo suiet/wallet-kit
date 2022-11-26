@@ -21,6 +21,3 @@ export const DefaultChains = [
   SuiDevnetChain,
   SuiTestnetChain,
 ]
-export function getDefaultChainsMap(chains: Chain[]) {
-  return new Map<string, Chain>(chains.map(chain => [chain.id, chain]))
-}

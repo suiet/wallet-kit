@@ -8,7 +8,7 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import { SvgArrowDown } from '../Icon/SvgIcons';
 import type {WalletAccount} from "@mysten/wallet-standard";
 import {useAccountBalance} from "../../hooks";
-import {UnknownChain} from "../../constants/chain";
+import {UnknownChain} from "../../chain/constants";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
