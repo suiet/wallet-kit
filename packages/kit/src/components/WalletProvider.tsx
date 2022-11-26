@@ -87,8 +87,17 @@ export const WalletProvider = (props: WalletProviderProps) => {
       setStatus(ConnectionStatus.CONNECTING);
       try {
         const res = await adapter.connect(opts);
+        // NOTE: hack implementation for getting current network when connected
+        // Still waiting for wallet-standard's progress
+        if (isNonEmptyArray((res as any)?.chains)) {
+          const chainId = (res as any)?.chains[0];
+          const targetChain = chains.find(item => item.id === chainId);
+          setChain(targetChain ?? UnknownChain);
+        }
+
         setWalletAdapter(adapter);
         setStatus(ConnectionStatus.CONNECTED);
+
         const storage = new Storage()
         storage.setItem(StorageKey.LAST_CONNECT_WALLET_NAME, adapter.name)
         return res;
@@ -123,6 +132,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
     } finally {
       setWalletAdapter(undefined);
       setStatus(ConnectionStatus.DISCONNECTED);
+      setChain(chains?.[0] ?? UnknownChain);
     }
   }, [walletAdapter, status]);
 
