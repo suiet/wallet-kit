@@ -21,10 +21,10 @@ Due to the adapter difference of each wallet, we present a function comparison t
 
 ### Hook `useWallet`
 
-|wallet|name|connected|connecting|select|disconnect|getAccounts|getPublicKey|signMessage|executeMoveCall|executeSerializedMoveCall|signAndExecuteTransaction|
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|---|---|
-|[Suiet Wallet](https://suiet.app/)|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|
-|[Sui Wallet](https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)|✅|✅|✅|✅|✅|✅|❌|❌|✅|✅|✅|
-|[Ethos Wallet](https://ethoswallet.xyz/)|✅|✅|✅|✅|✅|✅|❌|❌|✅|✅|✅|
-|[Wave Wallet](https://www.wavewallet.app/) (Not Published)|/|/|/|/|/|/|/|/|/|/||
-|[Morphis Wallet](https://morphiswallet.com/) (Not Published)|/|/|/|/|/|/|/|/|/|/||
+|wallet|name|connected|connecting|select|disconnect|getAccounts|executeMoveCall|signAndExecuteTransaction|getPublicKey|signMessage|on('chainChange')|chain|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|---|---|---|---|---|
+|[Suiet Wallet](https://suiet.app/)|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|
+|[Sui Wallet](https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)|✅|✅|✅|✅|✅|✅|✅|✅|❌|❌|❌|❌|
+|[Ethos Wallet](https://ethoswallet.xyz/)|✅|✅|✅|✅|✅|✅|✅|✅|❌|❌|❌|❌|
+|[Wave Wallet](https://www.wavewallet.app/) (Not Published)|/|/|/|/|/|/|/|/|/|/|/|/|
+|[Morphis Wallet](https://morphiswallet.com/) (Not Published)|/|/|/|/|/|/|/|/|/|/|/|/|

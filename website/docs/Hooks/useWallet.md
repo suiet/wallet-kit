@@ -167,6 +167,40 @@ function App() {
 }
 ```
 
+### Get real-time connected chain (network) of wallet
+
+:::caution
+
+Since this is a experimental feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further information.
+
+:::
+
+You can get the current connected chain of wallet, also if user switches network inside the wallet, the value would get updated (so-called real-time).
+
+:::tip
+
+By default, the "chain" initial value would be the first value of configured "chains". 
+
+if a wallet doesn't support wallet-standard "change" event., the "chain" value would not change!
+
+If a wallet does not report its network when connecting, the "chain" value might not be correctly synced! 
+
+:::
+
+```tsx
+import {useWallet} from '@suiet/wallet-kit'
+import * as tweetnacl from 'tweetnacl'
+
+function App() {
+  const wallet = useWallet();
+  
+  useEffect(() => {
+    if (!wallet.connected) return;
+    console.log('current connected chain (network)', wallet.chain?.name)  // example output: "sui:devnet" or "sui:testnet"
+  }, [wallet.connected])
+}
+```
+
 ## API References
 
 ### name
@@ -200,9 +234,9 @@ assert(status === 'connected', connected); // connected to the wallet
 
 The account info in the connected wallet, including address, publicKey etc.
 
-| Type                            | Default   |
-|---------------------------------| --------- |
-| [WalletAccount](/docs/Types#WalletAccount) \ | undefined | undefined |
+| Type                                       | Default   |
+| ------------------------------------------ | --------- |
+| [WalletAccount](/docs/Types#WalletAccount) | undefined |
 
 ```ts
 const { connected, account } = useWallet();
@@ -248,6 +282,24 @@ function YourComponent() {
   }
 }
 ```
+
+### chains
+
+Configuration of supported chains from WalletProvider
+
+| Type                          | Default                             |
+| ----------------------------- | ----------------------------------- |
+| [Chain](/docs/Types/#Chain)[] | [DefaultChains](/docs/Types/#Chain) |
+
+### chain
+
+Current connected chain of wallet. 
+
+Might not be synced with the wallet if the wallet doesn't support wallet-standard "change" event.
+
+| Type   | Default                                                      |
+| ------ | ------------------------------------------------------------ |
+| string | the first value of configured [chains](./#chains) or [UnknownChain](/docs/Types/#Chain) |
 
 ### adapter
 
