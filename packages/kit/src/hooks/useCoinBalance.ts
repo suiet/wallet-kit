@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import {Provider} from '../core/provider';
 import {swrLoading} from '../utils/others';
 import {Chain} from "../types/chain";
-import {UnknownChain} from "../constants/chain";
+import {UnknownChain} from "../chain/constants";
 import {Token} from "../constants/token";
 
 async function getCoinsBalance(
