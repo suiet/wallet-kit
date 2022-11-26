@@ -61,5 +61,41 @@ export interface WalletAccount {
 
 https://github.com/suiet/wallet-kit/blob/main/packages/kit/src/types/wallet.ts#L39
 
+## Chain
 
+Definition of chain's structure (aka Network for Sui Wallet)
+
+```ts
+export type Chain = {
+  id: string;
+  name: string;
+  rpcUrl: string;
+};
+```
+
+Default constants:
+
+```ts
+export const SuiDevnetChain: Chain = {
+  id: 'sui:devnet',
+  name: 'Sui Devnet',
+  rpcUrl: 'https://fullnode.devnet.sui.io/',
+}
+export const SuiTestnetChain: Chain = {
+  id: 'sui:testnet',
+  name: 'Sui Testnet',
+  rpcUrl: 'https://fullnode.testnet.sui.io/',
+}
+
+export const UnknownChain: Chain = {
+  id: 'unknown:unknown',
+  name: 'Unknown Network',
+  rpcUrl: '',
+}
+
+export const DefaultChains = [
+  SuiDevnetChain,
+  SuiTestnetChain,
+]
+```
 

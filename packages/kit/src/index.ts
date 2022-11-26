@@ -4,3 +4,4 @@ export * from './wallet-standard';
 export * from './legacy';
 export * from './types';
 export * from './wallet';
+export * from './chain';

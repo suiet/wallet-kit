@@ -1,21 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import useSWR from 'swr';
-import { network } from '../core/network';
-import { Provider } from '../core/provider';
-import { Network, NetworkType } from '../core/types/network';
-import { swrLoading } from '../utils/others';
-
-export enum CoinSymbol {
-  SUI = 'SUI',
-}
-
-export type GetOwnedObjParams = { network: Network; address: string };
+import {Provider} from '../core/provider';
+import {swrLoading} from '../utils/others';
+import {Chain} from "../types/chain";
+import {UnknownChain} from "../chain/constants";
+import {Token} from "../constants/token";
 
 async function getCoinsBalance(
-  params: GetOwnedObjParams
+  params: { chain: Chain; address: string }
 ): Promise<Array<{ symbol: string; balance: string }>> {
-  const { network, address } = params;
-  const provider = new Provider(network.queryRpcUrl, network.gatewayRpcUrl);
+  const { chain, address } = params;
+
+  const provider = new Provider(chain.rpcUrl);
   const objects = await provider.query.getOwnedCoins(address);
 
   const result = new Map();
@@ -36,36 +32,35 @@ export function useCoinBalance({
   opts = {},
 }: {
   address: string;
-  symbol?: CoinSymbol;
+  symbol?: Token;
   opts: {
-    networkId?: string;
+    chain?: Chain;
   };
 }) {
   const [balance, setBalance] = useState<string>('0');
-  const { networkId = 'devnet' } = opts;
-  const net = network.getNetwork(NetworkType.devnet);
+  const { chain = UnknownChain } = opts;
   const {
     data: coinsBalanceMap,
     error,
     isValidating,
   } = useSWR(
-    [`a?network=${networkId}`, address, net],
+    [`a?chain=${chain.id}`, address, chain],
     fetchCoinsBalanceMap
   );
 
   async function fetchCoinsBalanceMap(
     _: string,
     address: string,
-    network: Network,
+    chain: Chain,
   ) {
     const map = new Map<string, string>();
-    if (!address || !network) {
+    if (!address || !chain || chain.id === UnknownChain.id) {
       return map;
     }
 
-    const coinsBalance = await getCoinsBalance({ address, network: net });
+    const coinsBalance = await getCoinsBalance({ address, chain });
     if (!coinsBalance) {
-      throw new Error(`fetch coinsBalance failed: ${address}, ${networkId}`);
+      throw new Error(`fetch coinsBalance failed: ${address}, ${chain.id}`);
     }
     coinsBalance.forEach((item) => {
       map.set(item.symbol, item.balance);

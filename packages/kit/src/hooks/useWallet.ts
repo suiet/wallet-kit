@@ -7,13 +7,16 @@ import {
   WalletAccount,
 } from "@mysten/wallet-standard";
 import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
-import {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
+import type {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {WalletEvent, WalletEventListeners} from "../types/events";
+import {Chain} from "../types/chain";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
   detectedWallets: IWallet[];
   allAvailableWallets: IWallet[];
+  chains: Chain[];
+  chain: Chain | undefined;
   name: string | undefined;  // name of the connected wallet
   adapter: IWalletAdapter | undefined;  // adapter provided by the connected wallet
   account: WalletAccount | undefined; // current account (the first account of accounts)
@@ -62,6 +65,8 @@ const DEFAULT_CONTEXT: WalletContextState = {
   configuredWallets: [],
   detectedWallets: [],
   allAvailableWallets: [],
+  chains: [],
+  chain: undefined,
   name: undefined,
   adapter: undefined,
   connecting: false,
