@@ -219,7 +219,7 @@ The connection status of wallet.
 | ---------- | ------------------------------------------------ | -------------- |
 | connecting | boolean                                          | false          |
 | connected  | boolean                                          | false          |
-| status     | 'disconnected' \| 'connecting' \| 'disconnected' | 'disconnected' |
+| status     | 'disconnected' \| 'connecting' \| 'connected' | 'disconnected' |
 
 ```ts
 const { status, connected, connecting } = useWallet();
