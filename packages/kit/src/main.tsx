@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { WalletProvider, ConnectButton } from './components';
 import {useWallet} from "./hooks";
 import {usePaysuiDev} from "./dev-app/hooks/use-paysui";
+import * as tweetnacl from 'tweetnacl'
 
 function App() {
   const wallet = useWallet()
@@ -17,6 +18,61 @@ function App() {
       amounts: [1000],
     })
   }, [wallet, paySui])
+
+  async function handleExecuteMoveCall() {
+    try {
+      const data = {
+        packageObjectId: '0x2',
+        module: 'devnet_nft',
+        function: 'mint',
+        typeArguments: [],
+        arguments: [
+          'name',
+          'capy',
+          'https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop',
+        ],
+        gasBudget: 10000,
+      };
+      const resData = await wallet.signAndExecuteTransaction({
+        transaction: {
+          kind: 'moveCall',
+          data
+        }
+      });
+      // const resData = await executeMoveCall(data);
+      console.log('executeMoveCall success', resData);
+      alert('executeMoveCall succeeded (see response in the console)');
+    } catch (e) {
+      console.error('executeMoveCall failed', e);
+      alert('executeMoveCall failed (see response in the console)');
+    }
+  }
+  async function handleSignMsg() {
+    try {
+      const msg = 'Hello world!'
+      const result = await wallet.signMessage({
+        message: new TextEncoder().encode('Hello world')
+      })
+      if (!result) {
+        alert('signMessage return null')
+        return
+      }
+      console.log('send message to be signed', msg)
+      const textDecoder = new TextDecoder()
+      console.log('signMessage success', result)
+      console.log('signMessage signature', result.signature)
+      console.log('signMessage signedMessage', textDecoder.decode(result.signedMessage).toString())
+      console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
+        result.signedMessage,
+        result.signature,
+        wallet.account?.publicKey as Uint8Array,
+      ))
+      alert('signMessage succeeded (see response in the console)')
+    } catch (e) {
+      console.error('signMessage failed', e)
+      alert('signMessage failed (see response in the console)')
+    }
+  }
 
   return (
     <div style={{
@@ -45,8 +101,13 @@ function App() {
             <p>wallet address: {wallet.account?.address}</p>
             <p>current network: {wallet.chain?.name}</p>
           </div>
-          <div>
-            <button onClick={handlePaySui}>PaySui</button>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
+            <button style={{margin: '0px 4px'}} onClick={handleExecuteMoveCall}>MintNft</button>
+            <button style={{margin: '0px 4px'}} onClick={handlePaySui}>PaySui</button>
+            <button style={{margin: '0px 4px'}} onClick={handleSignMsg}>SignMsg</button>
           </div>
         </div>
       )}
