@@ -7,7 +7,7 @@ import * as tweetnacl from 'tweetnacl'
 
 function App() {
   const wallet = useWallet()
-  const {paySui} = usePaysuiDev()
+  const {paySui, payAllSui} = usePaysuiDev()
 
   const handlePaySui = useCallback(async () => {
     if (!wallet.address) return
@@ -16,6 +16,15 @@ function App() {
       address: wallet.address,
       recipients: ['0xdd54b1b033df2ee7acf15924eed369e5405af406'],
       amounts: [1000],
+    })
+  }, [wallet, paySui])
+
+  const handlePayAllSui = useCallback(async () => {
+    if (!wallet.address) return
+
+    await payAllSui({
+      address: wallet.address,
+      recipient: '0x62bbd8b25a98bdf618721f4e2ef4f06c6a152547',
     })
   }, [wallet, paySui])
 
@@ -47,6 +56,7 @@ function App() {
       alert('executeMoveCall failed (see response in the console)');
     }
   }
+
   async function handleSignMsg() {
     try {
       const msg = 'Hello world!'
@@ -107,6 +117,7 @@ function App() {
           }}>
             <button style={{margin: '0px 4px'}} onClick={handleExecuteMoveCall}>MintNft</button>
             <button style={{margin: '0px 4px'}} onClick={handlePaySui}>PaySui</button>
+            <button style={{margin: '0px 4px'}} onClick={handlePayAllSui}>PayAllSui</button>
             <button style={{margin: '0px 4px'}} onClick={handleSignMsg}>SignMsg</button>
           </div>
         </div>

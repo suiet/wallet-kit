@@ -31,7 +31,6 @@ export function usePaysuiDev() {
       .map(coin => coin.object)
   }, [getOwnedCoins])
 
-
   const paysuiDev = useCallback(async (params: {
       address: string;
       recipients: string[];
@@ -49,7 +48,7 @@ export function usePaysuiDev() {
     // const ownedSuiData = ownedSui.map(o => o.)
     const totalAmount = amounts.reduce((pre, cur) => pre + cur, 0)
     console.log('totalAmount=', totalAmount)
-    const inputCoins = await Coin.selectCoinSetWithCombinedBalanceGreaterThanOrEqual(ownedSuiCoins, BigInt(totalAmount));
+    const inputCoins = Coin.selectCoinSetWithCombinedBalanceGreaterThanOrEqual(ownedSuiCoins, BigInt(totalAmount));
     console.log('inputCoins=', inputCoins)
     const inputCoinIds = inputCoins.map(c => Coin.getID(c))
     console.log('inputCoinIds=', inputCoinIds)
@@ -62,7 +61,7 @@ export function usePaysuiDev() {
           inputCoins: inputCoinIds,
           recipients,
           amounts,
-          gasBudget: 1000,
+          gasBudget,
         }
       }
     }
@@ -72,5 +71,40 @@ export function usePaysuiDev() {
     return res
   }, [signAndExecuteTransaction])
 
-  return {paySui: paysuiDev}
+  const payAllSui = useCallback(async (params: {
+    address: string;
+    recipient: string;
+    gasBudget?: number,
+  }) => {
+    const {
+      address,
+      recipient,
+      gasBudget = 100,
+    } = params;
+    const ownedSuiCoins = await getOwnedCoinSui(address);
+    console.log('ownedSuiCoins=', ownedSuiCoins)
+    const inputCoins = ownedSuiCoins;
+    console.log('inputCoins=', inputCoins)
+    const inputCoinIds = inputCoins.map(c => Coin.getID(c))
+    console.log('inputCoinIds=', inputCoinIds)
+    const data: any = {
+      transaction: {
+        kind: "payAllSui",
+        data: {
+          inputCoins: inputCoinIds,
+          recipient: recipient,
+          gasBudget,
+        }
+      }
+    }
+    console.log('signAndExecuteTransaction data=', data)
+    const res = await signAndExecuteTransaction(data)
+    console.log('signAndExecuteTransaction res=', res)
+    return res
+  }, [signAndExecuteTransaction])
+
+  return {
+    paySui: paysuiDev,
+    payAllSui
+  }
 }
