@@ -2,16 +2,16 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
-import postcss from "rollup-plugin-postcss";
-import {visualizer} from 'rollup-plugin-visualizer';
+import postcss from 'rollup-plugin-postcss';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
 // import svg from 'rollup-plugin-svg';
 import svgr from '@svgr/rollup';
 import cleaner from 'rollup-plugin-cleaner';
-import {summary} from "rollup-plugin-summary";
+import { summary } from 'rollup-plugin-summary';
 
-import * as path from 'path'
-import {defineConfig} from "rollup";
+import * as path from 'path';
+import { defineConfig } from 'rollup';
 
 export default defineConfig({
   input: './src/index.ts',
@@ -24,11 +24,8 @@ export default defineConfig({
   },
   plugins: [
     cleaner({
-      targets: [
-        './dist'
-      ]
+      targets: ['./dist'],
     }),
-    nodePolyfills(),
     resolve({
       browser: true, // specify that it's built for browser
     }),
@@ -40,7 +37,7 @@ export default defineConfig({
     }),
     svgr(),
     postcss({
-      extract: path.resolve('./dist/style.css')
+      extract: path.resolve('./dist/style.css'),
     }),
     // terser(),
     // visualizer({
@@ -53,5 +50,5 @@ export default defineConfig({
     //   showMinifiedSize: false,
     // }),
   ],
-  external: ['react', 'react-dom'],
-})
+  external: ['react', 'react-dom', 'cross-fetch', 'cross-fetch/polyfill'],
+});
