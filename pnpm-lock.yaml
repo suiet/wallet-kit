@@ -38,7 +38,7 @@ importers:
 
   packages/kit:
     specifiers:
-      '@mysten/sui.js': 0.17.1
+      '@mysten/sui.js': 0.20.0
       '@mysten/wallet-standard': 0.2.3
       '@radix-ui/react-dialog': ^1.0.2
       '@rollup/plugin-commonjs': ^23.0.2
@@ -74,13 +74,14 @@ importers:
       sass: ^1.56.1
       semantic-release: ^19.0.5
       swr: ^1.3.0
+      tweetnacl: ^1.0.3
       type-fest: ^3.2.0
       typescript: ^4.8.4
       typescript-plugin-css-modules: ^3.4.0
       vite: ^3.1.0
       vite-plugin-svgr: ^2.2.1
     dependencies:
-      '@mysten/sui.js': 0.17.1
+      '@mysten/sui.js': 0.20.0
       '@mysten/wallet-standard': 0.2.3
       '@radix-ui/react-dialog': 1.0.2_2zx2umvpluuhvlq44va5bta2da
       '@svgr/rollup': 6.5.1
@@ -90,6 +91,7 @@ importers:
       lodash-es: 4.17.21
       mitt: 3.0.0
       swr: 1.3.0_react@18.2.0
+      tweetnacl: 1.0.3
       type-fest: 3.2.0
     devDependencies:
       '@rollup/plugin-commonjs': 23.0.2_rollup@3.2.5
@@ -3899,6 +3901,29 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@mysten/sui.js/0.20.0:
+    resolution: {integrity: sha512-U25eSGKT08XPCRKHbrvDYlylOSAIQASMKKwnreC8vT3ukvQg1NwTX+SFZPvX+xsLZGS2b3yOQ2Uzhzho5/OIWA==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@mysten/bcs': 0.5.0
+      '@noble/hashes': 1.1.3
+      '@noble/secp256k1': 1.7.0
+      '@scure/bip32': 1.1.1
+      '@scure/bip39': 1.1.0
+      '@suchipi/femver': 1.0.0
+      bs58: 5.0.0
+      cross-fetch: 3.1.5
+      jayson: 3.7.0
+      js-sha3: 0.8.0
+      lossless-json: 1.0.5
+      rpc-websockets: 7.5.0
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   /@mysten/wallet-adapter-base/0.0.0-experimental-20220918004146:
     resolution: {integrity: sha512-NGjVvy1u05g5TNJygaIbv5i04HIptj8nfJNKD/T2nqfZ+qTyclkxdRoBdFLKdkP+VEReuKFCS7AOlQKzu3A2ow==}
     dependencies:
@@ -4513,6 +4538,10 @@ packages:
       eval: 0.1.8
       p-map: 4.0.0
       webpack-sources: 3.2.3
+    dev: false
+
+  /@suchipi/femver/1.0.0:
+    resolution: {integrity: sha512-bprE8+K5V+DPX7q2e2K57ImqNBdfGHDIWaGI5xHxZoxbKOuQZn4wzPiUxOAHnsUr3w3xHrWXwN7gnG/iIuEMIg==}
     dev: false
 
   /@svgr/babel-plugin-add-jsx-attribute/6.3.1_@babel+core@7.19.6:
@@ -5826,6 +5855,10 @@ packages:
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
+  /base-x/4.0.0:
+    resolution: {integrity: sha512-FuwxlW4H5kh37X/oW59pwTzzTKRzfrrQwhmyspRM7swOEZcHtDZSCt45U6oKgtuFE+WYPblePMVIPR4RZrh/hw==}
+    dev: false
+
   /base16/1.0.0:
     resolution: {integrity: sha512-pNdYkNPiJUnEhnfXV56+sQy8+AaPcG3POZAUnwr4EeqCUZFz4u2PePbo3e5Gj4ziYPCWGUZT9RHisvJKnwFuBQ==}
     dev: false
@@ -5955,6 +5988,12 @@ packages:
       electron-to-chromium: 1.4.254
       node-releases: 2.0.6
       update-browserslist-db: 1.0.9_browserslist@4.21.4
+
+  /bs58/5.0.0:
+    resolution: {integrity: sha512-r+ihvQJvahgYT50JD05dyJNKlmmSlMoOGwn1lCcEzanPglg7TxYjioQUYehQ9mAR/+hOSd2jRc/Z2y5UxBymvQ==}
+    dependencies:
+      base-x: 4.0.0
+    dev: false
 
   /buffer-from/1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
