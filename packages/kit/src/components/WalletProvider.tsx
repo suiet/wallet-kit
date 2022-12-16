@@ -12,7 +12,7 @@ import type {
 } from "@mysten/wallet-standard";
 import type {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {KitError} from "../errors";
-import {AllDefaultWallets} from "../wallet/default-wallets";
+import {AllDefaultWallets} from "../wallet/preset-wallets";
 import {Extendable} from '../types/utils';
 import {isNonEmptyArray} from "../utils";
 import {FeatureName} from "../wallet/wallet-adapter";
