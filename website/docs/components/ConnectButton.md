@@ -10,7 +10,7 @@ ConnectButton is the entry for users to connect their wallet.
 
 It manages the cycle of wallet connection, such as launching the wallet-select modal, displaying info of the account and showing the disconnect button when connected.
 
-We recommend using `ConnectButton` component to integrate Suiet wallet kit 🥳 But you can customize your own ConnectButton with our api, check [#Advanced-Use Hooks Only](/docs/advanced/hooks-only) for details.
+We recommend using `ConnectButton` component to integrate Suiet wallet kit 🥳 But you can customize your own ConnectButton with our api, check [#Use Hooks Only](/docs/tutorial/hooks-only) for details.
 
 ## Examples
 
