@@ -20,16 +20,17 @@
     "@mdx-js/react": "^1.6.22",
     "@suiet/wallet-kit": "workspace: *",
     "clsx": "^1.2.1",
+    "cross-fetch": "^3.1.5",
     "prism-react-renderer": "^1.3.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^18.0.8",
     "@docusaurus/module-type-aliases": "2.1.0",
     "@mysten/wallet-adapter-sui-wallet": "0.0.0-experimental-20220918004146",
     "@tsconfig/docusaurus": "^1.0.5",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
     "typescript": "^4.7.4"
   },
   "browserslist": {
