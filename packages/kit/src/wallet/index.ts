@@ -1,1 +1,1 @@
-export * from './default-wallets'
+export * from './preset-wallets'

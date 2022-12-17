@@ -36,7 +36,7 @@ export default function Home(): JSX.Element {
       title={`Hello from ${siteConfig.title}`}
       description="Suiet wallet kit is the best way to connect all Sui wallets."
     >
-      <WalletProvider>
+      <WalletProvider autoConnect={false}>
         <HomepageHeader />
         <main
           style={{

@@ -1,4 +1,7 @@
-# Use Hooks Only
+---
+title: Use Hooks Only (without UI)
+sidebar_position: 3
+---
 
 This section will introduce how to only use the provided hooks. 
 
