@@ -8,12 +8,6 @@ import {
 import {SuiSignAndExecuteTransactionFeature} from "@mysten/wallet-standard/src/features";
 import {ExpSignMessageMethod} from "../wallet-standard/features/exp_sign-message";
 
-export enum PresetWallet {
-  SUI_WALLET = "Sui Wallet",
-  SUIET_WALLET = "Suiet",
-  ETHOS_WALLET = "Ethos Wallet",
-}
-
 export interface IWallet {
   name: string;
   adapter: IWalletAdapter | undefined;
