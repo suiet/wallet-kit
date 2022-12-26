@@ -1,4 +1,4 @@
-import {IDefaultWallet} from "../../types";
+import { IDefaultWallet } from "../../types";
 
 export function defineWallet(params: IDefaultWallet) {
   return Object.freeze(params);
@@ -14,6 +14,7 @@ export enum PresetWallet {
   MARTIAN_WALLET = "Martian Sui Wallet",
   ONEKEY_WALLET = "OneKey Wallet",
   BITKEEP_WALLET = "Bitkeep Wallet",
+  SPACECY_WALLET = "Spacecy Sui Wallet",
 }
 
 export const SuietWallet = defineWallet({
@@ -98,3 +99,11 @@ export const BitKeepWallet = defineWallet({
   },
 });
 
+export const SpacecyWallet = defineWallet({
+  name: PresetWallet.SPACECY_WALLET,
+  iconUrl: 'https://spacecywallet.com/favicon.ico',
+  downloadUrl: {
+    browserExtension:
+      "https://chrome.google.com/webstore/detail/spacecy-wallet/mkchoaaiifodcflmbaphdgeidocajadp?hl=en-US",
+  },
+});
