@@ -5,7 +5,7 @@ import * as presets from "./presets";
 export const AllDefaultWallets = [
   presets.SuietWallet,
   presets.SuiWallet,
-    ...[
+  ...[
     presets.EthosWallet,
     presets.MartianWallet,
     presets.SurfWallet,
@@ -13,5 +13,6 @@ export const AllDefaultWallets = [
     presets.GlassWallet,
     presets.OneKeyWallet,
     presets.BitKeepWallet,
-  ].sort((a,b) => a.name < b.name ? -1 : 1),
+    presets.SpacecyWallet,
+  ].sort((a, b) => a.name < b.name ? -1 : 1),
 ];
