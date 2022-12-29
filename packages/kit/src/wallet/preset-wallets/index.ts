@@ -12,7 +12,6 @@ export const AllDefaultWallets = [
     presets.MorphisWallet,
     presets.GlassWallet,
     presets.OneKeyWallet,
-    presets.BitKeepWallet,
     presets.SpacecyWallet,
   ].sort((a, b) => a.name < b.name ? -1 : 1),
 ];

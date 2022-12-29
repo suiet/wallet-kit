@@ -1,15 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks/useWallet";
-import {
-  ConnectionStatus,
-  IWalletAdapter,
-  IDefaultWallet,
-} from "../types/wallet";
-import type {
-  ConnectInput,
-  SuiSignAndExecuteTransactionInput,
-  WalletAccount,
-} from "@mysten/wallet-standard";
+import {ConnectionStatus, IDefaultWallet, IWalletAdapter,} from "../types/wallet";
+import type {ConnectInput, SuiSignAndExecuteTransactionInput, WalletAccount,} from "@mysten/wallet-standard";
 import type {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/preset-wallets";
@@ -239,7 +231,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   // sync kit's chain with wallet's active chain
   useEffect(() => {
-    if (status !== 'connected') return;
+    if (!walletAdapter || status !== 'connected') return;
     const off = on('chainChange', (params: { chain: string }) => {
       if (params.chain === chain.id) return;
       const newChain = chains.find((item) => item.id === params.chain);
@@ -252,7 +244,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
     return () => {
       off();
     };
-  }, [status, chain, chains, on])
+  }, [walletAdapter, status, chain, chains, on])
 
   // deprecated warnings
   useEffect(() => {
