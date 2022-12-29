@@ -116,5 +116,7 @@ Feel free to play with our [Demo Playground](https://wallet-kit-demo.vercel.app)
 
 - [BlueMove NFT](https://sui.bluemove.net/)
 - [Suia POAP](https://suia.io/)
+- [DMENS](https://dmens-app.coming.chat/explore)
+- [LoyaltyGM NFT](https://www.loyaltygm.com/)
 
 <img src="/img/trustedby.png" />
