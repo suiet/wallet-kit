@@ -38,7 +38,7 @@ importers:
 
   packages/kit:
     specifiers:
-      '@mysten/sui.js': 0.20.0
+      '@mysten/sui.js': 0.21.0
       '@mysten/wallet-standard': 0.2.3
       '@radix-ui/react-dialog': ^1.0.2
       '@semantic-release/changelog': ^6.0.1
@@ -70,7 +70,7 @@ importers:
       vite: ^3.1.0
       vite-plugin-svgr: ^2.2.1
     dependencies:
-      '@mysten/sui.js': 0.20.0
+      '@mysten/sui.js': 0.21.0
       '@mysten/wallet-standard': 0.2.3
       '@radix-ui/react-dialog': 1.0.2_2zx2umvpluuhvlq44va5bta2da
       '@svgr/rollup': 6.5.1
@@ -3881,8 +3881,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@mysten/sui.js/0.20.0:
-    resolution: {integrity: sha512-U25eSGKT08XPCRKHbrvDYlylOSAIQASMKKwnreC8vT3ukvQg1NwTX+SFZPvX+xsLZGS2b3yOQ2Uzhzho5/OIWA==}
+  /@mysten/sui.js/0.21.0:
+    resolution: {integrity: sha512-sIHDcNlC7IQ3za5tecBe5TRDqqwU8BZLvA2RkcQuIDsJZRDg8aJxv7n2JZwH4tWkx/aT4Bs378kwKxZkwTwUuQ==}
     engines: {node: '>=16'}
     dependencies:
       '@mysten/bcs': 0.5.0
@@ -3895,8 +3895,8 @@ packages:
       cross-fetch: 3.1.5
       jayson: 3.7.0
       js-sha3: 0.8.0
-      lossless-json: 1.0.5
       rpc-websockets: 7.5.0
+      superstruct: 1.0.3
       tweetnacl: 1.0.3
     transitivePeerDependencies:
       - bufferutil
@@ -12276,6 +12276,11 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /superstruct/1.0.3:
+    resolution: {integrity: sha512-8iTn3oSS8nRGn+C2pgXSKPI3jmpm6FExNazNpjvqS6ZUJQCej3PUXEKM8NjHBOs54ExM+LPW/FBRhymrdcCiSg==}
+    engines: {node: '>=14.0.0'}
+    dev: false
 
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
