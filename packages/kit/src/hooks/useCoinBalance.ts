@@ -1,38 +1,17 @@
 import {useCallback, useEffect, useState} from 'react';
 import useSWR from 'swr';
-import {Provider} from '../core/provider';
 import {swrLoading} from '../utils/others';
 import {Chain} from "../types/chain";
 import {UnknownChain} from "../chain/constants";
-import {Token} from "../constants/token";
-
-async function getCoinsBalance(
-  params: { chain: Chain; address: string }
-): Promise<Array<{ symbol: string; balance: string }>> {
-  const { chain, address } = params;
-
-  const provider = new Provider(chain.rpcUrl);
-  const objects = await provider.query.getOwnedCoins(address);
-
-  const result = new Map();
-  for (const object of objects) {
-    result.has(object.symbol)
-      ? result.set(object.symbol, result.get(object.symbol) + object.balance)
-      : result.set(object.symbol, object.balance);
-  }
-  return Array.from(result.entries()).map((item) => ({
-    symbol: item[0] as string,
-    balance: String(item[1]),
-  }));
-}
+import {Account, Provider} from "@suiet/wallet-sdk";
 
 export function useCoinBalance({
   address,
-  symbol,
+  typeArg,
   opts = {},
 }: {
   address: string;
-  symbol?: Token;
+  typeArg?: string;
   opts: {
     chain?: Chain;
   };
@@ -58,12 +37,15 @@ export function useCoinBalance({
       return map;
     }
 
-    const coinsBalance = await getCoinsBalance({ address, chain });
+    const provider = new Provider(chain.rpcUrl);
+    const account = new Account(provider, address);
+    const coinsBalance = await account.balance.getAll()
+
     if (!coinsBalance) {
       throw new Error(`fetch coinsBalance failed: ${address}, ${chain.id}`);
     }
     coinsBalance.forEach((item) => {
-      map.set(item.symbol, item.balance);
+      map.set(item.typeArg, String(item.balance));
     });
     return map;
   }
@@ -77,10 +59,10 @@ export function useCoinBalance({
   );
 
   useEffect(() => {
-    if (!coinsBalanceMap || !symbol) return;
-    const result = coinsBalanceMap.get(symbol);
+    if (!coinsBalanceMap || !typeArg) return;
+    const result = coinsBalanceMap.get(typeArg);
     setBalance(result ?? '0');
-  }, [coinsBalanceMap, symbol]);
+  }, [coinsBalanceMap, typeArg]);
 
   return {
     balance,
