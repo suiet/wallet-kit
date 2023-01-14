@@ -1,74 +1,44 @@
-import {useCallback, useEffect, useState} from 'react';
-import useSWR from 'swr';
-import {swrLoading} from '../utils/others';
-import {Chain} from "../types/chain";
-import {UnknownChain} from "../chain/constants";
+import {useWallet} from "./useWallet";
+import {SUI_TYPE_ARG} from "@mysten/sui.js";
+import {useQuery} from "react-query";
+import {QueryKey, queryKey} from "../constants";
 import {Account, Provider} from "@suiet/wallet-sdk";
+import {useCallback} from "react";
+import {useChain} from "./useChain";
 
-export function useCoinBalance({
-  address,
-  typeArg,
-  opts = {},
-}: {
-  address: string;
+export interface UseCoinBalanceParams {
+  address?: string;
   typeArg?: string;
-  opts: {
-    chain?: Chain;
-  };
-}) {
-  const [balance, setBalance] = useState<string>('0');
-  const { chain = UnknownChain } = opts;
-  const {
-    data: coinsBalanceMap,
-    error,
-    isValidating,
-  } = useSWR(
-    [`a?chain=${chain.id}`, address, chain],
-    fetchCoinsBalanceMap
-  );
+  chainId?: string;
+}
 
-  async function fetchCoinsBalanceMap(
-    _: string,
-    address: string,
-    chain: Chain,
-  ) {
-    const map = new Map<string, string>();
-    if (!address || !chain || chain.id === UnknownChain.id) {
-      return map;
-    }
+/**
+ * use the account balance of one specific coin (SUI by default)
+ * @param params
+ */
+export function useCoinBalance(params?: UseCoinBalanceParams) {
+  const wallet = useWallet()
+  const {
+    address = wallet.address,
+    typeArg = SUI_TYPE_ARG,
+    chainId = wallet.chain?.id,
+  } = params || {}
+  const chain = useChain(chainId)
+
+  const key = queryKey(QueryKey.COIN_BALANCE, {
+    address,
+    typeArg,
+    chainId,
+  });
+  const getCoinBalance = useCallback(() => {
+    if (!address || !chain) return BigInt(0);
 
     const provider = new Provider(chain.rpcUrl);
     const account = new Account(provider, address);
-    const coinsBalance = await account.balance.getAll()
+    return account.balance.get(typeArg)
+  }, [chain, address])
 
-    if (!coinsBalance) {
-      throw new Error(`fetch coinsBalance failed: ${address}, ${chain.id}`);
-    }
-    coinsBalance.forEach((item) => {
-      map.set(item.typeArg, String(item.balance));
-    });
-    return map;
-  }
-
-  const getBalance = useCallback(
-    (symbol: string): string => {
-      if (!symbol || !coinsBalanceMap) return '0';
-      return coinsBalanceMap.get(symbol) ?? '0';
-    },
-    [coinsBalanceMap]
-  );
-
-  useEffect(() => {
-    if (!coinsBalanceMap || !typeArg) return;
-    const result = coinsBalanceMap.get(typeArg);
-    setBalance(result ?? '0');
-  }, [coinsBalanceMap, typeArg]);
-
-  return {
-    balance,
-    error,
-    isValidating,
-    loading: swrLoading(coinsBalanceMap, error),
-    getBalance,
-  };
+  return useQuery(key, getCoinBalance, {
+    initialData: BigInt(0)
+  })
 }

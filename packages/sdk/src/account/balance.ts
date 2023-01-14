@@ -11,17 +11,19 @@ export class AccountBalance {
   }
 
   /**
-   * Get account balance of one token type
+   * Get the account balance of one specific token type
    * @param tokenTypeArg SUI by default
    */
   async get(tokenTypeArg: string = SUI_TYPE_ARG): Promise<bigint> {
-    const tokenBalanceList = await this.getAll();
+    const tokenBalanceList = await this.getAllCoins();
     const target = tokenBalanceList.find(item => item.typeArg === tokenTypeArg)
     return target?.balance || BigInt(0)
   }
 
-  async getAll(
-  ): Promise<Array<{ typeArg: string; balance: bigint }>> {
+  /**
+   * Get owned coins list with balance of all types
+   */
+  async getAllCoins(): Promise<Array<{ typeArg: string; balance: bigint }>> {
     const objects = await this.provider.query.getOwnedCoins(this.address);
     const result = new Map<string, bigint>();
     for (const object of objects) {
