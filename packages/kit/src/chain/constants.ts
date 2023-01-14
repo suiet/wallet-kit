@@ -1,4 +1,4 @@
-import {Chain} from "../types/chain";
+import {Chain} from "../types";
 
 export enum SuiChainId {
   DEVNET = 'sui:devnet',

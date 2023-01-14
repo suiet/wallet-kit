@@ -24,7 +24,8 @@ function WalletInfo(props: ConnectButtonProps) {
     if (!chain || chain.id === UnknownChain.id) {
       return <>Unknown Chain</>
     }
-    return <>{formatCurrency(balance)} SUI</>
+    // TODO: formatCurrency supports bigint
+    return <>{formatCurrency(Number(balance))} SUI</>
   }, [balance, chain])
 
   if (!connected) return null;
