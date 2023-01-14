@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
-import {WalletContext} from "../hooks/useWallet";
-import {ConnectionStatus, IDefaultWallet, IWalletAdapter,} from "../types/wallet";
+import {WalletContext} from "../hooks";
 import type {ConnectInput, SuiSignAndExecuteTransactionInput, WalletAccount,} from "@mysten/wallet-standard";
 import type {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
 import {KitError} from "../errors";
@@ -9,13 +8,16 @@ import {Extendable} from '../types/utils';
 import {isNonEmptyArray} from "../utils";
 import {FeatureName} from "../wallet/wallet-adapter";
 import {deprecatedWarn} from "../legacy/tips";
-import {WalletEvent, WalletEventListeners} from "../types/events";
 import {useAvailableWallets} from "../hooks/useAvaibleWallets";
 import {useAutoConnect} from "../hooks/useAutoConnect";
 import {Storage} from "../utils/storage";
 import {StorageKey} from "../constants/storage";
-import {Chain} from "../types/chain";
+import {
+  Chain, WalletEvent, WalletEventListeners,
+  ConnectionStatus, IDefaultWallet, IWalletAdapter
+} from "../types";
 import {DefaultChains, UnknownChain} from "../chain/constants";
+import {QueryClient, QueryClientProvider} from 'react-query'
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -284,7 +286,9 @@ export const WalletProvider = (props: WalletProviderProps) => {
         getPublicKey,
       }}
     >
-      {children}
+      <QueryClientProvider client={new QueryClient()}>
+        {children}
+      </QueryClientProvider>
     </WalletContext.Provider>
   );
 };
