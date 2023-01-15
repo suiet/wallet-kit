@@ -1,11 +1,12 @@
 import {
+  getMoveObject,
   getObjectExistsResponse,
   JsonRpcProvider,
   SuiMoveObject,
   SuiObject,
-  getMoveObject,
-} from '@mysten/sui.js';
-import { Coin, CoinObject, Nft, NftObject } from './types/object';
+  Coin as CoinAPI
+} from "@mysten/sui.js";
+import {Coin, CoinObject, Nft, NftObject} from "./objects";
 
 export const SUI_SYSTEM_STATE_OBJECT_ID =
   '0x0000000000000000000000000000000000000005';
@@ -13,16 +14,16 @@ export const SUI_SYSTEM_STATE_OBJECT_ID =
 export class Provider {
   query: QueryProvider;
 
-  constructor(queryEndpoint: string) {
-    this.query = new QueryProvider(queryEndpoint);
+  constructor(endpoint: string) {
+    this.query = new QueryProvider(endpoint);
   }
 }
 
-export class QueryProvider {
+class QueryProvider {
   provider: JsonRpcProvider;
 
-  constructor(queryEndpoint: string) {
-    this.provider = new JsonRpcProvider(queryEndpoint);
+  constructor(endpoint: string) {
+    this.provider = new JsonRpcProvider(endpoint);
   }
 
   public async getActiveValidators(): Promise<SuiMoveObject[]> {
@@ -50,7 +51,7 @@ export class QueryProvider {
         id: item.reference.objectId,
         object: getMoveObject(item),
       }))
-      .filter((item) => item.object && Coin.isCoin(item.object))
+      .filter((item) => item.object && CoinAPI.isCoin(item.object))
       .map((item) => Coin.getCoinObject(item.object as SuiMoveObject));
     return res;
   }
@@ -83,32 +84,3 @@ export class QueryProvider {
     );
   }
 }
-
-export const DEFAULT_GAS_BUDGET_FOR_SPLIT = 1000;
-export const DEFAULT_GAS_BUDGET_FOR_MERGE = 500;
-export const DEFAULT_GAS_BUDGET_FOR_TRANSFER = 100;
-export const DEFAULT_GAS_BUDGET_FOR_TRANSFER_SUI = 100;
-export const DEFAULT_GAS_BUDGET_FOR_STAKE = 1000;
-export const GAS_TYPE_ARG = '0x2::sui::SUI';
-export const GAS_SYMBOL = 'SUI';
-export const DEFAULT_NFT_TRANSFER_GAS_FEE = 450;
-export const MINT_EXAMPLE_NFT_MOVE_CALL = {
-  packageObjectId: '0x2',
-  module: 'devnet_nft',
-  function: 'mint',
-  typeArguments: [],
-  arguments: [
-    'Suiet NFT',
-    'An NFT created by Suiet',
-    'https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4',
-  ],
-  gasBudget: 10000,
-};
-
-// async function trySyncAccountState(provider: JsonRpcProvider, address: string) {
-//   try {
-//     await provider.syncAccountState(address);
-//   } catch (err) {
-//     console.log('sync account state failed', err);
-//   }
-// }

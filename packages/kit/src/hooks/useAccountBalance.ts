@@ -1,19 +1,25 @@
-import {useWallet} from './useWallet';
 import {useCoinBalance} from './useCoinBalance';
-import {Token} from "../constants/token";
 
-export function useAccountBalance() {
-  const { account, chain } = useWallet();
-  const { error, loading, balance } = useCoinBalance({
-    address: account?.address ?? '',
-    symbol: Token.SUI,
-    opts: {
-      chain,
-    },
+export interface UseAccountBalanceParams {
+  typeArg?: string;
+  chainId?: string;
+}
+
+export function useAccountBalance(params?: UseAccountBalanceParams) {
+  const {
+    typeArg,
+    chainId,
+  } = params || {}
+  const { error, isLoading, data } = useCoinBalance({
+    typeArg,
+    chainId,
   });
   return {
-    balance,
+    data,
     error,
-    loading,
+    isLoading,
+    // legacy interface
+    balance: data,
+    loading: isLoading,
   };
 }
