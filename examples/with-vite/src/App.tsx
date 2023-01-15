@@ -1,13 +1,21 @@
 import { useEffect } from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
-import { ConnectButton, useAccountBalance, useWallet, useSuiProvider } from "@suiet/wallet-kit";
+import {ConnectButton, useAccountBalance, useWallet, useCoinBalance, useChain, SuiChainId} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
 
 function App() {
   const wallet = useWallet();
   const { balance } = useAccountBalance();
+
+  const {data: coinBalance} = useCoinBalance();
+  const chain = useChain(SuiChainId.DEVNET);
+
+  useEffect(() => {
+    console.log('devnet chain config', chain)
+    console.log('coin balance', coinBalance)
+  }, [chain, coinBalance])
 
   useEffect(() => {
     if (!wallet.connected) return;
