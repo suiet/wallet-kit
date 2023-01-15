@@ -10,16 +10,13 @@ export function useAccountBalance(params?: UseAccountBalanceParams) {
     typeArg,
     chainId,
   } = params || {}
-  const { error, isLoading, data } = useCoinBalance({
+  const res = useCoinBalance({
     typeArg,
     chainId,
   });
-  return {
-    data,
-    error,
-    isLoading,
-    // legacy interface
-    balance: data,
-    loading: isLoading,
-  };
+  return Object.assign(res, {
+    // legacy interfaces
+    balance: res.data,
+    loading: res.isLoading,
+  });
 }
