@@ -13,7 +13,7 @@ const config = defineConfig({
   output: {
     dir: 'dist',
     format: 'es',
-    sourcemap: true,
+    sourcemap: false,
   },
   external: ['@mysten/sui.js'],
   plugins: [
