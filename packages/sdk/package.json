@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "rollup -c rollup.config.ts --watch",
     "build": "npm run clean && rollup -c rollup.config.ts",
-    "build:prod": "cross-env NODE_ENV=production rollup -c rollup.config.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "clean": "rimraf dist/"
