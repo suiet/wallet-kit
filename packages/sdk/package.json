@@ -1,0 +1,41 @@
+{
+  "name": "@suiet/wallet-sdk",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "rollup -c rollup.config.ts --watch",
+    "build": "npm run clean && rollup -c rollup.config.ts",
+    "build:prod": "cross-env NODE_ENV=production rollup -c rollup.config.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "clean": "rimraf dist/"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@mysten/sui.js": "0.21.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.10",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.4.0",
+    "@types/jest": "^28.1.7",
+    "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.78.1",
+    "rollup-plugin-polyfill-node": "^0.10.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
+    "tweetnacl": "^1.0.3",
+    "typescript": "^4.7.4"
+  }
+}
