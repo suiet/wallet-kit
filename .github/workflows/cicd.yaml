@@ -1,6 +1,8 @@
 name: SUIET_KIT_CICD_PIPELINE
 on:
   push:
+    branches:
+      - main
     tags:
       - v*
 jobs:
