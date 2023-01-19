@@ -2,7 +2,7 @@ name: SUIET_KIT_CICD_PIPELINE
 on:
   push:
     branches:
-      - main
+      - dev
     tags:
       - v*
 jobs:
@@ -26,6 +26,8 @@ jobs:
       - name: Build all packages
         run: pnpm build:all
       - name: Publish all packages
-        run: pnpm ci:publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=NODE_AUTH_TOKEN
+          pnpm ci:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
