@@ -26,8 +26,6 @@ jobs:
       - name: Build all packages
         run: pnpm build:all
       - name: Publish all packages
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=NODE_AUTH_TOKEN
-          pnpm ci:publish
+        run: pnpm ci:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
