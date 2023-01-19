@@ -1,5 +1,5 @@
 {
-  "name": "mono",
+  "name": "wallet-kit-monorepo",
   "private": true,
   "version": "1.0.0",
   "description": "",
@@ -9,10 +9,12 @@
     "lint": "eslint --ext=.js,.js,.tsx,.ts .",
     "lint:fix": "eslint --fix --ext=.js,.js,.tsx,.ts .",
     "prepare": "husky install",
-    "pub": "pnpm build:all && pnpm -r publish",
+    "ci:publish": "pnpm publish -r",
     "build:all": "run-s build:sdk build:kit",
-    "build:sdk": "pnpm --filter @suiet/wallet-sdk build",
-    "build:kit": "pnpm --filter @suiet/wallet-kit build"
+    "dev:kit": "pnpm --filter @suiet/wallet-kit dev",
+    "build:kit": "pnpm --filter @suiet/wallet-kit build",
+    "dev:sdk": "pnpm --filter @suiet/wallet-sdk dev",
+    "build:sdk": "pnpm --filter @suiet/wallet-sdk build"
   },
   "keywords": [],
   "author": "",
