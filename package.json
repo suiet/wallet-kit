@@ -9,7 +9,7 @@
     "lint": "eslint --ext=.js,.js,.tsx,.ts .",
     "lint:fix": "eslint --fix --ext=.js,.js,.tsx,.ts .",
     "prepare": "husky install",
-    "ci:publish": "pnpm publish -r --no-git-checks --tag dev",
+    "ci:publish": "pnpm publish -r --no-git-checks --tag dev --access public",
     "build:all": "run-s build:sdk build:kit",
     "dev:kit": "pnpm --filter @suiet/wallet-kit dev",
     "build:kit": "pnpm --filter @suiet/wallet-kit build",
