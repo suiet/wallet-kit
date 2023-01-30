@@ -23,8 +23,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@mysten/sui.js": "0.21.0",
-    "@mysten/wallet-standard": "0.2.3",
+    "@mysten/sui.js": "^0.25.0",
+    "@mysten/wallet-standard": "^0.2.11",
     "@radix-ui/react-dialog": "^1.0.2",
     "@suiet/wallet-sdk": "workspace:*",
     "@svgr/rollup": "^6.5.1",
