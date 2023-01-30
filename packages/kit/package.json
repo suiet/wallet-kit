@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.1.17",
+  "version": "0.1.17-testnet",
   "type": "module",
   "files": [
     "dist"
@@ -23,7 +23,7 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@mysten/sui.js": "^0.25.0",
+    "@mysten/sui.js": "0.23.0",
     "@mysten/wallet-standard": "^0.2.11",
     "@radix-ui/react-dialog": "^1.0.2",
     "@suiet/wallet-sdk": "workspace:*",

@@ -40,7 +40,7 @@ importers:
 
   packages/kit:
     specifiers:
-      '@mysten/sui.js': ^0.25.0
+      '@mysten/sui.js': 0.23.0
       '@mysten/wallet-standard': ^0.2.11
       '@radix-ui/react-dialog': ^1.0.2
       '@semantic-release/changelog': ^6.0.1
@@ -74,7 +74,7 @@ importers:
       vite: ^3.1.0
       vite-plugin-svgr: ^2.2.1
     dependencies:
-      '@mysten/sui.js': 0.25.0
+      '@mysten/sui.js': 0.23.0
       '@mysten/wallet-standard': 0.2.11
       '@radix-ui/react-dialog': 1.0.2_2zx2umvpluuhvlq44va5bta2da
       '@suiet/wallet-sdk': link:../sdk
@@ -112,7 +112,7 @@ importers:
   packages/sdk:
     specifiers:
       '@babel/preset-env': ^7.18.10
-      '@mysten/sui.js': 0.21.0
+      '@mysten/sui.js': 0.23.0
       '@rollup/plugin-babel': ^5.3.1
       '@rollup/plugin-commonjs': ^22.0.2
       '@rollup/plugin-json': ^4.1.0
@@ -130,7 +130,7 @@ importers:
       tweetnacl: ^1.0.3
       typescript: ^4.7.4
     dependencies:
-      '@mysten/sui.js': 0.21.0
+      '@mysten/sui.js': 0.23.0
     devDependencies:
       '@babel/preset-env': 7.20.2
       '@rollup/plugin-babel': 5.3.1_rollup@2.79.1
@@ -5054,19 +5054,19 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/sui.js/0.21.0:
-    resolution: {integrity: sha512-sIHDcNlC7IQ3za5tecBe5TRDqqwU8BZLvA2RkcQuIDsJZRDg8aJxv7n2JZwH4tWkx/aT4Bs378kwKxZkwTwUuQ==}
+  /@mysten/sui.js/0.23.0:
+    resolution: {integrity: sha512-UeDTYm8czV955AKJ4MXCtax8A3F0lrPPNl4PzIkfK9FvprwAFKtILh/nsYdqvilyFSf6ySMJe+RafyWJlSCjHw==}
     engines: {node: '>=16'}
     dependencies:
       '@mysten/bcs': 0.5.0
-      '@noble/hashes': 1.1.3
-      '@noble/secp256k1': 1.7.0
-      '@scure/bip32': 1.1.1
+      '@noble/hashes': 1.1.5
+      '@noble/secp256k1': 1.7.1
+      '@scure/bip32': 1.1.3
       '@scure/bip39': 1.1.0
       '@suchipi/femver': 1.0.0
       bs58: 5.0.0
       cross-fetch: 3.1.5
-      jayson: 3.7.0
+      jayson: 4.0.0
       js-sha3: 0.8.0
       rpc-websockets: 7.5.0
       superstruct: 1.0.3
@@ -5142,16 +5142,13 @@ packages:
     resolution: {integrity: sha512-KYRCASVTv6aeUi1tsF8/vpyR7zpfs3FUzy2Jqm+MU+LmUKhQ0y2FpfwqkCcxSg2ua4GALJd8k2R76WxwZGbQpA==}
     dev: true
 
-  /@noble/hashes/1.1.3:
-    resolution: {integrity: sha512-CE0FCR57H2acVI5UOzIGSSIYxZ6v/HOhDR0Ro9VLyhnzLwx0o8W1mmgaqlEUx4049qJDlIBRztv5k+MM8vbO3A==}
-    dev: false
-
   /@noble/hashes/1.1.5:
     resolution: {integrity: sha512-LTMZiiLc+V4v1Yi16TD6aX2gmtKszNye0pQgbaLqkvhIqP7nVsSaJsWloGQjJfJ8offaoP5GtX3yY5swbcJxxQ==}
     dev: false
 
   /@noble/secp256k1/1.7.0:
     resolution: {integrity: sha512-kbacwGSsH/CTout0ZnZWxnW1B+jH/7r/WAAKLBtrRJ/+CUH7lgmQzl3GTrQua3SGKWNSDsS6lmjnDpIJ5Dxyaw==}
+    dev: true
 
   /@noble/secp256k1/1.7.1:
     resolution: {integrity: sha512-hOUk6AyBFmqVrv7k5WAw/LpszxVbj9gGN4JRkIX52fdFAj1UA61KXmZDvqVEm+pOyec3+fIeZB02LYa/pWOArw==}
@@ -5600,14 +5597,6 @@ packages:
 
   /@scure/base/1.1.1:
     resolution: {integrity: sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==}
-    dev: false
-
-  /@scure/bip32/1.1.1:
-    resolution: {integrity: sha512-UmI+liY7np2XakaW+6lMB6HZnpczWk1yXZTxvg8TM8MdOcKHCGL1YkraGj8eAjPfMwFNiAyek2hXmS/XFbab8g==}
-    dependencies:
-      '@noble/hashes': 1.1.3
-      '@noble/secp256k1': 1.7.0
-      '@scure/base': 1.1.1
     dev: false
 
   /@scure/bip32/1.1.3:
@@ -11207,6 +11196,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: true
 
   /jayson/4.0.0:
     resolution: {integrity: sha512-v2RNpDCMu45fnLzSk47vx7I+QUaOsox6f5X0CUlabAFwxoP+8MfAY0NQRFwOEYXIxm8Ih5y6OaEa5KYiQMkyAA==}
