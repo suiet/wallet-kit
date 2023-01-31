@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-sdk",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.2",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
     "dist"
   ],
   "dependencies": {
-    "@mysten/sui.js": "0.21.0"
+    "@mysten/sui.js": "^0.25.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",
