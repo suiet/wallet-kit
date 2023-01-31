@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.1.17-testnet",
+  "version": "0.1.18-testnet",
   "type": "module",
   "files": [
     "dist"
