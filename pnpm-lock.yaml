@@ -112,7 +112,7 @@ importers:
   packages/sdk:
     specifiers:
       '@babel/preset-env': ^7.18.10
-      '@mysten/sui.js': ^0.25.0
+      '@mysten/sui.js': ^0.26.1
       '@rollup/plugin-babel': ^5.3.1
       '@rollup/plugin-commonjs': ^22.0.2
       '@rollup/plugin-json': ^4.1.0
@@ -130,7 +130,7 @@ importers:
       tweetnacl: ^1.0.3
       typescript: ^4.7.4
     dependencies:
-      '@mysten/sui.js': 0.25.0
+      '@mysten/sui.js': 0.26.1
     devDependencies:
       '@babel/preset-env': 7.20.2
       '@rollup/plugin-babel': 5.3.1_rollup@2.79.1
@@ -5053,29 +5053,6 @@ packages:
       - encoding
       - utf-8-validate
     dev: true
-
-  /@mysten/sui.js/0.25.0:
-    resolution: {integrity: sha512-q4Ue5epgjM58x/D3Sr7QYugcXWmthJktowyXMlcxipypwX629PLENN15MDuUIqtHLRWvbCu9VLxL6qvLFFExzg==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@mysten/bcs': 0.5.0
-      '@noble/hashes': 1.1.5
-      '@noble/secp256k1': 1.7.1
-      '@scure/bip32': 1.1.3
-      '@scure/bip39': 1.1.0
-      '@suchipi/femver': 1.0.0
-      bs58: 5.0.0
-      cross-fetch: 3.1.5
-      jayson: 4.0.0
-      js-sha3: 0.8.0
-      rpc-websockets: 7.5.0
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
 
   /@mysten/sui.js/0.26.1:
     resolution: {integrity: sha512-bc7jNv5iDQzD2OgOTRDIl7Ro4JGYQ2zkPwJzLyLlp+0ZvjNNeSgHOYb/bG7lNmqgHJO4hO/1bBWPphyQLB+pzA==}
