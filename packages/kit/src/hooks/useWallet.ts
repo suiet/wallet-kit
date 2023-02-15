@@ -24,7 +24,7 @@ export interface WalletContextState {
   connecting: boolean;
   connected: boolean;
   status: "disconnected" | "connected" | "connecting";
-  select: (walletName: string) => void;
+  select: (walletName: string) => Promise<void>;
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
 
@@ -76,7 +76,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   wallet: undefined,
   address: undefined,
   supportedWallets: [],
-  select() {
+  async select() {
     throw new KitError(missProviderMessage("select"));
   },
   on() {

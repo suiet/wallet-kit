@@ -209,10 +209,14 @@ export const ConnectModal = (props: ConnectModalProps) => {
 
   const [activeWallet, setActiveWallet] = useState<IWallet | undefined>()
 
-  const handleSelectWallet = useCallback((wallet: IWallet) => {
+  const handleSelectWallet = useCallback(async (wallet: IWallet) => {
     setActiveWallet(wallet);
     if (wallet.installed) {
-      select(wallet.name);
+      try {
+        await select(wallet.name);
+      } catch (err) {
+        console.warn(err)
+      }
     }
   }, [select]);
 
