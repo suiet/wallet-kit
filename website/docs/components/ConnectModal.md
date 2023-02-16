@@ -45,8 +45,10 @@ function App() {
 
 ### Props
 
-| Properties   | Description                     | Type                    | Default |
-| ------------ | ------------------------------- | ----------------------- | ------- |
-| children     | trigger element for the modal   | ReactNode               | null    |
-| open         | Indicator for opening the modal | boolean                 | false   |
-| onOpenChange | visibility change event         | (open: boolean) => void | --      |
+| Properties       | Description                        | Type                         | Default |
+| ---------------- | ---------------------------------- | ---------------------------- | ------- |
+| children         | trigger element for the modal      | ReactNode                    | null    |
+| open             | Indicator for opening the modal    | boolean                      | false   |
+| onOpenChange     | visibility change event            | (open: boolean) => void      | --      |
+| onConnectSuccess | Callback for successful connection | (walletName: string) => void |         |
+| onConnectError   | Callback for failed connection     | (error: BaseError) => void   |         |
