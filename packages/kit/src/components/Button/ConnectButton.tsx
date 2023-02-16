@@ -5,10 +5,15 @@ import ConnectModal from "../Modal/ConnectModal";
 import {useWallet} from "../../hooks/useWallet";
 import './index.scss';
 import WalletInfo from "../WalletInfo";
+import {BaseError} from "../../errors";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
   children?: ReactNode;
+  onConnectSuccess?: (walletName: string) => void;
+  onConnectError?: (error: BaseError) => void;
+  onDisconnectSuccess?: (walletName: string) => void;
+  onDisconnectError?: (error: BaseError) => void;
 };
 
 export const ConnectButton = (props: ConnectButtonProps) => {
@@ -29,13 +34,17 @@ export const ConnectButton = (props: ConnectButtonProps) => {
         if (connected) return;
         setShowModal(open)
       }}
+      onConnectSuccess={props.onConnectSuccess}
+      onConnectError={props.onConnectError}
     >
       <div>
         {connected ? (
           <WalletInfo
-            onDisconnect={() => {
+            onDisconnectSuccess={(name) => {
               setShowModal(false)
+              props?.onDisconnectSuccess?.(name)
             }}
+            onDisconnectError={props.onDisconnectError}
           />
         ) : (
           <button
