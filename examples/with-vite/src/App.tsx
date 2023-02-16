@@ -114,7 +114,7 @@ function App() {
       <h1>Vite + Suiet Kit</h1>
       <div className="card">
         <ConnectButton
-          onDisconnectError={(error) => {
+          onConnectError={(error) => {
             console.warn('connect failed! error code: ' + error.code + ' reason: ' + error.message)
           }}
         />
