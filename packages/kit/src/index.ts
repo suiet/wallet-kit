@@ -5,3 +5,4 @@ export * from './legacy';
 export * from './types';
 export * from './wallet';
 export * from './chain';
+export * from './errors';
