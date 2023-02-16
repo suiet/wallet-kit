@@ -113,7 +113,11 @@ function App() {
       </div>
       <h1>Vite + Suiet Kit</h1>
       <div className="card">
-        <ConnectButton />
+        <ConnectButton
+          onDisconnectError={(error) => {
+            console.warn('connect failed! error code: ' + error.code + ' reason: ' + error.message)
+          }}
+        />
 
         {!wallet.connected ? (
           <p>Connect DApp with Suiet wallet from now!</p>
