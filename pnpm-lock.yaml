@@ -112,7 +112,7 @@ importers:
   packages/sdk:
     specifiers:
       '@babel/preset-env': ^7.18.10
-      '@mysten/sui.js': ^0.26.1
+      '@mysten/sui.js': ^0.27.0
       '@rollup/plugin-babel': ^5.3.1
       '@rollup/plugin-commonjs': ^22.0.2
       '@rollup/plugin-json': ^4.1.0
@@ -130,7 +130,7 @@ importers:
       tweetnacl: ^1.0.3
       typescript: ^4.7.4
     dependencies:
-      '@mysten/sui.js': 0.26.1
+      '@mysten/sui.js': 0.27.0
     devDependencies:
       '@babel/preset-env': 7.20.2
       '@rollup/plugin-babel': 5.3.1_rollup@2.79.1
@@ -3588,14 +3588,14 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       core-js-pure: 3.25.1
-      regenerator-runtime: 0.13.9
+      regenerator-runtime: 0.13.11
     dev: false
 
   /@babel/runtime/7.19.0:
     resolution: {integrity: sha512-eR8Lo9hnDS7tqkO7NsV+mKvCmv5boaXFSZ70DnfhcgiEne8hv9oCEd36Klw74EtizEqLsy4YnW8UWwpBVolHZA==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      regenerator-runtime: 0.13.9
+      regenerator-runtime: 0.13.11
 
   /@babel/runtime/7.20.13:
     resolution: {integrity: sha512-gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA==}
@@ -5056,29 +5056,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/sui.js/0.26.1:
-    resolution: {integrity: sha512-bc7jNv5iDQzD2OgOTRDIl7Ro4JGYQ2zkPwJzLyLlp+0ZvjNNeSgHOYb/bG7lNmqgHJO4hO/1bBWPphyQLB+pzA==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@mysten/bcs': 0.5.0
-      '@noble/hashes': 1.1.5
-      '@noble/secp256k1': 1.7.1
-      '@scure/bip32': 1.1.3
-      '@scure/bip39': 1.1.0
-      '@suchipi/femver': 1.0.0
-      bs58: 5.0.0
-      cross-fetch: 3.1.5
-      jayson: 4.0.0
-      js-sha3: 0.8.0
-      rpc-websockets: 7.5.0
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
-
   /@mysten/sui.js/0.27.0:
     resolution: {integrity: sha512-bY118XshIzVSflhcWn6PbaIoxKHilDyJJ7j9n8AeU0XqahsGg9bgEXbiqBcERIdNMXeVLWdTcM8qZFKhvdKVsw==}
     engines: {node: '>=16'}
@@ -5287,7 +5264,7 @@ packages:
   /@radix-ui/primitive/1.0.0:
     resolution: {integrity: sha512-3e7rn8FDMin4CgeL7Z/49smCA3rFYY3Ha2rUQ7HRWFadS5iCRw08ZgVT1LaNTCNqgvrUiyczLflrVrF0SRQtNA==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
     dev: false
 
   /@radix-ui/react-compose-refs/1.0.0_react@18.2.0:
@@ -5295,7 +5272,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       react: 18.2.0
     dev: false
 
@@ -5304,7 +5281,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       react: 18.2.0
     dev: false
 
@@ -5341,7 +5318,7 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/primitive': 1.0.0
       '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
       '@radix-ui/react-primitive': 1.0.1_biqbaboplfbrettd7655fr4n2y
@@ -5356,7 +5333,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       react: 18.2.0
     dev: false
 
@@ -5366,7 +5343,7 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
       '@radix-ui/react-primitive': 1.0.1_biqbaboplfbrettd7655fr4n2y
       '@radix-ui/react-use-callback-ref': 1.0.0_react@18.2.0
@@ -5379,7 +5356,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/react-use-layout-effect': 1.0.0_react@18.2.0
       react: 18.2.0
     dev: false
@@ -5390,7 +5367,7 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/react-primitive': 1.0.1_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -5402,7 +5379,7 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
       '@radix-ui/react-use-layout-effect': 1.0.0_react@18.2.0
       react: 18.2.0
@@ -5415,7 +5392,7 @@ packages:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/react-slot': 1.0.1_react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -5426,7 +5403,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/react-compose-refs': 1.0.0_react@18.2.0
       react: 18.2.0
     dev: false
@@ -5436,7 +5413,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       react: 18.2.0
     dev: false
 
@@ -5445,7 +5422,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/react-use-callback-ref': 1.0.0_react@18.2.0
       react: 18.2.0
     dev: false
@@ -5455,7 +5432,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       '@radix-ui/react-use-callback-ref': 1.0.0_react@18.2.0
       react: 18.2.0
     dev: false
@@ -5465,7 +5442,7 @@ packages:
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       react: 18.2.0
     dev: false
 
@@ -10357,7 +10334,7 @@ packages:
   /history/4.10.1:
     resolution: {integrity: sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       loose-envify: 1.4.0
       resolve-pathname: 3.0.0
       tiny-invariant: 1.2.0
@@ -12209,7 +12186,7 @@ packages:
   /media-query-parser/2.0.2:
     resolution: {integrity: sha512-1N4qp+jE0pL5Xv4uEcwVUhIkwdUO3S/9gML90nqKA7v7FcOS5vUtatfzok9S9U1EJU8dHWlcv95WLnKmmxZI9w==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
     dev: true
 
   /media-typer/0.3.0:
@@ -12332,7 +12309,7 @@ packages:
       prop-types: ^15.0.0
       react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       prop-types: 15.8.1
       react: 18.2.0
       tiny-warning: 1.0.3
@@ -13877,7 +13854,7 @@ packages:
       react-loadable: '*'
       webpack: '>=4.41.1 || 5.x'
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       react-loadable: /@docusaurus/react-loadable/5.5.2_react@18.2.0
       webpack: 5.74.0
     dev: false
@@ -13947,7 +13924,7 @@ packages:
       react: '>=15'
       react-router: '>=5'
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       react: 18.2.0
       react-router: 5.3.3_react@18.2.0
     dev: false
@@ -13957,7 +13934,7 @@ packages:
     peerDependencies:
       react: '>=15'
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       history: 4.10.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -13972,7 +13949,7 @@ packages:
     peerDependencies:
       react: '>=15'
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       history: 4.10.1
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
@@ -14008,7 +13985,7 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       react: 18.2.0
       use-composed-ref: 1.3.0_react@18.2.0
       use-latest: 1.2.1_fan5qbzahqtxlm5dzefqlqx5ia
@@ -14119,13 +14096,10 @@ packages:
   /regenerator-runtime/0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
 
-  /regenerator-runtime/0.13.9:
-    resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
-
   /regenerator-transform/0.15.0:
     resolution: {integrity: sha512-LsrGtPmbYg19bcPHwdtmXwbW+TqNvtY4riE3P83foeHRroMbH6/2ddFBfab3t7kbzc7v7p4wbkIecHImqt0QNg==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
 
   /regexp.prototype.flags/1.4.3:
     resolution: {integrity: sha512-fjggEOO3slI6Wvgjwflkc4NFRCTZAu5CnNfBd5qOMYhWdn67nJBBu34/TkD++eeFmd8C9r9jfXJ27+nSiRkSUA==}
@@ -15752,7 +15726,7 @@ packages:
   /unload/2.2.0:
     resolution: {integrity: sha512-B60uB5TNBLtN6/LsgAf3udH9saB5p7gqJwcFfbOEZ8BcBHnGwCf6G/TGiEqkRAxX7zAFIUtzdrXQSdL3Q/wqNA==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       detect-node: 2.1.0
     dev: false
 
