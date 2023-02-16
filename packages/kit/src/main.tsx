@@ -69,7 +69,12 @@ function App() {
       justifyContent: "center",
       alignItems: 'center',
     }}>
-      <ConnectButton />
+      <ConnectButton
+        onConnectSuccess={(name) => {console.log('connect success!', name)}}
+        onConnectError={(err) => {console.warn('connect error!', err)}}
+        onDisconnectSuccess={(name) => {console.log('disconnect success!', name)}}
+        onDisconnectError={(err) => {console.log('disconnect error!', err)}}
+      />
 
       {!wallet.connected ? (
         <p>Connect DApp with Suiet wallet from now!</p>
