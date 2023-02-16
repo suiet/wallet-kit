@@ -24,7 +24,9 @@ export function useAutoConnect(
 
     if (allAvailableWallets.find(item => item.name == lastConnectedWalletName)) {
       select(lastConnectedWalletName)
-      init.current = true
+        .then(() => {
+          init.current = true
+        })
     }
   }, [allAvailableWallets])
 }
