@@ -1,21 +1,19 @@
-import {
-  IWalletAdapter
-} from "../types/wallet";
+import {IWalletAdapter} from "../types/wallet";
 import {
   ConnectInput,
   ConnectMethod,
   ConnectOutput,
   DisconnectMethod,
   EventsListeners,
+  EventsNames,
   EventsOnMethod,
   SuiSignAndExecuteTransactionInput,
-  SuiSignAndExecuteTransactionOutput,
-  EventsNames,
   SuiSignAndExecuteTransactionMethod,
+  SuiSignAndExecuteTransactionOutput,
   Wallet,
 } from "@mysten/wallet-standard";
 import {has} from "lodash-es";
-import {WalletError, WalletNotImplementError} from "../errors";
+import {ErrorCode, WalletError, WalletNotImplementError} from "../errors";
 import {
   ExpSignMessageInput,
   ExpSignMessageMethod,
@@ -72,7 +70,7 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feature.connect(input);
     } catch (e) {
-      throw new WalletError((e as any).message)
+      throw new WalletError((e as any).message, ErrorCode.WALLET__CONNECT_ERROR)
     }
   }
 
@@ -83,7 +81,7 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feature.disconnect();
     } catch (e) {
-      throw new WalletError((e as any).message)
+      throw new WalletError((e as any).message, ErrorCode.WALLET__DISCONNECT_ERROR)
     }
   }
 
@@ -94,7 +92,7 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return feature.on<EventsNames>(event, listener);
     } catch (e) {
-      throw new WalletError((e as any).message)
+      throw new WalletError((e as any).message, ErrorCode.WALLET__LISTEN_TO_EVENT_ERROR)
     }
   }
 
@@ -107,7 +105,7 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feature.signAndExecuteTransaction(input);
     } catch (e) {
-      throw new WalletError((e as any).message)
+      throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
     }
   }
 
@@ -118,7 +116,7 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feature.signMessage(input);
     } catch (e) {
-      throw new WalletError((e as any).message)
+      throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_MSG_ERROR)
     }
   }
 
