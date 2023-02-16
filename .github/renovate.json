@@ -13,7 +13,9 @@
         "^@mysten",
         "^@suiet"
       ],
-      "enabled": false
+      "enabled": false,
+      "groupName": "sui_dependencies",
+      "automerge": true
     }
   ]
 }
