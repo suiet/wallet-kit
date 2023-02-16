@@ -99,3 +99,31 @@ export const DefaultChains = [
 ]
 ```
 
+## Error Types
+
+```typescript
+type BaseError = {
+  message: string;
+  code: ErrorCode;
+  details?: Record<String, any>;
+}
+type KitError = BaseError;  // errors from kit internal logics
+type WalletError = BaseError;  // erros from third-party wallets
+```
+
+## Error Codes
+
+```typescript
+enum ErrorCode {
+  UNKNOWN_ERROR = "UNKNOWN_ERROR",
+  KIT__UNKNOWN_ERROR = "KIT.UNKNOWN_ERROR",
+  WALLET__UNKNOWN_ERROR = "WALLET.UNKNOWN_ERROR",
+  WALLET__CONNECT_ERROR = "WALLET.CONNECT_ERROR",
+  WALLET__DISCONNECT_ERROR = "WALLET.DISCONNECT_ERROR",
+  WALLET__SIGN_TX_ERROR = "WALLET.SIGN_TX_ERROR",
+  WALLET__SIGN_MSG_ERROR = "WALLET.SIGN_MSG_ERROR",
+  WALLET__LISTEN_TO_EVENT_ERROR = "WALLET.LISTEN_TO_EVENT_ERROR",
+  WALLET__METHOD_NOT_IMPLEMENTED_ERROR = "WALLET.METHOD_NOT_IMPLEMENTED_ERROR",
+}
+```
+
