@@ -8,11 +8,13 @@ import {isNonEmptyArray} from "../../utils";
 import Icon from "../Icon";
 import {IWallet} from "../../types/wallet";
 import './index.scss';
-import {KitError} from "../../errors";
+import {BaseError, KitError} from "../../errors";
 
 export type ConnectModalProps = Extendable & {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  onConnectSuccess?: (walletName: string) => void;
+  onConnectError?: (error: BaseError) => void;
 }
 
 type WalletItemProps = Extendable & {
@@ -207,6 +209,11 @@ export const ConnectModal = (props: ConnectModalProps) => {
     connecting,
   } = useWallet();
 
+  const {
+    onConnectSuccess = () => {},
+    onConnectError = (err) => { throw err }
+  } = props;
+
   const [activeWallet, setActiveWallet] = useState<IWallet | undefined>()
 
   const handleSelectWallet = useCallback(async (wallet: IWallet) => {
@@ -215,8 +222,10 @@ export const ConnectModal = (props: ConnectModalProps) => {
       try {
         await select(wallet.name);
       } catch (err) {
-        console.warn(err)
+        onConnectError(err as BaseError);
+        return;
       }
+      onConnectSuccess(wallet.name);
     }
   }, [select]);
 

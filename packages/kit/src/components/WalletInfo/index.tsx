@@ -9,14 +9,16 @@ import { SvgArrowDown } from '../Icon/SvgIcons';
 import type {WalletAccount} from "@mysten/wallet-standard";
 import {useAccountBalance} from "../../hooks";
 import {UnknownChain} from "../../chain/constants";
+import {BaseError} from "../../errors";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
-  onDisconnect?: () => void;
+  onDisconnectSuccess?: (walletName: string) => void;
+  onDisconnectError?: (error: BaseError) => void;
 };
 
 function WalletInfo(props: ConnectButtonProps) {
-  const { disconnect, account, chain, connected } = useWallet();
+  const { disconnect, account, chain, connected, name } = useWallet();
   const { balance } = useAccountBalance();
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
 
@@ -54,11 +56,15 @@ function WalletInfo(props: ConnectButtonProps) {
         <div className='wkit-disconnect-button__container'>
           <button
             className={"wkit-disconnect-button"}
-            onClick={() => {
+            onClick={async () => {
               setShowDisconnectButton(false);
-              disconnect().then(() => {
-                props.onDisconnect?.();
-              });
+              try {
+                await disconnect();
+              } catch(e) {
+                props?.onDisconnectError?.(e as BaseError);
+                return;
+              }
+              props?.onDisconnectSuccess?.(name as string);
             }}
           >
             Disconnect
