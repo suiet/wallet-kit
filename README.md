@@ -3,6 +3,8 @@
 </a></p>
 
 # Suiet wallet kit, connection made easy
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsuiet%2Fwallet-kit.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsuiet%2Fwallet-kit?ref=badge_shield)
+
 
 <a href="https://github.com/wallet-standard/wallet-standard">
   <img src="https://badgen.net/badge/wallet-standard/supported/green" />
@@ -25,3 +27,7 @@ See [https://kit.suiet.app/docs/QuickStart](https://kit.suiet.app/docs/QuickStar
 > 💡 Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/) + [Vite example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite) 
 
 <img src="/assets/wallet-kit.png" />
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsuiet%2Fwallet-kit.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsuiet%2Fwallet-kit?ref=badge_large)
