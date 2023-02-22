@@ -55,7 +55,7 @@ importers:
       '@vanilla-extract/css': ^1.9.0
       '@vanilla-extract/vite-plugin': ^3.4.0
       '@vitejs/plugin-react': ^2.1.0
-      '@wallet-standard/core': 1.0.2
+      '@wallet-standard/core': 1.0.3
       buffer: ^6.0.3
       classnames: ^2.3.2
       lodash-es: ^4.17.21
@@ -79,7 +79,7 @@ importers:
       '@radix-ui/react-dialog': 1.0.2_2zx2umvpluuhvlq44va5bta2da
       '@suiet/wallet-sdk': link:../sdk
       '@svgr/rollup': 6.5.1
-      '@wallet-standard/core': 1.0.2
+      '@wallet-standard/core': 1.0.3
       buffer: 6.0.3
       classnames: 2.3.2
       lodash-es: 4.17.21
@@ -6716,22 +6716,22 @@ packages:
     dependencies:
       '@wallet-standard/app': 1.0.1
       '@wallet-standard/base': 1.0.1
-      '@wallet-standard/features': 1.0.2
+      '@wallet-standard/features': 1.0.3
       '@wallet-standard/wallet': 1.0.1
     dev: false
 
-  /@wallet-standard/core/1.0.2:
-    resolution: {integrity: sha512-2sfCYNSaqX/UPiU4uEO85e/BSNEKiQTWIb0kTb+aLWrEPKdQOq6PuFQmlwXHZovE/u/MNHnXCeqwLpEfL/pnDQ==}
+  /@wallet-standard/core/1.0.3:
+    resolution: {integrity: sha512-Jb33IIjC1wM1HoKkYD7xQ6d6PZ8EmMZvyc8R7dFgX66n/xkvksVTW04g9yLvQXrLFbcIjHrCxW6TXMhvpsAAzg==}
     engines: {node: '>=16'}
     dependencies:
       '@wallet-standard/app': 1.0.1
       '@wallet-standard/base': 1.0.1
-      '@wallet-standard/features': 1.0.2
+      '@wallet-standard/features': 1.0.3
       '@wallet-standard/wallet': 1.0.1
     dev: false
 
-  /@wallet-standard/features/1.0.2:
-    resolution: {integrity: sha512-9eXNcwDl8PhTvaQKIUN1KR5Gl57GlHlVW5Zly7p9GoJZ2PrRN19ETTp3edd6nIf+UcXLOtrW6MybwedULCL9dA==}
+  /@wallet-standard/features/1.0.3:
+    resolution: {integrity: sha512-m8475I6W5LTatTZuUz5JJNK42wFRgkJTB0I9tkruMwfqBF2UN2eomkYNVf9RbrsROelCRzSFmugqjKZBFaubsA==}
     engines: {node: '>=16'}
     dependencies:
       '@wallet-standard/base': 1.0.1
