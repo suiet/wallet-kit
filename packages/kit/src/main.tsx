@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { WalletProvider, ConnectButton } from './components';
+import {ConnectButton, WalletProvider} from './components';
 import {useWallet} from "./hooks";
 import * as tweetnacl from 'tweetnacl';
+import {ErrorCode} from "./errors";
 
 function App() {
   const wallet = useWallet()
@@ -70,10 +71,16 @@ function App() {
       alignItems: 'center',
     }}>
       <ConnectButton
-        onConnectSuccess={(name) => {console.log('connect success!', name)}}
-        onConnectError={(err) => {console.warn('connect error!', err)}}
-        onDisconnectSuccess={(name) => {console.log('disconnect success!', name)}}
-        onDisconnectError={(err) => {console.log('disconnect error!', err)}}
+        onConnectSuccess={(name) => {console.log('connect success: ', name)}}
+        onConnectError={(err) => {
+          if (err.code === ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED) {
+            console.warn('user rejected the connection to ' + err.details?.wallet)
+          } else {
+            console.warn('unknown connect error: ', err)
+          }
+        }}
+        onDisconnectSuccess={(name) => {console.log('disconnect success: ', name)}}
+        onDisconnectError={(err) => {console.log('disconnect error: ', err)}}
       />
 
       {!wallet.connected ? (
