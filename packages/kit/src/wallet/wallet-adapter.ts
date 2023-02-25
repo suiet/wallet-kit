@@ -19,6 +19,7 @@ import {
   ExpSignMessageMethod,
   ExpSignMessageOutput
 } from "../wallet-standard/features/exp_sign-message";
+import {handleConnectionError} from "./wallet-error-handling";
 
 export enum FeatureName {
   STANDARD__CONNECT = "standard:connect",
@@ -70,7 +71,8 @@ export class WalletAdapter implements IWalletAdapter {
     try {
       return await feature.connect(input);
     } catch (e) {
-      throw new WalletError((e as any).message, ErrorCode.WALLET__CONNECT_ERROR)
+      const {code, message, details} = handleConnectionError(e as Error, this.name)
+      throw new WalletError(message, code, details)
     }
   }
 
