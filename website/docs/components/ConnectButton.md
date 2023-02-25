@@ -38,15 +38,20 @@ Sometimes you may want to hook in the connection events and do something with th
 >  If you are using hooks only, then simply wrap a try-catch block for the async  `select` method!
 
 ```jsx
-<ConnectButton 
-	
-/>
+import {WalletProvider, ConnectButton, ErrorCode, BaseError} from "@suiet/wallet-kit";
+
 function App() {
   return (
     <WalletProvider>
       <ConnectButton
-        onConnectError={(error) => {
-          console.log("Opps, something went wrong for the connection.", error);
+        // The BaseError instance has properties like {code, message, details}
+        // for developers to further customize their error handling.
+        onConnectError={(error: BaseError) => {
+           if (err.code === ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED) {
+             console.warn('user rejected the connection to ' + err.details?.wallet);
+           } else {
+             console.warn('unknown connect error: ', err);
+           }
         }}
       >Connect Wallet</ConnectButton>
     </WalletProvider>
