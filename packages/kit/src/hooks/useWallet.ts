@@ -7,7 +7,7 @@ import {
   WalletAccount,
 } from "@mysten/wallet-standard";
 import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
-import type {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
+import type {MoveCallTransaction} from "@mysten/sui.js";
 import {WalletEvent, WalletEventListeners} from "../types/events";
 import {Chain} from "../types/chain";
 
@@ -50,7 +50,7 @@ export interface WalletContextState {
   /**
    * @deprecated use signAndExecuteTransaction instead
    */
-  executeMoveCall: (transaction: MoveCallTransaction) => Promise<SuiTransactionResponse>;
+  executeMoveCall: (transaction: MoveCallTransaction) => Promise<SuiSignAndExecuteTransactionOutput>;
   /**
    * @deprecated use account.publicKey instea
    */
