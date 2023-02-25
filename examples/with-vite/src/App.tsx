@@ -1,7 +1,15 @@
 import { useEffect } from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
-import {ConnectButton, useAccountBalance, useWallet, useCoinBalance, useChain, SuiChainId} from "@suiet/wallet-kit";
+import {
+  ConnectButton,
+  useAccountBalance,
+  useWallet,
+  useCoinBalance,
+  useChain,
+  SuiChainId,
+  ErrorCode
+} from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
 
@@ -115,7 +123,11 @@ function App() {
       <div className="card">
         <ConnectButton
           onConnectError={(error) => {
-            console.warn('connect failed! error code: ' + error.code + ' reason: ' + error.message)
+            if (error.code === ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED) {
+              console.warn('user rejected the connection to ' + error.details?.wallet)
+            } else {
+              console.warn('unknown connect error: ', error)
+            }
           }}
         />
 
