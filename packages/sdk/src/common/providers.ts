@@ -4,7 +4,8 @@ import {
   JsonRpcProvider,
   SuiMoveObject,
   SuiObject,
-  Coin as CoinAPI
+  Coin as CoinAPI,
+  Connection
 } from "@mysten/sui.js";
 import {Coin, CoinObject, Nft, NftObject} from "./objects";
 
@@ -23,7 +24,7 @@ class QueryProvider {
   provider: JsonRpcProvider;
 
   constructor(endpoint: string) {
-    this.provider = new JsonRpcProvider(endpoint);
+    this.provider = new JsonRpcProvider(new Connection({fullnode: endpoint}));
   }
 
   public async getActiveValidators(): Promise<SuiMoveObject[]> {
