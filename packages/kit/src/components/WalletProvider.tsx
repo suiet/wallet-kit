@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks";
 import type {ConnectInput, SuiSignAndExecuteTransactionInput, WalletAccount,} from "@mysten/wallet-standard";
-import type {MoveCallTransaction, SuiTransactionResponse} from "@mysten/sui.js";
+import type {MoveCallTransaction} from "@mysten/sui.js";
 import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/preset-wallets";
 import {Extendable} from '../types/utils';
@@ -214,14 +214,14 @@ export const WalletProvider = (props: WalletProviderProps) => {
     [walletAdapter, account, status]
   );
 
-  const executeMoveCall = useCallback((data: MoveCallTransaction) => {
+  const executeMoveCall = useCallback(async (data: MoveCallTransaction) => {
     ensureCallable(walletAdapter, status);
     return signAndExecuteTransaction({
       transaction: {
         kind: 'moveCall',
         data: data
       }
-    }) as Promise<SuiTransactionResponse>;
+    });
   }, [signAndExecuteTransaction, walletAdapter, status])
 
   const getPublicKey = useCallback(() => {

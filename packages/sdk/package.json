@@ -16,7 +16,7 @@
     "dist"
   ],
   "dependencies": {
-    "@mysten/sui.js": "^0.28.0"
+    "@mysten/sui.js": "^0.29.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",
