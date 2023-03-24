@@ -14,7 +14,7 @@ export enum PresetWallet {
   MARTIAN_WALLET = "Martian Sui Wallet",
   ONEKEY_WALLET = "OneKey Wallet",
   SPACECY_WALLET = "Spacecy Sui Wallet",
-  NIGHTLY_WALLET = "Nightly Sui Wallet",
+  NIGHTLY_WALLET = "Nightly Wallet",
 }
 
 export const SuietWallet = defineWallet({
