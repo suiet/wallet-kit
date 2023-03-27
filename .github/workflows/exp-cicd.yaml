@@ -1,4 +1,4 @@
-name: SUIET_KIT_CICD_PIPELINE
+name: SUIET_KIT_CICD_PIPELINE_FOR_EXP
 on:
   push:
     tags:
@@ -23,6 +23,6 @@ jobs:
       - name: Build all packages
         run: npm run build:all
       - name: Publish all packages
-        run: npm run alpha:publish
+        run: npm run exp:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
