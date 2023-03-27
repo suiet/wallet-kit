@@ -1,0 +1,28 @@
+name: SUIET_KIT_CICD_PIPELINE
+on:
+  push:
+    tags:
+      - 0.0.0-experimental*
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [16]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }} # TODO: enable pnpm cache (setup-node@v3 has issues with pnpm@7)
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build all packages
+        run: npm run build:all
+      - name: Publish all packages
+        run: npm run alpha:publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
