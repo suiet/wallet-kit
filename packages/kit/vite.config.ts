@@ -12,6 +12,14 @@ export default defineConfig({
       localsConvention: 'camelCase',
     },
   },
+  esbuild: {
+    target: "es2020"
+  },
+  optimizeDeps: {
+    esbuildOptions : {
+      target: "es2020"
+    }
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, './src/index.ts'),
