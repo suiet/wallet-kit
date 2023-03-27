@@ -12552,7 +12552,7 @@ packages:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.10.0
-      semver: 7.3.7
+      semver: 7.3.8
       validate-npm-package-license: 3.0.4
     dev: true
 
