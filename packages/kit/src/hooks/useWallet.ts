@@ -11,6 +11,8 @@ import {
   SuiSignAndExecuteTransactionOutput
 } from "../wallet-standard/features/suiSignAndExecuteTransaction";
 import {SuiSignMessageOutput} from "../wallet-standard/features/suiSignMessage";
+import {Transaction} from "@mysten/sui.js";
+import {SuiSignTransactionOutput} from "../wallet-standard";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -33,7 +35,9 @@ export interface WalletContextState {
     transaction: SuiSignAndExecuteTransactionInput
   ): Promise<SuiSignAndExecuteTransactionOutput>;
 
-  signMessage: (input: {message: Uint8Array}) => Promise<SuiSignMessageOutput>;
+  signMessage(input: {message: Uint8Array}): Promise<SuiSignMessageOutput>;
+
+  signTransaction(input: {transaction: Transaction}): Promise<SuiSignTransactionOutput>;
 
   on: <E extends WalletEvent>(
     event: E,
@@ -76,6 +80,9 @@ const DEFAULT_CONTEXT: WalletContextState = {
   async signMessage() {
     throw new KitError(missProviderMessage("signMessage"));
   },
+  async signTransaction() {
+    throw new KitError(missProviderMessage("signTransaction"));
+  }
 };
 
 export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);

@@ -13,21 +13,24 @@ import {has} from "lodash-es";
 import {ErrorCode, WalletError, WalletNotImplementError} from "../errors";
 import {handleConnectionError} from "./wallet-error-handling";
 import {
-  SuiSignAndExecuteTransactionInput, SuiSignAndExecuteTransactionMethod,
-  SuiSignAndExecuteTransactionOutput
-} from "../wallet-standard/features/suiSignAndExecuteTransaction";
-import {
+  SuiSignAndExecuteTransactionInput,
+  SuiSignAndExecuteTransactionMethod,
+  SuiSignAndExecuteTransactionOutput,
   SuiSignMessageInput,
   SuiSignMessageMethod,
-  SuiSignMessageOutput
-} from "../wallet-standard/features/suiSignMessage";
+  SuiSignMessageOutput,
+  SuiSignTransactionInput,
+  SuiSignTransactionMethod,
+  SuiSignTransactionOutput,
+} from "../wallet-standard";
 
 export enum FeatureName {
   STANDARD__CONNECT = "standard:connect",
   STANDARD__DISCONNECT = "standard:disconnect",
   STANDARD__EVENTS = "standard:events",
-  SUI__SIGN_AND_TRANSACTION = "sui:signAndExecuteTransaction",
-  EXP__SIGN_MESSAGE = "exp:signMessage",
+  SUI__SIGN_AND_EXECUTE_TRANSACTION = "sui:signAndExecuteTransaction",
+  SUI__SIGN_MESSAGE = "sui:signMessage",
+  SUI__SIGN_TRANSACTION = "sui:signTransaction",
 }
 
 /**
@@ -104,7 +107,7 @@ export class WalletAdapter implements IWalletAdapter {
   ): Promise<SuiSignAndExecuteTransactionOutput> {
     const feature = this.getFeature<{
       signAndExecuteTransaction: SuiSignAndExecuteTransactionMethod;
-    }>(FeatureName.SUI__SIGN_AND_TRANSACTION);
+    }>(FeatureName.SUI__SIGN_AND_EXECUTE_TRANSACTION);
     try {
       return await feature.signAndExecuteTransaction(input);
     } catch (e) {
@@ -112,9 +115,20 @@ export class WalletAdapter implements IWalletAdapter {
     }
   }
 
+  signTransaction(input: SuiSignTransactionInput): Promise<SuiSignTransactionOutput> {
+    const feature = this.getFeature<{
+      signTransaction: SuiSignTransactionMethod;
+    }>(FeatureName.SUI__SIGN_TRANSACTION);
+    try {
+      return feature.signTransaction(input);
+    } catch (e) {
+      throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
+    }
+  }
+
   async signMessage(input: SuiSignMessageInput): Promise<SuiSignMessageOutput> {
     const feature = this.getFeature<{ signMessage: SuiSignMessageMethod }>(
-      FeatureName.EXP__SIGN_MESSAGE
+      FeatureName.SUI__SIGN_MESSAGE
     );
     try {
       return await feature.signMessage(input);
