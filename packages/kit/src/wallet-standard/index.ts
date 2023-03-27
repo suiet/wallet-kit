@@ -1,1 +1,3 @@
-export * from './features/exp_sign-message'
+export * from './features/suiSignTransaction'
+export * from './features/suiSignAndExecuteTransaction'
+export * from './features/suiSignMessage'

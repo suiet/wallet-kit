@@ -2,14 +2,15 @@ import { createContext, useContext } from "react";
 import {ConnectionStatus, IWallet, IWalletAdapter} from "../types/wallet";
 import { KitError } from "../errors";
 import {
-  SuiSignAndExecuteTransactionInput,
-  SuiSignAndExecuteTransactionOutput,
   WalletAccount,
 } from "@mysten/wallet-standard";
-import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
-import type {MoveCallTransaction} from "@mysten/sui.js";
 import {WalletEvent, WalletEventListeners} from "../types/events";
 import {Chain} from "../types/chain";
+import {
+  SuiSignAndExecuteTransactionInput,
+  SuiSignAndExecuteTransactionOutput
+} from "../wallet-standard/features/suiSignAndExecuteTransaction";
+import {SuiSignMessageOutput} from "../wallet-standard/features/suiSignMessage";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -32,29 +33,12 @@ export interface WalletContextState {
     transaction: SuiSignAndExecuteTransactionInput
   ): Promise<SuiSignAndExecuteTransactionOutput>;
 
-  signMessage: (input: {message: Uint8Array}) => Promise<ExpSignMessageOutput>;
+  signMessage: (input: {message: Uint8Array}) => Promise<SuiSignMessageOutput>;
 
   on: <E extends WalletEvent>(
     event: E,
     listener: WalletEventListeners[E],
   ) => () => void;
-
-  /**
-   * @deprecated use adapter instead
-   */
-  wallet: IWalletAdapter | undefined;
-  /**
-   * @deprecated use allAvailableWallets instead
-   */
-  supportedWallets: any[];
-  /**
-   * @deprecated use signAndExecuteTransaction instead
-   */
-  executeMoveCall: (transaction: MoveCallTransaction) => Promise<SuiSignAndExecuteTransactionOutput>;
-  /**
-   * @deprecated use account.publicKey instea
-   */
-  getPublicKey: () => Promise<Uint8Array>;
 }
 
 function missProviderMessage(action: string) {
@@ -73,9 +57,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   connected: false,
   account: undefined,
   status: ConnectionStatus.DISCONNECTED,
-  wallet: undefined,
   address: undefined,
-  supportedWallets: [],
   async select() {
     throw new KitError(missProviderMessage("select"));
   },
@@ -94,12 +76,6 @@ const DEFAULT_CONTEXT: WalletContextState = {
   async signMessage() {
     throw new KitError(missProviderMessage("signMessage"));
   },
-  async executeMoveCall() {
-    throw new KitError(missProviderMessage("executeMoveCall"));
-  },
-  async getPublicKey() {
-    throw new KitError(missProviderMessage("getPublicKey"));
-  }
 };
 
 export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);

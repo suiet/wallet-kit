@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks";
-import type {ConnectInput, SuiSignAndExecuteTransactionInput, WalletAccount,} from "@mysten/wallet-standard";
-import type {MoveCallTransaction} from "@mysten/sui.js";
+import type {ConnectInput, WalletAccount,} from "@mysten/wallet-standard";
 import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/preset-wallets";
 import {Extendable} from '../types/utils';
@@ -18,6 +17,7 @@ import {
 } from "../types";
 import {DefaultChains, UnknownChain} from "../chain/constants";
 import {QueryClient, QueryClientProvider} from 'react-query'
+import {SuiSignAndExecuteTransactionInput} from "../wallet-standard/features/suiSignAndExecuteTransaction";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -214,16 +214,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
     [walletAdapter, account, status]
   );
 
-  const executeMoveCall = useCallback(async (data: MoveCallTransaction) => {
-    ensureCallable(walletAdapter, status);
-    return signAndExecuteTransaction({
-      transaction: {
-        kind: 'moveCall',
-        data: data
-      }
-    });
-  }, [signAndExecuteTransaction, walletAdapter, status])
-
   const getPublicKey = useCallback(() => {
     ensureCallable(walletAdapter, status);
     return Promise.resolve((account as WalletAccount).publicKey);
@@ -269,7 +259,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
         configuredWallets,
         detectedWallets,
         adapter: walletAdapter,
-        wallet: walletAdapter,
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
@@ -281,9 +270,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
         signAndExecuteTransaction,
         signMessage,
         address: account?.address,
-        supportedWallets: props.supportedWallets ?? [],
-        executeMoveCall,
-        getPublicKey,
       }}
     >
       <QueryClientProvider client={new QueryClient()}>

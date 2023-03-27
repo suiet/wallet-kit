@@ -11,16 +11,16 @@ import {
 } from "@mysten/wallet-standard";
 import {has} from "lodash-es";
 import {ErrorCode, WalletError, WalletNotImplementError} from "../errors";
-import {
-  ExpSignMessageInput,
-  ExpSignMessageMethod,
-  ExpSignMessageOutput
-} from "../wallet-standard/features/exp_sign-message";
 import {handleConnectionError} from "./wallet-error-handling";
 import {
   SuiSignAndExecuteTransactionInput, SuiSignAndExecuteTransactionMethod,
   SuiSignAndExecuteTransactionOutput
 } from "../wallet-standard/features/suiSignAndExecuteTransaction";
+import {
+  SuiSignMessageInput,
+  SuiSignMessageMethod,
+  SuiSignMessageOutput
+} from "../wallet-standard/features/suiSignMessage";
 
 export enum FeatureName {
   STANDARD__CONNECT = "standard:connect",
@@ -112,8 +112,8 @@ export class WalletAdapter implements IWalletAdapter {
     }
   }
 
-  async signMessage(input: ExpSignMessageInput): Promise<ExpSignMessageOutput> {
-    const feature = this.getFeature<{ signMessage: ExpSignMessageMethod }>(
+  async signMessage(input: SuiSignMessageInput): Promise<SuiSignMessageOutput> {
+    const feature = this.getFeature<{ signMessage: SuiSignMessageMethod }>(
       FeatureName.EXP__SIGN_MESSAGE
     );
     try {
