@@ -7,9 +7,6 @@ import {
   EventsListeners,
   EventsNames,
   EventsOnMethod,
-  SuiSignAndExecuteTransactionInput,
-  SuiSignAndExecuteTransactionMethod,
-  SuiSignAndExecuteTransactionOutput,
   Wallet,
 } from "@mysten/wallet-standard";
 import {has} from "lodash-es";
@@ -20,6 +17,10 @@ import {
   ExpSignMessageOutput
 } from "../wallet-standard/features/exp_sign-message";
 import {handleConnectionError} from "./wallet-error-handling";
+import {
+  SuiSignAndExecuteTransactionInput, SuiSignAndExecuteTransactionMethod,
+  SuiSignAndExecuteTransactionOutput
+} from "../wallet-standard/features/suiSignAndExecuteTransaction";
 
 export enum FeatureName {
   STANDARD__CONNECT = "standard:connect",

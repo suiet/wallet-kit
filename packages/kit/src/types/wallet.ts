@@ -1,12 +1,12 @@
 import {
   ConnectMethod,
   DisconnectMethod,
-  SuiSignAndExecuteTransactionMethod,
   ConnectFeature, DisconnectFeature, EventsFeature, WalletWithFeatures,
   EventsOnMethod,
 } from "@mysten/wallet-standard";
 import {SuiSignAndExecuteTransactionFeature} from "@mysten/wallet-standard/src/features";
 import {ExpSignMessageMethod} from "../wallet-standard/features/exp_sign-message";
+import {SuiSignAndExecuteTransactionMethod} from "../wallet-standard/features/suiSignAndExecuteTransaction";
 
 export interface IWallet {
   name: string;
