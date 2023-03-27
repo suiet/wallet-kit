@@ -7,6 +7,8 @@ import {ErrorCode} from "./errors";
 
 function App() {
   const wallet = useWallet()
+
+  // FIXME: Programmable Transaction
   // async function handleExecuteMoveCall() {
   //   try {
   //     const data = {
@@ -35,7 +37,8 @@ function App() {
   //     alert('executeMoveCall failed (see response in the console)');
   //   }
   // }
-  //
+
+  // FIXME: signMessage output
   // async function handleSignMsg() {
   //   try {
   //     const msg = 'Hello world!'
@@ -50,9 +53,9 @@ function App() {
   //     const textDecoder = new TextDecoder()
   //     console.log('signMessage success', result)
   //     console.log('signMessage signature', result.signature)
-  //     console.log('signMessage signedMessage', textDecoder.decode(result.signedMessage).toString())
+  //     console.log('signMessage signedMessage', textDecoder.decode(Uint8Array.from(result.messageBytes)).toString())
   //     console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
-  //       result.signedMessage,
+  //       result.messageBytes,
   //       result.signature,
   //       wallet.account?.publicKey as Uint8Array,
   //     ))
@@ -62,6 +65,7 @@ function App() {
   //     alert('signMessage failed (see response in the console)')
   //   }
   // }
+
   return (
     <div style={{
       height: '100vh',
