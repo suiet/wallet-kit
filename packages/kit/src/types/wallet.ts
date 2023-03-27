@@ -5,8 +5,7 @@ import {
   EventsOnMethod,
 } from "@mysten/wallet-standard";
 import {SuiSignAndExecuteTransactionFeature} from "@mysten/wallet-standard/src/features";
-import {SuiSignAndExecuteTransactionMethod} from "../wallet-standard/features/suiSignAndExecuteTransaction";
-import {SuiSignMessageMethod} from "../wallet-standard/features/suiSignMessage";
+import {SuiSignAndExecuteTransactionMethod, SuiSignMessageMethod, SuiSignTransactionMethod} from "../wallet-standard";
 
 export interface IWallet {
   name: string;
@@ -39,5 +38,6 @@ export type IWalletAdapter = WalletWithFeatures<ConnectFeature &
   disconnect: DisconnectMethod;
   signAndExecuteTransaction: SuiSignAndExecuteTransactionMethod;
   signMessage: SuiSignMessageMethod;
+  signTransaction: SuiSignTransactionMethod;
   on: EventsOnMethod;
 };
