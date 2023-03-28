@@ -1,6 +1,11 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks";
-import type {ConnectInput, WalletAccount,} from "@mysten/wallet-standard";
+import type {
+  ConnectInput,
+  SuiSignAndExecuteTransactionBlockInput,
+  SuiSignTransactionBlockInput,
+  WalletAccount,
+} from "@mysten/wallet-standard";
 import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/preset-wallets";
 import {Extendable} from '../types/utils';
@@ -16,9 +21,8 @@ import {
 } from "../types";
 import {DefaultChains, UnknownChain} from "../chain/constants";
 import {QueryClient, QueryClientProvider} from 'react-query'
-import {SuiSignAndExecuteTransactionInput} from "../wallet-standard";
-import {Transaction} from "@mysten/sui.js";
 import {IdentifierString} from "@wallet-standard/core";
+import {SuiSignMessageInput} from "@mysten/wallet-standard";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -186,14 +190,14 @@ export const WalletProvider = (props: WalletProviderProps) => {
     return _wallet.accounts;
   }, [walletAdapter, status]);
 
-  const signAndExecuteTransaction = useCallback(
-    async (input: Omit<SuiSignAndExecuteTransactionInput, 'account' | 'chain'>) => {
+  const signAndExecuteTransactionBlock = useCallback(
+    async (input: Omit<SuiSignAndExecuteTransactionBlockInput, 'account' | 'chain'>) => {
       ensureCallable(walletAdapter, status);
       if (!account) {
         throw new KitError("no active account");
       }
       const _wallet = walletAdapter as IWalletAdapter;
-      return await _wallet.signAndExecuteTransaction({
+      return await _wallet.signAndExecuteTransactionBlock({
         account,
         chain: chain.id as IdentifierString,
         ...input,
@@ -202,14 +206,14 @@ export const WalletProvider = (props: WalletProviderProps) => {
     [walletAdapter, status, chain, account]
   );
 
-  const signTransaction = useCallback(
-    async (input: {transaction: Transaction}) => {
+  const signTransactionBlock = useCallback(
+    async (input: Omit<SuiSignTransactionBlockInput, 'account' | 'chain'>) => {
       ensureCallable(walletAdapter, status);
       if (!account) {
         throw new KitError("no active account");
       }
       const _wallet = walletAdapter as IWalletAdapter;
-      return await _wallet.signTransaction({
+      return await _wallet.signTransactionBlock({
         account,
         chain: chain.id as IdentifierString,
         ...input,
@@ -219,7 +223,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   );
 
   const signMessage = useCallback(
-    async (input: { message: Uint8Array }) => {
+    async (input: Omit<SuiSignMessageInput, 'account'>) => {
       ensureCallable(walletAdapter, status);
       if (!account) {
         throw new KitError("no active account");
@@ -271,9 +275,9 @@ export const WalletProvider = (props: WalletProviderProps) => {
         on,
         getAccounts,
         account,
-        signAndExecuteTransaction,
+        signAndExecuteTransactionBlock,
         signMessage,
-        signTransaction,
+        signTransactionBlock,
         address: account?.address,
       }}
     >

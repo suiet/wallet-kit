@@ -1,18 +1,15 @@
-import { createContext, useContext } from "react";
+import {createContext, useContext} from "react";
 import {ConnectionStatus, IWallet, IWalletAdapter} from "../types/wallet";
-import { KitError } from "../errors";
+import {KitError} from "../errors";
 import {
+  SuiSignAndExecuteTransactionBlockInput,
+  SuiSignAndExecuteTransactionBlockOutput, SuiSignMessageInput,
+  SuiSignMessageOutput, SuiSignTransactionBlockInput,
+  SuiSignTransactionBlockOutput,
   WalletAccount,
 } from "@mysten/wallet-standard";
 import {WalletEvent, WalletEventListeners} from "../types/events";
 import {Chain} from "../types/chain";
-import {
-  SuiSignAndExecuteTransactionInput,
-  SuiSignAndExecuteTransactionOutput
-} from "../wallet-standard/features/suiSignAndExecuteTransaction";
-import {SuiSignMessageOutput} from "../wallet-standard/features/suiSignMessage";
-import {Transaction} from "@mysten/sui.js";
-import {SuiSignTransactionOutput} from "../wallet-standard";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -31,13 +28,13 @@ export interface WalletContextState {
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
 
-  signAndExecuteTransaction(
-    transaction: SuiSignAndExecuteTransactionInput
-  ): Promise<SuiSignAndExecuteTransactionOutput>;
+  signAndExecuteTransactionBlock(
+    input: Omit<SuiSignAndExecuteTransactionBlockInput, 'account' | 'chain'>
+  ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 
-  signMessage(input: {message: Uint8Array}): Promise<SuiSignMessageOutput>;
+  signTransactionBlock(input: Omit<SuiSignTransactionBlockInput, 'account' | 'chain'>): Promise<SuiSignTransactionBlockOutput>;
 
-  signTransaction(input: {transaction: Transaction}): Promise<SuiSignTransactionOutput>;
+  signMessage(input: Omit<SuiSignMessageInput, 'account'>): Promise<SuiSignMessageOutput>;
 
   on: <E extends WalletEvent>(
     event: E,
@@ -74,15 +71,15 @@ const DEFAULT_CONTEXT: WalletContextState = {
   getAccounts() {
     throw new KitError(missProviderMessage("getAccounts"));
   },
-  async signAndExecuteTransaction() {
-    throw new KitError(missProviderMessage("signAndExecuteTransaction"));
+  async signAndExecuteTransactionBlock() {
+    throw new KitError(missProviderMessage("signAndExecuteTransactionBlock"));
+  },
+  async signTransactionBlock() {
+    throw new KitError(missProviderMessage("signTransactionBlock"));
   },
   async signMessage() {
     throw new KitError(missProviderMessage("signMessage"));
   },
-  async signTransaction() {
-    throw new KitError(missProviderMessage("signTransaction"));
-  }
 };
 
 export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);

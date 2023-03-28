@@ -1,11 +1,18 @@
 import {
-  ConnectMethod,
-  DisconnectMethod,
-  ConnectFeature, DisconnectFeature, EventsFeature, WalletWithFeatures,
-  EventsOnMethod,
+  WalletWithFeatures,
+  StandardConnectFeature,
+  StandardConnectMethod,
+  StandardDisconnectMethod,
+  StandardEventsOnMethod,
+  SuiSignAndExecuteTransactionBlockFeature,
+  SuiSignMessageFeature,
+  SuiSignTransactionBlockFeature,
+  SuiSignAndExecuteTransactionBlockMethod,
+  SuiSignTransactionBlockMethod,
+  SuiSignMessageMethod,
+  StandardDisconnectFeature,
+  StandardEventsFeature,
 } from "@mysten/wallet-standard";
-import {SuiSignAndExecuteTransactionFeature} from "@mysten/wallet-standard/src/features";
-import {SuiSignAndExecuteTransactionMethod, SuiSignMessageMethod, SuiSignTransactionMethod} from "../wallet-standard";
 
 export interface IWallet {
   name: string;
@@ -29,15 +36,19 @@ export enum ConnectionStatus {
   CONNECTING = "connecting",
 }
 
-export type IWalletAdapter = WalletWithFeatures<ConnectFeature &
-  EventsFeature &
-  SuiSignAndExecuteTransactionFeature &
-  Partial<DisconnectFeature>> & {
+export type IWalletAdapter = WalletWithFeatures<
+  StandardConnectFeature &
+  StandardEventsFeature &
+  SuiSignAndExecuteTransactionBlockFeature &
+  SuiSignTransactionBlockFeature &
+  SuiSignMessageFeature &
+  Partial<StandardDisconnectFeature>
+  > & {
   hasFeature: (name: string) => boolean;
-  connect: ConnectMethod;
-  disconnect: DisconnectMethod;
-  signAndExecuteTransaction: SuiSignAndExecuteTransactionMethod;
+  connect: StandardConnectMethod;
+  disconnect: StandardDisconnectMethod;
+  on: StandardEventsOnMethod;
+  signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
+  signTransactionBlock: SuiSignTransactionBlockMethod;
   signMessage: SuiSignMessageMethod;
-  signTransaction: SuiSignTransactionMethod;
-  on: EventsOnMethod;
 };
