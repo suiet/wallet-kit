@@ -1,13 +1,11 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks";
-import type {ConnectInput, SuiSignAndExecuteTransactionInput, WalletAccount,} from "@mysten/wallet-standard";
-import type {MoveCallTransaction} from "@mysten/sui.js";
+import type {ConnectInput, WalletAccount,} from "@mysten/wallet-standard";
 import {KitError} from "../errors";
 import {AllDefaultWallets} from "../wallet/preset-wallets";
 import {Extendable} from '../types/utils';
 import {isNonEmptyArray} from "../utils";
 import {FeatureName} from "../wallet/wallet-adapter";
-import {deprecatedWarn} from "../legacy/tips";
 import {useAvailableWallets} from "../hooks/useAvaibleWallets";
 import {useAutoConnect} from "../hooks/useAutoConnect";
 import {Storage} from "../utils/storage";
@@ -18,15 +16,14 @@ import {
 } from "../types";
 import {DefaultChains, UnknownChain} from "../chain/constants";
 import {QueryClient, QueryClientProvider} from 'react-query'
+import {SuiSignAndExecuteTransactionInput} from "../wallet-standard";
+import {Transaction} from "@mysten/sui.js";
+import {IdentifierString} from "@wallet-standard/core";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
   chains?: Chain[];
   autoConnect?: boolean;
-  /**
-   * @deprecated use defaultWallets to customize wallet list
-   */
-  supportedWallets?: any[];
 };
 
 export const WalletProvider = (props: WalletProviderProps) => {
@@ -190,12 +187,35 @@ export const WalletProvider = (props: WalletProviderProps) => {
   }, [walletAdapter, status]);
 
   const signAndExecuteTransaction = useCallback(
-    async (transaction: SuiSignAndExecuteTransactionInput) => {
+    async (input: Omit<SuiSignAndExecuteTransactionInput, 'account' | 'chain'>) => {
       ensureCallable(walletAdapter, status);
+      if (!account) {
+        throw new KitError("no active account");
+      }
       const _wallet = walletAdapter as IWalletAdapter;
-      return await _wallet.signAndExecuteTransaction(transaction);
+      return await _wallet.signAndExecuteTransaction({
+        account,
+        chain: chain.id as IdentifierString,
+        ...input,
+      });
     },
-    [walletAdapter, status]
+    [walletAdapter, status, chain, account]
+  );
+
+  const signTransaction = useCallback(
+    async (input: {transaction: Transaction}) => {
+      ensureCallable(walletAdapter, status);
+      if (!account) {
+        throw new KitError("no active account");
+      }
+      const _wallet = walletAdapter as IWalletAdapter;
+      return await _wallet.signTransaction({
+        account,
+        chain: chain.id as IdentifierString,
+        ...input,
+      });
+    },
+    [walletAdapter, status, chain, account]
   );
 
   const signMessage = useCallback(
@@ -213,21 +233,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
     },
     [walletAdapter, account, status]
   );
-
-  const executeMoveCall = useCallback(async (data: MoveCallTransaction) => {
-    ensureCallable(walletAdapter, status);
-    return signAndExecuteTransaction({
-      transaction: {
-        kind: 'moveCall',
-        data: data
-      }
-    });
-  }, [signAndExecuteTransaction, walletAdapter, status])
-
-  const getPublicKey = useCallback(() => {
-    ensureCallable(walletAdapter, status);
-    return Promise.resolve((account as WalletAccount).publicKey);
-  }, [walletAdapter, account, status])
 
   useAutoConnect(select, allAvailableWallets, autoConnect)
 
@@ -248,17 +253,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
     };
   }, [walletAdapter, status, chain, chains, on])
 
-  // deprecated warnings
-  useEffect(() => {
-    if (props.supportedWallets) {
-      deprecatedWarn({
-        name: 'supportedWallets',
-        message: 'use defaultWallets to customize wallet list',
-        migrationDoc: 'https://kit.suiet.app/docs/migration/upgradeTo0.1.0'
-      })
-    }
-  }, [])
-
   return (
     <WalletContext.Provider
       value={{
@@ -269,7 +263,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
         configuredWallets,
         detectedWallets,
         adapter: walletAdapter,
-        wallet: walletAdapter,
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
@@ -280,10 +273,8 @@ export const WalletProvider = (props: WalletProviderProps) => {
         account,
         signAndExecuteTransaction,
         signMessage,
+        signTransaction,
         address: account?.address,
-        supportedWallets: props.supportedWallets ?? [],
-        executeMoveCall,
-        getPublicKey,
       }}
     >
       <QueryClientProvider client={new QueryClient()}>
