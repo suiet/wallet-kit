@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-sdk",
-  "version": "0.0.0-experimental-20230326165705-1",
+  "version": "0.2.0",
   "license": "MIT",
   "type": "module",
   "scripts": {
