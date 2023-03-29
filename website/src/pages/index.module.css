@@ -19,8 +19,14 @@
   font-size: 24px;
   line-height: 24px;
   color: #B9C0D4;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
 }
+
+.hero-badges {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
