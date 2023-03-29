@@ -9,6 +9,13 @@ Suiet wallet kit is a wallet aggregator for DApps to interact with all the walle
 
 Let's try our kit and empower your dapp in minutes. 🪄
 
+:::tip
+Sui has released devnet 0.29 and introduced a bunch of new features as well as breaking changes. 
+As a professional wallet kit, we also followed up the changes and upgraded our version to 0.2.x.
+
+So We recommend you to walk through our [Migration Guide To 0.2.x](/docs/migration/upgradeTo0.2.x).
+:::
+
 > ⭐️ Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/)
 
 + [Example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite)
