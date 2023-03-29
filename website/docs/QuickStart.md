@@ -9,7 +9,9 @@ Suiet wallet kit is a wallet aggregator for DApps to interact with all the walle
 
 Let's try our kit and empower your dapp in minutes. 🪄
 
-> ⭐️ Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/) + [Example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite)
+> ⭐️ Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/)
+
++ [Example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite)
 
 ## 🔨 Setup
 
@@ -30,13 +32,13 @@ Then wrap your `<App />` with our context provider, so that our hooks can work n
 Oh don't forget to import our css to enable default styles 🎨
 
 ```jsx
-import { WalletProvider } from '@suiet/wallet-kit';
+import {WalletProvider} from '@suiet/wallet-kit';
 import '@suiet/wallet-kit/style.css';
 
 // take react@18 project as an example
 ReactDOM.createRoot(document.getElementById('root')).render(
   <WalletProvider>
-    <App />
+    <App/>
   </WalletProvider>
 );
 ```
@@ -46,21 +48,23 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ## 🕹 Place ConnectButton
 
 :::tip
-We recommend to use hooks together with our components. But if you want to use our hooks only with your customized UI components, follow the instruction [#Use Hooks Only](/docs/tutorial/hooks-only)
+We recommend to use hooks together with our components. But if you want to use our hooks only with your customized UI
+components, follow the instruction [#Use Hooks Only](/docs/tutorial/hooks-only)
 :::
 
 Just import our `<ConnectButton />` and place it to wherever you like, such as Header.
 
 ```jsx
-import { ConnectButton } from '@suiet/wallet-kit';
+import {ConnectButton} from '@suiet/wallet-kit';
 
 const App = () => {
   return (
     <>
       <header>
-        <ConnectButton />
+        <ConnectButton/>
       </header>
-      <... />
+      <
+      ... />
     </>
   )
 };
@@ -68,31 +72,44 @@ const App = () => {
 
 ## 🪝 Use Wallet Capabilities
 
-After your dapp connects to a wallet that supports [Sui wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard), your dapp is already empowered and able to call wallet capabilities.🎉
+After your dapp connects to a wallet that
+supports [Sui wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard),
+your dapp is already empowered and able to call wallet capabilities.🎉
 
 > Please explore the docs for further usage information 💡
 
 ```jsx
-import { useWallet } from '@suiet/wallet-kit';
+import {useWallet} from '@suiet/wallet-kit';
+import {TransactionBlock} from "@mysten/sui.js";
 
 const App = () => {
   const wallet = useWallet()
-  
+
   useEffect(() => {
     if (!wallet.connected) return;
     console.log('connected wallet name: ', wallet.name)
     console.log('account address: ', wallet.account?.address)
     console.log('account publicKey: ', wallet.account?.publicKey)
   }, [wallet.connected])
-  
-  async function handleExecuteMoveCall() {
-    await wallet.executeMoveCall(...);
+
+  // launch a move call for the connected account via wallet
+  async function handleMoveCall() {
+    const tx = new TransactionBlock();
+    const packageObjectId = "0x1";
+    tx.moveCall({
+      target: `${packageObjectId}::nft::mint`,
+      arguments: [tx.pure("Example NFT")],
+    });
+    await wallet.signAndExecuteTransactionBlock({
+      transactionBlock: tx,
+    });
   }
-  async function handleExecuteTransaction() {
-    await wallet.signAndExecuteTransaction(...);
-  }
+
+  // launch a move call for the connected account via wallet
   async function handleSignMessage() {
-    await wallet.signMessage(...);
+    await wallet.signMessage({
+      message: new TextEncoder().encode("Hello World"),
+    });
   }
 
   return (<.../>)
@@ -107,10 +124,10 @@ Check out this section: [#Tutorials](/docs/category/tutorials)
 
 ## 💧 Demo Playground
 
-Feel free to play with our [Demo Playground](https://wallet-kit-demo.vercel.app) 🔗 ([Github repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite))
+Feel free to play with our [Demo Playground](https://wallet-kit-demo.vercel.app)
+🔗 ([Github repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite))
 
 <img src="/img/integration-example.jpg" />
-
 
 ## 🤝 Trusted by great Sui projects
 
