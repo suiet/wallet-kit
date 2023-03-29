@@ -1,4 +1,8 @@
-# Upgrade to `v0.1.x`
+---
+sidebar_position: 999
+---
+
+# Upgrade to v0.1.x
 
 Upgrade command: `npm install @suiet/wallet-kit@0.1`
 

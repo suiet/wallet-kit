@@ -313,24 +313,28 @@ All the wallet events:
 
 ### signAndExecuteTransaction
 
-:::caution
 Deprecated, use [signAndExecuteTransactionBlock](#signandexecutetransactionblock) instead.
-:::
 
 ### executeMoveCall and executeSerializedMoveCall
 
-:::caution
 Deprecated, use [signAndExecuteTransactionBlock](#signandexecutetransactionblock) instead.
-:::
 
 ### wallet
 
-:::caution
 Deprecated, use [adapter](#adapter) instead.
-:::
+
+```diff
+const wallet = useWallet();
+- console.log(wallet.wallet.name);
++ console.log(wallet.adapter.name);
+```
 
 ### getPublicKey
 
-:::caution
 Deprecated, use [account.publicKey](#account) instead.
-:::
+
+```diff
+const wallet = useWallet();
+- console.log(wallet.getPublicKey());
++ console.log(wallet.account.publicKey);
+```
