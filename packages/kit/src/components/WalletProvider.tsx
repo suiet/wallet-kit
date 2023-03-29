@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks";
 import type {
-  ConnectInput,
+  StandardConnectInput,
   SuiSignAndExecuteTransactionBlockInput,
   SuiSignTransactionBlockInput,
   WalletAccount,
@@ -76,7 +76,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   };
 
   const connect = useCallback(
-    async (adapter: IWalletAdapter, opts?: ConnectInput) => {
+    async (adapter: IWalletAdapter, opts?: StandardConnectInput) => {
       if (!adapter) throw new KitError("param adapter is missing");
 
       setStatus(ConnectionStatus.CONNECTING);
@@ -238,7 +238,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
     [walletAdapter, account, status]
   );
 
-  useAutoConnect(select, allAvailableWallets, autoConnect)
+  useAutoConnect(select, status, allAvailableWallets, autoConnect)
 
   // sync kit's chain with wallet's active chain
   useEffect(() => {
