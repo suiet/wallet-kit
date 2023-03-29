@@ -4,6 +4,7 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const version = require('../packages/kit/package.json').version;
+const walletStandardVersion = '0.5.0'
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -131,6 +132,10 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+  customFields: {
+    walletStandardVersion,
+  }
 };
 
 module.exports = config;

@@ -24,7 +24,7 @@ export function useWalletAdapterDetection() {
   useEffect(() => {
     standardWalletManager.current = getWallets();
     const initWalletAdapters = getInitStandardWalletAdapters();
-    console.log('initWalletAdapters', initWalletAdapters)
+    // console.log('initWalletAdapters', initWalletAdapters)
 
     if (isNonEmptyArray(initWalletAdapters)) {
       setAvailableWalletAdapters(initWalletAdapters
@@ -33,7 +33,7 @@ export function useWalletAdapterDetection() {
     }
 
     const clearListeners = standardWalletManager.current.on('register', (...newAdapters: Wallet[]) => {
-      console.log('register newAdapters', newAdapters)
+      // console.log('register newAdapters', newAdapters)
       if (!standardWalletManager.current) return;
       const initWalletAdapters = getInitStandardWalletAdapters();
       const allAdapters = [...initWalletAdapters]
