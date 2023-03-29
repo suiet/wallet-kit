@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import {useEffect} from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
 import {
@@ -12,10 +12,11 @@ import {
 } from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
+import {TransactionBlock, fromB64} from '@mysten/sui.js'
 
 function App() {
   const wallet = useWallet();
-  const { balance } = useAccountBalance();
+  const {balance} = useAccountBalance();
 
   const {data: coinBalance} = useCoinBalance();
   const chain = useChain(SuiChainId.DEVNET);
@@ -39,7 +40,7 @@ function App() {
   useEffect(() => {
     if (!wallet.connected) return;
     console.log('listen to chainChange event only')
-    const off = wallet.on('chainChange', ({ chain }) => {
+    const off = wallet.on('chainChange', ({chain}) => {
       console.log('chainChange', chain)
     })
     return () => {
@@ -55,23 +56,17 @@ function App() {
 
   async function handleExecuteMoveCall() {
     try {
-      const data = {
-        packageObjectId: '0x2',
-        module: 'devnet_nft',
-        function: 'mint',
-        typeArguments: [],
+      const tx = new TransactionBlock()
+      tx.moveCall({
+        target: '0x37b32a726c348b9198ffc22f63a97cb36c01f257258af020cecea8a82575dd56::nft::mint',
         arguments: [
-          'name',
-          'capy',
-          'https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop',
-        ],
-        gasBudget: 10000,
-      };
-      const resData = await wallet.signAndExecuteTransaction({
-        transaction: {
-          kind: 'moveCall',
-          data
-        }
+          tx.pure('Suiet NFT'),
+          tx.pure('Suiet Sample NFT'),
+          tx.pure('https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4')
+        ]
+      })
+      const resData = await wallet.signAndExecuteTransactionBlock({
+        transactionBlock: tx,
       });
       // const resData = await executeMoveCall(data);
       console.log('executeMoveCall success', resData);
@@ -84,7 +79,6 @@ function App() {
 
   async function handleSignMsg() {
     try {
-      const msg = 'Hello world!'
       const result = await wallet.signMessage({
         message: new TextEncoder().encode('Hello world')
       })
@@ -92,14 +86,17 @@ function App() {
         alert('signMessage return null')
         return
       }
-      console.log('send message to be signed', msg)
+      console.log('signMessage msg', new TextEncoder().encode('Hello world'))
+      console.log('signMessage success', result)
+
+      // console.log('send message to be signed', msg)
       const textDecoder = new TextDecoder()
       console.log('signMessage success', result)
       console.log('signMessage signature', result.signature)
-      console.log('signMessage signedMessage', textDecoder.decode(result.signedMessage).toString())
+      console.log('signMessage signedMessage', textDecoder.decode(fromB64(result.messageBytes)).toString())
       console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
-        result.signedMessage,
-        result.signature,
+        fromB64(result.messageBytes),
+        fromB64(result.signature),
         wallet.account?.publicKey as Uint8Array,
       ))
       alert('signMessage succeeded (see response in the console)')
@@ -113,10 +110,10 @@ function App() {
     <div className="App">
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
+          <img src="/vite.svg" className="logo" alt="Vite logo"/>
         </a>
         <a href="https://github.com/suiet/wallet-kit" target="_blank">
-          <img src={suietLogo} className="logo" alt="Suiet logo" />
+          <img src={suietLogo} className="logo" alt="Suiet logo"/>
         </a>
       </div>
       <h1>Vite + Suiet Kit</h1>
@@ -150,7 +147,7 @@ function App() {
               <p>wallet balance: {String(balance)} SUI</p>
               <p>wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}</p>
             </div>
-            <div className={'btn-group'} style={{ margin: '8px 0' }}>
+            <div className={'btn-group'} style={{margin: '8px 0'}}>
               <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
               <button onClick={handleSignMsg}>signMessage</button>
             </div>
