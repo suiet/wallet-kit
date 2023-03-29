@@ -5,7 +5,7 @@ import viteSvgr from 'vite-plugin-svgr';
 import path from 'path';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({mode}) => ({
   plugins: [react(), vanillaExtractPlugin(), viteSvgr()],
   css: {
     modules: {
@@ -13,7 +13,8 @@ export default defineConfig({
     },
   },
   esbuild: {
-    target: "es2020"
+    target: "es2020",
+    pure: mode === 'production' ? ['console.log', 'debugger'] : [],
   },
   optimizeDeps: {
     esbuildOptions : {
@@ -41,4 +42,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
