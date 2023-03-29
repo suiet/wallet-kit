@@ -6,9 +6,11 @@ sidebar_position: 1
 
 ## Description
 
- `useWallet` is the most useful React Hook to play with. For details of React Hook, check the [React doc](https://reactjs.org/docs/hooks-intro.html).
+`useWallet` is the most useful React Hook to play with. For details of React Hook, check
+the [React doc](https://reactjs.org/docs/hooks-intro.html).
 
-It retrieves all the properties and functions from [WalletProvider](/docs/components/walletprovider), with which you can get properties and call functions of a connected wallet.
+It retrieves all the properties and functions from [WalletProvider](/docs/components/walletprovider), with which you can
+get properties and call functions of a connected wallet.
 
 :::tip
 
@@ -35,70 +37,64 @@ function App() {
 
 ### Sign and Execute Transactions
 
-Sui defines many types of signable transaction, such as `moveCall`, `transferSui` etc.
+Sui introduces a new concept of [Programmable Transaction](https://github.com/MystenLabs/sui/issues/7790)
+to make it flexible for developers to define transactions, such as allowing third-party to set gas payment and executing
+batch transactions in one call.
 
->  For all the types of signable transaction, see [Sui official repo ](https://github.com/MystenLabs/sui/blob/e45b188a80a067700efdc5a099745f18e1f41aac/sdk/typescript/src/signers/txn-data-serializers/txn-data-serializer.ts#L98) 💡
+> For more details of Programmable Transaction,
+> check [Sui docs](https://docs.sui.io/devnet/doc-updates/sui-migration-guide#building-and-executing-transaction)
 
-Here we use `moveCall` type to implement a simple nft minting example, leveraging the [sample contract of Sui](https://examples.sui.io/samples/nft.html).
+Here we define a `moveCall` transaction to implement a simple nft minting example.
 
 ```jsx
 import {useWallet} from '@suiet/wallet-kit'
 
 function App() {
   const wallet = useWallet();
-  
-  async function handleSignAndExecuteTx() {
-		if (!wallet.connected) return
+
+  async function handleSignAndExecuteTxBlock() {
+    if (!wallet.connected) return
+
+    // define a programmable transaction
+    const tx = new TransactionBlock();
+    const packageObjectId = "0xXXX";
+    tx.moveCall({
+      target: `${packageObjectId}::nft::mint`,
+      arguments: [tx.pure("Example NFT")],
+    });
+
     try {
-      const resData = await wallet.signAndExecuteTransaction({
-        transaction: {
-          kind: 'moveCall',
-          data: {
-            packageObjectId: '0x2',
-            module: 'devnet_nft',
-            function: 'mint',
-            typeArguments: [],
-            arguments: [
-              'name',
-              'capy',
-              'https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop',
-            ],
-            gasBudget: 10000,
-          }
-        }
+      // execute the programmable transaction
+      const resData = await wallet.signAndExecuteTransactionBlock({
+        transactionBlock: tx
       });
       console.log('nft minted successfully!', resData);
-      alert('congrats, a cute capybara comes to you!')
+      alert('Congrats! your nft is minted!')
     } catch (e) {
       console.error('nft mint failed', e);
     }
   }
-  
+
   return (
-  	<...>
-    	<button onClick={handleSignAndExecuteTx}>Mint Your NFT!</button>
-    <.../>
+    <button onClick={handleSignAndExecuteTx}> Mint Your NFT !</button>
   )
 }
 ```
 
 ### Sign Message
 
-:::caution
+[Message signing](https://en.bitcoin.it/wiki/Message_signing#:~:text=Message%20signing%20is%20the%20action,they%20correspond%20to%20each%20other.)
+is an important action to **verify whether an approval is confirmed by the owner of an account**.
 
-Since this is a experimental feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further information.
-
-:::
-
-[Message signing](https://en.bitcoin.it/wiki/Message_signing#:~:text=Message%20signing%20is%20the%20action,they%20correspond%20to%20each%20other.) is an important action to **verify whether an approval is confirmed by the owner of an account**.  
-
-It is useful for DApp to ask user's approval for senarios like approving Terms of Service and Privacy Policy (Below is an example of message signing in OpenSea, the NFT marketplace in Ethereum)
+It is useful for DApp to ask user's approval for senarios like approving Terms of Service and Privacy Policy (Below is
+an example of message signing in OpenSea, the NFT marketplace in Ethereum)
 
 ![Example of message signing in the NFT marketplace OpenSea](/img/signmsg.png)
 
-Here is an example for signing a simple message "Hello World". 
+Here is an example for signing a simple message "Hello World".
 
->  Notice that all the params are Uint8Array (i.e. bytes) type. For browser app, you can use [TextEncoder](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder) to encode and decode.
+> Notice that all the params are Uint8Array (i.e. bytes) type. For browser app, you can
+> use [TextEncoder](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder) to encode and decode.
 
 ```tsx
 import {useWallet} from '@suiet/wallet-kit'
@@ -106,7 +102,7 @@ import * as tweetnacl from 'tweetnacl'
 
 function App() {
   const wallet = useWallet();
-  
+
   async function handleSignMsg() {
     try {
       const msg = 'Hello world!'
@@ -118,9 +114,9 @@ function App() {
 
       // you can use tweetnacl library 
       // to verify whether the signature matches the publicKey of the account.
-			const isSignatureTrue = tweetnacl.sign.detached.verify(
-        result.signedMessage,
-        result.signature,
+      const isSignatureTrue = tweetnacl.sign.detached.verify(
+        fromB64(result.messageBytes),
+        fromB64(result.signature),
         wallet.account?.publicKey as Uint8Array,
       )
       console.log('verify signature with publicKey via tweetnacl', isSignatureTrue)
@@ -128,42 +124,10 @@ function App() {
       console.error('signMessage failed', e)
     }
   }
-  
+
   return (
-  	<...>
-    	<button onClick={handleSignMsg}>Sign Message</button>
-    <.../>
+    <button onClick={handleSignMsg}> Sign Message </button>
   )
-}
-```
-
-### Add wallet event listener
-
-:::caution
-
-Since this is a experimental feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further information.
-
-:::
-
-You can listen to the event from wallet app, such as network switching, account switching. Take network switching event as an example:
-
-```tsx
-import {useWallet} from '@suiet/wallet-kit'
-import * as tweetnacl from 'tweetnacl'
-
-function App() {
-  const wallet = useWallet();
-  
-  useEffect(() => {
-    if (!wallet.connected) return;
-    console.log('listen to chainChange event only')
-    const off = wallet.on('chainChange', ({chain}) => {
-      console.log('chainChange', chain)
-    })
-    return () => {
-      off()
-    }
-  }, [wallet.connected])
 }
 ```
 
@@ -171,19 +135,21 @@ function App() {
 
 :::caution
 
-Since this is a experimental feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further information.
+Since this is a experimental feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further
+information.
 
 :::
 
-You can get the current connected chain of wallet, also if user switches network inside the wallet, the value would get updated (so-called real-time).
+You can get the current connected chain of wallet, also if user switches network inside the wallet, the value would get
+updated (so-called real-time).
 
 :::tip
 
-By default, the "chain" initial value would be the first value of configured "chains". 
+By default, the "chain" initial value would be the first value of configured "chains".
 
 if a wallet doesn't support wallet-standard "change" event., the "chain" value would not change!
 
-If a wallet does not report its network when connecting, the "chain" value might not be correctly synced! 
+If a wallet does not report its network when connecting, the "chain" value might not be correctly synced!
 
 :::
 
@@ -193,7 +159,7 @@ import * as tweetnacl from 'tweetnacl'
 
 function App() {
   const wallet = useWallet();
-  
+
   useEffect(() => {
     if (!wallet.connected) return;
     console.log('current connected chain (network)', wallet.chain?.name)  // example output: "sui:devnet" or "sui:testnet"
@@ -222,7 +188,7 @@ The connection status of wallet.
 | status     | 'disconnected' \| 'connecting' \| 'connected' | 'disconnected' |
 
 ```ts
-const { status, connected, connecting } = useWallet();
+const {status, connected, connecting} = useWallet();
 
 // the assert expressions are equally the same
 assert(status === 'disconnected', !connecting && !connected); // not connect to wallet
@@ -239,7 +205,7 @@ The account info in the connected wallet, including address, publicKey etc.
 | [WalletAccount](/docs/Types#WalletAccount) | undefined |
 
 ```ts
-const { connected, account } = useWallet();
+const {connected, account} = useWallet();
 
 function printAccountInfo() {
   if (!connected) return
@@ -269,11 +235,11 @@ Get all the accessible accounts returned by wallet.
 The getAccounts will get the current wallet's account address. Now one wallet only have one account.
 
 ```jsx
-import { useWallet } from '@suiet/wallet-kit';
+import {useWallet} from '@suiet/wallet-kit';
 
 function YourComponent() {
   const wallet = useWallet();
-  
+
   function handleGetAccounts() {
     if (!wallet.connected) return
     getAccounts().then((accounts) => {
@@ -293,7 +259,7 @@ Configuration of supported chains from WalletProvider
 
 ### chain
 
-Current connected chain of wallet. 
+Current connected chain of wallet.
 
 Might not be synced with the wallet if the wallet doesn't support wallet-standard "change" event.
 
@@ -303,43 +269,33 @@ Might not be synced with the wallet if the wallet doesn't support wallet-standar
 
 ### adapter
 
-The adapter normalized  from the raw adapter of the connected wallet. You can call all the properties and functions on it, which is followed the [@mysten/wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard)
+The adapter normalized from the raw adapter of the connected wallet. You can call all the properties and functions on
+it, which is followed
+the [@mysten/wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard)
 
 | Type                             | Default   |
 |----------------------------------| --------- |
 | [IWalletAdapter](/docs/Types#IWalletAdapter) | undefined | undefined |
 
-### signAndExecuteTransaction
+### signAndExecuteTransactionBlock
 
-The universal function to send and execute transaction via connected wallet. For all the types of signable transaction, see [Sui official repo ](https://github.com/MystenLabs/sui/blob/e45b188a80a067700efdc5a099745f18e1f41aac/sdk/typescript/src/signers/txn-data-serializers/txn-data-serializer.ts#L98) 💡
+The universal function to send and execute transactions via connected wallet.
 
-| Type                                                         | Default |
-| ------------------------------------------------------------ | ------- |
-| `(transaction: SuiSignAndExecuteTransactionInput) => Promise<SuiSignAndExecuteTransactionOutput>` |         |
+| Type                                                                                                                                                                                    | Default |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------- |
+| `({transactionBlock: TransactionBlock, requestType?: ExecuteTransactionRequestType, options?: SuiTransactionBlockResponseOptions}) => Promise<SuiSignAndExecuteTransactionBlockOutput>` |         |
 
 ### signMessage
 
 The function for message signing.
 
-:::caution
-
-Since this is a experimental feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further information.
-
-:::
-
 | Type                                                                                   | Default |
 |----------------------------------------------------------------------------------------| ------- |
-| `(input: {message: Uint8Array}) => Promise<{ signature: Uint8Array; signedMessage: Uint8Array}>` |         |
+| `(input: {message: Uint8Array}) => Promise<{signature: string; messageBytes: string}>` |         |
 
 ### on
 
 The function for wallet event listening. Returns the off function to remove listener.
-
-:::caution
-
-Since this is a experimental feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further information.
-
-:::
 
 | Type                                                         | Default |
 | ------------------------------------------------------------ | ------- |
@@ -349,12 +305,23 @@ All the wallet events:
 
 | Event         | Listener                                                     | Description                                               |
 | ------------- | ------------------------------------------------------------ | --------------------------------------------------------- |
-| chainChange   | `(params: { chain: string }) => void;`                       | Emit when wallet app changes its network                  |
 | accountChange | `(params: { account: WalletAccount; }) => void;`             | Emit when wallet app changes its account                  |
 | featureChange | `(params: { features: string[]; }) => void;`                 | Emit when wallet app changes its wallet-standard features |
 | change        | `(params: { chain?: string, account?: WalletAccount; features?: string[]; }) => void;` | Raw change event defined by wallet-standard               |
 
 ## Deprecated API
+
+### signAndExecuteTransaction
+
+:::caution
+Deprecated, use [signAndExecuteTransactionBlock](#signandexecutetransactionblock) instead.
+:::
+
+### executeMoveCall and executeSerializedMoveCall
+
+:::caution
+Deprecated, use [signAndExecuteTransactionBlock](#signandexecutetransactionblock) instead.
+:::
 
 ### wallet
 
@@ -366,10 +333,4 @@ Deprecated, use [adapter](#adapter) instead.
 
 :::caution
 Deprecated, use [account.publicKey](#account) instead.
-:::
-
-### executeMoveCall and executeSerializedMoveCall
-
-:::caution
-Deprecated, use [signAndExecuteTransaction](#) instead.
 :::
