@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "type": "module",
   "files": [
     "dist"
@@ -23,7 +23,7 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@mysten/sui.js": "0.0.0-experimental-20230326165705",
+    "@mysten/sui.js": "0.30.0",
     "@mysten/wallet-standard": "^0.5.0",
     "@radix-ui/react-dialog": "^1.0.2",
     "@suiet/wallet-sdk": "workspace:*",
@@ -61,7 +61,7 @@
   },
   "peerDependencies": {
     "cross-fetch": "3.x",
-    "@mysten/sui.js": "0.0.0-experimental-20230326165705"
+    "@mysten/sui.js": "0.30.0"
   },
   "repository": {
     "type": "git",
