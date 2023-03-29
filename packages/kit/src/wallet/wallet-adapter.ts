@@ -1,36 +1,35 @@
 import {IWalletAdapter} from "../types/wallet";
 import {
-  ConnectInput,
-  ConnectMethod,
-  ConnectOutput,
-  DisconnectMethod,
-  EventsListeners,
-  EventsNames,
-  EventsOnMethod,
+  StandardConnectOutput,
+  StandardEventsListeners,
+  StandardEventsNames,
+  StandardConnectInput,
+  StandardConnectMethod,
+  StandardDisconnectMethod,
+  StandardEventsOnMethod,
   Wallet,
+  SuiSignTransactionBlockInput,
+  SuiSignAndExecuteTransactionBlockInput,
+  SuiSignAndExecuteTransactionBlockOutput,
+  SuiSignAndExecuteTransactionBlockMethod,
+  SuiSignTransactionBlockMethod,
+  SuiSignTransactionBlockOutput,
+  SuiSignMessageInput,
+  SuiSignMessageOutput,
+  SuiSignMessageMethod,
+
 } from "@mysten/wallet-standard";
 import {has} from "lodash-es";
 import {ErrorCode, WalletError, WalletNotImplementError} from "../errors";
 import {handleConnectionError} from "./wallet-error-handling";
-import {
-  SuiSignAndExecuteTransactionInput,
-  SuiSignAndExecuteTransactionMethod,
-  SuiSignAndExecuteTransactionOutput,
-  SuiSignMessageInput,
-  SuiSignMessageMethod,
-  SuiSignMessageOutput,
-  SuiSignTransactionInput,
-  SuiSignTransactionMethod,
-  SuiSignTransactionOutput,
-} from "../wallet-standard";
 
 export enum FeatureName {
   STANDARD__CONNECT = "standard:connect",
   STANDARD__DISCONNECT = "standard:disconnect",
   STANDARD__EVENTS = "standard:events",
-  SUI__SIGN_AND_EXECUTE_TRANSACTION = "sui:signAndExecuteTransaction",
+  SUI__SIGN_AND_EXECUTE_TRANSACTION_BLOCK = "sui:signAndExecuteTransactionBlock",
+  SUI__SIGN_TRANSACTION_BLOCK = "sui:signTransactionBlock",
   SUI__SIGN_MESSAGE = "sui:signMessage",
-  SUI__SIGN_TRANSACTION = "sui:signTransaction",
 }
 
 /**
@@ -68,8 +67,8 @@ export class WalletAdapter implements IWalletAdapter {
     return this.standardWalletAdapter.features as any;
   }
 
-  async connect(input: ConnectInput | undefined): Promise<ConnectOutput> {
-    const feature = this.getFeature<{ connect: ConnectMethod }>(
+  async connect(input: StandardConnectInput | undefined): Promise<StandardConnectOutput> {
+    const feature = this.getFeature<{ connect: StandardConnectMethod }>(
       FeatureName.STANDARD__CONNECT
     );
     try {
@@ -81,7 +80,7 @@ export class WalletAdapter implements IWalletAdapter {
   }
 
   async disconnect(): Promise<void> {
-    const feature = this.getFeature<{ disconnect: DisconnectMethod }>(
+    const feature = this.getFeature<{ disconnect: StandardDisconnectMethod }>(
       FeatureName.STANDARD__DISCONNECT
     );
     try {
@@ -91,36 +90,36 @@ export class WalletAdapter implements IWalletAdapter {
     }
   }
 
-  on(event: EventsNames, listener: EventsListeners[EventsNames]): () => void {
-    const feature = this.getFeature<{ on: EventsOnMethod }>(
+  on(event: StandardEventsNames, listener: StandardEventsListeners[StandardEventsNames]): () => void {
+    const feature = this.getFeature<{ on: StandardEventsOnMethod }>(
       FeatureName.STANDARD__EVENTS
     );
     try {
-      return feature.on<EventsNames>(event, listener);
+      return feature.on<StandardEventsNames>(event, listener);
     } catch (e) {
       throw new WalletError((e as any).message, ErrorCode.WALLET__LISTEN_TO_EVENT_ERROR)
     }
   }
 
-  async signAndExecuteTransaction(
-    input: SuiSignAndExecuteTransactionInput
-  ): Promise<SuiSignAndExecuteTransactionOutput> {
+  async signAndExecuteTransactionBlock(
+    input: SuiSignAndExecuteTransactionBlockInput
+  ): Promise<SuiSignAndExecuteTransactionBlockOutput> {
     const feature = this.getFeature<{
-      signAndExecuteTransaction: SuiSignAndExecuteTransactionMethod;
-    }>(FeatureName.SUI__SIGN_AND_EXECUTE_TRANSACTION);
+      signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
+    }>(FeatureName.SUI__SIGN_AND_EXECUTE_TRANSACTION_BLOCK);
     try {
-      return await feature.signAndExecuteTransaction(input);
+      return await feature.signAndExecuteTransactionBlock(input);
     } catch (e) {
       throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
     }
   }
 
-  signTransaction(input: SuiSignTransactionInput): Promise<SuiSignTransactionOutput> {
+  signTransactionBlock(input: SuiSignTransactionBlockInput): Promise<SuiSignTransactionBlockOutput> {
     const feature = this.getFeature<{
-      signTransaction: SuiSignTransactionMethod;
-    }>(FeatureName.SUI__SIGN_TRANSACTION);
+      signTransactionBlock: SuiSignTransactionBlockMethod;
+    }>(FeatureName.SUI__SIGN_TRANSACTION_BLOCK);
     try {
-      return feature.signTransaction(input);
+      return feature.signTransactionBlock(input);
     } catch (e) {
       throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
     }
