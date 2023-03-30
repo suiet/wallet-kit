@@ -5,26 +5,31 @@ import {useWallet} from "./hooks";
 import * as tweetnacl from 'tweetnacl';
 import {ErrorCode} from "./errors";
 import {fromB64, TransactionBlock} from "@mysten/sui.js";
+import {SuiChainId} from "./chain";
+
+const sampleNft = new Map([
+  ['sui:devnet', '0x37b32a726c348b9198ffc22f63a97cb36c01f257258af020cecea8a82575dd56::nft::mint'],
+  ['sui:testnet', '0x57c53166c2b04c1f1fc93105b39b6266cb1eccbe654f5d2fc89d5b44524b11fd::nft::mint'],
+])
 
 function App() {
   const wallet = useWallet()
 
-  // FIXME: Programmable Transaction
-  async function handleMintNftMoveCall() {
+  async function handleExecuteMoveCall(target: string | undefined) {
+    if (!target) return;
     try {
-      const tx = new TransactionBlock();
+      const tx = new TransactionBlock()
       tx.moveCall({
-        target: '0x2::nft::mint',
+        target: target as any,
         arguments: [
-          tx.pure('name'),
-          tx.pure('capy'),
-          tx.pure('https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop'),
-        ],
+          tx.pure('Suiet NFT'),
+          tx.pure('Suiet Sample NFT'),
+          tx.pure('https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4')
+        ]
       })
       const resData = await wallet.signAndExecuteTransactionBlock({
-        transactionBlock: tx
+        transactionBlock: tx,
       });
-      // const resData = await executeMoveCall(data);
       console.log('executeMoveCall success', resData);
       alert('executeMoveCall succeeded (see response in the console)');
     } catch (e) {
@@ -52,6 +57,7 @@ function App() {
       console.log('signMessage success', result)
       console.log('signMessage signature', result.signature)
       console.log('signMessage signedMessage', textDecoder.decode(fromB64(result.messageBytes)).toString())
+      console.log('signMessage  wallet.account?.publicKey', wallet.account?.publicKey.toString('hex'))
       console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
         fromB64(result.messageBytes),
         fromB64(result.signature),
@@ -105,12 +111,17 @@ function App() {
                   ? 'connected'
                   : 'disconnected'}
             </p>
-            <p>wallet address: {wallet.account?.address}</p>
-            <p>current network: {wallet.chain?.name}</p>
+            <p>account address: {wallet.account?.address}</p>
+            <p>account publicKey: {wallet.account?.publicKey.toString('hex') || 'not supported'}</p>
+            <p>current chain: {wallet.chain?.name} (id: {wallet.chain?.id})</p>
           </div>
           <div style={{margin: '8px 0'}}>
-            <button onClick={handleMintNftMoveCall}>executeMoveCall</button>
-            <button style={{ marginLeft: '8px' }} onClick={handleSignMsg}>signMessage</button>
+            {wallet.chain?.id === SuiChainId.TestNET ? (
+              <button onClick={() => handleExecuteMoveCall(sampleNft.get('sui:testnet'))}>Testnet Mint NFT</button>
+            ) : (
+              <button onClick={() => handleExecuteMoveCall(sampleNft.get('sui:devnet'))}>Devnet Mint NFT</button>
+            )}
+            <button style={{marginLeft: '8px'}} onClick={handleSignMsg}>signMessage</button>
           </div>
         </div>
       )}
