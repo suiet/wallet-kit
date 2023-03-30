@@ -131,26 +131,24 @@ function App() {
 }
 ```
 
-### Get real-time connected chain (network) of wallet
+### Get the connected chain (network) of wallet
 
 :::caution
 
-Since this is a experimental feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further
+Since this is not a standard feature, not all the wallet has implemented. Check [Can I Use](/docs/CanIUse) for further
 information.
 
 :::
 
-You can get the current connected chain of wallet, also if user switches network inside the wallet, the value would get
-updated (so-called real-time).
+Your dapp can get the current connected chain of wallet. 
 
-:::tip
+:::info
+However, if **user switches network inside the wallet**, the value **WOULD NOT** get updated. 
 
-By default, the "chain" initial value would be the first value of configured "chains".
+This is because Sui team suggests each dapp should separate the environments for each chain (sui:devnet, sui:testnet). 
+And the active chain returned by the connected wallet could be used to match the dapp's environment.
 
-if a wallet doesn't support wallet-standard "change" event., the "chain" value would not change!
-
-If a wallet does not report its network when connecting, the "chain" value might not be correctly synced!
-
+In a nutshell, eliminating the need to switch network for dapp is a better user experience for a long term.
 :::
 
 ```tsx

@@ -34,18 +34,13 @@ we are working on updating the statistics. Please stay tuned 🥳
 Remember to handle exceptional cases if some wallet adapters do not support certain features.
 :::
 
-[//]: # (### Hook `useWallet`)
+### Hook `useWallet`
 
-[//]: # ()
-[//]: # (|wallet|name|connected|connecting|select|disconnect|getAccounts|executeMoveCall|signAndExecuteTransaction|getPublicKey|signMessage|on&#40;'chainChange'&#41;|chain|)
-
-[//]: # (|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|---|---|---|---|---|)
-
-[//]: # (|[Suiet Wallet]&#40;https://suiet.app/&#41;|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|✅|)
-
-[//]: # (|[Sui Wallet]&#40;https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil&#41;|✅|✅|✅|✅|✅|✅|✅|✅|❌|❌|❌|❌|)
-
-[//]: # (|[Ethos Wallet]&#40;https://ethoswallet.xyz/&#41;|✅|✅|✅|✅|✅|✅|✅|✅|❌|❌|❌|❌|)
+|wallet|signAndExecuteTransactionBlock|signMessage|chain|account.publicKey|
+|:-:|:-:|:-:|:-:|:-:|
+|[Suiet Wallet](https://suiet.app/)|✅|✅|✅|✅|
+|[Sui Wallet](https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)|✅|✅|✅|❌|
+|[Ethos Wallet](https://ethoswallet.xyz/)|✅|✅|❌|❌|
 
 
 ## For Wallet Developers
