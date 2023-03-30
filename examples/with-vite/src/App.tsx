@@ -5,8 +5,6 @@ import {
   ConnectButton,
   useAccountBalance,
   useWallet,
-  useCoinBalance,
-  useChain,
   SuiChainId,
   ErrorCode
 } from "@suiet/wallet-kit";
@@ -14,39 +12,14 @@ import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
 import {TransactionBlock, fromB64} from '@mysten/sui.js'
 
+const sampleNft = new Map([
+  ['sui:devnet', '0x37b32a726c348b9198ffc22f63a97cb36c01f257258af020cecea8a82575dd56::nft::mint'],
+  ['sui:testnet', '0x57c53166c2b04c1f1fc93105b39b6266cb1eccbe654f5d2fc89d5b44524b11fd::nft::mint'],
+])
+
 function App() {
   const wallet = useWallet();
   const {balance} = useAccountBalance();
-
-  const {data: coinBalance} = useCoinBalance();
-  const chain = useChain(SuiChainId.DEVNET);
-
-  useEffect(() => {
-    console.log('devnet chain config', chain)
-    console.log('coin balance', coinBalance)
-  }, [chain, coinBalance])
-
-  useEffect(() => {
-    if (!wallet.connected) return;
-    console.log('listen to all change event')
-    const off = wallet.on('change', (...args) => {
-      console.log('wallet changed', ...args)
-    })
-    return () => {
-      off()
-    }
-  }, [wallet.connected])
-
-  useEffect(() => {
-    if (!wallet.connected) return;
-    console.log('listen to chainChange event only')
-    const off = wallet.on('chainChange', ({chain}) => {
-      console.log('chainChange', chain)
-    })
-    return () => {
-      off()
-    }
-  }, [wallet.connected])
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return ''
@@ -54,11 +27,13 @@ function App() {
     return value.toString('hex')
   }
 
-  async function handleExecuteMoveCall() {
+  async function handleExecuteMoveCall(target: string | undefined) {
+    if (!target) return;
+
     try {
       const tx = new TransactionBlock()
       tx.moveCall({
-        target: '0x37b32a726c348b9198ffc22f63a97cb36c01f257258af020cecea8a82575dd56::nft::mint',
+        target: target as any,
         arguments: [
           tx.pure('Suiet NFT'),
           tx.pure('Suiet Sample NFT'),
@@ -68,7 +43,6 @@ function App() {
       const resData = await wallet.signAndExecuteTransactionBlock({
         transactionBlock: tx,
       });
-      // const resData = await executeMoveCall(data);
       console.log('executeMoveCall success', resData);
       alert('executeMoveCall succeeded (see response in the console)');
     } catch (e) {
@@ -148,7 +122,11 @@ function App() {
               <p>wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}</p>
             </div>
             <div className={'btn-group'} style={{margin: '8px 0'}}>
-              <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
+              {wallet.chain?.id === SuiChainId.TestNET ? (
+                <button onClick={() => handleExecuteMoveCall(sampleNft.get('sui:testnet'))}>Testnet Mint NFT</button>
+              ) : (
+                <button onClick={() => handleExecuteMoveCall(sampleNft.get('sui:devnet'))}>Devnet Mint NFT</button>
+              )}
               <button onClick={handleSignMsg}>signMessage</button>
             </div>
           </div>
