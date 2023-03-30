@@ -165,11 +165,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
         _listener(params)
         return
       }
-      if (params.chains && event === 'chainChange') {
-        const _listener = listener as WalletEventListeners['chainChange']
-        _listener({chain: (params.chains as any)?.[0]})
-        return
-      }
       if (params.accounts && event === 'accountChange') {
         const _listener = listener as WalletEventListeners['accountChange']
         _listener({account: (params.accounts as any)?.[0]})
@@ -240,23 +235,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
   );
 
   useAutoConnect(select, status, allAvailableWallets, autoConnect)
-
-  // sync kit's chain with wallet's active chain
-  useEffect(() => {
-    if (!walletAdapter || status !== 'connected') return;
-    const off = on('chainChange', (params: { chain: string }) => {
-      if (params.chain === chain.id) return;
-      const newChain = chains.find((item) => item.id === params.chain);
-      if (!newChain) {
-        setChain(UnknownChain);
-        return;
-      }
-      setChain(newChain);
-    })
-    return () => {
-      off();
-    };
-  }, [walletAdapter, status, chain, chains, on])
 
   return (
     <WalletContext.Provider
