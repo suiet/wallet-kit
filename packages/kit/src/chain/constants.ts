@@ -1,17 +1,20 @@
 import {Chain} from "../types";
 
 export enum SuiChainId {
+  DEV_NET = 'sui:devnet',
+  TEST_NET = 'sui:testnet',
+  // deprecated fields
   DEVNET = 'sui:devnet',
   TestNET = 'sui:testnet',
 }
 
 export const SuiDevnetChain: Chain = {
-  id: SuiChainId.DEVNET,
+  id: SuiChainId.DEV_NET,
   name: 'Sui Devnet',
   rpcUrl: 'https://fullnode.devnet.sui.io/',
 }
 export const SuiTestnetChain: Chain = {
-  id: SuiChainId.TestNET,
+  id: SuiChainId.TEST_NET,
   name: 'Sui Testnet',
   rpcUrl: 'https://fullnode.testnet.sui.io/',
 }
