@@ -41,6 +41,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/npm": "^9.0.1",
+    "@types/jest": "^28.1.7",
     "@types/lodash": "^4.14.188",
     "@types/lodash-es": "^4.17.6",
     "@types/lossless-json": "^1.0.1",
@@ -49,19 +50,21 @@
     "@vanilla-extract/css": "^1.9.0",
     "@vanilla-extract/vite-plugin": "^3.4.0",
     "@vitejs/plugin-react": "^2.1.0",
+    "jest": "29.0.1",
     "postcss": "^8.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.56.1",
     "semantic-release": "^19.0.5",
+    "ts-jest": "^28.0.8",
     "typescript": "^4.8.4",
     "typescript-plugin-css-modules": "^3.4.0",
     "vite": "^3.1.0",
     "vite-plugin-svgr": "^2.2.1"
   },
   "peerDependencies": {
-    "cross-fetch": "3.x",
-    "@mysten/sui.js": "0.30.0"
+    "@mysten/sui.js": "0.30.0",
+    "cross-fetch": "3.x"
   },
   "repository": {
     "type": "git",
