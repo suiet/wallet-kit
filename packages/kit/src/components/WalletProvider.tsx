@@ -23,6 +23,7 @@ import {DefaultChains, UnknownChain} from "../chain/constants";
 import {QueryClient, QueryClientProvider} from 'react-query'
 import {IdentifierString} from "@wallet-standard/core";
 import {SuiSignMessageInput} from "@mysten/wallet-standard";
+import getActiveChainFromConnectResult from "../utils/getActiveChainFromConnectResult";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -82,10 +83,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
       setStatus(ConnectionStatus.CONNECTING);
       try {
         const res = await adapter.connect(opts);
-        // NOTE: hack implementation for getting current network when connected
-        // Still waiting for wallet-standard's progress
-        if (isNonEmptyArray((res as any)?.chains)) {
-          const chainId = (res as any)?.chains[0];
+
+        // try to get chain from the connected account
+        if (isNonEmptyArray((res as any)?.accounts)) {
+          const chainId = getActiveChainFromConnectResult(res);
           const targetChain = chains.find(item => item.id === chainId);
           setChain(targetChain ?? UnknownChain);
         }
