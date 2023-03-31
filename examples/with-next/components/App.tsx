@@ -1,76 +1,44 @@
-import { useEffect } from 'react';
 import {
   ConnectButton,
   useAccountBalance,
   useWallet,
-  useCoinBalance,
-  useChain,
-  SuiChainId
+  SuiChainId, ErrorCode
 } from '@suiet/wallet-kit';
 import suietLogo from './assets/suiet-logo.svg';
 import * as tweetnacl from 'tweetnacl';
+import {fromB64, TransactionBlock} from "@mysten/sui.js";
+
+const sampleNft = new Map([
+  ['sui:devnet', '0x37b32a726c348b9198ffc22f63a97cb36c01f257258af020cecea8a82575dd56::nft::mint'],
+  ['sui:testnet', '0x57c53166c2b04c1f1fc93105b39b6266cb1eccbe654f5d2fc89d5b44524b11fd::nft::mint'],
+])
 
 function App() {
   const wallet = useWallet();
-  const { balance } = useAccountBalance();
-
-  const {data: coinBalance} = useCoinBalance();
-  const chain = useChain(SuiChainId.DEVNET);
-
-  useEffect(() => {
-    console.log('chain config', chain)
-    console.log('coin balance', coinBalance)
-  }, [chain, coinBalance])
-
-  useEffect(() => {
-    if (!wallet.connected) return;
-    console.log('listen to all change event');
-    const off = wallet.on('change', (...args) => {
-      console.log('wallet changed', ...args);
-    });
-    return () => {
-      off();
-    };
-  }, [wallet.connected]);
-
-  useEffect(() => {
-    if (!wallet.connected) return;
-    console.log('listen to chainChange event only');
-    const off = wallet.on('chainChange', ({ chain }) => {
-      console.log('chainChange', chain);
-    });
-    return () => {
-      off();
-    };
-  }, [wallet.connected]);
+  const {balance} = useAccountBalance();
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
-    if (!value) return '';
+    if (!value) return ''
     // @ts-ignore
-    return value.toString('hex');
+    return value.toString('hex')
   }
 
-  async function handleExecuteMoveCall() {
+  async function handleExecuteMoveCall(target: string | undefined) {
+    if (!target) return;
+
     try {
-      const data = {
-        packageObjectId: '0x2',
-        module: 'devnet_nft',
-        function: 'mint',
-        typeArguments: [],
+      const tx = new TransactionBlock()
+      tx.moveCall({
+        target: target as any,
         arguments: [
-          'name',
-          'capy',
-          'https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop',
-        ],
-        gasBudget: 10000,
-      };
-      const resData = await wallet.signAndExecuteTransaction({
-        transaction: {
-          kind: 'moveCall',
-          data,
-        },
+          tx.pure('Suiet NFT'),
+          tx.pure('Suiet Sample NFT'),
+          tx.pure('https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4')
+        ]
+      })
+      const resData = await wallet.signAndExecuteTransactionBlock({
+        transactionBlock: tx,
       });
-      // const resData = await executeMoveCall(data);
       console.log('executeMoveCall success', resData);
       alert('executeMoveCall succeeded (see response in the console)');
     } catch (e) {
@@ -81,52 +49,54 @@ function App() {
 
   async function handleSignMsg() {
     try {
-      const msg = 'Hello world!';
       const result = await wallet.signMessage({
-        message: new TextEncoder().encode('Hello world'),
-      });
+        message: new TextEncoder().encode('Hello world')
+      })
       if (!result) {
-        alert('signMessage return null');
-        return;
+        alert('signMessage return null')
+        return
       }
-      console.log('send message to be signed', msg);
-      const textDecoder = new TextDecoder();
-      console.log('signMessage success', result);
-      console.log('signMessage signature', result.signature);
-      console.log(
-        'signMessage signedMessage',
-        textDecoder.decode(result.signedMessage).toString()
-      );
-      console.log(
-        'verify via tweetnacl',
-        tweetnacl.sign.detached.verify(
-          result.signedMessage,
-          result.signature,
-          wallet.account?.publicKey as Uint8Array
-        )
-      );
-      alert('signMessage succeeded (see response in the console)');
+      console.log('signMessage msg', new TextEncoder().encode('Hello world'))
+      console.log('signMessage success', result)
+
+      // console.log('send message to be signed', msg)
+      const textDecoder = new TextDecoder()
+      console.log('signMessage success', result)
+      console.log('signMessage signature', result.signature)
+      console.log('signMessage signedMessage', textDecoder.decode(fromB64(result.messageBytes)).toString())
+      console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
+        fromB64(result.messageBytes),
+        fromB64(result.signature),
+        wallet.account?.publicKey as Uint8Array,
+      ))
+      alert('signMessage succeeded (see response in the console)')
     } catch (e) {
-      console.error('signMessage failed', e);
-      alert('signMessage failed (see response in the console)');
+      console.error('signMessage failed', e)
+      alert('signMessage failed (see response in the console)')
     }
   }
 
   return (
     <div className="App">
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
+        <a href="https://vitejs.dev" target="_blank" rel={'noreferrer'}>
+          <img src="/vite.svg" className="logo" alt="Vite logo"/>
         </a>
-        <a href="https://github.com/suiet/wallet-kit" target="_blank">
-          <img src={suietLogo} className="logo" alt="Suiet logo" />
+        <a href="https://github.com/suiet/wallet-kit" target="_blank" rel={'noreferrer'}>
+          <img src={suietLogo} className="logo" alt="Suiet logo"/>
         </a>
       </div>
       <h1>Vite + Suiet Kit</h1>
       <div className="card">
-        <ConnectButton onConnectError={(err) => {
-          console.warn('connect failed: ' + err)
-        }} />
+        <ConnectButton
+          onConnectError={(error) => {
+            if (error.code === ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED) {
+              console.warn('user rejected the connection to ' + error.details?.wallet)
+            } else {
+              console.warn('unknown connect error: ', error)
+            }
+          }}
+        />
 
         {!wallet.connected ? (
           <p>Connect DApp with Suiet wallet from now!</p>
@@ -139,18 +109,20 @@ function App() {
                 {wallet.connecting
                   ? 'connecting'
                   : wallet.connected
-                  ? 'connected'
-                  : 'disconnected'}
+                    ? 'connected'
+                    : 'disconnected'}
               </p>
               <p>wallet address: {wallet.account?.address}</p>
               <p>current network: {wallet.chain?.name}</p>
               <p>wallet balance: {String(balance)} SUI</p>
-              <p>
-                wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}
-              </p>
+              <p>wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}</p>
             </div>
-            <div className={'btn-group'} style={{ margin: '8px 0' }}>
-              <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
+            <div className={'btn-group'} style={{margin: '8px 0'}}>
+              {wallet.chain?.id === SuiChainId.TestNET ? (
+                <button onClick={() => handleExecuteMoveCall(sampleNft.get('sui:testnet'))}>Testnet Mint NFT</button>
+              ) : (
+                <button onClick={() => handleExecuteMoveCall(sampleNft.get('sui:devnet'))}>Devnet Mint NFT</button>
+              )}
               <button onClick={handleSignMsg}>signMessage</button>
             </div>
           </div>
@@ -160,7 +132,7 @@ function App() {
         Click on the Vite and Suiet logos to learn more
       </p>
     </div>
-  );
+  )
 }
 
 export default App;
