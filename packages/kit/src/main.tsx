@@ -57,7 +57,8 @@ function App() {
       console.log('signMessage success', result)
       console.log('signMessage signature', result.signature)
       console.log('signMessage signedMessage', textDecoder.decode(fromB64(result.messageBytes)).toString())
-      console.log('signMessage  wallet.account?.publicKey', wallet.account?.publicKey.toString('hex'))
+      // @ts-ignore
+      console.log('signMessage  wallet.account?.publicKey', getPublicKey())
       console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
         fromB64(result.messageBytes),
         fromB64(result.signature),
@@ -70,6 +71,12 @@ function App() {
     }
   }
 
+  function getPublicKey() {
+    // @ts-ignore
+    return wallet.account?.publicKey.toString('hex');
+  }
+
+// @ts-ignore
   return (
     <div style={{
       height: '100vh',
@@ -112,7 +119,7 @@ function App() {
                   : 'disconnected'}
             </p>
             <p>account address: {wallet.account?.address}</p>
-            <p>account publicKey: {wallet.account?.publicKey.toString('hex') || 'not supported'}</p>
+            <p>account publicKey: {getPublicKey() || 'not supported'}</p>
             <p>current chain: {wallet.chain?.name} (id: {wallet.chain?.id})</p>
           </div>
           <div style={{margin: '8px 0'}}>
