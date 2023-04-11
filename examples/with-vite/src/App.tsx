@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 import suietLogo from './assets/suiet-logo.svg'
 import './App.css'
 import {
@@ -6,7 +5,8 @@ import {
   useAccountBalance,
   useWallet,
   SuiChainId,
-  ErrorCode
+  ErrorCode,
+  formatSUI
 } from "@suiet/wallet-kit";
 import '@suiet/wallet-kit/style.css';
 import * as tweetnacl from 'tweetnacl'
@@ -118,7 +118,9 @@ function App() {
               </p>
               <p>wallet address: {wallet.account?.address}</p>
               <p>current network: {wallet.chain?.name}</p>
-              <p>wallet balance: {String(balance)} SUI</p>
+              <p>wallet balance: {formatSUI(balance ?? 0, {
+                withAbbr: false
+              })} SUI</p>
               <p>wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}</p>
             </div>
             <div className={'btn-group'} style={{margin: '8px 0'}}>
