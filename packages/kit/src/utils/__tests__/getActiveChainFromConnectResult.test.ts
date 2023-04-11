@@ -1,4 +1,3 @@
-import {StandardConnectOutput} from "@mysten/wallet-standard";
 import getActiveChainFromConnectResult from "../getActiveChainFromConnectResult";
 
 describe('get active chain from the connection result returned by wallets', function () {
