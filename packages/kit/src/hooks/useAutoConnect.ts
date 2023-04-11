@@ -30,6 +30,9 @@ export function useAutoConnect(
         .then(() => {
           init.current = true
         })
+        .catch(_ => {
+          // failed sliently
+        })
     }
   }, [allAvailableWallets])
 }
