@@ -4,7 +4,6 @@ import {
   useWallet,
   SuiChainId, ErrorCode
 } from '@suiet/wallet-kit';
-import suietLogo from './assets/suiet-logo.svg';
 import * as tweetnacl from 'tweetnacl';
 import {fromB64, TransactionBlock} from "@mysten/sui.js";
 
@@ -83,7 +82,7 @@ function App() {
           <img src="/vite.svg" className="logo" alt="Vite logo"/>
         </a>
         <a href="https://github.com/suiet/wallet-kit" target="_blank" rel={'noreferrer'}>
-          <img src={suietLogo} className="logo" alt="Suiet logo"/>
+          <img src={'/suiet-logo.svg'} className="logo" alt="Suiet logo"/>
         </a>
       </div>
       <h1>Vite + Suiet Kit</h1>

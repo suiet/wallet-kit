@@ -26,3 +26,9 @@ jobs:
         run: npm run ci:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{github.ref_name}}
+          prerelease: false
+          title: "Release new version"
