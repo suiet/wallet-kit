@@ -1,11 +1,13 @@
-import React from 'react';
+import
+  React from 'react';
 import ReactDOM from 'react-dom/client';
 import {ConnectButton, WalletProvider} from './components';
-import {useWallet} from "./hooks";
+import {useAccountBalance, useWallet} from "./hooks";
 import * as tweetnacl from 'tweetnacl';
 import {ErrorCode} from "./errors";
 import {fromB64, TransactionBlock} from "@mysten/sui.js";
 import {SuiChainId} from "./chain";
+import {formatSUI} from "@suiet/wallet-sdk";
 
 const sampleNft = new Map([
   ['sui:devnet', '0x37b32a726c348b9198ffc22f63a97cb36c01f257258af020cecea8a82575dd56::nft::mint'],
@@ -14,6 +16,8 @@ const sampleNft = new Map([
 
 function App() {
   const wallet = useWallet()
+  const {balance} = useAccountBalance()
+
 
   async function handleExecuteMoveCall(target: string | undefined) {
     if (!target) return;
@@ -49,19 +53,27 @@ function App() {
         alert('signMessage return null')
         return
       }
-      console.log('signMessage msg', new TextEncoder().encode('Hello world'))
-      console.log('signMessage success', result)
+      // console.log('signMessage msg', new TextEncoder().encode('Hello world'))
+      // console.log('signMessage success', result)
+      //
+      // // console.log('send message to be signed', msg)
+      // const textDecoder = new TextDecoder()
+      // console.log('signMessage success', result)
+      // console.log('signMessage signature', result.signature)
+      // console.log('signMessage signedMessage', textDecoder.decode(fromB64(result.messageBytes)).toString())
+      // // @ts-ignore
+      // console.log('signMessage  wallet.account?.publicKey', getPublicKey())
 
-      // console.log('send message to be signed', msg)
-      const textDecoder = new TextDecoder()
-      console.log('signMessage success', result)
-      console.log('signMessage signature', result.signature)
-      console.log('signMessage signedMessage', textDecoder.decode(fromB64(result.messageBytes)).toString())
-      console.log('signMessage  wallet.account?.publicKey', wallet.account?.publicKey.toString('hex'))
+      const pubkeyBase64 =
+        'pQECAyYgASFYIJDNOGEC6CBEFLIqLopElCHZ1iG7aiJVBfLt/tqu7zD7Ilgg4aA2iiuPKvWWatWAKE+d0mZMZxG4MK3MQTiSUQaa5Tk=';
+      const binaryString = atob(pubkeyBase64);
+      const pubkeyBuffer = Uint8Array.from(binaryString, (c) => c.charCodeAt(0));
+
       console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
         fromB64(result.messageBytes),
         fromB64(result.signature),
-        wallet.account?.publicKey as Uint8Array,
+        pubkeyBuffer,
+        // wallet.account?.publicKey as Uint8Array,
       ))
       alert('signMessage succeeded (see response in the console)')
     } catch (e) {
@@ -70,6 +82,12 @@ function App() {
     }
   }
 
+  function getPublicKey() {
+    // @ts-ignore
+    return wallet.account?.publicKey.toString('hex');
+  }
+
+// @ts-ignore
   return (
     <div style={{
       height: '100vh',
@@ -112,8 +130,9 @@ function App() {
                   : 'disconnected'}
             </p>
             <p>account address: {wallet.account?.address}</p>
-            <p>account publicKey: {wallet.account?.publicKey.toString('hex') || 'not supported'}</p>
+            <p>account publicKey: {getPublicKey() || 'not supported'}</p>
             <p>current chain: {wallet.chain?.name} (id: {wallet.chain?.id})</p>
+            <p>SUI Balance: {formatSUI(balance ?? 0)} (id: {wallet.chain?.id})</p>
           </div>
           <div style={{margin: '8px 0'}}>
             {wallet.chain?.id === SuiChainId.TestNET ? (
