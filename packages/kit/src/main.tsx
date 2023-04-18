@@ -3,9 +3,8 @@ import
 import ReactDOM from 'react-dom/client';
 import {ConnectButton, WalletProvider} from './components';
 import {useAccountBalance, useWallet} from "./hooks";
-import * as tweetnacl from 'tweetnacl';
 import {ErrorCode} from "./errors";
-import {fromB64, TransactionBlock} from "@mysten/sui.js";
+import {TransactionBlock} from "@mysten/sui.js";
 import {SuiChainId} from "./chain";
 import {formatSUI} from "@suiet/wallet-sdk";
 
@@ -42,39 +41,13 @@ function App() {
     }
   }
 
-  // FIXME: signMessage output
   async function handleSignMsg() {
     try {
       const msg = 'Hello world!'
       const result = await wallet.signMessage({
-        message: new TextEncoder().encode('Hello world')
+        message: new TextEncoder().encode(msg)
       })
-      if (!result) {
-        alert('signMessage return null')
-        return
-      }
-      // console.log('signMessage msg', new TextEncoder().encode('Hello world'))
-      // console.log('signMessage success', result)
-      //
-      // // console.log('send message to be signed', msg)
-      // const textDecoder = new TextDecoder()
-      // console.log('signMessage success', result)
-      // console.log('signMessage signature', result.signature)
-      // console.log('signMessage signedMessage', textDecoder.decode(fromB64(result.messageBytes)).toString())
-      // // @ts-ignore
-      // console.log('signMessage  wallet.account?.publicKey', getPublicKey())
-
-      const pubkeyBase64 =
-        'pQECAyYgASFYIJDNOGEC6CBEFLIqLopElCHZ1iG7aiJVBfLt/tqu7zD7Ilgg4aA2iiuPKvWWatWAKE+d0mZMZxG4MK3MQTiSUQaa5Tk=';
-      const binaryString = atob(pubkeyBase64);
-      const pubkeyBuffer = Uint8Array.from(binaryString, (c) => c.charCodeAt(0));
-
-      console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
-        fromB64(result.messageBytes),
-        fromB64(result.signature),
-        pubkeyBuffer,
-        // wallet.account?.publicKey as Uint8Array,
-      ))
+      console.log('verify signedMessage', wallet.verifySignedMessage(result))
       alert('signMessage succeeded (see response in the console)')
     } catch (e) {
       console.error('signMessage failed', e)
