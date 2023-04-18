@@ -106,20 +106,20 @@ function App() {
   async function handleSignMsg() {
     try {
       const msg = 'Hello world!'
+      // convert string to Uint8Array 
+      const msgBytes = new TextEncoder().encode(msg)
+      
+      // call wallet's signMessage function
       const result = await wallet.signMessage({
-        message: new TextEncoder().encode(msg)
+        message: msgBytes
       })
-      if (!result) return
-      console.log('signMessage success', result)
-
-      // you can use tweetnacl library 
-      // to verify whether the signature matches the publicKey of the account.
-      const isSignatureTrue = tweetnacl.sign.detached.verify(
-        fromB64(result.messageBytes),
-        fromB64(result.signature),
-        wallet.account?.publicKey as Uint8Array,
-      )
-      console.log('verify signature with publicKey via tweetnacl', isSignatureTrue)
+			// verify signature with publicKey and SignedMessage (params are all included in result)
+      const verifyResult = wallet.verifySignedMessage(result)
+      if (!verifyResult) {
+        console.log('signMessage succeed, but verify signedMessage failed')
+      } else {
+        console.log('signMessage succeed, and verify signedMessage succeed!')
+      }
     } catch (e) {
       console.error('signMessage failed', e)
     }
