@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {useCallback, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks";
 import type {
   StandardConnectInput,
@@ -24,6 +24,7 @@ import {QueryClient, QueryClientProvider} from 'react-query'
 import {IdentifierString} from "@wallet-standard/core";
 import {SuiSignMessageInput} from "@mysten/wallet-standard";
 import getActiveChainFromConnectResult from "../utils/getActiveChainFromConnectResult";
+import {verifySignedMessage} from "@suiet/wallet-sdk";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -257,6 +258,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         signAndExecuteTransactionBlock,
         signMessage,
         signTransactionBlock,
+        verifySignedMessage,
         address: account?.address,
       }}
     >
