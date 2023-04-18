@@ -36,6 +36,8 @@ export interface WalletContextState {
 
   signMessage(input: Omit<SuiSignMessageInput, 'account'>): Promise<SuiSignMessageOutput>;
 
+  verifySignedMessage(input: SuiSignMessageOutput): boolean;
+
   on: <E extends WalletEvent>(
     event: E,
     listener: WalletEventListeners[E],
@@ -80,6 +82,9 @@ const DEFAULT_CONTEXT: WalletContextState = {
   async signMessage() {
     throw new KitError(missProviderMessage("signMessage"));
   },
+  verifySignedMessage() {
+    throw new KitError(missProviderMessage("verifySignedMessage"));
+  }
 };
 
 export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);
