@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@mysten/sui.js": "^0.32.1",
-    "@suiet/wallet-kit": "^0.2.6",
+    "@suiet/wallet-kit": "0.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tweetnacl": "^1.0.3"

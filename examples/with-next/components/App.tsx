@@ -4,8 +4,7 @@ import {
   useWallet,
   SuiChainId, ErrorCode
 } from '@suiet/wallet-kit';
-import * as tweetnacl from 'tweetnacl';
-import {fromB64, TransactionBlock} from "@mysten/sui.js";
+import {TransactionBlock} from "@mysten/sui.js";
 
 const sampleNft = new Map([
   ['sui:devnet', '0x37b32a726c348b9198ffc22f63a97cb36c01f257258af020cecea8a82575dd56::nft::mint'],
@@ -48,27 +47,18 @@ function App() {
 
   async function handleSignMsg() {
     try {
+      const msg = 'Hello world!'
+      const msgBytes = new TextEncoder().encode(msg)
       const result = await wallet.signMessage({
-        message: new TextEncoder().encode('Hello world')
+        message: msgBytes
       })
-      if (!result) {
-        alert('signMessage return null')
-        return
+      const verifyResult = wallet.verifySignedMessage(result)
+      console.log('verify signedMessage', verifyResult)
+      if (!verifyResult) {
+        alert(`signMessage succeed, but verify signedMessage failed`)
+      } else {
+        alert(`signMessage succeed, and verify signedMessage succeed!`)
       }
-      console.log('signMessage msg', new TextEncoder().encode('Hello world'))
-      console.log('signMessage success', result)
-
-      // console.log('send message to be signed', msg)
-      const textDecoder = new TextDecoder()
-      console.log('signMessage success', result)
-      console.log('signMessage signature', result.signature)
-      console.log('signMessage signedMessage', textDecoder.decode(fromB64(result.messageBytes)).toString())
-      console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
-        fromB64(result.messageBytes),
-        fromB64(result.signature),
-        wallet.account?.publicKey as Uint8Array,
-      ))
-      alert('signMessage succeeded (see response in the console)')
     } catch (e) {
       console.error('signMessage failed', e)
       alert('signMessage failed (see response in the console)')
