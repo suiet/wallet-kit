@@ -285,11 +285,21 @@ The universal function to send and execute transactions via connected wallet.
 
 ### signMessage
 
-The function for message signing.
+The function is for message signing.
 
 | Type                                                                                   | Default |
 |----------------------------------------------------------------------------------------| ------- |
 | `(input: {message: Uint8Array}) => Promise<{signature: string; messageBytes: string}>` |         |
+
+### verifySignedMessage
+
+This function is for verifying the output of `signMessage` following the Sui standard. Uses `tweetnacl.sign.detached.verify` method under the hood. Returns `true` if the returned signature matches the message to be signed and the signer's publicKey.
+
+For details please check [here](https://github.com/suiet/wallet-kit/blob/main/packages/sdk/src/utils/verifySignedMessage.ts#L10)
+
+| Type                                                         | Default |
+| ------------------------------------------------------------ | ------- |
+| `(input: {signature: string; messageBytes: string}) => boolean` |         |
 
 ### on
 
