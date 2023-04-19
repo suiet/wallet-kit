@@ -269,7 +269,7 @@ Might not be synced with the wallet if the wallet doesn't support wallet-standar
 
 The adapter normalized from the raw adapter of the connected wallet. You can call all the properties and functions on
 it, which is followed
-the [@mysten/wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard)
+the [@mysten/wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/wallet-standard)
 
 | Type                             | Default   |
 |----------------------------------| --------- |
