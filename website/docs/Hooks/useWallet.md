@@ -106,20 +106,20 @@ function App() {
   async function handleSignMsg() {
     try {
       const msg = 'Hello world!'
+      // convert string to Uint8Array 
+      const msgBytes = new TextEncoder().encode(msg)
+      
+      // call wallet's signMessage function
       const result = await wallet.signMessage({
-        message: new TextEncoder().encode(msg)
+        message: msgBytes
       })
-      if (!result) return
-      console.log('signMessage success', result)
-
-      // you can use tweetnacl library 
-      // to verify whether the signature matches the publicKey of the account.
-      const isSignatureTrue = tweetnacl.sign.detached.verify(
-        fromB64(result.messageBytes),
-        fromB64(result.signature),
-        wallet.account?.publicKey as Uint8Array,
-      )
-      console.log('verify signature with publicKey via tweetnacl', isSignatureTrue)
+			// verify signature with publicKey and SignedMessage (params are all included in result)
+      const verifyResult = wallet.verifySignedMessage(result)
+      if (!verifyResult) {
+        console.log('signMessage succeed, but verify signedMessage failed')
+      } else {
+        console.log('signMessage succeed, and verify signedMessage succeed!')
+      }
     } catch (e) {
       console.error('signMessage failed', e)
     }
@@ -285,11 +285,21 @@ The universal function to send and execute transactions via connected wallet.
 
 ### signMessage
 
-The function for message signing.
+The function is for message signing.
 
 | Type                                                                                   | Default |
 |----------------------------------------------------------------------------------------| ------- |
 | `(input: {message: Uint8Array}) => Promise<{signature: string; messageBytes: string}>` |         |
+
+### verifySignedMessage
+
+This function is for verifying the output of `signMessage` following the Sui standard. Uses `tweetnacl.sign.detached.verify` method under the hood. Returns `true` if the returned signature matches the message to be signed and the signer's publicKey.
+
+For details please check [here](https://github.com/suiet/wallet-kit/blob/main/packages/sdk/src/utils/verifySignedMessage.ts#L10)
+
+| Type                                                         | Default |
+| ------------------------------------------------------------ | ------- |
+| `(input: {signature: string; messageBytes: string}) => boolean` |         |
 
 ### on
 
