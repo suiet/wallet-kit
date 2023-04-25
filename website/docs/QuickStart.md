@@ -80,7 +80,7 @@ const App = () => {
 ## 🪝 Use Wallet Capabilities
 
 After your dapp connects to a wallet that
-supports [Sui wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/packages/wallet-standard),
+supports [Sui wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/wallet-standard),
 your dapp is already empowered and able to call wallet capabilities.🎉
 
 > Please explore the docs for further usage information 💡
