@@ -110,6 +110,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const disconnect = useCallback(async () => {
     ensureCallable(walletAdapter, status);
     const adapter = walletAdapter as IWalletAdapter;
+
     // try to clear listeners
     if (isNonEmptyArray(walletOffListeners.current)) {
       walletOffListeners.current.forEach(off => {
@@ -121,6 +122,12 @@ export const WalletProvider = (props: WalletProviderProps) => {
       })
       walletOffListeners.current = []  // empty array
     }
+
+    // clear storage for last connected wallet
+    // if users disconnect wallet manually
+    const storage = new Storage()
+    storage.removeItem(StorageKey.LAST_CONNECT_WALLET_NAME)
+
     try {
       // disconnect is an optional action for wallet
       if (adapter.hasFeature(FeatureName.STANDARD__DISCONNECT)) {
