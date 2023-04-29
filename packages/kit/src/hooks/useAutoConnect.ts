@@ -25,7 +25,7 @@ export function useAutoConnect(
     if (!lastConnectedWalletName) return
 
     if (allAvailableWallets.find(item => item.name == lastConnectedWalletName)) {
-      console.log('auto connect to wallet:', lastConnectedWalletName)
+      // console.log('auto connect to wallet:', lastConnectedWalletName)
       select(lastConnectedWalletName)
         .then(() => {
           init.current = true
