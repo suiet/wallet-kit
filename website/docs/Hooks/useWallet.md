@@ -145,7 +145,7 @@ Your dapp can get the current connected chain of wallet.
 :::info
 However, if **user switches network inside the wallet**, the value **WOULD NOT** get updated. 
 
-This is because Sui team suggests each dapp should separate the environments for each chain (sui:devnet, sui:testnet). 
+This is because Sui team suggests each dapp should separate the environments for each chain (sui:devnet, sui:testnet, sui:mainnet). 
 And the active chain returned by the connected wallet could be used to match the dapp's environment.
 
 In a nutshell, eliminating the need to switch network for dapp is a better user experience for a long term.
@@ -160,7 +160,7 @@ function App() {
 
   useEffect(() => {
     if (!wallet.connected) return;
-    console.log('current connected chain (network)', wallet.chain?.name)  // example output: "sui:devnet" or "sui:testnet"
+    console.log('current connected chain (network)', wallet.chain?.name)  // example output: "sui:devnet", "sui:testnet" or "sui:mainnet"
   }, [wallet.connected])
 }
 ```
