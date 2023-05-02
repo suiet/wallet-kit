@@ -40,8 +40,8 @@ importers:
 
   packages/kit:
     specifiers:
-      '@mysten/sui.js': 0.32.2
-      '@mysten/wallet-standard': 0.5.4
+      '@mysten/sui.js': 0.33.0
+      '@mysten/wallet-standard': 0.5.5
       '@radix-ui/react-dialog': ^1.0.2
       '@semantic-release/changelog': ^6.0.1
       '@semantic-release/npm': ^9.0.1
@@ -77,8 +77,8 @@ importers:
       vite: ^3.1.0
       vite-plugin-svgr: ^2.2.1
     dependencies:
-      '@mysten/sui.js': 0.32.2
-      '@mysten/wallet-standard': 0.5.4
+      '@mysten/sui.js': 0.33.0
+      '@mysten/wallet-standard': 0.5.5
       '@radix-ui/react-dialog': 1.0.2_2zx2umvpluuhvlq44va5bta2da
       '@suiet/wallet-sdk': link:../sdk
       '@svgr/rollup': 6.5.1
@@ -118,7 +118,7 @@ importers:
   packages/sdk:
     specifiers:
       '@mysten/sui.js': 0.32.2
-      '@mysten/wallet-standard': 0.5.4
+      '@mysten/wallet-standard': 0.5.5
       '@noble/hashes': ^1.3.0
       '@rollup/plugin-babel': ^5.3.1
       '@rollup/plugin-commonjs': ^22.0.2
@@ -140,7 +140,7 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@mysten/sui.js': 0.32.2
-      '@mysten/wallet-standard': 0.5.4
+      '@mysten/wallet-standard': 0.5.5
       '@noble/hashes': 1.3.0
       tweetnacl: 1.0.3
     devDependencies:
@@ -2811,6 +2811,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
+    dev: false
 
   /@babel/runtime/7.20.13:
     resolution: {integrity: sha512-gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA==}
@@ -4304,17 +4305,17 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       '@mysten/bcs': 0.3.0
-      '@noble/hashes': 1.1.5
+      '@noble/hashes': 1.3.0
       '@noble/secp256k1': 1.7.1
-      '@scure/bip32': 1.1.3
-      '@scure/bip39': 1.1.0
+      '@scure/bip32': 1.3.0
+      '@scure/bip39': 1.2.0
       bn.js: 5.2.1
       buffer: 6.0.3
       cross-fetch: 3.1.5
       jayson: 3.7.0
       js-sha3: 0.8.0
       lossless-json: 1.0.5
-      rpc-websockets: 7.5.0
+      rpc-websockets: 7.5.1
       tweetnacl: 1.0.3
     transitivePeerDependencies:
       - bufferutil
@@ -4329,7 +4330,7 @@ packages:
       '@mysten/bcs': 0.7.0
       '@noble/hashes': 1.3.0
       '@noble/secp256k1': 1.7.1
-      '@scure/bip32': 1.2.0
+      '@scure/bip32': 1.3.0
       '@scure/bip39': 1.2.0
       '@suchipi/femver': 1.0.0
       jayson: 4.0.0
@@ -4343,6 +4344,25 @@ packages:
 
   /@mysten/sui.js/0.32.2:
     resolution: {integrity: sha512-/Hm4xkGolJhqj8FvQr7QSHDTlxIvL52mtbOao9f75YjrBh7y1Uh9kbJSY7xiTF1NY9sv6p5hUVlYRJuM0Hvn9A==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@mysten/bcs': 0.7.1
+      '@noble/curves': 1.0.0
+      '@noble/hashes': 1.3.0
+      '@scure/bip32': 1.3.0
+      '@scure/bip39': 1.2.0
+      '@suchipi/femver': 1.0.0
+      jayson: 4.0.0
+      rpc-websockets: 7.5.1
+      superstruct: 1.0.3
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /@mysten/sui.js/0.33.0:
+    resolution: {integrity: sha512-vPswzowPoxYmexN+jKrSQ5uKWv8AoX30c11t8VAODCCXeCziq7Y27TEcYFsQmWJBIMU/hYw75kGj9oorJyXyKw==}
     engines: {node: '>=16'}
     dependencies:
       '@mysten/bcs': 0.7.1
@@ -4391,10 +4411,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard/0.5.4:
-    resolution: {integrity: sha512-T5lS95iWnoLMrIf3kRArLdlYwLf7dNVRfCThvNQiwHPEG35UOGXzDPNLSX6m5WcMOjFIuToIyCWXqVfq97AC3Q==}
+  /@mysten/wallet-standard/0.5.5:
+    resolution: {integrity: sha512-Tt34zmvAWz37lOqwj0eneekcXRQSLWkd7FVKTta08H9bD5P5kAXNInpl7KBoobtdMSQdHJyJJvHirfM6hwiPDw==}
     dependencies:
-      '@mysten/sui.js': 0.32.2
+      '@mysten/sui.js': 0.33.0
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - bufferutil
@@ -4407,21 +4427,10 @@ packages:
       eslint-scope: 5.1.1
     dev: true
 
-  /@noble/curves/0.8.3:
-    resolution: {integrity: sha512-OqaOf4RWDaCRuBKJLDURrgVxjLmneGsiCXGuzYB5y95YithZMA6w4uk34DHSm0rKMrrYiaeZj48/81EvaAScLQ==}
-    dependencies:
-      '@noble/hashes': 1.3.0
-    dev: true
-
   /@noble/curves/1.0.0:
     resolution: {integrity: sha512-2upgEu0iLiDVDZkNLeFV2+ht0BAVgQnEmCk6JsOch9Rp8xfkMCbvbAZlA2pBHQc73dbl+vFOXfqkf4uemdn0bw==}
     dependencies:
       '@noble/hashes': 1.3.0
-    dev: false
-
-  /@noble/hashes/1.1.5:
-    resolution: {integrity: sha512-LTMZiiLc+V4v1Yi16TD6aX2gmtKszNye0pQgbaLqkvhIqP7nVsSaJsWloGQjJfJ8offaoP5GtX3yY5swbcJxxQ==}
-    dev: true
 
   /@noble/hashes/1.3.0:
     resolution: {integrity: sha512-ilHEACi9DwqJB0pw7kv+Apvh50jiiSyR/cQ3y4W7lOR5mhvn/50FLUfsnfJz0BDZtl/RR16kXvptiv6q1msYZg==}
@@ -4874,36 +4883,12 @@ packages:
   /@scure/base/1.1.1:
     resolution: {integrity: sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==}
 
-  /@scure/bip32/1.1.3:
-    resolution: {integrity: sha512-dSH3+LCWONlSNQuF34xZrG6Xas7tp2jSSqHb/pMfXWM0vKE4JZOtK3uJfoWouUVW5IGlls75HkXmYLldZ8ySgQ==}
-    dependencies:
-      '@noble/hashes': 1.1.5
-      '@noble/secp256k1': 1.7.1
-      '@scure/base': 1.1.1
-    dev: true
-
-  /@scure/bip32/1.2.0:
-    resolution: {integrity: sha512-O+vT/hBVk+ag2i6j2CDemwd1E1MtGt+7O1KzrPNsaNvSsiEK55MyPIxJIMI2PS8Ijj464B2VbQlpRoQXxw1uHg==}
-    dependencies:
-      '@noble/curves': 0.8.3
-      '@noble/hashes': 1.3.0
-      '@scure/base': 1.1.1
-    dev: true
-
   /@scure/bip32/1.3.0:
     resolution: {integrity: sha512-bcKpo1oj54hGholplGLpqPHRbIsnbixFtc06nwuNM5/dwSXOq/AAYoIBRsBmnZJSdfeNW5rnff7NTAz3ZCqR9Q==}
     dependencies:
       '@noble/curves': 1.0.0
       '@noble/hashes': 1.3.0
       '@scure/base': 1.1.1
-    dev: false
-
-  /@scure/bip39/1.1.0:
-    resolution: {integrity: sha512-pwrPOS16VeTKg98dYXQyIjJEcWfz7/1YJIwxUEPFfQPtc86Ym/1sVgQ2RLoD43AazMk2l/unK4ITySSpW2+82w==}
-    dependencies:
-      '@noble/hashes': 1.1.5
-      '@scure/base': 1.1.1
-    dev: true
 
   /@scure/bip39/1.2.0:
     resolution: {integrity: sha512-SX/uKq52cuxm4YFXWFaVByaSHJh2w3BnokVSeUJVCv6K7WulT9u2BuNRBhuFl8vAuYnzx9bEu9WgpcNYTrYieg==}
@@ -5493,14 +5478,14 @@ packages:
   /@types/bonjour/3.5.10:
     resolution: {integrity: sha512-p7ienRMiS41Nu2/igbJxxLDWrSZ0WxM8UQgCeO9KhoVF7cOVFkrKsiDr1EsJIla8vV3oEEjGcz11jc5yimhzZw==}
     dependencies:
-      '@types/node': 18.11.18
+      '@types/node': 18.15.11
     dev: false
 
   /@types/connect-history-api-fallback/1.3.5:
     resolution: {integrity: sha512-h8QJa8xSb1WD4fpKBDcATDNGXghFj6/3GRWG6dhmRcu0RX1Ubasur2Uvx5aeEwlf0MwblEC2bMzzMQntxnw/Cw==}
     dependencies:
       '@types/express-serve-static-core': 4.17.31
-      '@types/node': 18.11.18
+      '@types/node': 18.15.11
     dev: false
 
   /@types/connect/3.4.35:
@@ -5651,9 +5636,6 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node/18.11.18:
-    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
-
   /@types/node/18.15.11:
     resolution: {integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==}
 
@@ -5758,13 +5740,13 @@ packages:
     resolution: {integrity: sha512-z5xyF6uh8CbjAu9760KDKsH2FcDxZ2tFCsA4HIMWE6IkiYMXfVoa+4f9KX+FN0ZLsaMw1WNG2ETLA6N+/YA+cg==}
     dependencies:
       '@types/mime': 3.0.1
-      '@types/node': 18.11.18
+      '@types/node': 18.15.11
     dev: false
 
   /@types/sockjs/0.3.33:
     resolution: {integrity: sha512-f0KEEe05NvUnat+boPTZ0dgaLZ4SfSouXUgv5noUiefG2ajgKjmETo9ZJyuqsl7dfl2aHlLJUiki6B4ZYldiiw==}
     dependencies:
-      '@types/node': 18.11.18
+      '@types/node': 18.15.11
     dev: false
 
   /@types/stack-utils/2.0.1:
@@ -5787,7 +5769,7 @@ packages:
   /@types/ws/8.5.3:
     resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
     dependencies:
-      '@types/node': 18.11.18
+      '@types/node': 18.15.11
     dev: false
 
   /@types/yargs-parser/21.0.0:
@@ -6820,7 +6802,7 @@ packages:
   /broadcast-channel/3.7.0:
     resolution: {integrity: sha512-cIAKJXAxGJceNZGTZSBzMxzyOn72cVgPnKx4dc6LRjQgbaJUQqhy5rzL3zbMxkMWsGKkv2hSFkPRMEXfoMZ2Mg==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       detect-node: 2.1.0
       js-sha3: 0.8.0
       microseconds: 0.2.0
@@ -8827,7 +8809,7 @@ packages:
     resolution: {integrity: sha512-EzV94NYKoO09GLXGjXj9JIlXijVck4ONSr5wiCWDvhsvj5jxSrzTmRU/9C1DyB6uToszLs8aifA6NQ7lEQdvFw==}
     engines: {node: '>= 0.8'}
     dependencies:
-      '@types/node': 18.11.18
+      '@types/node': 18.15.11
       require-like: 0.1.2
     dev: false
 
@@ -10962,7 +10944,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.11.18
+      '@types/node': 18.15.11
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -11527,7 +11509,7 @@ packages:
   /match-sorter/6.3.1:
     resolution: {integrity: sha512-mxybbo3pPNuA+ZuCUhm5bwNkXrJTbsk5VWbR5wiwz/GC6LIiegBGn2w3O08UG/jdbYLinw51fSQ5xNU1U3MgBw==}
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       remove-accents: 0.4.2
     dev: false
 
@@ -13196,7 +13178,7 @@ packages:
       react: ^16.6.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.6.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.19.0
+      '@babel/runtime': 7.20.13
       invariant: 2.2.4
       prop-types: 15.8.1
       react: 18.2.0
@@ -13744,18 +13726,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
-
-  /rpc-websockets/7.5.0:
-    resolution: {integrity: sha512-9tIRi1uZGy7YmDjErf1Ax3wtqdSSLIlnmL5OtOzgd5eqPKbsPpwDP5whUDO2LQay3Xp0CcHlcNSGzacNRluBaQ==}
-    dependencies:
-      '@babel/runtime': 7.20.13
-      eventemitter3: 4.0.7
-      uuid: 8.3.2
-      ws: 8.12.0_3cxu5zja4e2r5wmvge7mdcljwq
-    optionalDependencies:
-      bufferutil: 4.0.7
-      utf-8-validate: 5.0.10
     dev: true
 
   /rpc-websockets/7.5.1:
@@ -14786,7 +14756,7 @@ packages:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 28.1.3_rrli7kzx2akox3oq6aahu3rvje
+      jest: 28.1.3
       jest-util: 28.1.3
       json5: 2.2.1
       lodash.memoize: 4.1.2
