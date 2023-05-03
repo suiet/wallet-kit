@@ -16,6 +16,7 @@ import {
 
 export interface IWallet {
   name: string;
+  label: string;
   adapter: IWalletAdapter | undefined;
   installed: boolean | undefined;
   iconUrl: string;
