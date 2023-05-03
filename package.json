@@ -8,6 +8,7 @@
     "prettier": "prettier --write --ignore-unknown .",
     "lint": "eslint --ext=.js,.js,.tsx,.ts .",
     "lint:fix": "eslint --fix --ext=.js,.js,.tsx,.ts .",
+    "test": "pnpm recursive run test",
     "prepare": "husky install",
     "ci:publish": "pnpm publish -r --no-git-checks --access public",
     "exp:publish": "pnpm publish -r --no-git-checks --access public --tag experimental",
