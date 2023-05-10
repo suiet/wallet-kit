@@ -20,7 +20,7 @@ So you need to wrap all the kit hooks and components under `WalletProvider` befo
 
 ```jsx
 import ReactDOM from 'react-dom';
-import { useWallet } from '@suiet/wallet-kit';
+import { WalletProvider } from '@suiet/wallet-kit';
 
 function Root() {
   // wrap your app component
