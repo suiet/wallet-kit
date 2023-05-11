@@ -7,6 +7,7 @@ export const AllDefaultWallets = [
   presets.SuiWallet,
   ...[
     presets.EthosWallet,
+    presets.FrontierWallet,
     presets.MartianWallet,
     presets.SurfWallet,
     presets.MorphisWallet,
