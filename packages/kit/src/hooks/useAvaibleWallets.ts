@@ -6,7 +6,7 @@ import {isNonEmptyArray} from "../utils";
 export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
   const {data: availableWalletAdapters} = useWalletAdapterDetection()
   // configured wallets
-  const configuredWallets = useMemo(() => {
+  const configuredWallets: IWallet[] = useMemo(() => {
     if (!isNonEmptyArray(defaultWallets)) return [];
     if (!isNonEmptyArray(availableWalletAdapters)) {
       return defaultWallets.map(item => ({
@@ -34,7 +34,7 @@ export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
   }, [defaultWallets, availableWalletAdapters])
 
   // detected wallets
-  const detectedWallets = useMemo(() => {
+  const detectedWallets: IWallet[] = useMemo(() => {
     if (!isNonEmptyArray(availableWalletAdapters)) return [];
     return availableWalletAdapters.filter(adapter => {
       // filter adapters not shown in the configured list
@@ -43,6 +43,7 @@ export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
       // normalized detected adapter to IWallet
       return {
         name: adapter.name,
+        label: adapter.name,
         adapter: adapter,
         installed: true,
         iconUrl: adapter.icon,
@@ -54,7 +55,7 @@ export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
   }, [defaultWallets, availableWalletAdapters]);
 
   // filter installed wallets
-  const allAvailableWallets = useMemo(() => {
+  const allAvailableWallets: IWallet[] = useMemo(() => {
     return [
       ...configuredWallets,
       ...detectedWallets,
