@@ -15,5 +15,6 @@ export const AllDefaultWallets = [
     presets.SpacecyWallet,
     presets.NightlyWallet,
     presets.ElliWallet,
+    presets.VoloSafeWallet,
   ].sort((a, b) => a.name < b.name ? -1 : 1),
 ];
