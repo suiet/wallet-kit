@@ -13,9 +13,16 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
   "dependencies": {
     "@mysten/sui.js": "0.34.1",
     "@mysten/wallet-standard": "0.5.7",
