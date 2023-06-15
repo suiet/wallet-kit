@@ -41,7 +41,7 @@ importers:
   packages/kit:
     specifiers:
       '@mysten/sui.js': 0.36.0
-      '@mysten/wallet-standard': 0.5.9
+      '@mysten/wallet-standard': 0.5.10
       '@radix-ui/react-dialog': ^1.0.2
       '@semantic-release/changelog': ^6.0.1
       '@semantic-release/npm': ^9.0.1
@@ -78,7 +78,7 @@ importers:
       vite-plugin-svgr: ^2.2.1
     dependencies:
       '@mysten/sui.js': 0.36.0
-      '@mysten/wallet-standard': 0.5.9
+      '@mysten/wallet-standard': 0.5.10
       '@radix-ui/react-dialog': 1.0.2_2zx2umvpluuhvlq44va5bta2da
       '@suiet/wallet-sdk': link:../sdk
       '@svgr/rollup': 6.5.1
@@ -118,7 +118,7 @@ importers:
   packages/sdk:
     specifiers:
       '@mysten/sui.js': 0.36.0
-      '@mysten/wallet-standard': 0.5.9
+      '@mysten/wallet-standard': 0.5.10
       '@noble/hashes': ^1.3.0
       '@rollup/plugin-babel': ^5.3.1
       '@rollup/plugin-commonjs': ^22.0.2
@@ -140,7 +140,7 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@mysten/sui.js': 0.36.0
-      '@mysten/wallet-standard': 0.5.9
+      '@mysten/wallet-standard': 0.5.10
       '@noble/hashes': 1.3.0
       tweetnacl: 1.0.3
     devDependencies:
@@ -4294,12 +4294,6 @@ packages:
       bs58: 5.0.0
     dev: true
 
-  /@mysten/bcs/0.7.1:
-    resolution: {integrity: sha512-wFPb8bkhwrbiStfZMV5rFM7J+umpke59/dNjDp+UYJKykNlW23LCk2ePyEUvGdb62HGJM1jyOJ8g4egE3OmdKA==}
-    dependencies:
-      bs58: 5.0.0
-    dev: false
-
   /@mysten/bcs/0.7.2:
     resolution: {integrity: sha512-M8aUGFwoBEj9XPCJcYuVlv8UbqBINAYhrDGLavdCYZwGlN5saGgrBcnGpXk+D2/Vp+aEUFh3RCyKudn7H0G9hQ==}
     dependencies:
@@ -4347,25 +4341,6 @@ packages:
       - bufferutil
       - utf-8-validate
     dev: true
-
-  /@mysten/sui.js/0.35.1:
-    resolution: {integrity: sha512-1UQ65oJhO+G5Bt+EWYqMs5y3eqY1ZZxEdB2y4K+XJVeRZBOy32GjSLiYmZufUAR9o53gAlwAvvNRIzMzuiNQzw==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@mysten/bcs': 0.7.1
-      '@noble/curves': 1.0.0
-      '@noble/hashes': 1.3.0
-      '@open-rpc/client-js': 1.8.1
-      '@scure/bip32': 1.3.0
-      '@scure/bip39': 1.2.0
-      '@suchipi/femver': 1.0.0
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
 
   /@mysten/sui.js/0.36.0:
     resolution: {integrity: sha512-l/gZUxlr0oHgnwuHYxIVp+JOrdj1imhffL5iK25JYh3WV4sTxiQntCLuSen6etXyFG9c1l2GNvVaGZaV3mb4Hw==}
@@ -4417,10 +4392,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard/0.5.9:
-    resolution: {integrity: sha512-il7pgizfhSrCEX4yVEZu/8f4rs6/FUTP72oX34jtNjAHbRtYaI+aFSuLg8G2D0BbPqPumAjOSfluQ6OVyJGLfQ==}
+  /@mysten/wallet-standard/0.5.10:
+    resolution: {integrity: sha512-ruoyvY2i42k8rM4RnQo3Xe2ngqBf5ZTqMw/NgyIewt+TxOr/FK8v9azjjFig9vpMA6w0PvmemHaOmL1kUzCbgw==}
     dependencies:
-      '@mysten/sui.js': 0.35.1
+      '@mysten/sui.js': 0.36.0
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - bufferutil
