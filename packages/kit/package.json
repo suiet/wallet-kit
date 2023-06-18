@@ -35,9 +35,7 @@
     "classnames": "^2.3.2",
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.0",
-    "react-query": "^3.39.2",
-    "tweetnacl": "^1.0.3",
-    "type-fest": "^3.2.0"
+    "react-query": "^3.39.2"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.1",
