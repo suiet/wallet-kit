@@ -3,6 +3,8 @@ title: Connect your DApp with wallets on Sui
 sidebar_position: 1
 ---
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wEXTtDYU_EE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 When do we consider a web application a DApp? It's when the web app leverages smart contracts to provide services for users. Wallet plays an important role in this interaction where it connects users with DApps. So before you start to build something amazing, you need to connect your dapp with wallets.
 
 [Suiet Wallet Kit](https://kit.suiet.app/) is an all-in-one wallet connection toolkit that follows the wallet standard of Sui for DApps. With out-of-the-box UI components and well-defined utility functions, you can easily empower your dapp with the ability to interact with wallets in an elegant way.
@@ -12,6 +14,7 @@ When do we consider a web application a DApp? It's when the web app leverages sm
 In this tutorial, I want to show you how easy it could be to connect your dapp with all the wallets in the Sui ecosystem using Suiet Wallet Kit.
 
 > Tips: Suiet wallet kit only supports React.js projects for now.
+
 
 # Learning Highlights
 
