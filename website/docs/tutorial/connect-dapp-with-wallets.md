@@ -16,17 +16,17 @@ In this tutorial, I want to show you how easy it could be to connect your dapp w
 > Tips: Suiet wallet kit only supports React.js projects for now.
 
 
-# Learning Highlights
+## Learning Highlights
 
 - Install and configure Suiet Wallet Kit for a React-based DApp
 - Connect the DApp with all the wallets on Sui
 - Use wallet capabilities (display wallet status and account info, send transactions etc)
 
-# Getting started
+## Getting started
 
 In this section, I am going to walk you through the installation and configuration for Suiet wallet kit.
 
-## Installation
+### Installation
 
 Suiet Wallet Kit is a decent wrapper for the official Typescript SDK `@mysten/sui.js` , which handles all the tedious details of wallet connection for you. Therefore, we need to install `@mysten/sui.js` along with the kit `@suiet/wallet-kit`.
 
@@ -36,7 +36,7 @@ Suiet Wallet Kit is a decent wrapper for the official Typescript SDK `@mysten/su
 npm install @mysten/sui.js @suiet/wallet-kit
 ```
 
-## Setup WalletProvider for the App
+### Setup WalletProvider for the App
 
 Next, let's import the `WalletProvider` and setup for your react project such that your App becomes available to access the states and functions provided by Suiet Wallet Kit.
 
@@ -61,7 +61,7 @@ root.render(
 );
 ```
 
-## Place ConnectButton
+### Place ConnectButton
 
 In Suiet Wallet Kit, we provide out-of-the-box UI components in good designs. What you need to do is just import and place the `ConnectButton` to wherever you like.
 
@@ -79,7 +79,7 @@ sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-ori
 ></iframe>
 
 
-# Connect to all the wallets on Sui
+## Connect to all the wallets on Sui
 
 After the preparation above, we are ready to connect to wallets. Suiet wallet kit provides a list of the most popular wallets in the Sui ecosystem. Users can choose their favorite one at their wish.
 
@@ -99,13 +99,13 @@ Once user approves the request, the connection would be completed, which means w
 
 ![image-20230606235707863](/img/image-20230606235707863.png)
 
-# Use wallet capabilities
+## Use wallet capabilities
 
 It's time to take a look at the most useful hook [useWallet](https://kit.suiet.app/docs/Hooks/useWallet). It retrieves all the properties and functions from [WalletProvider](https://kit.suiet.app/docs/components/walletprovider), with which you can make use of the account properties and call functions to a connected wallet.
 
 In the following sections, I will show you some basic usages with the hook `useWallet`.
 
-## Display info of the connected wallet
+### Display info of the connected wallet
 
 We can get several useful information from the connected wallet via Suiet wallet kit:
 
@@ -196,7 +196,7 @@ There you go! So far you should be able to play with the all the properties prov
 
 [![Edit competent-banach-ykeyv5](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/competent-banach-ykeyv5?fontsize=14&hidenavigation=1&theme=dark)
 
-## Execute a simple transaction
+### Execute a simple transaction
 
 Now we've come to the most interesting part: sending transactions. With Sui SDK `@mysten/sui.js`, we are able to use [Programmable Transaction](https://docs.sui.io/testnet/build/prog-trans-ts-sdk), one of Sui’s most powerful core developer primitives, to create any type of transactions to interact with smart contracts on Sui.
 
@@ -323,7 +323,7 @@ If everything works, you should see a popup saying "your nft is minted!". Now ch
 
 If you made this far, then congratulations! Your dapp is equipped with the power to interact with wallets and users. Don't hesitate, go and keep on making your dapp more interesting and powerful!
 
-# What's more
+## What's more
 
 In fact, with Suiet wallet kit, connecting to wallets is just a simple step. I would like to provide a list of topics that you might explore more:
 
@@ -341,7 +341,7 @@ In fact, with Suiet wallet kit, connecting to wallets is just a simple step. I w
     - [WalletProvider](https://kit.suiet.app/docs/components/WalletProvider#description)
     - [Types](https://kit.suiet.app/docs/Types)
 
-# The End
+## The End
 
 In this tutorial, we introduce how to install and make use of Suiet wallet kit to empower your DApp with the ability to connect to all the wallets on Sui and use wallet's capabilities such as fetching user account's info and sign and executing a transaction block.
 
