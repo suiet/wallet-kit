@@ -71,6 +71,8 @@ function App() {
       alignItems: 'center',
     }}>
       <ConnectButton
+        className={'aaa'}
+        style={{marginTop: '16px'}}
         onConnectSuccess={(name) => {
           console.log('connect success: ', name)
         }}
