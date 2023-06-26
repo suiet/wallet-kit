@@ -9,8 +9,8 @@ import {SuiChainId} from "./chain";
 import {formatSUI} from "@suiet/wallet-sdk";
 
 const sampleNft = new Map([
-  ['sui:devnet', '0x37b32a726c348b9198ffc22f63a97cb36c01f257258af020cecea8a82575dd56::nft::mint'],
-  ['sui:testnet', '0x57c53166c2b04c1f1fc93105b39b6266cb1eccbe654f5d2fc89d5b44524b11fd::nft::mint'],
+  ['sui:devnet', '0xe146dbd6d33d7227700328a9421c58ed34546f998acdc42a1d05b4818b49faa2::nft::mint'],
+  ['sui:testnet', '0x5ea6aafe995ce6506f07335a40942024106a57f6311cb341239abf2c3ac7b82f::nft::mint'],
   ['sui:mainnet', '0x5b45da03d42b064f5e051741b6fed3b29eb817c7923b83b92f37a1d2abf4fbab::nft::mint']
 ])
 

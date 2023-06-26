@@ -1,17 +1,17 @@
-import suietLogo from './assets/suiet-logo.svg'
-import './App.css'
+"use client";  // In Next.js, this is required to prevent the component from being rendered on the server.
+
+import Image from 'next/image'
 import {
+  addressEllipsis,
   ConnectButton,
-  useAccountBalance,
-  useWallet,
-  SuiChainId,
   ErrorCode,
-  formatSUI
+  formatSUI,
+  SuiChainId,
+  useAccountBalance,
+  useWallet
 } from "@suiet/wallet-kit";
-import '@suiet/wallet-kit/style.css';
-import * as tweetnacl from 'tweetnacl'
-import {TransactionBlock, fromB64} from '@mysten/sui.js'
 import {useMemo} from "react";
+import {TransactionBlock} from "@mysten/sui.js";
 
 const sampleNft = new Map([
   ['sui:devnet', '0xe146dbd6d33d7227700328a9421c58ed34546f998acdc42a1d05b4818b49faa2::nft::mint'],
@@ -19,8 +19,9 @@ const sampleNft = new Map([
   ['sui:mainnet', '0x5b45da03d42b064f5e051741b6fed3b29eb817c7923b83b92f37a1d2abf4fbab::nft::mint'],
 ])
 
-function App() {
-  const wallet = useWallet();
+
+export default function Home() {
+  const wallet = useWallet()
   const {balance} = useAccountBalance();
   const nftContractAddr = useMemo(() => {
     if (!wallet.chain) return '';
@@ -91,17 +92,45 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo"/>
-        </a>
-        <a href="https://github.com/suiet/wallet-kit" target="_blank">
-          <img src={suietLogo} className="logo" alt="Suiet logo"/>
-        </a>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+          Get started by editing&nbsp;
+          <code className="font-mono font-bold">app/page.tsx</code>
+        </p>
+        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+          <a
+            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
+            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            By{' '}
+            <Image
+              src="/vercel.svg"
+              alt="Vercel Logo"
+              className="dark:invert"
+              width={100}
+              height={24}
+              priority
+            />
+          </a>
+        </div>
       </div>
-      <h1>Vite + Suiet Kit</h1>
-      <div className="card">
+
+      <div className="relative flex flex-col place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
+        <Image
+          className="logo relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert mb-8"
+          src="/suiet-logo.svg"
+          alt="Suiet Logo"
+          width={180}
+          height={37}
+          priority
+          onClick={() => {
+            window.open('https://github.com/suiet/wallet-kit', '_blank')
+          }}
+        />
+
         <ConnectButton
           onConnectError={(error) => {
             if (error.code === ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED) {
@@ -113,9 +142,9 @@ function App() {
         />
 
         {!wallet.connected ? (
-          <p>Connect DApp with Suiet wallet from now!</p>
+          <p className={'my-8'}>Connect DApp with Suiet wallet from now!</p>
         ) : (
-          <div>
+          <div className={'my-8'}>
             <div>
               <p>current wallet: {wallet.adapter?.name}</p>
               <p>
@@ -126,27 +155,23 @@ function App() {
                     ? 'connected'
                     : 'disconnected'}
               </p>
-              <p>wallet address: {wallet.account?.address}</p>
+              <p>wallet address: {addressEllipsis(wallet.account?.address ?? '')}</p>
               <p>current network: {wallet.chain?.name}</p>
               <p>wallet balance: {formatSUI(balance ?? 0, {
                 withAbbr: false
               })} SUI</p>
-              <p>wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}</p>
             </div>
-            <div className={'btn-group'} style={{margin: '8px 0'}}>
+            <div className={'flex flex-col my-8'}>
               {nftContractAddr && (
                 <button onClick={() => handleExecuteMoveCall(nftContractAddr)}>Mint {chainName(wallet.chain?.id)} NFT</button>
               )}
-              <button onClick={handleSignMsg}>signMessage</button>
+              <button className={'mt-4'} onClick={handleSignMsg}>signMessage</button>
             </div>
           </div>
         )}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and Suiet logos to learn more
-      </p>
-    </div>
+
+      <div></div>
+    </main>
   )
 }
-
-export default App
