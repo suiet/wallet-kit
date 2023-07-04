@@ -75,7 +75,7 @@ const WalletItem = (props: WalletItemProps) => {
         className={'wkit-select-item__icon'}
         elClassName={'wkit-select-item__icon'}
       />
-      {wallet.name}
+      {wallet.label ?? wallet.name}
     </div>
   )
 }

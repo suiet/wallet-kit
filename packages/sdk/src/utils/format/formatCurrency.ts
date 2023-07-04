@@ -145,7 +145,7 @@ function formatCurrencyBigInt(
   return format(_amount, withAbbr);
 }
 
-function isSafeToConvertToNumber(bigintValue: string | bigint) {
+function isSafeToConvertToNumber(bigintValue: bigint) {
   const minValue = Number.MIN_SAFE_INTEGER; // -9007199254740991
   const maxValue = Number.MAX_SAFE_INTEGER; // 9007199254740991
 
