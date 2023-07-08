@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mysten/sui.js": "0.34.0",
-    "@suiet/wallet-kit": "0.2.11",
+    "@mysten/sui.js": "0.36.0",
+    "@suiet/wallet-kit": "0.2.15",
     "@types/node": "18.11.11",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",

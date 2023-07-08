@@ -9,8 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mysten/sui.js": "0.34.0",
-    "@suiet/wallet-kit": "0.2.11",
+    "@mysten/sui.js": "0.36.0",
+    "@suiet/wallet-kit": "0.2.15",
+    "events": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tweetnacl": "^1.0.3"
