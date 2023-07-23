@@ -3,13 +3,12 @@ import React, {useCallback, useState} from 'react';
 import './index.scss';
 import { useWallet } from '../../hooks/useWallet';
 import { Extendable } from '../../types/utils';
-import { addressEllipsis } from "../../utils/addressEllipsis";
-import { formatCurrency } from '../../utils/formatCurrency';
 import { SvgArrowDown } from '../Icon/SvgIcons';
 import type {WalletAccount} from "@mysten/wallet-standard";
 import {useAccountBalance} from "../../hooks";
 import {UnknownChain} from "../../chain/constants";
 import {BaseError} from "../../errors";
+import { formatSUI, addressEllipsis } from '@suiet/wallet-sdk';
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
@@ -27,7 +26,7 @@ function WalletInfo(props: ConnectButtonProps) {
       return <>Unknown Chain</>
     }
     // TODO: formatCurrency supports bigint
-    return <>{formatCurrency(Number(balance))} SUI</>
+    return <>{formatSUI(balance ?? 0)} SUI</>
   }, [balance, chain])
 
   if (!connected) return null;

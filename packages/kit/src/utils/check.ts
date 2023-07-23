@@ -10,6 +10,6 @@ export function isStandardWalletAdapterCompatibleWallet(
   return (
     "standard:connect" in wallet.features &&
     "standard:events" in wallet.features &&
-    "sui:signAndExecuteTransaction" in wallet.features
+    "sui:signAndExecuteTransactionBlock" in wallet.features
   );
 }

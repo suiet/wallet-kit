@@ -1,33 +1,39 @@
-import React from 'react';
+import
+  React from 'react';
 import ReactDOM from 'react-dom/client';
 import {ConnectButton, WalletProvider} from './components';
-import {useWallet} from "./hooks";
-import * as tweetnacl from 'tweetnacl';
+import {useAccountBalance, useWallet} from "./hooks";
 import {ErrorCode} from "./errors";
+import {TransactionBlock} from "@mysten/sui.js";
+import {SuiChainId} from "./chain";
+import {formatSUI} from "@suiet/wallet-sdk";
+
+const sampleNft = new Map([
+  ['sui:devnet', '0xe146dbd6d33d7227700328a9421c58ed34546f998acdc42a1d05b4818b49faa2::nft::mint'],
+  ['sui:testnet', '0x5ea6aafe995ce6506f07335a40942024106a57f6311cb341239abf2c3ac7b82f::nft::mint'],
+  ['sui:mainnet', '0x5b45da03d42b064f5e051741b6fed3b29eb817c7923b83b92f37a1d2abf4fbab::nft::mint']
+])
 
 function App() {
   const wallet = useWallet()
-  async function handleExecuteMoveCall() {
+  const {balance} = useAccountBalance()
+
+
+  async function handleExecuteMoveCall(target: string | undefined) {
+    if (!target) return;
     try {
-      const data = {
-        packageObjectId: '0x2',
-        module: 'devnet_nft',
-        function: 'mint',
-        typeArguments: [],
+      const tx = new TransactionBlock()
+      tx.moveCall({
+        target: target as any,
         arguments: [
-          'name',
-          'capy',
-          'https://cdn.britannica.com/94/194294-138-B2CF7780/overview-capybara.jpg?w=800&h=450&c=crop',
-        ],
-        gasBudget: 10000,
-      };
-      const resData = await wallet.signAndExecuteTransaction({
-        transaction: {
-          kind: 'moveCall',
-          data
-        }
+          tx.pure('Suiet NFT'),
+          tx.pure('Suiet Sample NFT'),
+          tx.pure('https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4')
+        ]
+      })
+      const resData = await wallet.signAndExecuteTransactionBlock({
+        transactionBlock: tx,
       });
-      // const resData = await executeMoveCall(data);
       console.log('executeMoveCall success', resData);
       alert('executeMoveCall succeeded (see response in the console)');
     } catch (e) {
@@ -40,28 +46,22 @@ function App() {
     try {
       const msg = 'Hello world!'
       const result = await wallet.signMessage({
-        message: new TextEncoder().encode('Hello world')
+        message: new TextEncoder().encode(msg)
       })
-      if (!result) {
-        alert('signMessage return null')
-        return
-      }
-      console.log('send message to be signed', msg)
-      const textDecoder = new TextDecoder()
-      console.log('signMessage success', result)
-      console.log('signMessage signature', result.signature)
-      console.log('signMessage signedMessage', textDecoder.decode(result.signedMessage).toString())
-      console.log('verify via tweetnacl', tweetnacl.sign.detached.verify(
-        result.signedMessage,
-        result.signature,
-        wallet.account?.publicKey as Uint8Array,
-      ))
+      console.log('verify signedMessage', wallet.verifySignedMessage(result))
       alert('signMessage succeeded (see response in the console)')
     } catch (e) {
       console.error('signMessage failed', e)
       alert('signMessage failed (see response in the console)')
     }
   }
+
+  function getPublicKey() {
+    // @ts-ignore
+    return wallet.account?.publicKey.toString('hex');
+  }
+
+// @ts-ignore
   return (
     <div style={{
       height: '100vh',
@@ -71,7 +71,9 @@ function App() {
       alignItems: 'center',
     }}>
       <ConnectButton
-        onConnectSuccess={(name) => {console.log('connect success: ', name)}}
+        onConnectSuccess={(name) => {
+          console.log('connect success: ', name)
+        }}
         onConnectError={(err) => {
           if (err.code === ErrorCode.WALLET__CONNECT_ERROR__USER_REJECTED) {
             console.warn('user rejected the connection to ' + err.details?.wallet)
@@ -79,8 +81,12 @@ function App() {
             console.warn('unknown connect error: ', err)
           }
         }}
-        onDisconnectSuccess={(name) => {console.log('disconnect success: ', name)}}
-        onDisconnectError={(err) => {console.log('disconnect error: ', err)}}
+        onDisconnectSuccess={(name) => {
+          console.log('disconnect success: ', name)
+        }}
+        onDisconnectError={(err) => {
+          console.log('disconnect error: ', err)
+        }}
       />
 
       {!wallet.connected ? (
@@ -97,12 +103,18 @@ function App() {
                   ? 'connected'
                   : 'disconnected'}
             </p>
-            <p>wallet address: {wallet.account?.address}</p>
-            <p>current network: {wallet.chain?.name}</p>
+            <p>account address: {wallet.account?.address}</p>
+            <p>account publicKey: {getPublicKey() || 'not supported'}</p>
+            <p>current chain: {wallet.chain?.name} (id: {wallet.chain?.id})</p>
+            <p>SUI Balance: {formatSUI(balance ?? 0)} (id: {wallet.chain?.id})</p>
           </div>
-          <div style={{ margin: '8px 0' }}>
-            <button onClick={handleExecuteMoveCall}>executeMoveCall</button>
-            <button style={{ marginLeft: '8px' }} onClick={handleSignMsg}>signMessage</button>
+          <div style={{margin: '8px 0'}}>
+            {wallet.chain?.id === SuiChainId.TestNET ? (
+              <button onClick={() => handleExecuteMoveCall(sampleNft.get('sui:testnet'))}>Testnet Mint NFT</button>
+            ) : (
+              <button onClick={() => handleExecuteMoveCall(sampleNft.get('sui:devnet'))}>Devnet Mint NFT</button>
+            )}
+            <button style={{marginLeft: '8px'}} onClick={handleSignMsg}>signMessage</button>
           </div>
         </div>
       )}
@@ -113,7 +125,7 @@ function App() {
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <WalletProvider>
-      <App />
+      <App/>
     </WalletProvider>
   </React.StrictMode>
 );

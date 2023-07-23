@@ -11,30 +11,31 @@ import {
   Chain,
   SuiDevnetChain,
   SuiTestnetChain,
+  SuiMainnetChain,
   DefaultChains,
-} from '@suiet/wallet-kit';
+} from "@suiet/wallet-kit";
 
 const customChain: Chain = {
   id: "",
   name: "",
-  rpcUrl: ""
-}
+  rpcUrl: "",
+};
 
 const SupportedChains: Chain[] = [
   // ...DefaultChains,
   SuiDevnetChain,
   SuiTestnetChain,
+  SuiMainnetChain,
   // NOTE: you can add custom chain (network),
   // but make sure the connected wallet does support it
   // customChain,
-]
+];
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <WalletProvider chains={SupportedChains}>
-      <App/>
+      <App />
     </WalletProvider>
   </React.StrictMode>
-)
-
+);
 ```

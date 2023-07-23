@@ -6,3 +6,4 @@ export * from './types';
 export * from './wallet';
 export * from './chain';
 export * from './errors';
+export * from '@suiet/wallet-sdk';

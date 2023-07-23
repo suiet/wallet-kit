@@ -18,10 +18,9 @@ This hook is internally **JUST** importing the `JsonRpcProvider` interface and *
 import { useSuiProvider } from '@suiet/wallet';
 function YourComponent() {
   const {
-    getObjectsOwnedByAddress,
-    getEventsByTransaction,
-    getEventsBySender,
-
+    getObject,
+    getOwnedObjects,
+    getBalance,
     // ... other methods
   } = useSuiProvider();
 
@@ -35,26 +34,13 @@ The `JsonRpcProvider` interface provided by [`@mysten/sui.js` package on npm](ht
 
 ### Using cURL to call Sui JSON-RPC
 
-Sui JSON-RPC defines a low-level API to interact with the Sui blockchain. In order to call this RPC, you need to know the RPC endpoint and the RPC method detials (request and response). For example, to call the `sui_executeTransaction` method, you need to write the following code:
+Sui JSON-RPC defines a low-level API to interact with the Sui blockchain. 
+In order to call this RPC, you need to know the RPC endpoint and the RPC method detials (request and response). 
+For example, to call the `sui_executeTransactionBlock` method, you need to write the following code:
 
-:::caution
-The code below is from [Sui JSON-RPC on GitHub](https://github.com/MystenLabs/sui/blob/main/doc/src/build/json-rpc.md).
-
-For demonstration purpose, we use cURL to call the RPC. You can use any HTTP client to call the RPC.
+:::info
+Check out more details of how to send cURL requests on [Sui JSON-RPC on GitHub](https://github.com/MystenLabs/sui/blob/main/doc/src/build/json-rpc.md).
 :::
-
-```bash
-curl --location --request POST https://fullnode.devnet.sui.io:443 \
---header 'Content-Type: application/json' \
---data-raw '{ "jsonrpc": "2.0",
-              "method": "sui_executeTransaction",
-              "params": [{
-                  "tx_bytes": "{{tx_bytes}}",
-                  "signature": "{{signature}}",
-                  "pub_key": "{{pub_key}}"}],
-              "id": 1}'
-
-```
 
 ### Using the JsonRpcProvider interface
 
@@ -62,13 +48,16 @@ But if you use the `JsonRpcProvider` provided by `useSuiProvider`, you can call 
 
 ```jsx
 function YourComponent() {
-  const { executeTransaction } = useSuiProvider();
+  const { executeTransactionBlock } = useSuiProvider();
 
   return (
     <div
       onClick={async () => {
         // ... some code to get the tx_bytes, signature, and pub_key
-        const resp = await executeTransaction(txnBytes, signatureScheme, signature, pubkey);
+        const resp = await executeTransactionBlock({
+          transactionBlock: tx,
+          signature: signature,
+        });
         // resp is the response from the RPC, and has detailed typings defination
       }}
     >...</>

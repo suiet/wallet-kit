@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {DEPRECATED_getWallets, Wallet, Wallets} from '@wallet-standard/core'
+import {getWallets, Wallet, Wallets} from '@wallet-standard/core'
 import {IWalletAdapter} from "../types/wallet";
 import {WalletAdapter} from "../wallet/wallet-adapter";
 import {isNonEmptyArray, isStandardWalletAdapterCompatibleWallet} from "../utils";
@@ -22,7 +22,7 @@ export function useWalletAdapterDetection() {
   }
 
   useEffect(() => {
-    standardWalletManager.current = DEPRECATED_getWallets();
+    standardWalletManager.current = getWallets();
     const initWalletAdapters = getInitStandardWalletAdapters();
     // console.log('initWalletAdapters', initWalletAdapters)
 

@@ -1,13 +1,13 @@
-import { createContext, useContext } from "react";
+import {createContext, useContext} from "react";
 import {ConnectionStatus, IWallet, IWalletAdapter} from "../types/wallet";
-import { KitError } from "../errors";
+import {KitError} from "../errors";
 import {
-  SuiSignAndExecuteTransactionInput,
-  SuiSignAndExecuteTransactionOutput,
+  SuiSignAndExecuteTransactionBlockInput,
+  SuiSignAndExecuteTransactionBlockOutput, SuiSignMessageInput,
+  SuiSignMessageOutput, SuiSignTransactionBlockInput,
+  SuiSignTransactionBlockOutput,
   WalletAccount,
 } from "@mysten/wallet-standard";
-import {ExpSignMessageOutput} from "../wallet-standard/features/exp_sign-message";
-import type {MoveCallTransaction} from "@mysten/sui.js";
 import {WalletEvent, WalletEventListeners} from "../types/events";
 import {Chain} from "../types/chain";
 
@@ -28,33 +28,20 @@ export interface WalletContextState {
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
 
-  signAndExecuteTransaction(
-    transaction: SuiSignAndExecuteTransactionInput
-  ): Promise<SuiSignAndExecuteTransactionOutput>;
+  signAndExecuteTransactionBlock(
+    input: Omit<SuiSignAndExecuteTransactionBlockInput, 'account' | 'chain'>
+  ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 
-  signMessage: (input: {message: Uint8Array}) => Promise<ExpSignMessageOutput>;
+  signTransactionBlock(input: Omit<SuiSignTransactionBlockInput, 'account' | 'chain'>): Promise<SuiSignTransactionBlockOutput>;
+
+  signMessage(input: Omit<SuiSignMessageInput, 'account'>): Promise<SuiSignMessageOutput>;
+
+  verifySignedMessage(input: SuiSignMessageOutput): boolean;
 
   on: <E extends WalletEvent>(
     event: E,
     listener: WalletEventListeners[E],
   ) => () => void;
-
-  /**
-   * @deprecated use adapter instead
-   */
-  wallet: IWalletAdapter | undefined;
-  /**
-   * @deprecated use allAvailableWallets instead
-   */
-  supportedWallets: any[];
-  /**
-   * @deprecated use signAndExecuteTransaction instead
-   */
-  executeMoveCall: (transaction: MoveCallTransaction) => Promise<SuiSignAndExecuteTransactionOutput>;
-  /**
-   * @deprecated use account.publicKey instea
-   */
-  getPublicKey: () => Promise<Uint8Array>;
 }
 
 function missProviderMessage(action: string) {
@@ -73,9 +60,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   connected: false,
   account: undefined,
   status: ConnectionStatus.DISCONNECTED,
-  wallet: undefined,
   address: undefined,
-  supportedWallets: [],
   async select() {
     throw new KitError(missProviderMessage("select"));
   },
@@ -88,17 +73,17 @@ const DEFAULT_CONTEXT: WalletContextState = {
   getAccounts() {
     throw new KitError(missProviderMessage("getAccounts"));
   },
-  async signAndExecuteTransaction() {
-    throw new KitError(missProviderMessage("signAndExecuteTransaction"));
+  async signAndExecuteTransactionBlock() {
+    throw new KitError(missProviderMessage("signAndExecuteTransactionBlock"));
+  },
+  async signTransactionBlock() {
+    throw new KitError(missProviderMessage("signTransactionBlock"));
   },
   async signMessage() {
     throw new KitError(missProviderMessage("signMessage"));
   },
-  async executeMoveCall() {
-    throw new KitError(missProviderMessage("executeMoveCall"));
-  },
-  async getPublicKey() {
-    throw new KitError(missProviderMessage("getPublicKey"));
+  verifySignedMessage() {
+    throw new KitError(missProviderMessage("verifySignedMessage"));
   }
 };
 
