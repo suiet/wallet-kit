@@ -31,7 +31,10 @@ function WalletInfo(props: ConnectButtonProps) {
 
   if (!connected) return null;
   return (
-    <div className={classnames("wkit-connected-container")}>
+    <div
+      className={classnames("wkit-connected-container", props.className)}
+      style={props.style}
+    >
       <button
         className={classnames("wkit-connected-button")}
         onClick={() => {
