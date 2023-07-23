@@ -1,15 +1,22 @@
 import {
-  ConnectMethod,
-  DisconnectMethod,
-  SuiSignAndExecuteTransactionMethod,
-  ConnectFeature, DisconnectFeature, EventsFeature, WalletWithFeatures,
-  EventsOnMethod,
+  WalletWithFeatures,
+  StandardConnectFeature,
+  StandardConnectMethod,
+  StandardDisconnectMethod,
+  StandardEventsOnMethod,
+  SuiSignAndExecuteTransactionBlockFeature,
+  SuiSignMessageFeature,
+  SuiSignTransactionBlockFeature,
+  SuiSignAndExecuteTransactionBlockMethod,
+  SuiSignTransactionBlockMethod,
+  SuiSignMessageMethod,
+  StandardDisconnectFeature,
+  StandardEventsFeature,
 } from "@mysten/wallet-standard";
-import {SuiSignAndExecuteTransactionFeature} from "@mysten/wallet-standard/src/features";
-import {ExpSignMessageMethod} from "../wallet-standard/features/exp_sign-message";
 
 export interface IWallet {
   name: string;
+  label: string;
   adapter: IWalletAdapter | undefined;
   installed: boolean | undefined;
   iconUrl: string;
@@ -30,14 +37,19 @@ export enum ConnectionStatus {
   CONNECTING = "connecting",
 }
 
-export type IWalletAdapter = WalletWithFeatures<ConnectFeature &
-  EventsFeature &
-  SuiSignAndExecuteTransactionFeature &
-  Partial<DisconnectFeature>> & {
+export type IWalletAdapter = WalletWithFeatures<
+  StandardConnectFeature &
+  StandardEventsFeature &
+  SuiSignAndExecuteTransactionBlockFeature &
+  SuiSignTransactionBlockFeature &
+  SuiSignMessageFeature &
+  Partial<StandardDisconnectFeature>
+  > & {
   hasFeature: (name: string) => boolean;
-  connect: ConnectMethod;
-  disconnect: DisconnectMethod;
-  signAndExecuteTransaction: SuiSignAndExecuteTransactionMethod;
-  signMessage: ExpSignMessageMethod; // experimental feature
-  on: EventsOnMethod;
+  connect: StandardConnectMethod;
+  disconnect: StandardDisconnectMethod;
+  on: StandardEventsOnMethod;
+  signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
+  signTransactionBlock: SuiSignTransactionBlockMethod;
+  signMessage: SuiSignMessageMethod;
 };

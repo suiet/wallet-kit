@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["esnext"],
+    "lib": ["ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -14,8 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "declaration": true,
-    "strictPropertyInitialization": false,
-    "outDir": "dist"
+    "declarationDir": "dist"
   },
-  "include": ["src/*"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

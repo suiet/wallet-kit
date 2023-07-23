@@ -5,14 +5,24 @@ import viteSvgr from 'vite-plugin-svgr';
 import path from 'path';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({mode}) => ({
   plugins: [react(), vanillaExtractPlugin(), viteSvgr()],
   css: {
     modules: {
       localsConvention: 'camelCase',
     },
   },
+  esbuild: {
+    target: "es2020",
+    pure: mode === 'production' ? ['console.log', 'debugger'] : [],
+  },
+  optimizeDeps: {
+    esbuildOptions : {
+      target: "es2020"
+    }
+  },
   build: {
+    target: 'es2020',
     lib: {
       entry: path.resolve(__dirname, './src/index.ts'),
       fileName: 'index',
@@ -20,16 +30,16 @@ export default defineConfig({
     },
     emptyOutDir: false,
     rollupOptions: {
-      external: ['react', 'react-dom', 'cross-fetch'],
+      external: ['react', 'react-dom', '@mysten/sui.js'],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps.
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          'cross-fetch': 'crossFetch'
+          '@mysten/sui.js': 'Sui'
         },
       },
     },
   },
-});
+}));
