@@ -40,6 +40,8 @@ export const ConnectButton = (props: ConnectButtonProps) => {
       <div>
         {connected ? (
           <WalletInfo
+            className={classnames(props.className)}
+            style={props.style}
             onDisconnectSuccess={(name) => {
               setShowModal(false)
               props?.onDisconnectSuccess?.(name)
