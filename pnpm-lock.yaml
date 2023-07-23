@@ -169,8 +169,8 @@ importers:
         specifier: 0.37.1
         version: 0.37.1
       '@mysten/wallet-standard':
-        specifier: 0.5.10
-        version: 0.5.10
+        specifier: 0.5.12
+        version: 0.5.12
       '@noble/hashes':
         specifier: ^1.3.0
         version: 1.3.0
@@ -3044,12 +3044,6 @@ packages:
       bs58: 5.0.0
     dev: true
 
-  /@mysten/bcs@0.7.2:
-    resolution: {integrity: sha512-M8aUGFwoBEj9XPCJcYuVlv8UbqBINAYhrDGLavdCYZwGlN5saGgrBcnGpXk+D2/Vp+aEUFh3RCyKudn7H0G9hQ==}
-    dependencies:
-      bs58: 5.0.0
-    dev: false
-
   /@mysten/bcs@0.7.3:
     resolution: {integrity: sha512-fbusBfsyc2MpTACi72H5edWJ670T84va+qn9jSPpb5BzZ+pzUM1Q0ApPrF5OT+mB1o5Ng+mxPQpBCZQkfiV2TA==}
     dependencies:
@@ -3097,25 +3091,6 @@ packages:
       - bufferutil
       - utf-8-validate
     dev: true
-
-  /@mysten/sui.js@0.36.0:
-    resolution: {integrity: sha512-l/gZUxlr0oHgnwuHYxIVp+JOrdj1imhffL5iK25JYh3WV4sTxiQntCLuSen6etXyFG9c1l2GNvVaGZaV3mb4Hw==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@mysten/bcs': 0.7.2
-      '@noble/curves': 1.0.0
-      '@noble/hashes': 1.3.0
-      '@open-rpc/client-js': 1.8.1
-      '@scure/bip32': 1.3.0
-      '@scure/bip39': 1.2.0
-      '@suchipi/femver': 1.0.0
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
 
   /@mysten/sui.js@0.37.1:
     resolution: {integrity: sha512-nEOqnjUqb/VJcVk23LgZOX1FmBib/mBCwAWaJhtsCHLwv2jIAfCPY/fpB9lJ62QHrM8UFclpWxsLkqcUkKyPgA==}
@@ -3167,17 +3142,6 @@ packages:
       - bufferutil
       - utf-8-validate
     dev: true
-
-  /@mysten/wallet-standard@0.5.10:
-    resolution: {integrity: sha512-ruoyvY2i42k8rM4RnQo3Xe2ngqBf5ZTqMw/NgyIewt+TxOr/FK8v9azjjFig9vpMA6w0PvmemHaOmL1kUzCbgw==}
-    dependencies:
-      '@mysten/sui.js': 0.36.0
-      '@wallet-standard/core': 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
 
   /@mysten/wallet-standard@0.5.12:
     resolution: {integrity: sha512-RDKEhBf8aNbCXgTGsDAA7uzpkll24O9M/C48wHFjeb9edIxhaDkiSeGty6flhg9G5ShAHP76dEbz5z6z3ODmCA==}
