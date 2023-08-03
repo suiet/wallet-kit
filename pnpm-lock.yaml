@@ -166,8 +166,8 @@ importers:
   packages/sdk:
     dependencies:
       '@mysten/sui.js':
-        specifier: 0.37.1
-        version: 0.37.1
+        specifier: 0.39.0
+        version: 0.39.0
       '@mysten/wallet-standard':
         specifier: 0.5.14
         version: 0.5.14
@@ -3055,10 +3055,10 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       '@mysten/bcs': 0.3.0
-      '@noble/hashes': 1.3.0
+      '@noble/hashes': 1.3.1
       '@noble/secp256k1': 1.7.1
-      '@scure/bip32': 1.3.0
-      '@scure/bip39': 1.2.0
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
       bn.js: 5.2.1
       buffer: 6.0.3
       cross-fetch: 3.1.5
@@ -3078,10 +3078,10 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       '@mysten/bcs': 0.7.0
-      '@noble/hashes': 1.3.0
+      '@noble/hashes': 1.3.1
       '@noble/secp256k1': 1.7.1
-      '@scure/bip32': 1.3.0
-      '@scure/bip39': 1.2.0
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
       '@suchipi/femver': 1.0.0
       jayson: 4.0.0
       rpc-websockets: 7.5.1
@@ -3091,26 +3091,6 @@ packages:
       - bufferutil
       - utf-8-validate
     dev: true
-
-  /@mysten/sui.js@0.37.1:
-    resolution: {integrity: sha512-nEOqnjUqb/VJcVk23LgZOX1FmBib/mBCwAWaJhtsCHLwv2jIAfCPY/fpB9lJ62QHrM8UFclpWxsLkqcUkKyPgA==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@mysten/bcs': 0.7.3
-      '@noble/curves': 1.0.0
-      '@noble/hashes': 1.3.0
-      '@open-rpc/client-js': 1.8.1
-      '@scure/bip32': 1.3.0
-      '@scure/bip39': 1.2.0
-      '@suchipi/femver': 1.0.0
-      events: 3.3.0
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
 
   /@mysten/sui.js@0.39.0:
     resolution: {integrity: sha512-fJu6k7+Qb1z2h9i5Jai0sTWmaGP1UT6d/JIXhEwMZ6cz+13GT/8zRp8kUhP7Oq9Z2hxmwfy1ROptbsrv/x9V8A==}
@@ -3180,24 +3160,18 @@ packages:
       eslint-scope: 5.1.1
     dev: true
 
-  /@noble/curves@1.0.0:
-    resolution: {integrity: sha512-2upgEu0iLiDVDZkNLeFV2+ht0BAVgQnEmCk6JsOch9Rp8xfkMCbvbAZlA2pBHQc73dbl+vFOXfqkf4uemdn0bw==}
-    dependencies:
-      '@noble/hashes': 1.3.0
-
   /@noble/curves@1.1.0:
     resolution: {integrity: sha512-091oBExgENk/kGj3AZmtBDMpxQPDtxQABR2B9lb1JbVTs6ytdzZNwvhxQ4MWasRNEzlbEH8jCWFCwhF/Obj5AA==}
     dependencies:
       '@noble/hashes': 1.3.1
-    dev: false
 
   /@noble/hashes@1.3.0:
     resolution: {integrity: sha512-ilHEACi9DwqJB0pw7kv+Apvh50jiiSyR/cQ3y4W7lOR5mhvn/50FLUfsnfJz0BDZtl/RR16kXvptiv6q1msYZg==}
+    dev: false
 
   /@noble/hashes@1.3.1:
     resolution: {integrity: sha512-EbqwksQwz9xDRGfDST86whPBgM65E0OH/pCgqW0GBVzO22bNE+NuIbeTb714+IfSjU3aRk47EUvXIb5bTsenKA==}
     engines: {node: '>= 16'}
-    dev: false
 
   /@noble/secp256k1@1.7.1:
     resolution: {integrity: sha512-hOUk6AyBFmqVrv7k5WAw/LpszxVbj9gGN4JRkIX52fdFAj1UA61KXmZDvqVEm+pOyec3+fIeZB02LYa/pWOArw==}
@@ -3598,25 +3572,11 @@ packages:
   /@scure/base@1.1.1:
     resolution: {integrity: sha512-ZxOhsSyxYwLJj3pLZCefNitxsj093tb2vq90mp2txoYeBqbcjDjqFhyM8eUjq/uFm6zJ+mUuqxlS2FkuSY1MTA==}
 
-  /@scure/bip32@1.3.0:
-    resolution: {integrity: sha512-bcKpo1oj54hGholplGLpqPHRbIsnbixFtc06nwuNM5/dwSXOq/AAYoIBRsBmnZJSdfeNW5rnff7NTAz3ZCqR9Q==}
-    dependencies:
-      '@noble/curves': 1.0.0
-      '@noble/hashes': 1.3.0
-      '@scure/base': 1.1.1
-
   /@scure/bip32@1.3.1:
     resolution: {integrity: sha512-osvveYtyzdEVbt3OfwwXFr4P2iVBL5u1Q3q4ONBfDY/UpOuXmOlbgwc1xECEboY8wIays8Yt6onaWMUdUbfl0A==}
     dependencies:
       '@noble/curves': 1.1.0
       '@noble/hashes': 1.3.1
-      '@scure/base': 1.1.1
-    dev: false
-
-  /@scure/bip39@1.2.0:
-    resolution: {integrity: sha512-SX/uKq52cuxm4YFXWFaVByaSHJh2w3BnokVSeUJVCv6K7WulT9u2BuNRBhuFl8vAuYnzx9bEu9WgpcNYTrYieg==}
-    dependencies:
-      '@noble/hashes': 1.3.0
       '@scure/base': 1.1.1
 
   /@scure/bip39@1.2.1:
@@ -3624,7 +3584,6 @@ packages:
     dependencies:
       '@noble/hashes': 1.3.1
       '@scure/base': 1.1.1
-    dev: false
 
   /@semantic-release/changelog@6.0.1(semantic-release@19.0.5):
     resolution: {integrity: sha512-FT+tAGdWHr0RCM3EpWegWnvXJ05LQtBkQUaQRIExONoXjVjLuOILNm4DEKNaV+GAQyJjbLRVs57ti//GypH6PA==}
