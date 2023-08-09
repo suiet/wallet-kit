@@ -100,7 +100,7 @@ export type NftObject = {
   name: string;
   description: string;
   url: string;
-  previousTransaction?: string;
+  previousTransaction?: string | null;
   objectType: string;
 };
 
@@ -114,7 +114,7 @@ export class Nft {
 
   public static getNftObject(
     obj: SuiMoveObject,
-    previousTransaction?: string
+    previousTransaction: string | null
   ): NftObject {
     return {
       objectId: obj.fields.id.id,

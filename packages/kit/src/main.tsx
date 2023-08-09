@@ -43,12 +43,15 @@ function App() {
   }
 
   async function handleSignMsg() {
+    if (!wallet.account) return
+
     try {
       const msg = 'Hello world!'
       const result = await wallet.signMessage({
         message: new TextEncoder().encode(msg)
       })
-      console.log('verify signedMessage', wallet.verifySignedMessage(result))
+      const isValid = await wallet.verifySignedMessage(result, wallet.account.publicKey)
+      console.log('verify signedMessage', isValid)
       alert('signMessage succeeded (see response in the console)')
     } catch (e) {
       console.error('signMessage failed', e)
