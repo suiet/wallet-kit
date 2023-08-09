@@ -114,7 +114,7 @@ function App() {
         message: msgBytes
       })
 			// verify signature with publicKey and SignedMessage (params are all included in result)
-      const verifyResult = wallet.verifySignedMessage(result)
+      const verifyResult = await wallet.verifySignedMessage(result, wallet.account.publicKey)
       if (!verifyResult) {
         console.log('signMessage succeed, but verify signedMessage failed')
       } else {
@@ -293,13 +293,13 @@ The function is for message signing.
 
 ### verifySignedMessage
 
-This function is for verifying the output of `signMessage` following the Sui standard. Uses `tweetnacl.sign.detached.verify` method under the hood. Returns `true` if the returned signature matches the message to be signed and the signer's publicKey.
+This function is for verifying the output of `signMessage` following the Sui standard. Returns `true` if the returned signature matches the message to be signed and the signer's publicKey.
 
 For details please check [here](https://github.com/suiet/wallet-kit/blob/main/packages/sdk/src/utils/verifySignedMessage.ts#L10)
 
-| Type                                                         | Default |
-| ------------------------------------------------------------ | ------- |
-| `(input: {signature: string; messageBytes: string}) => boolean` |         |
+| Type                                                                     | Default |
+|--------------------------------------------------------------------------| ------- |
+| `(input: {signature: string; messageBytes: string}) => Promise<boolean>` |         |
 
 ### on
 
