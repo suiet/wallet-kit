@@ -59,13 +59,14 @@ export default function Home() {
   }
 
   async function handleSignMsg() {
+    if (!wallet.account) return
     try {
       const msg = 'Hello world!'
       const msgBytes = new TextEncoder().encode(msg)
       const result = await wallet.signMessage({
         message: msgBytes
       })
-      const verifyResult = wallet.verifySignedMessage(result)
+      const verifyResult = await wallet.verifySignedMessage(result, wallet.account.publicKey)
       console.log('verify signedMessage', verifyResult)
       if (!verifyResult) {
         alert(`signMessage succeed, but verify signedMessage failed`)
