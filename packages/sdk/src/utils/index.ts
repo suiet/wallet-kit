@@ -1,2 +1,4 @@
 export * from './format'
-export {default as verifySignedMessage} from './verifySignedMessage'
+export * from './verifySignedMessage'
+export * from './stringBytesToString'
+export * from './stringBytesToUint8Array'
