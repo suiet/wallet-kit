@@ -36,7 +36,7 @@ export interface WalletContextState {
 
   signMessage(input: Omit<SuiSignMessageInput, 'account'>): Promise<SuiSignMessageOutput>;
 
-  verifySignedMessage(input: SuiSignMessageOutput): boolean;
+  verifySignedMessage(input: SuiSignMessageOutput, publicKey: Uint8Array): Promise<boolean>;
 
   on: <E extends WalletEvent>(
     event: E,

@@ -8,7 +8,7 @@ export default {
   // automock: false,
   moduleNameMapper: {
     // '^uuid$': '<rootDir>/node_modules/uuid/dist/index.js',
-    '^uuid$': require.resolve('uuid'),
+    // '^uuid$': require.resolve('uuid'),
   },
 
   // Stop running tests after `n` failures
