@@ -1,21 +1,18 @@
-import {fromB64, IntentScope, messageWithIntent, toSingleSignaturePubkeyPair} from "@mysten/sui.js";
-import * as tweetnacl from "tweetnacl";
-import {blake2b} from "@noble/hashes/blake2b";
 import {SuiSignMessageOutput} from "@mysten/wallet-standard";
+import {verifyPersonalMessage} from "@mysten/sui.js/verify";
+import {stringBytesToUint8Array} from "./stringBytesToUint8Array";
+import {bytesEqual} from "@mysten/sui.js";
 
 /**
  * Verify a signed message based on Sui standard
  * @param input
+ * @param publicKey
  */
-export default function verifySignedMessage(input: SuiSignMessageOutput) {
-  const signature = toSingleSignaturePubkeyPair(input.signature);
-  const message = messageWithIntent(
-    IntentScope.PersonalMessage,
-    fromB64(input.messageBytes)
-  );
-  return tweetnacl.sign.detached.verify(
-    blake2b(message, { dkLen: 32 }),
-    signature.signature,
-    signature.pubKey.toBytes()
-  )
+export async function verifySignedMessage(input: SuiSignMessageOutput, publicKey: Uint8Array): Promise<boolean> {
+  try {
+    const parsedPublicKey = await verifyPersonalMessage(stringBytesToUint8Array(input.messageBytes), input.signature)
+    return bytesEqual(parsedPublicKey.toRawBytes(), publicKey);
+  } catch {
+    return false
+  }
 }
