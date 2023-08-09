@@ -81,7 +81,7 @@ class QueryProvider {
       .filter((item) => item.object && Nft.isNft(item.object))
       .map((item) => {
         const obj = item.object as SuiMoveObject;
-        return Nft.getNftObject(obj, item.previousTransaction);
+        return Nft.getNftObject(obj, item.previousTransaction ?? null);
       });
     return res;
   }
