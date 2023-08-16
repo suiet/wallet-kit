@@ -32,6 +32,7 @@ function App() {
         ]
       })
       const resData = await wallet.signAndExecuteTransactionBlock({
+        // @ts-ignore
         transactionBlock: tx,
       });
       console.log('executeMoveCall success', resData);
