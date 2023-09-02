@@ -63,8 +63,8 @@ importers:
         specifier: 0.41.1
         version: 0.41.1
       '@mysten/wallet-standard':
-        specifier: 0.6.0
-        version: 0.6.0
+        specifier: 0.7.1
+        version: 0.7.1
       '@radix-ui/react-dialog':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0)
@@ -169,8 +169,8 @@ importers:
         specifier: 0.41.1
         version: 0.41.1
       '@mysten/wallet-standard':
-        specifier: 0.6.0
-        version: 0.6.0
+        specifier: 0.7.1
+        version: 0.7.1
       '@noble/hashes':
         specifier: ^1.3.0
         version: 1.3.0
@@ -249,8 +249,8 @@ importers:
         specifier: 0.3.0
         version: 0.3.0
       '@mysten/wallet-standard':
-        specifier: ^0.6.0
-        version: 0.6.0
+        specifier: ^0.7.0
+        version: 0.7.1
       '@tsconfig/docusaurus':
         specifier: ^1.0.5
         version: 1.0.6
@@ -3066,25 +3066,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/sui.js@0.40.0:
-    resolution: {integrity: sha512-PEGdMe+QgpIdDIpyO4/yb+CK4x3Hki+kYPbQ5n3DVsWyb2ztFwB+5oYdc7qG3QkniO1lnCrlSHqZ5mN+x3RzrQ==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@mysten/bcs': 0.7.3
-      '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.1
-      '@open-rpc/client-js': 1.8.1
-      '@scure/bip32': 1.3.1
-      '@scure/bip39': 1.2.1
-      '@suchipi/femver': 1.0.0
-      events: 3.3.0
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-
   /@mysten/sui.js@0.41.1:
     resolution: {integrity: sha512-qSFVqr6Z2LboHhiaP51kluZQaW2oCY4gOF8JBZOl/cB/tvOPoQvdvtfNqViDkTZcaJrYRk8gOCYjozvW4VGX0A==}
     engines: {node: '>=16'}
@@ -3103,7 +3084,6 @@ packages:
       - bufferutil
       - encoding
       - utf-8-validate
-    dev: false
 
   /@mysten/wallet-adapter-base@0.3.0:
     resolution: {integrity: sha512-Sk4J8R+9YYxGtFp2GkEgQX/JLKMGYg/VjB/KCA5D6VwjzjRkk7jgD9ImkSSceNmLeiG2F/VyCndVAPDoAAhzow==}
@@ -3126,10 +3106,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard@0.6.0:
-    resolution: {integrity: sha512-xE/OijN9zIPoTjTWuxlYMHtp7kXPcAR8dDAbxOIH5h7EZCTk+G6p+SzDp8jV5magf50VcYP0cVjS4CQLx1wQuQ==}
+  /@mysten/wallet-standard@0.7.1:
+    resolution: {integrity: sha512-qnx5bKkHtmqDrBjjfnF30cVHfLWF7fTK3OV5H2Yn4L+GCn0pHugBYwwvN8/75RyS5fgoa9rXDW9RS04E7S542g==}
     dependencies:
-      '@mysten/sui.js': 0.40.0
+      '@mysten/sui.js': 0.41.1
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - bufferutil
