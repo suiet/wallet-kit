@@ -60,8 +60,8 @@ importers:
   packages/kit:
     dependencies:
       '@mysten/sui.js':
-        specifier: 0.41.0
-        version: 0.41.0
+        specifier: 0.41.1
+        version: 0.41.1
       '@mysten/wallet-standard':
         specifier: 0.6.0
         version: 0.6.0
@@ -166,8 +166,8 @@ importers:
   packages/sdk:
     dependencies:
       '@mysten/sui.js':
-        specifier: 0.41.0
-        version: 0.41.0
+        specifier: 0.41.1
+        version: 0.41.1
       '@mysten/wallet-standard':
         specifier: 0.6.0
         version: 0.6.0
@@ -3085,8 +3085,8 @@ packages:
       - encoding
       - utf-8-validate
 
-  /@mysten/sui.js@0.41.0:
-    resolution: {integrity: sha512-IVxlo7qoxDFsE/WiJiLW3gmqftS6QI7LrTHqsDs7YGsBd69cqp95RH3OerJ3Wrbl8bMsQyG+HByX3c3zN6G97A==}
+  /@mysten/sui.js@0.41.1:
+    resolution: {integrity: sha512-qSFVqr6Z2LboHhiaP51kluZQaW2oCY4gOF8JBZOl/cB/tvOPoQvdvtfNqViDkTZcaJrYRk8gOCYjozvW4VGX0A==}
     engines: {node: '>=16'}
     dependencies:
       '@mysten/bcs': 0.7.3
