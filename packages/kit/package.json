@@ -26,7 +26,7 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@mysten/sui.js": "0.41.1",
-    "@mysten/wallet-standard": "0.7.1",
+    "@mysten/wallet-standard": "0.8.0",
     "@radix-ui/react-dialog": "^1.0.2",
     "@suiet/wallet-sdk": "workspace:*",
     "@svgr/rollup": "^6.5.1",
@@ -64,7 +64,7 @@
   },
   "peerDependencies": {
     "@mysten/sui.js": "0.41.1",
-    "@mysten/wallet-standard": "0.7.1"
+    "@mysten/wallet-standard": "0.8.0"
   },
   "repository": {
     "type": "git",
