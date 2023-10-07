@@ -60,8 +60,8 @@ importers:
   packages/kit:
     dependencies:
       '@mysten/sui.js':
-        specifier: 0.42.0
-        version: 0.42.0
+        specifier: 0.43.3
+        version: 0.43.3
       '@mysten/wallet-standard':
         specifier: 0.8.0
         version: 0.8.0
@@ -166,8 +166,8 @@ importers:
   packages/sdk:
     dependencies:
       '@mysten/sui.js':
-        specifier: 0.42.0
-        version: 0.42.0
+        specifier: 0.43.3
+        version: 0.43.3
       '@mysten/wallet-standard':
         specifier: 0.8.0
         version: 0.8.0
@@ -3043,6 +3043,12 @@ packages:
     dependencies:
       bs58: 5.0.0
 
+  /@mysten/bcs@0.8.0:
+    resolution: {integrity: sha512-1udHN4kjJ96t7Z5svJic6Eg0ctwwq83vhPeCAVA7r2x/HGw4g9ERCWwkItKXPtnlWFcXnchXi0M78dV+OZcvOQ==}
+    dependencies:
+      bs58: 5.0.0
+    dev: false
+
   /@mysten/sui.js@0.14.0:
     resolution: {integrity: sha512-jQdeg6DfCtvwhcyKS8ipYSjMiKhDynWYzPcoO5MkcrATsEf8/Ktt7EU6+xEa3rfNLhYVKS5Qo2c2Nno+/HtlTA==}
     engines: {node: '>=16'}
@@ -3084,6 +3090,26 @@ packages:
       - bufferutil
       - encoding
       - utf-8-validate
+
+  /@mysten/sui.js@0.43.3:
+    resolution: {integrity: sha512-phIRh3enlXq2B2RMC9zK4f1TPGPkAGBeVsv6rJcbi4K5CChd/+46X5ritX0481LncKCcySgxdzrhHLGtmmo2yg==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@mysten/bcs': 0.8.0
+      '@noble/curves': 1.1.0
+      '@noble/hashes': 1.3.1
+      '@open-rpc/client-js': 1.8.1
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
+      '@suchipi/femver': 1.0.0
+      events: 3.3.0
+      superstruct: 1.0.3
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
 
   /@mysten/wallet-adapter-base@0.3.0:
     resolution: {integrity: sha512-Sk4J8R+9YYxGtFp2GkEgQX/JLKMGYg/VjB/KCA5D6VwjzjRkk7jgD9ImkSSceNmLeiG2F/VyCndVAPDoAAhzow==}
