@@ -63,8 +63,8 @@ importers:
         specifier: 0.43.3
         version: 0.43.3
       '@mysten/wallet-standard':
-        specifier: 0.8.4
-        version: 0.8.4
+        specifier: 0.8.5
+        version: 0.8.5
       '@radix-ui/react-dialog':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0)
@@ -169,8 +169,8 @@ importers:
         specifier: 0.43.3
         version: 0.43.3
       '@mysten/wallet-standard':
-        specifier: 0.8.4
-        version: 0.8.4
+        specifier: 0.8.5
+        version: 0.8.5
       '@noble/hashes':
         specifier: ^1.3.0
         version: 1.3.0
@@ -3050,6 +3050,12 @@ packages:
       bs58: 5.0.0
     dev: false
 
+  /@mysten/bcs@0.8.1:
+    resolution: {integrity: sha512-wSEdP7QEfGQdb34g+7R0f3OdRqrv88iIABfJVDVJ6IsGLYVILreh8dZfNpZNUUyzctiyhX7zB9e/lR5qkddFPA==}
+    dependencies:
+      bs58: 5.0.0
+    dev: false
+
   /@mysten/sui.js@0.14.0:
     resolution: {integrity: sha512-jQdeg6DfCtvwhcyKS8ipYSjMiKhDynWYzPcoO5MkcrATsEf8/Ktt7EU6+xEa3rfNLhYVKS5Qo2c2Nno+/HtlTA==}
     engines: {node: '>=16'}
@@ -3113,6 +3119,26 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@mysten/sui.js@0.44.0:
+    resolution: {integrity: sha512-c/d1fKUCK6+QBQuIaufC79vbvNfx4KcEEO25F/NZFs3cQCoqgVrQC6wuv1P4lpqFOq3S9jhz2NrkIcU0yzkIOw==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@mysten/bcs': 0.8.1
+      '@noble/curves': 1.1.0
+      '@noble/hashes': 1.3.1
+      '@open-rpc/client-js': 1.8.1
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
+      '@suchipi/femver': 1.0.0
+      events: 3.3.0
+      superstruct: 1.0.3
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   /@mysten/wallet-adapter-base@0.3.0:
     resolution: {integrity: sha512-Sk4J8R+9YYxGtFp2GkEgQX/JLKMGYg/VjB/KCA5D6VwjzjRkk7jgD9ImkSSceNmLeiG2F/VyCndVAPDoAAhzow==}
     dependencies:
@@ -3145,10 +3171,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard@0.8.4:
-    resolution: {integrity: sha512-JmTpSGqWQMB85IR5+gulCUqUOWeTd3C3+cSuxjXzxRkdxBVdmR3J9VnhD1LuUe3ZP9Qo9A9XaYbBrUmS9unv4A==}
+  /@mysten/wallet-standard@0.8.5:
+    resolution: {integrity: sha512-wxPFsdaHXydDXMEhPJ5CZ8dkRwJ40Sd18QLvF1/MA5M/AdQK6LlV1mBrD4BmNgURS+ZR07Caq5hS9NymJf9EOQ==}
     dependencies:
-      '@mysten/sui.js': 0.43.3
+      '@mysten/sui.js': 0.44.0
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - bufferutil
