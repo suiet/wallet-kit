@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {WalletContext} from "../hooks";
 import type {
   StandardConnectInput,
