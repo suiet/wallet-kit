@@ -143,7 +143,7 @@ information.
 Your dapp can get the current connected chain of wallet. 
 
 :::info
-However, if **user switches network inside the wallet**, the value **WOULD NOT** get updated. 
+For most wallets, if **user switches network inside the wallet**, the value **WOULD NOT** get updated. (Except for Suiet Wallet, we implemented this network change notification for a better development experience)
 
 This is because Sui team suggests each dapp should separate the environments for each chain (sui:devnet, sui:testnet, sui:mainnet). 
 And the active chain returned by the connected wallet could be used to match the dapp's environment.
