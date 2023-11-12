@@ -63,8 +63,8 @@ importers:
         specifier: 0.45.1
         version: 0.45.1
       '@mysten/wallet-standard':
-        specifier: 0.8.5
-        version: 0.8.5
+        specifier: 0.8.7
+        version: 0.8.7
       '@radix-ui/react-dialog':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0)
@@ -169,8 +169,8 @@ importers:
         specifier: 0.45.1
         version: 0.45.1
       '@mysten/wallet-standard':
-        specifier: 0.8.5
-        version: 0.8.5
+        specifier: 0.8.7
+        version: 0.8.7
       '@noble/hashes':
         specifier: ^1.3.0
         version: 1.3.0
@@ -3093,26 +3093,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/sui.js@0.44.0:
-    resolution: {integrity: sha512-c/d1fKUCK6+QBQuIaufC79vbvNfx4KcEEO25F/NZFs3cQCoqgVrQC6wuv1P4lpqFOq3S9jhz2NrkIcU0yzkIOw==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@mysten/bcs': 0.8.1
-      '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.1
-      '@open-rpc/client-js': 1.8.1
-      '@scure/bip32': 1.3.1
-      '@scure/bip39': 1.2.1
-      '@suchipi/femver': 1.0.0
-      events: 3.3.0
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
-
   /@mysten/sui.js@0.45.1:
     resolution: {integrity: sha512-B6RKfBAR1yr3EvHyQzXgkyOGOXE7jUbgblyitK/25CGp4Uba4VHEZ/N5DCbiuTJdt2k1H42sSXqIGfYqHN+6Cw==}
     engines: {node: '>=16'}
@@ -3165,10 +3145,10 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard@0.8.5:
-    resolution: {integrity: sha512-wxPFsdaHXydDXMEhPJ5CZ8dkRwJ40Sd18QLvF1/MA5M/AdQK6LlV1mBrD4BmNgURS+ZR07Caq5hS9NymJf9EOQ==}
+  /@mysten/wallet-standard@0.8.7:
+    resolution: {integrity: sha512-kY/gc8WHeqcWPgnQ69l9jbyXSsnVJqddspX1rvLF5bZV1Ud7ZrVO1V+pL4LNTxeQq02EHz4n5DLOWGHDd3mrTg==}
     dependencies:
-      '@mysten/sui.js': 0.44.0
+      '@mysten/sui.js': 0.45.1
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - bufferutil
