@@ -15,6 +15,7 @@ export class WalletRadar implements IWalletRadar {
   private walletStandardSdk: WalletStandardSdk | null;
   private walletAdapterMap: Map<string, IWalletAdapter>;
   private clearOnRegisterListener: null | (() => void);
+  private subscriptions = new Set<WalletRadarSubscriptionInput>();
 
   constructor() {
     this.walletStandardSdk = null;
@@ -33,6 +34,7 @@ export class WalletRadar implements IWalletRadar {
       (...newAdapters) => {
         newAdapters.forEach((adapter) => {
           this.setDetectedWalletAdapters(adapter);
+          this.notifySubscribers();
         });
       }
     );
@@ -42,6 +44,7 @@ export class WalletRadar implements IWalletRadar {
     if (this.clearOnRegisterListener) {
       this.clearOnRegisterListener();
     }
+    this.walletAdapterMap.clear();
   }
 
   getDetectedWalletAdapters(): IWalletAdapter[] {
@@ -51,7 +54,16 @@ export class WalletRadar implements IWalletRadar {
   subscribe(
     callback: WalletRadarSubscriptionInput
   ): WalletRadarSubscriptionOutput {
-    return () => {};
+    this.subscriptions.add(callback);
+    return () => {
+      this.subscriptions.delete(callback);
+    };
+  }
+
+  private notifySubscribers() {
+    this.subscriptions.forEach((subscription) => {
+      subscription(this.getDetectedWalletAdapters());
+    });
   }
 
   private setDetectedWalletAdapters(rawAdapter: Wallet) {
