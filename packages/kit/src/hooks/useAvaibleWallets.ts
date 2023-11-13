@@ -1,7 +1,7 @@
-import { IDefaultWallet, IWallet } from "../types";
 import { useMemo } from "react";
 import { isNonEmptyArray } from "../utils";
 import { useWalletAdapterDetection } from "./useWalletDetection";
+import { IDefaultWallet, IWallet } from "@suiet/wallet-sdk";
 
 export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
   const { data: availableWalletAdapters } = useWalletAdapterDetection();

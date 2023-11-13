@@ -1,12 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { ConnectButton, WalletProvider } from "./components";
-import { ErrorCode } from "@suiet/wallet-sdk";
-// import { useAccountBalance, useWallet } from "./hooks";
-// import { ErrorCode } from "./errors";
-// import { TransactionBlock } from "@mysten/sui.js";
-// import { SuiChainId } from "./chain";
-// import { formatSUI } from "@suiet/wallet-sdk";
+import { useAccountBalance, useWallet } from "./hooks";
+import { TransactionBlock } from "@mysten/sui.js/transactions";
+import { ErrorCode, SuiChainId, formatSUI } from "@suiet/wallet-sdk";
 
 const sampleNft = new Map([
   [
@@ -24,59 +21,59 @@ const sampleNft = new Map([
 ]);
 
 function App() {
-  // const wallet = useWallet();
-  // const { balance } = useAccountBalance();
-  //
-  // async function handleExecuteMoveCall(target: string | undefined) {
-  //   if (!target) return;
-  //   try {
-  //     const tx = new TransactionBlock();
-  //     tx.moveCall({
-  //       target: target as any,
-  //       arguments: [
-  //         tx.pure("Suiet NFT"),
-  //         tx.pure("Suiet Sample NFT"),
-  //         tx.pure(
-  //           "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
-  //         ),
-  //       ],
-  //     });
-  //     const resData = await wallet.signAndExecuteTransactionBlock({
-  //       // @ts-ignore
-  //       transactionBlock: tx,
-  //     });
-  //     console.log("executeMoveCall success", resData);
-  //     alert("executeMoveCall succeeded (see response in the console)");
-  //   } catch (e) {
-  //     console.error("executeMoveCall failed", e);
-  //     alert("executeMoveCall failed (see response in the console)");
-  //   }
-  // }
-  //
-  // async function handleSignMsg() {
-  //   if (!wallet.account) return;
-  //
-  //   try {
-  //     const msg = "Hello world!";
-  //     const result = await wallet.signMessage({
-  //       message: new TextEncoder().encode(msg),
-  //     });
-  //     const isValid = await wallet.verifySignedMessage(
-  //       result,
-  //       wallet.account.publicKey
-  //     );
-  //     console.log("verify signedMessage", isValid);
-  //     alert("signMessage succeeded (see response in the console)");
-  //   } catch (e) {
-  //     console.error("signMessage failed", e);
-  //     alert("signMessage failed (see response in the console)");
-  //   }
-  // }
-  //
-  // function getPublicKey() {
-  //   // @ts-ignore
-  //   return wallet.account?.publicKey.toString("hex");
-  // }
+  const wallet = useWallet();
+  const { balance } = useAccountBalance();
+
+  async function handleExecuteMoveCall(target: string | undefined) {
+    if (!target) return;
+    try {
+      const tx = new TransactionBlock();
+      tx.moveCall({
+        target: target as any,
+        arguments: [
+          tx.pure("Suiet NFT"),
+          tx.pure("Suiet Sample NFT"),
+          tx.pure(
+            "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
+          ),
+        ],
+      });
+      const resData = await wallet.signAndExecuteTransactionBlock({
+        // @ts-ignore
+        transactionBlock: tx,
+      });
+      console.log("executeMoveCall success", resData);
+      alert("executeMoveCall succeeded (see response in the console)");
+    } catch (e) {
+      console.error("executeMoveCall failed", e);
+      alert("executeMoveCall failed (see response in the console)");
+    }
+  }
+
+  async function handleSignMsg() {
+    if (!wallet.account) return;
+
+    try {
+      const msg = "Hello world!";
+      const result = await wallet.signMessage({
+        message: new TextEncoder().encode(msg),
+      });
+      const isValid = await wallet.verifySignedMessage(
+        result,
+        wallet.account.publicKey
+      );
+      console.log("verify signedMessage", isValid);
+      alert("signMessage succeeded (see response in the console)");
+    } catch (e) {
+      console.error("signMessage failed", e);
+      alert("signMessage failed (see response in the console)");
+    }
+  }
+
+  function getPublicKey() {
+    // @ts-ignore
+    return wallet.account?.publicKey.toString("hex");
+  }
 
   // @ts-ignore
   return (
@@ -112,59 +109,59 @@ function App() {
         }}
       />
 
-      {/*{!wallet.connected ? (*/}
-      {/*  <p>Connect DApp with Suiet wallet from now!</p>*/}
-      {/*) : (*/}
-      {/*  <div*/}
-      {/*    style={{*/}
-      {/*      display: "flex",*/}
-      {/*      flexDirection: "column",*/}
-      {/*      alignItems: "center",*/}
-      {/*    }}*/}
-      {/*  >*/}
-      {/*    <div style={{ textAlign: "center" }}>*/}
-      {/*      <p>current wallet: {wallet.adapter?.name}</p>*/}
-      {/*      <p>*/}
-      {/*        wallet status:{" "}*/}
-      {/*        {wallet.connecting*/}
-      {/*          ? "connecting"*/}
-      {/*          : wallet.connected*/}
-      {/*          ? "connected"*/}
-      {/*          : "disconnected"}*/}
-      {/*      </p>*/}
-      {/*      <p>account address: {wallet.account?.address}</p>*/}
-      {/*      <p>account publicKey: {getPublicKey() || "not supported"}</p>*/}
-      {/*      <p>*/}
-      {/*        current chain: {wallet.chain?.name} (id: {wallet.chain?.id})*/}
-      {/*      </p>*/}
-      {/*      <p>*/}
-      {/*        SUI Balance: {formatSUI(balance ?? 0)} (id: {wallet.chain?.id})*/}
-      {/*      </p>*/}
-      {/*    </div>*/}
-      {/*    <div style={{ margin: "8px 0" }}>*/}
-      {/*      {wallet.chain?.id === SuiChainId.TestNET ? (*/}
-      {/*        <button*/}
-      {/*          onClick={() =>*/}
-      {/*            handleExecuteMoveCall(sampleNft.get("sui:testnet"))*/}
-      {/*          }*/}
-      {/*        >*/}
-      {/*          Testnet Mint NFT*/}
-      {/*        </button>*/}
-      {/*      ) : (*/}
-      {/*        <button*/}
-      {/*          onClick={() =>*/}
-      {/*            handleExecuteMoveCall(sampleNft.get("sui:devnet"))*/}
-      {/*          }*/}
-      {/*        >*/}
-      {/*          Devnet Mint NFT*/}
-      {/*        </button>*/}
-      {/*      )}*/}
-      {/*      <button style={{ marginLeft: "8px" }} onClick={handleSignMsg}>*/}
-      {/*        signMessage*/}
-      {/*      </button>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*)}*/}
+      {!wallet.connected ? (
+        <p>Connect DApp with Suiet wallet from now!</p>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ textAlign: "center" }}>
+            <p>current wallet: {wallet.adapter?.name}</p>
+            <p>
+              wallet status:{" "}
+              {wallet.connecting
+                ? "connecting"
+                : wallet.connected
+                ? "connected"
+                : "disconnected"}
+            </p>
+            <p>account address: {wallet.account?.address}</p>
+            <p>account publicKey: {getPublicKey() || "not supported"}</p>
+            <p>
+              current chain: {wallet.chain?.name} (id: {wallet.chain?.id})
+            </p>
+            <p>
+              SUI Balance: {formatSUI(balance ?? 0)} (id: {wallet.chain?.id})
+            </p>
+          </div>
+          <div style={{ margin: "8px 0" }}>
+            {wallet.chain?.id === SuiChainId.TestNET ? (
+              <button
+                onClick={() =>
+                  handleExecuteMoveCall(sampleNft.get("sui:testnet"))
+                }
+              >
+                Testnet Mint NFT
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  handleExecuteMoveCall(sampleNft.get("sui:devnet"))
+                }
+              >
+                Devnet Mint NFT
+              </button>
+            )}
+            <button style={{ marginLeft: "8px" }} onClick={handleSignMsg}>
+              signMessage
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

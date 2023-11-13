@@ -1,6 +1,13 @@
 import { createContext, useContext } from "react";
-import { ConnectionStatus, IWallet, IWalletAdapter } from "../types/wallet";
-import { KitError } from "@suiet/wallet-sdk";
+import {
+  Chain,
+  ConnectionStatus,
+  IWallet,
+  IWalletAdapter,
+  KitError,
+  WalletEvent,
+  WalletEventListeners,
+} from "@suiet/wallet-sdk";
 import {
   SuiSignAndExecuteTransactionBlockInput,
   SuiSignAndExecuteTransactionBlockOutput,
@@ -10,8 +17,6 @@ import {
   SuiSignTransactionBlockOutput,
   WalletAccount,
 } from "@mysten/wallet-standard";
-import { WalletEvent, WalletEventListeners } from "../types/events";
-import { Chain } from "../types/chain";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];

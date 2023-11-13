@@ -19,24 +19,22 @@ import { useAvailableWallets } from "../hooks/useAvaibleWallets";
 import { useAutoConnect } from "../hooks/useAutoConnect";
 import { Storage } from "../utils/storage";
 import { StorageKey } from "../constants/storage";
-import {
-  Chain,
-  WalletEvent,
-  WalletEventListeners,
-  ConnectionStatus,
-  IDefaultWallet,
-  IWalletAdapter,
-} from "../types";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { IdentifierString } from "@wallet-standard/core";
 import getActiveChainFromConnectResult from "../utils/getActiveChainFromConnectResult";
 import {
   AllDefaultWallets,
+  Chain,
+  ConnectionStatus,
   DefaultChains,
   FeatureName,
+  IDefaultWallet,
+  IWalletAdapter,
   KitError,
   UnknownChain,
   verifySignedMessage,
+  WalletEvent,
+  WalletEventListeners,
 } from "@suiet/wallet-sdk";
 
 export type WalletProviderProps = Extendable & {

@@ -1,4 +1,4 @@
-import {IWalletAdapter} from "../wallet-standard/interfaces";
+import type { IWalletAdapter } from "../wallet-standard";
 
 export interface IWallet {
   name: string;
@@ -11,8 +11,10 @@ export interface IWallet {
   };
 }
 
-export type IDefaultWallet = Omit<IWallet,
+export type IDefaultWallet = Omit<
+  IWallet,
   keyof {
     adapter: any;
     installed: any;
-  }>
+  }
+>;
