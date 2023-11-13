@@ -1,9 +1,11 @@
-import { AccountBalance } from "./balance";
-import { Provider } from "../common";
+import { IAccount } from "./interfaces/IAccount";
 
-export class Account {
-  public balance: AccountBalance;
-  constructor(provider: Provider, address: string) {
-    this.balance = new AccountBalance(provider, address);
+export class Account implements IAccount {
+  getAddress(): string {
+    return "";
+  }
+
+  getSuiBalance(): Promise<bigint> {
+    return Promise.resolve(0n);
   }
 }
