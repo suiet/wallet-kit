@@ -14,6 +14,7 @@ export enum PresetWallet {
   MORPHIS_WALLET = "Morphis Wallet",
   MARTIAN_WALLET = "Martian Sui Wallet",
   ONEKEY_WALLET = "OneKey Wallet",
+  BITKEEP_WALLET = "BitKeep Wallet",
   SPACECY_WALLET = "Spacecy Sui Wallet",
   SENSUI_WALLET = "Sensui Wallet",
   NIGHTLY_WALLET = "Nightly",
@@ -99,6 +100,16 @@ export const OneKeyWallet = defineWallet({
   downloadUrl: {
     browserExtension:
       "https://chrome.google.com/webstore/detail/onekey/jnmbobjmhlngoefaiojfljckilhhlhcj",
+  },
+});
+
+
+export const BitKeepWallet = defineWallet({
+  name: PresetWallet.BITKEEP_WALLET,
+  iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAGFBMVEUAAABzI/R0I/h1JPn////r3/6IQ/q5kPwduxrAAAAAA3RSTlMAMaNz9DE+AAADRklEQVR42rWabXLiMAyGCVwghQuE5AIkbsMFnOUCnXAAluEAJZx/KdOWWH714fVU/5hBD7YkS7LMYsFKsa4bd5e63paLdHmp3Uzql1T1xhGpk1axdkC2ZvWicVC6Mk/fSuD171Jm6hsIir66C01fJWycKm2y/6lUwgacScqcDTzMwOkvnVGq//WA4om1M0ubYUHejpsUQJu5ALSETRqgzVxA7AgmBvppuNlioWH0vfc3SzgyC/jU98OHwYzYhGf/kOGkmxHqX/yXHE7aEuAOLu9eJFTKDvZPfe+P8h5QEPRzfUwopR0QfejMSthBf/VeJbRCFE2RPgiHjjfB2XsL4dsIK5M+cGbFmODivY3Q4jDcv3MA6swOmqDn9SNCCaKA6A+T5MwqNgEJgLvlJUIbRUEffz1GUiMIDhzRouauoDYkBhihW0ZixbkN99jkIeFArDiPw7dA/4RDayBWnDvhldtrQCCABgNIJr1iQMcCyNHrGYAjgfwDoPVoYrZwdwMGjNL5DgFLBBD1h/A0IMBRzA/HELCKAceTlB/CrLILz+IrcCA93yeSlCJAkv4d0BCAFAAgM3cUIAYAqC4R4CYm+NEpgP2YqE8BcoE4oO8sJH1DhZYAcYFA7dYiQR+2WywAdAiwWeIA/WSs0BxgMlZHDnDm6+toAVyEAu0/dAAJgCH8+EeNxD09waFHBw0AMkCA1AAwAwQEGdDjDHBhARs5AEbgWCEnShlgYgArcwmYEGAXFhaxBPx4R69M+PAygIIFsAXCUp3FDoH0qhyALxCmDkWq8ASAmyypQAhd2huTd9g2b8c0mgepQ6CNJmh15QpPW9242U7oEOJL36R2CLeo3acXjoQOoUVXnpQOodLnL3KHUErzEzU/fNtQGiGJ+eF58VwaK3xU3HfKEErTf04gGkuHIFz/sRF6rUWcDSCW6Q4MRyDQCH81/fkgKXcMxAyi4BUSD6IKOQzxMM0wjJvsw7gifRxYmQaS1/gKyczHs0ei9rk4NxfOHQvnD6azR+P5w/mUJWx/54Ei+4lEzO+2l6bsZyLbJra/+VSW/1iX/VyoGdLyaFpk6uc/2uY/G+c/XH8uoo5+Pvn1Pe/x/uvvAw9IJ/594B9085SAp3BBiAAAAABJRU5ErkJggg==',
+  downloadUrl: {
+    browserExtension:
+      "https://chrome.google.com/webstore/detail/bitkeep-crypto-nft-wallet/jiidiaalihmmhddjgbnbgdfflelocpak/related",
   },
 });
 

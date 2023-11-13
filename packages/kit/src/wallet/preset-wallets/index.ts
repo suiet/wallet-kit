@@ -12,6 +12,7 @@ export const AllDefaultWallets = [
     presets.MorphisWallet,
     presets.GlassWallet,
     presets.OneKeyWallet,
+    presets.BitKeepWallet,
     presets.SpacecyWallet,
     presets.SensuiWallet,
     presets.NightlyWallet,
