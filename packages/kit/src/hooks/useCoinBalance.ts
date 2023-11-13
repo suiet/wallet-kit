@@ -1,10 +1,10 @@
-import {useWallet} from "./useWallet";
-import {SUI_TYPE_ARG} from "@mysten/sui.js";
-import {useQuery} from "react-query";
-import {QueryKey, queryKey} from "../constants";
-import {Account, Provider} from "@suiet/wallet-sdk";
-import {useCallback} from "react";
-import {useChain} from "./useChain";
+import { useWallet } from "./useWallet";
+import { SUI_TYPE_ARG } from "@mysten/sui.js/utils";
+import { useQuery } from "react-query";
+import { QueryKey, queryKey } from "../constants";
+import { AccountAssetManager } from "@suiet/wallet-sdk";
+import { useCallback } from "react";
+import { useChain } from "./useChain";
 
 export interface UseCoinBalanceParams {
   address?: string;
@@ -17,13 +17,13 @@ export interface UseCoinBalanceParams {
  * @param params
  */
 export function useCoinBalance(params?: UseCoinBalanceParams) {
-  const wallet = useWallet()
+  const wallet = useWallet();
   const {
     address = wallet.address,
     typeArg = SUI_TYPE_ARG,
     chainId = wallet.chain?.id,
-  } = params || {}
-  const chain = useChain(chainId)
+  } = params || {};
+  const chain = useChain(chainId);
 
   const key = queryKey(QueryKey.COIN_BALANCE, {
     address,
@@ -33,12 +33,13 @@ export function useCoinBalance(params?: UseCoinBalanceParams) {
   const getCoinBalance = useCallback(() => {
     if (!address || !chain) return BigInt(0);
 
-    const provider = new Provider(chain.rpcUrl);
-    const account = new Account(provider, address);
-    return account.balance.get(typeArg)
-  }, [chain, address])
+    const accountAssetManager = new AccountAssetManager(address, {
+      chainRpcUrl: chain.rpcUrl,
+    });
+    return accountAssetManager.getCoinBalance(typeArg);
+  }, [chain, address]);
 
   return useQuery(key, getCoinBalance, {
-    initialData: BigInt(0)
-  })
+    initialData: BigInt(0),
+  });
 }
