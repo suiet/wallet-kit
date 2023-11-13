@@ -1,14 +1,17 @@
-import classnames from 'classnames';
-import React, {useCallback, useState} from 'react';
-import './index.scss';
-import { useWallet } from '../../hooks/useWallet';
-import { Extendable } from '../../types/utils';
-import { SvgArrowDown } from '../Icon/SvgIcons';
-import type {WalletAccount} from "@mysten/wallet-standard";
-import {useAccountBalance} from "../../hooks";
-import {UnknownChain} from "../../chain/constants";
-import {BaseError} from "../../errors";
-import { formatSUI, addressEllipsis } from '@suiet/wallet-sdk';
+import classnames from "classnames";
+import React, { useCallback, useState } from "react";
+import "./index.scss";
+import { useWallet } from "../../hooks/useWallet";
+import { Extendable } from "../../types/utils";
+import { SvgArrowDown } from "../Icon/SvgIcons";
+import type { WalletAccount } from "@mysten/wallet-standard";
+import { useAccountBalance } from "../../hooks";
+import {
+  formatSUI,
+  addressEllipsis,
+  UnknownChain,
+  BaseError,
+} from "@suiet/wallet-sdk";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
@@ -23,11 +26,11 @@ function WalletInfo(props: ConnectButtonProps) {
 
   const renderBalance = useCallback(() => {
     if (!chain || chain.id === UnknownChain.id) {
-      return <>Unknown Chain</>
+      return <>Unknown Chain</>;
     }
     // TODO: formatCurrency supports bigint
-    return <>{formatSUI(balance ?? 0)} SUI</>
-  }, [balance, chain])
+    return <>{formatSUI(balance ?? 0)} SUI</>;
+  }, [balance, chain]);
 
   if (!connected) return null;
   return (
@@ -55,14 +58,14 @@ function WalletInfo(props: ConnectButtonProps) {
         </div>
       </button>
       {showDisconnectButton && (
-        <div className='wkit-disconnect-button__container'>
+        <div className="wkit-disconnect-button__container">
           <button
             className={"wkit-disconnect-button"}
             onClick={async () => {
               setShowDisconnectButton(false);
               try {
                 await disconnect();
-              } catch(e) {
+              } catch (e) {
                 props?.onDisconnectError?.(e as BaseError);
                 return;
               }

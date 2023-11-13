@@ -1,11 +1,11 @@
-import React, {ReactNode, useEffect, useState} from 'react';
+import React, { ReactNode, useEffect, useState } from "react";
 import classnames from "classnames";
-import {Extendable} from "../../types/utils";
+import { Extendable } from "../../types/utils";
 import ConnectModal from "../Modal/ConnectModal";
-import {useWallet} from "../../hooks/useWallet";
-import './index.scss';
+import { useWallet } from "../../hooks/useWallet";
+import "./index.scss";
 import WalletInfo from "../WalletInfo";
-import {BaseError} from "../../errors";
+import { BaseError } from "@suiet/wallet-sdk";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
@@ -17,22 +17,22 @@ export type ConnectButtonProps = Extendable & {
 };
 
 export const ConnectButton = (props: ConnectButtonProps) => {
-  const {label = 'Connect Button'} = props
-  const [showModal, setShowModal] = useState(false)
-  const {connected} = useWallet()
+  const { label = "Connect Button" } = props;
+  const [showModal, setShowModal] = useState(false);
+  const { connected } = useWallet();
 
   useEffect(() => {
     if (connected) {
       setShowModal(false);
     }
-  }, [connected])
+  }, [connected]);
 
   return (
     <ConnectModal
       open={showModal}
       onOpenChange={(open) => {
         if (connected) return;
-        setShowModal(open)
+        setShowModal(open);
       }}
       onConnectSuccess={props.onConnectSuccess}
       onConnectError={props.onConnectError}
@@ -43,14 +43,14 @@ export const ConnectButton = (props: ConnectButtonProps) => {
             className={classnames(props.className)}
             style={props.style}
             onDisconnectSuccess={(name) => {
-              setShowModal(false)
-              props?.onDisconnectSuccess?.(name)
+              setShowModal(false);
+              props?.onDisconnectSuccess?.(name);
             }}
             onDisconnectError={props.onDisconnectError}
           />
         ) : (
           <button
-            className={classnames('wkit-button', props.className)}
+            className={classnames("wkit-button", props.className)}
             style={props.style}
           >
             {props.children || label}
@@ -58,7 +58,7 @@ export const ConnectButton = (props: ConnectButtonProps) => {
         )}
       </div>
     </ConnectModal>
-  )
+  );
 };
 
-export default ConnectButton
+export default ConnectButton;
