@@ -13,7 +13,6 @@ import type {
   SuiSignTransactionBlockInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
-import { KitError } from "../errors";
 import { Extendable } from "../types/utils";
 import { isNonEmptyArray } from "../utils";
 import { useAvailableWallets } from "../hooks/useAvaibleWallets";
@@ -35,6 +34,7 @@ import {
   AllDefaultWallets,
   DefaultChains,
   FeatureName,
+  KitError,
   UnknownChain,
   verifySignedMessage,
 } from "@suiet/wallet-sdk";
