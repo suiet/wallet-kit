@@ -34,8 +34,8 @@ export class WalletRadar implements IWalletRadar {
       (...newAdapters) => {
         newAdapters.forEach((adapter) => {
           this.setDetectedWalletAdapters(adapter);
-          this.notifySubscribers();
         });
+        this.notifySubscribers();
       }
     );
   }
