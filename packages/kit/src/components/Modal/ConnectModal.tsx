@@ -6,9 +6,8 @@ import { SvgArrowLeft, SvgClose } from "../Icon/SvgIcons";
 import { useWallet } from "../../hooks";
 import { isNonEmptyArray } from "../../utils";
 import Icon from "../Icon";
-import { IWallet } from "../../types/wallet";
 import "./index.scss";
-import { BaseError, KitError } from "@suiet/wallet-sdk";
+import { BaseError, IWallet, KitError } from "@suiet/wallet-sdk";
 
 export type ConnectModalProps = Extendable & {
   open?: boolean;
