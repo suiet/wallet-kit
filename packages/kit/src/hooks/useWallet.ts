@@ -1,15 +1,22 @@
-import {createContext, useContext} from "react";
-import {ConnectionStatus, IWallet, IWalletAdapter} from "../types/wallet";
-import {KitError} from "../errors";
+import { createContext, useContext } from "react";
+import {
+  Chain,
+  ConnectionStatus,
+  IWallet,
+  IWalletAdapter,
+  KitError,
+  WalletEvent,
+  WalletEventListeners,
+} from "@suiet/wallet-sdk";
 import {
   SuiSignAndExecuteTransactionBlockInput,
-  SuiSignAndExecuteTransactionBlockOutput, SuiSignMessageInput,
-  SuiSignMessageOutput, SuiSignTransactionBlockInput,
+  SuiSignAndExecuteTransactionBlockOutput,
+  SuiSignMessageInput,
+  SuiSignMessageOutput,
+  SuiSignTransactionBlockInput,
   SuiSignTransactionBlockOutput,
   WalletAccount,
 } from "@mysten/wallet-standard";
-import {WalletEvent, WalletEventListeners} from "../types/events";
-import {Chain} from "../types/chain";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -17,10 +24,10 @@ export interface WalletContextState {
   allAvailableWallets: IWallet[];
   chains: Chain[];
   chain: Chain | undefined;
-  name: string | undefined;  // name of the connected wallet
-  adapter: IWalletAdapter | undefined;  // adapter provided by the connected wallet
+  name: string | undefined; // name of the connected wallet
+  adapter: IWalletAdapter | undefined; // adapter provided by the connected wallet
   account: WalletAccount | undefined; // current account (the first account of accounts)
-  address: string | undefined;  // alias for account.address
+  address: string | undefined; // alias for account.address
   connecting: boolean;
   connected: boolean;
   status: "disconnected" | "connected" | "connecting";
@@ -29,18 +36,25 @@ export interface WalletContextState {
   getAccounts: () => readonly WalletAccount[];
 
   signAndExecuteTransactionBlock(
-    input: Omit<SuiSignAndExecuteTransactionBlockInput, 'account' | 'chain'>
+    input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
   ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 
-  signTransactionBlock(input: Omit<SuiSignTransactionBlockInput, 'account' | 'chain'>): Promise<SuiSignTransactionBlockOutput>;
+  signTransactionBlock(
+    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignTransactionBlockOutput>;
 
-  signMessage(input: Omit<SuiSignMessageInput, 'account'>): Promise<SuiSignMessageOutput>;
+  signMessage(
+    input: Omit<SuiSignMessageInput, "account">
+  ): Promise<SuiSignMessageOutput>;
 
-  verifySignedMessage(input: SuiSignMessageOutput, publicKey: Uint8Array): Promise<boolean>;
+  verifySignedMessage(
+    input: SuiSignMessageOutput,
+    publicKey: Uint8Array
+  ): Promise<boolean>;
 
   on: <E extends WalletEvent>(
     event: E,
-    listener: WalletEventListeners[E],
+    listener: WalletEventListeners[E]
   ) => () => void;
 }
 
@@ -84,7 +98,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   },
   verifySignedMessage() {
     throw new KitError(missProviderMessage("verifySignedMessage"));
-  }
+  },
 };
 
 export const WalletContext = createContext<WalletContextState>(DEFAULT_CONTEXT);

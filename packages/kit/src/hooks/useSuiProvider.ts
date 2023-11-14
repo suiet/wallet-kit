@@ -1,8 +1,8 @@
-import {JsonRpcProvider, Connection} from '@mysten/sui.js';
-import {useMemo} from 'react';
+import { SuiClient } from "@mysten/sui.js/client";
+import { useMemo } from "react";
 
-export type SuiProvider = JsonRpcProvider;
+export type SuiProvider = SuiClient;
 
 export function useSuiProvider(endpoint: string): SuiProvider {
-  return useMemo<JsonRpcProvider>(() => new JsonRpcProvider(new Connection({fullnode: endpoint})), [endpoint]);
+  return useMemo<SuiClient>(() => new SuiClient({ url: endpoint }), [endpoint]);
 }
