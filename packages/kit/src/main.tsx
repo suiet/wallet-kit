@@ -50,12 +50,12 @@ function App() {
     }
   }
 
-  async function handleSignMsg() {
+  async function handleSignPersonalMessage() {
     if (!wallet.account) return;
 
     try {
       const msg = "Hello world!";
-      const result = await wallet.signMessage({
+      const result = await wallet.signPersonalMessage({
         message: new TextEncoder().encode(msg),
       });
       const isValid = await wallet.verifySignedMessage(
@@ -156,7 +156,10 @@ function App() {
                 Devnet Mint NFT
               </button>
             )}
-            <button style={{ marginLeft: "8px" }} onClick={handleSignMsg}>
+            <button
+              style={{ marginLeft: "8px" }}
+              onClick={handleSignPersonalMessage}
+            >
               signMessage
             </button>
           </div>
