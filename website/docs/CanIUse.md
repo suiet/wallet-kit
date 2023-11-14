@@ -36,11 +36,11 @@ Remember to handle exceptional cases if some wallet adapters do not support cert
 
 ### Hook `useWallet`
 
-|wallet|signAndExecuteTransactionBlock|signMessage|chain|account.publicKey|
-|:-:|:-:|:-:|:-:|:-:|
-|[Suiet Wallet](https://suiet.app/)|✅|✅|✅|✅|
-|[Sui Wallet](https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)|✅|✅|✅|❌|
-|[Ethos Wallet](https://ethoswallet.xyz/)|✅|✅|❌|❌|
+|wallet|signAndExecuteTransactionBlock| signPersonalMessage |chain|account.publicKey|
+|:-:|:-:|:-------------------:|:-:|:-:|
+|[Suiet Wallet](https://suiet.app/)|✅|          ✅          |✅|✅|
+|[Sui Wallet](https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)|✅|          ✅          |✅|❌|
+|[Ethos Wallet](https://ethoswallet.xyz/)|✅|          ✅          |❌|❌|
 
 
 ## For Wallet Developers
