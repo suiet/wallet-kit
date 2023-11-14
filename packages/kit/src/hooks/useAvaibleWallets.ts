@@ -1,66 +1,72 @@
-import {IDefaultWallet, IWallet} from "../types";
-import {useWalletAdapterDetection} from "../wallet-standard/useWalletDetection";
-import {useMemo} from "react";
-import {isNonEmptyArray} from "../utils";
+import { useMemo } from "react";
+import { isNonEmptyArray } from "../utils";
+import { useWalletAdapterDetection } from "./useWalletDetection";
+import { IDefaultWallet, IWallet } from "@suiet/wallet-sdk";
 
 export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
-  const {data: availableWalletAdapters} = useWalletAdapterDetection()
+  const { data: availableWalletAdapters } = useWalletAdapterDetection();
   // configured wallets
   const configuredWallets: IWallet[] = useMemo(() => {
     if (!isNonEmptyArray(defaultWallets)) return [];
     if (!isNonEmptyArray(availableWalletAdapters)) {
-      return defaultWallets.map(item => ({
-        ...item,
-        adapter: undefined,
-        installed: false,
-      }) as IWallet)
+      return defaultWallets.map(
+        (item) =>
+          ({
+            ...item,
+            adapter: undefined,
+            installed: false,
+          } as IWallet)
+      );
     }
 
     return defaultWallets.map((item) => {
-      const foundAdapter = availableWalletAdapters.find(walletAdapter => item.name === walletAdapter.name);
+      const foundAdapter = availableWalletAdapters.find(
+        (walletAdapter) => item.name === walletAdapter.name
+      );
       if (foundAdapter) {
         return {
           ...item,
           adapter: foundAdapter,
           installed: true,
-        } as IWallet
+        } as IWallet;
       }
       return {
         ...item,
         adapter: undefined,
         installed: false,
-      } as IWallet
+      } as IWallet;
     });
-  }, [defaultWallets, availableWalletAdapters])
+  }, [defaultWallets, availableWalletAdapters]);
 
   // detected wallets
   const detectedWallets: IWallet[] = useMemo(() => {
     if (!isNonEmptyArray(availableWalletAdapters)) return [];
-    return availableWalletAdapters.filter(adapter => {
-      // filter adapters not shown in the configured list
-      return !defaultWallets.find(wallet => wallet.name === adapter.name)
-    }).map((adapter) => {
-      // normalized detected adapter to IWallet
-      return {
-        name: adapter.name,
-        label: adapter.name,
-        adapter: adapter,
-        installed: true,
-        iconUrl: adapter.icon,
-        downloadUrl: {
-          browserExtension: '',  // no need to know
-        },
-      }
-    })
+    return availableWalletAdapters
+      .filter((adapter) => {
+        // filter adapters not shown in the configured list
+        return !defaultWallets.find((wallet) => wallet.name === adapter.name);
+      })
+      .map((adapter) => {
+        // normalized detected adapter to IWallet
+        return {
+          name: adapter.name,
+          label: adapter.name,
+          adapter: adapter,
+          installed: true,
+          iconUrl: adapter.icon,
+          downloadUrl: {
+            browserExtension: "", // no need to know
+          },
+        };
+      });
   }, [defaultWallets, availableWalletAdapters]);
 
   // filter installed wallets
   const allAvailableWallets: IWallet[] = useMemo(() => {
-    return [
-      ...configuredWallets,
-      ...detectedWallets,
-    ].filter(wallet => wallet.installed)
-  }, [configuredWallets, detectedWallets])
+    return [...configuredWallets, ...detectedWallets].filter(
+      (wallet) => wallet.installed
+    );
+  }, [configuredWallets, detectedWallets]);
 
   return {
     allAvailableWallets,
