@@ -8,13 +8,13 @@ describe("verifySignedMessage", function () {
     219, 246, 153, 103, 41, 27, 116, 229, 75, 24, 77, 21, 77, 116, 31,
   ]);
   const signedOutput = {
-    messageBytes: "SGVsbG8gd29ybGQh",
+    bytes: "SGVsbG8gd29ybGQh",
     signature:
       "ADmKQDG8f1BQfTDqxryx64ok0Bvkd4z3Q8VZ+sfn8aeK7F/toAJKW4FsNMytXyjDAIxcXLDV7o+xHtEcKplcLQwiS7D3ApnQ3rlRF5gdKV3d7tv2mWcpG3TlSxhNFU10Hw==",
   };
 
   test("convert messageBytes to message", async () => {
-    expect(stringBytesToString(signedOutput.messageBytes)).toBe(message);
+    expect(stringBytesToString(signedOutput.bytes)).toBe(message);
   });
 
   test("verify signature", async () => {
@@ -26,7 +26,7 @@ describe("verifySignedMessage", function () {
     const isValid = await verifySignedMessage(
       {
         ...signedOutput,
-        messageBytes: "SGVsbG8gd29ybGQhAA==",
+        bytes: "SGVsbG8gd29ybGQhAA==",
       },
       publicKey
     );
@@ -51,5 +51,17 @@ describe("verifySignedMessage", function () {
       Uint8Array.from([1, 2, 3])
     );
     expect(isValid).toBe(false);
+  });
+
+  test("support legacy signedMessageOutput", async () => {
+    expect(
+      await verifySignedMessage(
+        {
+          messageBytes: signedOutput.bytes,
+          signature: signedOutput.signature,
+        },
+        publicKey
+      )
+    ).toBe(true);
   });
 });

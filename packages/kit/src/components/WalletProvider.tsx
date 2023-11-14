@@ -10,6 +10,7 @@ import type {
   StandardConnectInput,
   SuiSignAndExecuteTransactionBlockInput,
   SuiSignMessageInput,
+  SuiSignPersonalMessageInput,
   SuiSignTransactionBlockInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
@@ -273,6 +274,22 @@ export const WalletProvider = (props: WalletProviderProps) => {
     [walletAdapter, account, status]
   );
 
+  const signPersonalMessage = useCallback(
+    async (input: Omit<SuiSignPersonalMessageInput, "account">) => {
+      ensureCallable(walletAdapter, status);
+      if (!account) {
+        throw new KitError("no active account");
+      }
+
+      const adapter = walletAdapter as IWalletAdapter;
+      return await adapter.signPersonalMessage({
+        account,
+        message: input.message,
+      });
+    },
+    [walletAdapter, account, status]
+  );
+
   useAutoConnect(select, status, allAvailableWallets, autoConnect);
 
   // sync kit's chain with wallet's active chain
@@ -311,6 +328,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         getAccounts,
         account,
         signAndExecuteTransactionBlock,
+        signPersonalMessage,
         signMessage,
         signTransactionBlock,
         verifySignedMessage,

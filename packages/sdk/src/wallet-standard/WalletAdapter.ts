@@ -16,13 +16,19 @@ import {
   SuiSignMessageInput,
   SuiSignMessageOutput,
   SuiSignMessageMethod,
-
+  SuiSignPersonalMessageMethod,
+  SuiSignPersonalMessageInput,
+  SuiSignPersonalMessageOutput,
 } from "@mysten/wallet-standard";
-import {IWalletAdapter} from "./interfaces";
-import {ErrorCode, handleConnectionError, WalletError, WalletNotImplementError} from "../error-handling";
-import {has} from "./utils";
-import {FeatureName} from "./constants";
-
+import { IWalletAdapter } from "./interfaces";
+import {
+  ErrorCode,
+  handleConnectionError,
+  WalletError,
+  WalletNotImplementError,
+} from "../error-handling";
+import { FeatureName } from "./constants";
+import { has } from "../utils";
 
 /**
  * Wrap the adapter that supports wallet-standard
@@ -125,6 +131,22 @@ export class WalletAdapter implements IWalletAdapter {
       return await feature.signMessage(input);
     } catch (e) {
       throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_MSG_ERROR)
+    }
+  }
+
+  signPersonalMessage(
+    input: SuiSignPersonalMessageInput
+  ): Promise<SuiSignPersonalMessageOutput> {
+    const feature = this.getFeature<{
+      signPersonalMessage: SuiSignPersonalMessageMethod;
+    }>(FeatureName.SUI__SIGN_PERSONAL_MESSAGE);
+    try {
+      return feature.signPersonalMessage(input);
+    } catch (e) {
+      throw new WalletError(
+        (e as any).message,
+        ErrorCode.WALLET__SIGN_PERSONAL_MSG_ERROR
+      );
     }
   }
 
