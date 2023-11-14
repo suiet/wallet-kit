@@ -96,6 +96,9 @@ Here is an example for signing a simple message "Hello World".
 > Notice that all the params are Uint8Array (i.e. bytes) type. For browser app, you can
 > use [TextEncoder](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder) to encode and decode.
 
+> Update: we prefer `signPersonalMessage` over `signMessage` according to the latest wallet standard.
+
+
 ```tsx
 import {useWallet} from '@suiet/wallet-kit'
 import * as tweetnacl from 'tweetnacl'
@@ -109,19 +112,18 @@ function App() {
       // convert string to Uint8Array 
       const msgBytes = new TextEncoder().encode(msg)
       
-      // call wallet's signMessage function
-      const result = await wallet.signMessage({
+      const result = await wallet.signPersonalMessage({
         message: msgBytes
       })
 			// verify signature with publicKey and SignedMessage (params are all included in result)
       const verifyResult = await wallet.verifySignedMessage(result, wallet.account.publicKey)
       if (!verifyResult) {
-        console.log('signMessage succeed, but verify signedMessage failed')
+        console.log('signPersonalMessage succeed, but verify signedMessage failed')
       } else {
-        console.log('signMessage succeed, and verify signedMessage succeed!')
+        console.log('signPersonalMessage succeed, and verify signedMessage succeed!')
       }
     } catch (e) {
-      console.error('signMessage failed', e)
+      console.error('signPersonalMessage failed', e)
     }
   }
 
@@ -283,17 +285,17 @@ The universal function to send and execute transactions via connected wallet.
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------- |
 | `({transactionBlock: TransactionBlock, requestType?: ExecuteTransactionRequestType, options?: SuiTransactionBlockResponseOptions}) => Promise<SuiSignAndExecuteTransactionBlockOutput>` |         |
 
-### signMessage
+### signPersonalMessage
 
 The function is for message signing.
 
-| Type                                                                                   | Default |
-|----------------------------------------------------------------------------------------| ------- |
-| `(input: {message: Uint8Array}) => Promise<{signature: string; messageBytes: string}>` |         |
+| Type                                                                            | Default |
+|---------------------------------------------------------------------------------| ------- |
+| `(input: {message: Uint8Array}) => Promise<{signature: string; bytes: string}>` |         |
 
 ### verifySignedMessage
 
-This function is for verifying the output of `signMessage` following the Sui standard. Returns `true` if the returned signature matches the message to be signed and the signer's publicKey.
+This function is for verifying the output of `signPersonalMessage` following the Sui standard. Returns `true` if the returned signature matches the message to be signed and the signer's publicKey.
 
 For details please check [here](https://github.com/suiet/wallet-kit/blob/main/packages/sdk/src/utils/verifySignedMessage.ts#L10)
 
@@ -346,3 +348,12 @@ const wallet = useWallet();
 - console.log(wallet.getPublicKey());
 + console.log(wallet.account.publicKey);
 ```
+
+### signMessage
+
+Deprecated, use [signPersonalMessage](#signpersonalmessage) instead.
+
+| Type                                                                                   | Default |
+|----------------------------------------------------------------------------------------| ------- |
+| `(input: {message: Uint8Array}) => Promise<{signature: string; messageBytes: string}>` |         |
+

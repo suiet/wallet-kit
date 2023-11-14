@@ -114,7 +114,7 @@ const App = () => {
 
   // launch a move call for the connected account via wallet
   async function handleSignMessage() {
-    await wallet.signMessage({
+    await wallet.signPersonalMessage({
       message: new TextEncoder().encode("Hello World"),
     });
   }
