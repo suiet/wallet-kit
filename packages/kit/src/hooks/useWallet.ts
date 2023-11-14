@@ -13,6 +13,8 @@ import {
   SuiSignAndExecuteTransactionBlockOutput,
   SuiSignMessageInput,
   SuiSignMessageOutput,
+  SuiSignPersonalMessageInput,
+  SuiSignPersonalMessageOutput,
   SuiSignTransactionBlockInput,
   SuiSignTransactionBlockOutput,
   WalletAccount,
@@ -43,12 +45,19 @@ export interface WalletContextState {
     input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
   ): Promise<SuiSignTransactionBlockOutput>;
 
+  signPersonalMessage(
+    input: Omit<SuiSignPersonalMessageInput, "account">
+  ): Promise<SuiSignPersonalMessageOutput>;
+
+  /**
+   * @deprecated use signPersonalMessage instead
+   */
   signMessage(
     input: Omit<SuiSignMessageInput, "account">
   ): Promise<SuiSignMessageOutput>;
 
   verifySignedMessage(
-    input: SuiSignMessageOutput,
+    input: SuiSignPersonalMessageOutput | SuiSignMessageOutput,
     publicKey: Uint8Array
   ): Promise<boolean>;
 
@@ -92,6 +101,9 @@ const DEFAULT_CONTEXT: WalletContextState = {
   },
   async signTransactionBlock() {
     throw new KitError(missProviderMessage("signTransactionBlock"));
+  },
+  async signPersonalMessage() {
+    throw new KitError(missProviderMessage("signPersonalMessage"));
   },
   async signMessage() {
     throw new KitError(missProviderMessage("signMessage"));
