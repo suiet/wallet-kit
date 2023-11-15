@@ -34,6 +34,16 @@ yarn add @suiet/wallet-kit
 pnpm install @suiet/wallet-kit
 ```
 
+Next, make sure `@mysten/sui.js` is installed in your project. If not, install it as well.
+
+```shell
+npm install @mysten/sui.js
+# or
+yarn add @mysten/sui.js
+# or
+pnpm install @mysten/sui.js
+```
+
 Then wrap your `<App />` with our context provider, so that our hooks can work nicely inside your dapp.
 
 Oh don't forget to import our css to enable default styles 🎨
