@@ -55,6 +55,7 @@
     "postcss": "^8.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.56.1",
     "semantic-release": "^19.0.5",
     "ts-jest": "^28.0.8",
@@ -65,7 +66,8 @@
   },
   "peerDependencies": {
     "@mysten/sui.js": "0.45.1",
-    "@mysten/wallet-standard": "0.8.7"
+    "react": "*",
+    "react-dom": "*"
   },
   "repository": {
     "type": "git",
