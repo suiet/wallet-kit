@@ -63,8 +63,8 @@ importers:
         specifier: 0.51.2
         version: 0.51.2(typescript@5.1.6)
       '@mysten/wallet-standard':
-        specifier: 0.8.7
-        version: 0.8.7
+        specifier: 0.11.2
+        version: 0.11.2(typescript@5.1.6)
       '@radix-ui/react-dialog':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0)
@@ -175,8 +175,8 @@ importers:
         specifier: 0.51.2
         version: 0.51.2(typescript@5.1.6)
       '@mysten/wallet-standard':
-        specifier: 0.8.7
-        version: 0.8.7
+        specifier: 0.11.2
+        version: 0.11.2(typescript@5.1.6)
       '@noble/hashes':
         specifier: ^1.3.0
         version: 1.3.0
@@ -267,8 +267,8 @@ importers:
         specifier: 0.3.0
         version: 0.3.0
       '@mysten/wallet-standard':
-        specifier: ^0.8.0
-        version: 0.8.0
+        specifier: ^0.11.0
+        version: 0.11.2(typescript@4.8.3)
       '@tsconfig/docusaurus':
         specifier: ^1.0.5
         version: 1.0.6
@@ -3143,12 +3143,6 @@ packages:
       bn.js: 5.2.1
     dev: true
 
-  /@mysten/bcs@0.7.4:
-    resolution: {integrity: sha512-6DKzM4L10Au3Og5EJRBqJZmXWZ7hS/clVjbVUH4sA0aFtS3AZo2xc+r5fUFfdJbaWZUxVaDiQ8BNiEZWkAnEOw==}
-    dependencies:
-      bs58: 5.0.0
-    dev: true
-
   /@mysten/bcs@0.8.1:
     resolution: {integrity: sha512-wSEdP7QEfGQdb34g+7R0f3OdRqrv88iIABfJVDVJ6IsGLYVILreh8dZfNpZNUUyzctiyhX7zB9e/lR5qkddFPA==}
     dependencies:
@@ -3178,26 +3172,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/sui.js@0.42.0:
-    resolution: {integrity: sha512-khYpfrWTRNk7WTuDWJx/KCbleqY1B40gVRt1DttqlNkD2lvg134xZn7F/r94jxgnUETbK+hVoQvBY7F36MsfRw==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@mysten/bcs': 0.7.4
-      '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.1
-      '@open-rpc/client-js': 1.8.1
-      '@scure/bip32': 1.3.1
-      '@scure/bip39': 1.2.1
-      '@suchipi/femver': 1.0.0
-      events: 3.3.0
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: true
-
   /@mysten/sui.js@0.45.1:
     resolution: {integrity: sha512-B6RKfBAR1yr3EvHyQzXgkyOGOXE7jUbgblyitK/25CGp4Uba4VHEZ/N5DCbiuTJdt2k1H42sSXqIGfYqHN+6Cw==}
     engines: {node: '>=16'}
@@ -3216,6 +3190,46 @@ packages:
       - bufferutil
       - encoding
       - utf-8-validate
+    dev: false
+
+  /@mysten/sui.js@0.51.2(typescript@4.8.3):
+    resolution: {integrity: sha512-RRG/VHhVvkQlWqodFZagRxVDo3SbXh4e3xTBplhPNNyybugbWj/V+wGrNv5/KtxfVxHBw6jTCoB798ijqPBq7g==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
+      '@mysten/bcs': 0.11.1
+      '@noble/curves': 1.1.0
+      '@noble/hashes': 1.3.1
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
+      '@suchipi/femver': 1.0.0
+      bech32: 2.0.0
+      gql.tada: 1.4.1(graphql@16.8.1)(typescript@4.8.3)
+      graphql: 16.8.1
+      superstruct: 1.0.3
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - typescript
+    dev: true
+
+  /@mysten/sui.js@0.51.2(typescript@5.1.6):
+    resolution: {integrity: sha512-RRG/VHhVvkQlWqodFZagRxVDo3SbXh4e3xTBplhPNNyybugbWj/V+wGrNv5/KtxfVxHBw6jTCoB798ijqPBq7g==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
+      '@mysten/bcs': 0.11.1
+      '@noble/curves': 1.1.0
+      '@noble/hashes': 1.3.1
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
+      '@suchipi/femver': 1.0.0
+      bech32: 2.0.0
+      gql.tada: 1.4.1(graphql@16.8.1)(typescript@5.1.6)
+      graphql: 16.8.1
+      superstruct: 1.0.3
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - typescript
     dev: false
 
   /@mysten/sui.js@0.51.2(typescript@5.1.6):
@@ -3259,26 +3273,22 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard@0.8.0:
-    resolution: {integrity: sha512-kFh1iybKxaY+lchN+rtVBT5+UL1IHorZ81Ktg9200tcLeUqLB3V/K1PRqkj2dk0eUGDaLEH+yWjBF9hnyH4rgQ==}
+  /@mysten/wallet-standard@0.11.2(typescript@4.8.3):
+    resolution: {integrity: sha512-wDuXHwmdYS+9ewH6w4Fg67QwDpYN6JTKPWC/fuEWRuHy4uS77DfrIG6KHtU0tReMGapevXovKpw6WoSHJHDDHg==}
     dependencies:
-      '@mysten/sui.js': 0.42.0
+      '@mysten/sui.js': 0.51.2(typescript@4.8.3)
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
+      - typescript
     dev: true
 
-  /@mysten/wallet-standard@0.8.7:
-    resolution: {integrity: sha512-kY/gc8WHeqcWPgnQ69l9jbyXSsnVJqddspX1rvLF5bZV1Ud7ZrVO1V+pL4LNTxeQq02EHz4n5DLOWGHDd3mrTg==}
+  /@mysten/wallet-standard@0.11.2(typescript@5.1.6):
+    resolution: {integrity: sha512-wDuXHwmdYS+9ewH6w4Fg67QwDpYN6JTKPWC/fuEWRuHy4uS77DfrIG6KHtU0tReMGapevXovKpw6WoSHJHDDHg==}
     dependencies:
-      '@mysten/sui.js': 0.45.1
+      '@mysten/sui.js': 0.51.2(typescript@5.1.6)
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
+      - typescript
     dev: false
 
   /@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1:
@@ -3449,6 +3459,7 @@ packages:
       - bufferutil
       - encoding
       - utf-8-validate
+    dev: false
 
   /@polka/url@1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
@@ -9247,6 +9258,7 @@ packages:
       whatwg-fetch: 3.6.2
     transitivePeerDependencies:
       - encoding
+    dev: false
 
   /isomorphic-ws@4.0.1(ws@7.5.9):
     resolution: {integrity: sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==}
@@ -9262,6 +9274,7 @@ packages:
       ws: '*'
     dependencies:
       ws: 7.5.9
+    dev: false
 
   /issue-parser@6.0.0:
     resolution: {integrity: sha512-zKa/Dxq2lGsBIXQ7CUZWTHfvxPC2ej0KfO7fIPqLlHB9J2hJ7rGhZ5rilhuufylr4RXYPzJUeFjKxz305OsNlA==}
@@ -13203,6 +13216,7 @@ packages:
 
   /strict-event-emitter-types@2.0.0:
     resolution: {integrity: sha512-Nk/brWYpD85WlOgzw5h173aci0Teyv8YdIAEtV+N88nDB0dLlazZyJMIsN6eo1/AR61l+p6CJTG1JIyFaoNEEA==}
+    dev: false
 
   /string-argv@0.3.2:
     resolution: {integrity: sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==}
@@ -14586,6 +14600,7 @@ packages:
 
   /whatwg-fetch@3.6.2:
     resolution: {integrity: sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==}
+    dev: false
 
   /whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
