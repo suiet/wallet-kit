@@ -1,6 +1,6 @@
 ---
 title: Types
-sidebar_position: 999
+sidebar_position: 998
 ---
 
 ## Types of Sui SDK

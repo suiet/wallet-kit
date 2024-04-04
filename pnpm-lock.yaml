@@ -16,7 +16,7 @@ importers:
         version: 7.22.5(@babel/core@7.22.5)(eslint@8.43.0)
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.59.11
-        version: 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)(typescript@5.1.6)
+        version: 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)(typescript@5.4.3)
       eslint:
         specifier: ^8.43.0
         version: 8.43.0
@@ -25,13 +25,13 @@ importers:
         version: 8.8.0(eslint@8.43.0)
       eslint-config-standard-with-typescript:
         specifier: ^22.0.0
-        version: 22.0.0(@typescript-eslint/eslint-plugin@5.59.11)(eslint-plugin-import@2.27.5)(eslint-plugin-n@15.7.0)(eslint-plugin-promise@6.1.1)(eslint@8.43.0)(typescript@5.1.6)
+        version: 22.0.0(@typescript-eslint/eslint-plugin@5.59.11)(eslint-plugin-import@2.27.5)(eslint-plugin-n@15.7.0)(eslint-plugin-promise@6.1.1)(eslint@8.43.0)(typescript@5.4.3)
       eslint-plugin-import:
         specifier: ^2.27.5
         version: 2.27.5(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)
       eslint-plugin-jest:
         specifier: ^27.2.2
-        version: 27.2.2(@typescript-eslint/eslint-plugin@5.59.11)(eslint@8.43.0)(typescript@5.1.6)
+        version: 27.2.2(@typescript-eslint/eslint-plugin@5.59.11)(eslint@8.43.0)(typescript@5.4.3)
       eslint-plugin-n:
         specifier: ^15.7.0
         version: 15.7.0(eslint@8.43.0)
@@ -234,10 +234,10 @@ importers:
     dependencies:
       '@docusaurus/core':
         specifier: 2.1.0
-        version: 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+        version: 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/preset-classic':
         specifier: 2.1.0
-        version: 2.1.0(@algolia/client-search@4.17.2)(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+        version: 2.1.0(@algolia/client-search@4.17.2)(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@mdx-js/react':
         specifier: ^1.6.22
         version: 1.6.22(react@18.2.0)
@@ -268,7 +268,7 @@ importers:
         version: 0.3.0
       '@mysten/wallet-standard':
         specifier: ^0.11.0
-        version: 0.11.2(typescript@4.8.3)
+        version: 0.11.2(typescript@5.4.3)
       '@tsconfig/docusaurus':
         specifier: ^1.0.5
         version: 1.0.6
@@ -279,8 +279,8 @@ importers:
         specifier: ^18.0.8
         version: 18.0.8
       typescript:
-        specifier: ^4.7.4
-        version: 4.8.3
+        specifier: ^5.4.3
+        version: 5.4.3
 
 packages:
 
@@ -1965,7 +1965,7 @@ packages:
       - '@algolia/client-search'
     dev: false
 
-  /@docusaurus/core@2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/core@2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-/ZJ6xmm+VB9Izbn0/s6h6289cbPy2k4iYFwWDhjiLsVqwa/Y0YBBcXvStfaHccudUC3OfP+26hMk7UCjc50J6Q==}
     engines: {node: '>=16.14'}
     hasBin: true
@@ -2024,7 +2024,7 @@ packages:
       postcss-loader: 7.0.1(postcss@8.4.19)(webpack@5.74.0)
       prompts: 2.4.2
       react: 18.2.0
-      react-dev-utils: 12.0.1(eslint@8.43.0)(typescript@4.8.3)(webpack@5.74.0)
+      react-dev-utils: 12.0.1(eslint@8.43.0)(typescript@5.4.3)(webpack@5.74.0)
       react-dom: 18.2.0(react@18.2.0)
       react-helmet-async: 1.3.0(react-dom@18.2.0)(react@18.2.0)
       react-loadable: /@docusaurus/react-loadable@5.5.2(react@18.2.0)
@@ -2139,14 +2139,14 @@ packages:
       - uglify-js
       - webpack-cli
 
-  /@docusaurus/plugin-content-blog@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/plugin-content-blog@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-xEp6jlu92HMNUmyRBEeJ4mCW1s77aAEQO4Keez94cUY/Ap7G/r0Awa6xSLff7HL0Fjg8KK1bEbDy7q9voIavdg==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/logger': 2.1.0
       '@docusaurus/mdx-loader': 2.1.0(@docusaurus/types@2.1.0)(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/types': 2.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -2181,14 +2181,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/plugin-content-docs@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/plugin-content-docs@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-Rup5pqXrXlKGIC4VgwvioIhGWF7E/NNSlxv+JAxRYpik8VKlWsk9ysrdHIlpX+KJUCO9irnY21kQh2814mlp/Q==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/logger': 2.1.0
       '@docusaurus/mdx-loader': 2.1.0(@docusaurus/types@2.1.0)(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/module-type-aliases': 2.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -2223,14 +2223,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/plugin-content-pages@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/plugin-content-pages@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-SwZdDZRlObHNKXTnFo7W2aF6U5ZqNVI55Nw2GCBryL7oKQSLeI0lsrMlMXdzn+fS7OuBTd3MJBO1T4Zpz0i/+g==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/mdx-loader': 2.1.0(@docusaurus/types@2.1.0)(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/types': 2.1.0(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/utils': 2.1.0(@docusaurus/types@2.1.0)
@@ -2257,14 +2257,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/plugin-debug@2.1.0(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/plugin-debug@2.1.0(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-8wsDq3OIfiy6440KLlp/qT5uk+WRHQXIXklNHEeZcar+Of0TZxCNe2FBpv+bzb/0qcdP45ia5i5WmR5OjN6DPw==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/types': 2.1.0(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/utils': 2.1.0(@docusaurus/types@2.1.0)
       fs-extra: 10.1.0
@@ -2291,14 +2291,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/plugin-google-analytics@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/plugin-google-analytics@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-4cgeqIly/wcFVbbWP03y1QJJBgH8W+Bv6AVbWnsXNOZa1yB3AO6hf3ZdeQH9x20v9T2pREogVgAH0rSoVnNsgg==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/types': 2.1.0(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/utils-validation': 2.1.0(@docusaurus/types@2.1.0)
       react: 18.2.0
@@ -2321,14 +2321,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/plugin-google-gtag@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/plugin-google-gtag@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-/3aDlv2dMoCeiX2e+DTGvvrdTA+v3cKQV3DbmfsF4ENhvc5nKV23nth04Z3Vq0Ci1ui6Sn80TkhGk/tiCMW2AA==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/types': 2.1.0(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/utils-validation': 2.1.0(@docusaurus/types@2.1.0)
       react: 18.2.0
@@ -2351,14 +2351,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/plugin-sitemap@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/plugin-sitemap@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-2Y6Br8drlrZ/jN9MwMBl0aoi9GAjpfyfMBYpaQZXimbK+e9VjYnujXlvQ4SxtM60ASDgtHIAzfVFBkSR/MwRUw==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/logger': 2.1.0
       '@docusaurus/types': 2.1.0(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/utils': 2.1.0(@docusaurus/types@2.1.0)
@@ -2386,24 +2386,24 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/preset-classic@2.1.0(@algolia/client-search@4.17.2)(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/preset-classic@2.1.0(@algolia/client-search@4.17.2)(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-NQMnaq974K4BcSMXFSJBQ5itniw6RSyW+VT+6i90kGZzTwiuKZmsp0r9lC6BYAvvVMQUNJQwrETmlu7y2XKW7w==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-content-blog': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-content-docs': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-content-pages': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-debug': 2.1.0(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-google-analytics': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-google-gtag': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-sitemap': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/theme-classic': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/theme-common': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/theme-search-algolia': 2.1.0(@algolia/client-search@4.17.2)(@docusaurus/types@2.1.0)(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-content-blog': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-content-docs': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-content-pages': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-debug': 2.1.0(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-google-analytics': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-google-gtag': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-sitemap': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/theme-classic': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/theme-common': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/theme-search-algolia': 2.1.0(@algolia/client-search@4.17.2)(@docusaurus/types@2.1.0)(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/types': 2.1.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -2436,20 +2436,20 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
 
-  /@docusaurus/theme-classic@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/theme-classic@2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-xn8ZfNMsf7gaSy9+ClFnUu71o7oKgMo5noYSS1hy3svNifRTkrBp6+MReLDsmIaj3mLf2e7+JCBYKBFbaGzQng==}
     engines: {node: '>=16.14'}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/mdx-loader': 2.1.0(@docusaurus/types@2.1.0)(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/module-type-aliases': 2.1.0(react-dom@18.2.0)(react@18.2.0)
-      '@docusaurus/plugin-content-blog': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-content-docs': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-content-pages': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/theme-common': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/plugin-content-blog': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-content-docs': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-content-pages': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/theme-common': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/theme-translations': 2.1.0
       '@docusaurus/types': 2.1.0(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/utils': 2.1.0(@docusaurus/types@2.1.0)
@@ -2487,7 +2487,7 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/theme-common@2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/theme-common@2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-vT1otpVPbKux90YpZUnvknsn5zvpLf+AW1W0EDcpE9up4cDrPqfsh0QoxGHFJnobE2/qftsBFC19BneN4BH8Ag==}
     engines: {node: '>=16.14'}
     peerDependencies:
@@ -2496,9 +2496,9 @@ packages:
     dependencies:
       '@docusaurus/mdx-loader': 2.1.0(@docusaurus/types@2.1.0)(react-dom@18.2.0)(react@18.2.0)
       '@docusaurus/module-type-aliases': 2.1.0(react-dom@18.2.0)(react@18.2.0)
-      '@docusaurus/plugin-content-blog': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-content-docs': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/plugin-content-pages': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/plugin-content-blog': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-content-docs': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/plugin-content-pages': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/utils': 2.1.0(@docusaurus/types@2.1.0)
       '@types/history': 4.7.11
       '@types/react': 18.2.13
@@ -2528,7 +2528,7 @@ packages:
       - webpack-cli
     dev: false
 
-  /@docusaurus/theme-search-algolia@2.1.0(@algolia/client-search@4.17.2)(@docusaurus/types@2.1.0)(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3):
+  /@docusaurus/theme-search-algolia@2.1.0(@algolia/client-search@4.17.2)(@docusaurus/types@2.1.0)(@types/react@18.0.25)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3):
     resolution: {integrity: sha512-rNBvi35VvENhucslEeVPOtbAzBdZY/9j55gdsweGV5bYoAXy4mHB6zTGjealcB4pJ6lJY4a5g75fXXMOlUqPfg==}
     engines: {node: '>=16.14'}
     peerDependencies:
@@ -2536,10 +2536,10 @@ packages:
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
       '@docsearch/react': 3.2.1(@algolia/client-search@4.17.2)(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0)
-      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/core': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/logger': 2.1.0
-      '@docusaurus/plugin-content-docs': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
-      '@docusaurus/theme-common': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.8.3)
+      '@docusaurus/plugin-content-docs': 2.1.0(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
+      '@docusaurus/theme-common': 2.1.0(@docusaurus/types@2.1.0)(eslint@8.43.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@docusaurus/theme-translations': 2.1.0
       '@docusaurus/utils': 2.1.0(@docusaurus/types@2.1.0)
       '@docusaurus/utils-validation': 2.1.0(@docusaurus/types@2.1.0)
@@ -2722,16 +2722,6 @@ packages:
     resolution: {integrity: sha512-s2UHCoiXfxMvmfzqoN+vrQ84ahUSYde9qNO1MdxmoEhyHWsfmwOpFlwYV+ePJEVc7gFnATGUi376WowX1N7tFg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  /@gql.tada/cli-utils@0.3.2(typescript@4.8.3):
-    resolution: {integrity: sha512-V0wLW/ZOJUxNBKcg8suF7sh+Rs7TPKxJNXwc5D0qBAur40U8i97jsI7914d5Cc3Cn7MW8QvxDx0vvOsa3afekg==}
-    peerDependencies:
-      typescript: ^5.0.0
-    dependencies:
-      '@gql.tada/internal': 0.1.2(graphql@16.8.1)(typescript@4.8.3)
-      graphql: 16.8.1
-      typescript: 4.8.3
-    dev: true
-
   /@gql.tada/cli-utils@0.3.2(typescript@5.1.6):
     resolution: {integrity: sha512-V0wLW/ZOJUxNBKcg8suF7sh+Rs7TPKxJNXwc5D0qBAur40U8i97jsI7914d5Cc3Cn7MW8QvxDx0vvOsa3afekg==}
     peerDependencies:
@@ -2742,15 +2732,14 @@ packages:
       typescript: 5.1.6
     dev: false
 
-  /@gql.tada/internal@0.1.2(graphql@16.8.1)(typescript@4.8.3):
-    resolution: {integrity: sha512-8I4Z1zxYYGK66FWdB3yIZBn3cITLPnciEgjChp3K2+Ha1e/AEBGtZv9AUlodraO/RZafDMkpFhoi+tMpluBjeg==}
+  /@gql.tada/cli-utils@0.3.2(typescript@5.4.3):
+    resolution: {integrity: sha512-V0wLW/ZOJUxNBKcg8suF7sh+Rs7TPKxJNXwc5D0qBAur40U8i97jsI7914d5Cc3Cn7MW8QvxDx0vvOsa3afekg==}
     peerDependencies:
-      graphql: ^16.8.1
       typescript: ^5.0.0
     dependencies:
-      '@0no-co/graphql.web': 1.0.6(graphql@16.8.1)
+      '@gql.tada/internal': 0.1.2(graphql@16.8.1)(typescript@5.4.3)
       graphql: 16.8.1
-      typescript: 4.8.3
+      typescript: 5.4.3
     dev: true
 
   /@gql.tada/internal@0.1.2(graphql@16.8.1)(typescript@5.1.6):
@@ -2763,6 +2752,17 @@ packages:
       graphql: 16.8.1
       typescript: 5.1.6
     dev: false
+
+  /@gql.tada/internal@0.1.2(graphql@16.8.1)(typescript@5.4.3):
+    resolution: {integrity: sha512-8I4Z1zxYYGK66FWdB3yIZBn3cITLPnciEgjChp3K2+Ha1e/AEBGtZv9AUlodraO/RZafDMkpFhoi+tMpluBjeg==}
+    peerDependencies:
+      graphql: ^16.8.1
+      typescript: ^5.0.0
+    dependencies:
+      '@0no-co/graphql.web': 1.0.6(graphql@16.8.1)
+      graphql: 16.8.1
+      typescript: 5.4.3
+    dev: true
 
   /@graphql-typed-document-node/core@3.2.0(graphql@16.8.1):
     resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
@@ -3186,26 +3186,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/sui.js@0.51.2(typescript@4.8.3):
-    resolution: {integrity: sha512-RRG/VHhVvkQlWqodFZagRxVDo3SbXh4e3xTBplhPNNyybugbWj/V+wGrNv5/KtxfVxHBw6jTCoB798ijqPBq7g==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
-      '@mysten/bcs': 0.11.1
-      '@noble/curves': 1.1.0
-      '@noble/hashes': 1.3.1
-      '@scure/bip32': 1.3.1
-      '@scure/bip39': 1.2.1
-      '@suchipi/femver': 1.0.0
-      bech32: 2.0.0
-      gql.tada: 1.4.2(graphql@16.8.1)(typescript@4.8.3)
-      graphql: 16.8.1
-      superstruct: 1.0.3
-      tweetnacl: 1.0.3
-    transitivePeerDependencies:
-      - typescript
-    dev: true
-
   /@mysten/sui.js@0.51.2(typescript@5.1.6):
     resolution: {integrity: sha512-RRG/VHhVvkQlWqodFZagRxVDo3SbXh4e3xTBplhPNNyybugbWj/V+wGrNv5/KtxfVxHBw6jTCoB798ijqPBq7g==}
     engines: {node: '>=16'}
@@ -3225,6 +3205,26 @@ packages:
     transitivePeerDependencies:
       - typescript
     dev: false
+
+  /@mysten/sui.js@0.51.2(typescript@5.4.3):
+    resolution: {integrity: sha512-RRG/VHhVvkQlWqodFZagRxVDo3SbXh4e3xTBplhPNNyybugbWj/V+wGrNv5/KtxfVxHBw6jTCoB798ijqPBq7g==}
+    engines: {node: '>=16'}
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
+      '@mysten/bcs': 0.11.1
+      '@noble/curves': 1.1.0
+      '@noble/hashes': 1.3.1
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
+      '@suchipi/femver': 1.0.0
+      bech32: 2.0.0
+      gql.tada: 1.4.2(graphql@16.8.1)(typescript@5.4.3)
+      graphql: 16.8.1
+      superstruct: 1.0.3
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - typescript
+    dev: true
 
   /@mysten/wallet-adapter-base@0.3.0:
     resolution: {integrity: sha512-Sk4J8R+9YYxGtFp2GkEgQX/JLKMGYg/VjB/KCA5D6VwjzjRkk7jgD9ImkSSceNmLeiG2F/VyCndVAPDoAAhzow==}
@@ -3247,15 +3247,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard@0.11.2(typescript@4.8.3):
-    resolution: {integrity: sha512-wDuXHwmdYS+9ewH6w4Fg67QwDpYN6JTKPWC/fuEWRuHy4uS77DfrIG6KHtU0tReMGapevXovKpw6WoSHJHDDHg==}
-    dependencies:
-      '@mysten/sui.js': 0.51.2(typescript@4.8.3)
-      '@wallet-standard/core': 1.0.3
-    transitivePeerDependencies:
-      - typescript
-    dev: true
-
   /@mysten/wallet-standard@0.11.2(typescript@5.1.6):
     resolution: {integrity: sha512-wDuXHwmdYS+9ewH6w4Fg67QwDpYN6JTKPWC/fuEWRuHy4uS77DfrIG6KHtU0tReMGapevXovKpw6WoSHJHDDHg==}
     dependencies:
@@ -3264,6 +3255,15 @@ packages:
     transitivePeerDependencies:
       - typescript
     dev: false
+
+  /@mysten/wallet-standard@0.11.2(typescript@5.4.3):
+    resolution: {integrity: sha512-wDuXHwmdYS+9ewH6w4Fg67QwDpYN6JTKPWC/fuEWRuHy4uS77DfrIG6KHtU0tReMGapevXovKpw6WoSHJHDDHg==}
+    dependencies:
+      '@mysten/sui.js': 0.51.2(typescript@5.4.3)
+      '@wallet-standard/core': 1.0.3
+    transitivePeerDependencies:
+      - typescript
+    dev: true
 
   /@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1:
     resolution: {integrity: sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==}
@@ -4522,7 +4522,7 @@ packages:
       '@types/yargs-parser': 21.0.0
     dev: true
 
-  /@typescript-eslint/eslint-plugin@5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)(typescript@5.1.6):
+  /@typescript-eslint/eslint-plugin@5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)(typescript@5.4.3):
     resolution: {integrity: sha512-XxuOfTkCUiOSyBWIvHlUraLw/JT/6Io1365RO6ZuI88STKMavJZPNMU0lFcUTeQXEhHiv64CbxYxBNoDVSmghg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4534,23 +4534,23 @@ packages:
         optional: true
     dependencies:
       '@eslint-community/regexpp': 4.5.1
-      '@typescript-eslint/parser': 5.59.11(eslint@8.43.0)(typescript@5.1.6)
+      '@typescript-eslint/parser': 5.59.11(eslint@8.43.0)(typescript@5.4.3)
       '@typescript-eslint/scope-manager': 5.59.11
-      '@typescript-eslint/type-utils': 5.59.11(eslint@8.43.0)(typescript@5.1.6)
-      '@typescript-eslint/utils': 5.59.11(eslint@8.43.0)(typescript@5.1.6)
+      '@typescript-eslint/type-utils': 5.59.11(eslint@8.43.0)(typescript@5.4.3)
+      '@typescript-eslint/utils': 5.59.11(eslint@8.43.0)(typescript@5.4.3)
       debug: 4.3.4
       eslint: 8.43.0
       grapheme-splitter: 1.0.4
       ignore: 5.2.4
       natural-compare-lite: 1.4.0
       semver: 7.5.2
-      tsutils: 3.21.0(typescript@5.1.6)
-      typescript: 5.1.6
+      tsutils: 3.21.0(typescript@5.4.3)
+      typescript: 5.4.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser@5.59.11(eslint@8.43.0)(typescript@5.1.6):
+  /@typescript-eslint/parser@5.59.11(eslint@8.43.0)(typescript@5.4.3):
     resolution: {integrity: sha512-s9ZF3M+Nym6CAZEkJJeO2TFHHDsKAM3ecNkLuH4i4s8/RCPnF5JRip2GyviYkeEAcwGMJxkqG9h2dAsnA1nZpA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4562,10 +4562,10 @@ packages:
     dependencies:
       '@typescript-eslint/scope-manager': 5.59.11
       '@typescript-eslint/types': 5.59.11
-      '@typescript-eslint/typescript-estree': 5.59.11(typescript@5.1.6)
+      '@typescript-eslint/typescript-estree': 5.59.11(typescript@5.4.3)
       debug: 4.3.4
       eslint: 8.43.0
-      typescript: 5.1.6
+      typescript: 5.4.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4578,7 +4578,7 @@ packages:
       '@typescript-eslint/visitor-keys': 5.59.11
     dev: true
 
-  /@typescript-eslint/type-utils@5.59.11(eslint@8.43.0)(typescript@5.1.6):
+  /@typescript-eslint/type-utils@5.59.11(eslint@8.43.0)(typescript@5.4.3):
     resolution: {integrity: sha512-LZqVY8hMiVRF2a7/swmkStMYSoXMFlzL6sXV6U/2gL5cwnLWQgLEG8tjWPpaE4rMIdZ6VKWwcffPlo1jPfk43g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4588,12 +4588,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/typescript-estree': 5.59.11(typescript@5.1.6)
-      '@typescript-eslint/utils': 5.59.11(eslint@8.43.0)(typescript@5.1.6)
+      '@typescript-eslint/typescript-estree': 5.59.11(typescript@5.4.3)
+      '@typescript-eslint/utils': 5.59.11(eslint@8.43.0)(typescript@5.4.3)
       debug: 4.3.4
       eslint: 8.43.0
-      tsutils: 3.21.0(typescript@5.1.6)
-      typescript: 5.1.6
+      tsutils: 3.21.0(typescript@5.4.3)
+      typescript: 5.4.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4603,7 +4603,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree@5.59.11(typescript@5.1.6):
+  /@typescript-eslint/typescript-estree@5.59.11(typescript@5.4.3):
     resolution: {integrity: sha512-YupOpot5hJO0maupJXixi6l5ETdrITxeo5eBOeuV7RSKgYdU3G5cxO49/9WRnJq9EMrB7AuTSLH/bqOsXi7wPA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4618,13 +4618,13 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.5.2
-      tsutils: 3.21.0(typescript@5.1.6)
-      typescript: 5.1.6
+      tsutils: 3.21.0(typescript@5.4.3)
+      typescript: 5.4.3
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils@5.59.11(eslint@8.43.0)(typescript@5.1.6):
+  /@typescript-eslint/utils@5.59.11(eslint@8.43.0)(typescript@5.4.3):
     resolution: {integrity: sha512-didu2rHSOMUdJThLk4aZ1Or8IcO3HzCw/ZvEjTTIfjIrcdd5cvSIwwDy2AOlE7htSNp7QIZ10fLMyRCveesMLg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4635,7 +4635,7 @@ packages:
       '@types/semver': 7.5.0
       '@typescript-eslint/scope-manager': 5.59.11
       '@typescript-eslint/types': 5.59.11
-      '@typescript-eslint/typescript-estree': 5.59.11(typescript@5.1.6)
+      '@typescript-eslint/typescript-estree': 5.59.11(typescript@5.4.3)
       eslint: 8.43.0
       eslint-scope: 5.1.1
       semver: 7.5.2
@@ -7302,7 +7302,7 @@ packages:
       eslint: 8.43.0
     dev: true
 
-  /eslint-config-standard-with-typescript@22.0.0(@typescript-eslint/eslint-plugin@5.59.11)(eslint-plugin-import@2.27.5)(eslint-plugin-n@15.7.0)(eslint-plugin-promise@6.1.1)(eslint@8.43.0)(typescript@5.1.6):
+  /eslint-config-standard-with-typescript@22.0.0(@typescript-eslint/eslint-plugin@5.59.11)(eslint-plugin-import@2.27.5)(eslint-plugin-n@15.7.0)(eslint-plugin-promise@6.1.1)(eslint@8.43.0)(typescript@5.4.3):
     resolution: {integrity: sha512-VA36U7UlFpwULvkdnh6MQj5GAV2Q+tT68ALLAwJP0ZuNXU2m0wX07uxX4qyLRdHgSzH4QJ73CveKBuSOYvh7vQ==}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^5.0.0
@@ -7312,14 +7312,14 @@ packages:
       eslint-plugin-promise: ^6.0.0
       typescript: '*'
     dependencies:
-      '@typescript-eslint/eslint-plugin': 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)(typescript@5.1.6)
-      '@typescript-eslint/parser': 5.59.11(eslint@8.43.0)(typescript@5.1.6)
+      '@typescript-eslint/eslint-plugin': 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)(typescript@5.4.3)
+      '@typescript-eslint/parser': 5.59.11(eslint@8.43.0)(typescript@5.4.3)
       eslint: 8.43.0
       eslint-config-standard: 17.0.0(eslint-plugin-import@2.27.5)(eslint-plugin-n@15.7.0)(eslint-plugin-promise@6.1.1)(eslint@8.43.0)
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)
       eslint-plugin-n: 15.7.0(eslint@8.43.0)
       eslint-plugin-promise: 6.1.1(eslint@8.43.0)
-      typescript: 5.1.6
+      typescript: 5.4.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7369,7 +7369,7 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.59.11(eslint@8.43.0)(typescript@5.1.6)
+      '@typescript-eslint/parser': 5.59.11(eslint@8.43.0)(typescript@5.4.3)
       debug: 3.2.7
       eslint: 8.43.0
       eslint-import-resolver-node: 0.3.7
@@ -7398,7 +7398,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.59.11(eslint@8.43.0)(typescript@5.1.6)
+      '@typescript-eslint/parser': 5.59.11(eslint@8.43.0)(typescript@5.4.3)
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
       array.prototype.flatmap: 1.3.1
@@ -7421,7 +7421,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-jest@27.2.2(@typescript-eslint/eslint-plugin@5.59.11)(eslint@8.43.0)(typescript@5.1.6):
+  /eslint-plugin-jest@27.2.2(@typescript-eslint/eslint-plugin@5.59.11)(eslint@8.43.0)(typescript@5.4.3):
     resolution: {integrity: sha512-euzbp06F934Z7UDl5ZUaRPLAc9MKjh0rMPERrHT7UhlCEwgb25kBj37TvMgWeHZVkR5I9CayswrpoaqZU1RImw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
@@ -7434,8 +7434,8 @@ packages:
       jest:
         optional: true
     dependencies:
-      '@typescript-eslint/eslint-plugin': 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)(typescript@5.1.6)
-      '@typescript-eslint/utils': 5.59.11(eslint@8.43.0)(typescript@5.1.6)
+      '@typescript-eslint/eslint-plugin': 5.59.11(@typescript-eslint/parser@5.59.11)(eslint@8.43.0)(typescript@5.4.3)
+      '@typescript-eslint/utils': 5.59.11(eslint@8.43.0)(typescript@5.4.3)
       eslint: 8.43.0
     transitivePeerDependencies:
       - supports-color
@@ -8006,7 +8006,7 @@ packages:
       is-callable: 1.2.7
     dev: true
 
-  /fork-ts-checker-webpack-plugin@6.5.2(eslint@8.43.0)(typescript@4.8.3)(webpack@5.74.0):
+  /fork-ts-checker-webpack-plugin@6.5.2(eslint@8.43.0)(typescript@5.4.3)(webpack@5.74.0):
     resolution: {integrity: sha512-m5cUmF30xkZ7h4tWUgTAcEaKmUW7tfyUyTqNNOz7OxWJ0v1VWKTcOvH8FWHUwSjlW/356Ijc9vi3XfcPstpQKA==}
     engines: {node: '>=10', yarn: '>=1.0.0'}
     peerDependencies:
@@ -8034,7 +8034,7 @@ packages:
       schema-utils: 2.7.0
       semver: 7.5.2
       tapable: 1.1.3
-      typescript: 4.8.3
+      typescript: 5.4.3
       webpack: 5.74.0
     dev: false
 
@@ -8339,20 +8339,6 @@ packages:
       url-parse-lax: 3.0.0
     dev: false
 
-  /gql.tada@1.4.2(graphql@16.8.1)(typescript@4.8.3):
-    resolution: {integrity: sha512-PJycAWoenmq4tzt0Lrb7Y808sNW+uFFsBLkSyAZraf/qpslDhGPyU0uX+7Mfv2Dm6nl97xe8ScpVpiPc0Y7cYg==}
-    hasBin: true
-    peerDependencies:
-      typescript: ^5.0.0
-    dependencies:
-      '@0no-co/graphql.web': 1.0.6(graphql@16.8.1)
-      '@gql.tada/cli-utils': 0.3.2(typescript@4.8.3)
-      '@gql.tada/internal': 0.1.2(graphql@16.8.1)(typescript@4.8.3)
-      typescript: 4.8.3
-    transitivePeerDependencies:
-      - graphql
-    dev: true
-
   /gql.tada@1.4.2(graphql@16.8.1)(typescript@5.1.6):
     resolution: {integrity: sha512-PJycAWoenmq4tzt0Lrb7Y808sNW+uFFsBLkSyAZraf/qpslDhGPyU0uX+7Mfv2Dm6nl97xe8ScpVpiPc0Y7cYg==}
     hasBin: true
@@ -8366,6 +8352,20 @@ packages:
     transitivePeerDependencies:
       - graphql
     dev: false
+
+  /gql.tada@1.4.2(graphql@16.8.1)(typescript@5.4.3):
+    resolution: {integrity: sha512-PJycAWoenmq4tzt0Lrb7Y808sNW+uFFsBLkSyAZraf/qpslDhGPyU0uX+7Mfv2Dm6nl97xe8ScpVpiPc0Y7cYg==}
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.0.0
+    dependencies:
+      '@0no-co/graphql.web': 1.0.6(graphql@16.8.1)
+      '@gql.tada/cli-utils': 0.3.2(typescript@5.4.3)
+      '@gql.tada/internal': 0.1.2(graphql@16.8.1)(typescript@5.4.3)
+      typescript: 5.4.3
+    transitivePeerDependencies:
+      - graphql
+    dev: true
 
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
@@ -11926,7 +11926,7 @@ packages:
       pure-color: 1.3.0
     dev: false
 
-  /react-dev-utils@12.0.1(eslint@8.43.0)(typescript@4.8.3)(webpack@5.74.0):
+  /react-dev-utils@12.0.1(eslint@8.43.0)(typescript@5.4.3)(webpack@5.74.0):
     resolution: {integrity: sha512-84Ivxmr17KjUupyqzFode6xKhjwuEJDROWKJy/BthkL7Wn6NJ8h4WE6k/exAv6ImS+0oZLRRW5j/aINMHyeGeQ==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -11945,7 +11945,7 @@ packages:
       escape-string-regexp: 4.0.0
       filesize: 8.0.7
       find-up: 5.0.0
-      fork-ts-checker-webpack-plugin: 6.5.2(eslint@8.43.0)(typescript@4.8.3)(webpack@5.74.0)
+      fork-ts-checker-webpack-plugin: 6.5.2(eslint@8.43.0)(typescript@5.4.3)(webpack@5.74.0)
       global-modules: 2.0.0
       globby: 11.1.0
       gzip-size: 6.0.0
@@ -11960,7 +11960,7 @@ packages:
       shell-quote: 1.7.3
       strip-ansi: 6.0.1
       text-table: 0.2.0
-      typescript: 4.8.3
+      typescript: 5.4.3
       webpack: 5.74.0
     transitivePeerDependencies:
       - eslint
@@ -13711,14 +13711,14 @@ packages:
   /tslib@2.5.3:
     resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
 
-  /tsutils@3.21.0(typescript@5.1.6):
+  /tsutils@3.21.0(typescript@5.4.3):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
-      typescript: 5.1.6
+      typescript: 5.4.3
     dev: true
 
   /tweetnacl@1.0.3:
@@ -13857,11 +13857,6 @@ packages:
       - ts-node
     dev: true
 
-  /typescript@4.8.3:
-    resolution: {integrity: sha512-goMHfm00nWPa8UvR/CPSvykqf6dVV8x/dp0c5mFTMTIu0u0FlGWRioyy7Nn0PGAdHxpJZnuO/ut+PpQ8UiHAig==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-
   /typescript@5.0.4:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
@@ -13870,6 +13865,11 @@ packages:
 
   /typescript@5.1.6:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  /typescript@5.4.3:
+    resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}
     engines: {node: '>=14.17'}
     hasBin: true
 
