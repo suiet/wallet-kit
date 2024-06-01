@@ -9,6 +9,7 @@ import {
   WalletEventListeners,
 } from "@suiet/wallet-sdk";
 import {
+  SignedTransaction,
   SuiSignAndExecuteTransactionBlockInput,
   SuiSignAndExecuteTransactionBlockOutput,
   SuiSignMessageInput,
@@ -17,6 +18,7 @@ import {
   SuiSignPersonalMessageOutput,
   SuiSignTransactionBlockInput,
   SuiSignTransactionBlockOutput,
+  SuiSignTransactionInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
 
@@ -41,13 +43,21 @@ export interface WalletContextState {
     input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
   ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 
-  signTransactionBlock(
-    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
-  ): Promise<SuiSignTransactionBlockOutput>;
-
   signPersonalMessage(
     input: Omit<SuiSignPersonalMessageInput, "account">
   ): Promise<SuiSignPersonalMessageOutput>;
+
+  signTransaction(
+    input: Omit<SuiSignTransactionInput, "account" | "chain">
+  ): Promise<SignedTransaction>;
+
+  /**
+   * @deprecated use signTransaction instead
+   * @param input
+   */
+  signTransactionBlock(
+    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignTransactionBlockOutput>;
 
   /**
    * @deprecated use signPersonalMessage instead

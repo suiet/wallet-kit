@@ -63,11 +63,8 @@ importers:
         specifier: 0.51.2
         version: 0.51.2(typescript@5.1.6)
       '@mysten/wallet-standard':
-        specifier: 0.11.2
-        version: 0.11.2(typescript@5.1.6)
-      '@mysten/zksend':
-        specifier: ^0.9.4
-        version: 0.9.4(svelte@4.2.17)(typescript@5.1.6)
+        specifier: 0.12.4
+        version: 0.12.4(svelte@4.2.17)(typescript@5.1.6)
       '@radix-ui/react-dialog':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.0.25)(react-dom@18.2.0)(react@18.2.0)
@@ -178,8 +175,11 @@ importers:
         specifier: 0.51.2
         version: 0.51.2(typescript@5.1.6)
       '@mysten/wallet-standard':
-        specifier: 0.11.2
-        version: 0.11.2(typescript@5.1.6)
+        specifier: 0.12.4
+        version: 0.12.4(svelte@4.2.17)(typescript@5.1.6)
+      '@mysten/zksend':
+        specifier: ^0.9.4
+        version: 0.9.4(svelte@4.2.17)(typescript@5.1.6)
       '@noble/hashes':
         specifier: ^1.3.0
         version: 1.3.0
@@ -1898,7 +1898,7 @@ packages:
       '@babel/helper-function-name': 7.23.0
       '@babel/helper-hoist-variables': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/parser': 7.23.3
+      '@babel/parser': 7.24.6
       '@babel/types': 7.23.3
       debug: 4.3.4
       globals: 11.12.0
@@ -1916,7 +1916,7 @@ packages:
       '@babel/helper-function-name': 7.23.0
       '@babel/helper-hoist-variables': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/parser': 7.23.3
+      '@babel/parser': 7.24.6
       '@babel/types': 7.23.3
       debug: 4.3.4
       globals: 11.12.0
@@ -2110,7 +2110,7 @@ packages:
       react: ^16.8.4 || ^17.0.0
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
-      '@babel/parser': 7.23.3
+      '@babel/parser': 7.24.6
       '@babel/traverse': 7.22.5
       '@docusaurus/logger': 2.1.0
       '@docusaurus/utils': 2.1.0(@docusaurus/types@2.1.0)
@@ -3512,15 +3512,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard@0.11.2(typescript@5.1.6):
-    resolution: {integrity: sha512-wDuXHwmdYS+9ewH6w4Fg67QwDpYN6JTKPWC/fuEWRuHy4uS77DfrIG6KHtU0tReMGapevXovKpw6WoSHJHDDHg==}
-    dependencies:
-      '@mysten/sui.js': 0.51.2(typescript@5.1.6)
-      '@wallet-standard/core': 1.0.3
-    transitivePeerDependencies:
-      - typescript
-    dev: false
-
   /@mysten/wallet-standard@0.11.2(typescript@5.4.3):
     resolution: {integrity: sha512-wDuXHwmdYS+9ewH6w4Fg67QwDpYN6JTKPWC/fuEWRuHy4uS77DfrIG6KHtU0tReMGapevXovKpw6WoSHJHDDHg==}
     dependencies:
@@ -4451,7 +4442,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       '@babel/types': 7.23.3
-      entities: 4.4.0
+      entities: 4.5.0
 
   /@svgr/plugin-jsx@6.3.1(@svgr/core@6.3.1):
     resolution: {integrity: sha512-r9+0mYG3hD4nNtUgsTXWGYJomv/bNd7kC16zvsM70I/bGeoCi/3lhTmYqeN6ChWX317OtQCSZZbH4wq9WwoXbw==}
@@ -4615,7 +4606,7 @@ packages:
   /@types/babel__traverse@7.18.3:
     resolution: {integrity: sha512-1kbcJ40lLB7MHsj39U4Sh1uTd2E7rLEa79kmDpI6cy+XiXsteB3POdQomoq4FxszMrO3ZYchkhYJw7A2862b3w==}
     dependencies:
-      '@babel/types': 7.22.5
+      '@babel/types': 7.23.3
     dev: true
 
   /@types/body-parser@1.19.2:
@@ -7359,7 +7350,7 @@ packages:
     dependencies:
       domelementtype: 2.3.0
       domhandler: 5.0.3
-      entities: 4.4.0
+      entities: 4.5.0
     dev: false
 
   /domelementtype@2.3.0:
@@ -7492,14 +7483,9 @@ packages:
     resolution: {integrity: sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==}
     dev: false
 
-  /entities@4.4.0:
-    resolution: {integrity: sha512-oYp7156SP8LkeGD0GF85ad1X9Ai79WtRsZ2gxJqtBuzH+98YUV6jkHEKlZkMbcrjJjIVJNIDP/3WL9wQkoPbWA==}
-    engines: {node: '>=0.12'}
-
   /entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
-    dev: false
 
   /env-ci@5.5.0:
     resolution: {integrity: sha512-o0JdWIbOLP+WJKIUt36hz1ImQQFuN92nhsfTkHHap+J8CiI8WgGpH/a9jEGHh4/TU5BUUGjlnKXNoDb57+ne+A==}
@@ -9096,7 +9082,7 @@ packages:
       domelementtype: 2.3.0
       domhandler: 5.0.3
       domutils: 3.0.1
-      entities: 4.4.0
+      entities: 4.5.0
     dev: false
 
   /http-cache-semantics@4.1.0:
@@ -9719,7 +9705,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@babel/core': 7.22.5
-      '@babel/parser': 7.22.5
+      '@babel/parser': 7.24.6
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.0
       semver: 6.3.1
@@ -11621,7 +11607,7 @@ packages:
   /parse5@7.1.1:
     resolution: {integrity: sha512-kwpuwzB+px5WUg9pyK0IcK/shltJN5/OVhQagxhCQNtT9Y9QRZqNY2e1cmbu/paRh5LMnz/oVTVLBpjFmMZhSg==}
     dependencies:
-      entities: 4.4.0
+      entities: 4.5.0
     dev: false
 
   /parseurl@1.3.3:
