@@ -14,6 +14,7 @@ import {
   WalletWithFeatures,
   SuiSignPersonalMessageFeature,
   SuiSignPersonalMessageMethod,
+  SuiSignTransactionMethod,
 } from "@mysten/wallet-standard";
 
 export type IWalletAdapter = WalletWithFeatures<
@@ -30,8 +31,12 @@ export type IWalletAdapter = WalletWithFeatures<
   disconnect: StandardDisconnectMethod;
   on: StandardEventsOnMethod;
   signAndExecuteTransactionBlock: SuiSignAndExecuteTransactionBlockMethod;
-  signTransactionBlock: SuiSignTransactionBlockMethod;
+  signTransaction: SuiSignTransactionMethod;
   signPersonalMessage: SuiSignPersonalMessageMethod;
+  /**
+   * @deprecated use signTransaction instead
+   */
+  signTransactionBlock: SuiSignTransactionBlockMethod;
   /**
    * @deprecated use signPersonalMessage instead
    */
