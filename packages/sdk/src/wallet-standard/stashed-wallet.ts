@@ -1,23 +1,20 @@
 import { getWallets } from "@mysten/wallet-standard";
 import { StashedWallet } from "@mysten/zksend";
+import {
+  RegisterWalletCallbackExternal,
+  RegisterWalletCallbackInput,
+  UnregisterWalletCallback,
+} from "../wallet";
 
-export function registerStashedWallet(
-  name: string,
-  {
-    origin,
-  }: {
-    origin?: string;
-  }
-) {
+export const registerStashedWallet: RegisterWalletCallbackExternal = (
+  input: RegisterWalletCallbackInput
+): UnregisterWalletCallback => {
   const wallets = getWallets();
   const wallet = new StashedWallet({
-    name,
-    origin,
+    name: input.appName,
+    origin: input.origin,
   });
 
   const unregister = wallets.register(wallet);
-  return {
-    wallet,
-    unregister,
-  };
-}
+  return unregister;
+};
