@@ -60,7 +60,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 );
 ```
 
-> By default, suiet kit will load all the [preset wallets](./CanIUse#preset-wallets) to the list💡
+> By default, suiet kit will load all the [preset wallets](./CanIUse#preset-wallets) to the list💡 
+> 
+> If you want to customize the wallet list, please refer to [Customize Wallet List](./tutorial/customize-wallet-list)
 
 ## 🕹 Place ConnectButton
 
