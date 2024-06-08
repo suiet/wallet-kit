@@ -25,8 +25,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@mysten/sui.js": "0.51.2",
+    "@mysten/sui.js": "0.54.1",
     "@mysten/wallet-standard": "0.12.4",
+    "@mysten/zksend": "^0.9.4",
     "@radix-ui/react-dialog": "^1.0.2",
     "@suiet/wallet-sdk": "workspace:*",
     "@svgr/rollup": "^6.5.1",
@@ -65,7 +66,7 @@
     "vite-plugin-svgr": "^2.2.1"
   },
   "peerDependencies": {
-    "@mysten/sui.js": "0.51.2",
+    "@mysten/sui.js": "0.54.1",
     "react": "*",
     "react-dom": "*"
   },
