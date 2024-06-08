@@ -3,7 +3,13 @@ import ReactDOM from "react-dom/client";
 import { ConnectButton, WalletProvider } from "./components";
 import { useAccountBalance, useWallet } from "./hooks";
 import { TransactionBlock } from "@mysten/sui.js/transactions";
-import { ErrorCode, SuiChainId, formatSUI } from "@suiet/wallet-sdk";
+import {
+  ErrorCode,
+  SuiChainId,
+  formatSUI,
+  defineStashedWallet,
+} from "@suiet/wallet-sdk";
+import { AllDefaultWallets } from "@suiet/wallet-sdk";
 
 const sampleNft = new Map([
   [
@@ -169,9 +175,12 @@ function App() {
   );
 }
 
+const stashedWallet = defineStashedWallet({
+  appName: "Suiet Wallet Kit",
+});
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <WalletProvider>
+    <WalletProvider defaultWallets={[...AllDefaultWallets, stashedWallet]}>
       <App />
     </WalletProvider>
   </React.StrictMode>
