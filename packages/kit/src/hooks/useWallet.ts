@@ -109,6 +109,9 @@ const DEFAULT_CONTEXT: WalletContextState = {
   async signAndExecuteTransactionBlock() {
     throw new KitError(missProviderMessage("signAndExecuteTransactionBlock"));
   },
+  async signTransaction() {
+    throw new KitError(missProviderMessage("signTransaction"));
+  },
   async signTransactionBlock() {
     throw new KitError(missProviderMessage("signTransactionBlock"));
   },
