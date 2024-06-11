@@ -1,6 +1,6 @@
 import { IAccountCoinManager } from "./interfaces";
 import { CoinObject } from "../common";
-import { SuiClient, PaginatedCoins } from "@mysten/sui.js/client";
+import { SuiClient, PaginatedCoins } from "@mysten/sui/client";
 import { AccountObjectManager } from "./AccountObjectManager";
 
 export class AccountCoinManager

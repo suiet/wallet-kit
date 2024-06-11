@@ -12,7 +12,7 @@ import {
   useWallet,
 } from "@suiet/wallet-kit";
 import { useMemo } from "react";
-import { TransactionBlock } from "@mysten/sui.js/transactions";
+import { TransactionBlock } from "@mysten/sui/transactions";
 import { useSuiProvider } from "@suiet/wallet-kit";
 
 const sampleNft = new Map([

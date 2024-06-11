@@ -19,6 +19,14 @@ import {
   SuiSignPersonalMessageMethod,
   SuiSignPersonalMessageInput,
   SuiSignPersonalMessageOutput,
+  SuiSignAndExecuteTransactionInput,
+  SuiSignAndExecuteTransactionOutput,
+  SuiSignAndExecuteTransactionMethod,
+  SuiSignTransactionMethod,
+  SuiSignTransactionInput,
+  SignedTransaction,
+  SuiReportTransactionEffectsInput,
+  SuiReportTransactionEffectsMethod,
 } from "@mysten/wallet-standard";
 import { IWalletAdapter } from "./interfaces";
 import {
@@ -120,6 +128,42 @@ export class WalletAdapter implements IWalletAdapter {
       return feature.signTransactionBlock(input);
     } catch (e) {
       throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
+    }
+  }
+
+  async signAndExecuteTransaction(
+    input: SuiSignAndExecuteTransactionInput
+  ): Promise<SuiSignAndExecuteTransactionOutput> {
+    const feature = this.getFeature<{
+      signAndExecuteTransaction: SuiSignAndExecuteTransactionMethod;
+    }>(FeatureName.SUI__SIGN_AND_EXECUTE_TRANSACTION);
+    try {
+      return await feature.signAndExecuteTransaction(input);
+    } catch (e) {
+      throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
+    }
+  }
+
+  signTransaction(input: SuiSignTransactionInput): Promise<SignedTransaction> {
+    const feature = this.getFeature<{
+      signTransaction: SuiSignTransactionMethod;
+    }>(FeatureName.SUI__SIGN_TRANSACTION);
+    try {
+      return feature.signTransaction(input);
+    } catch (e) {
+      throw new WalletError((e as any).message, ErrorCode.WALLET__SIGN_TX_ERROR)
+    }
+  }
+
+  reportTransactionEffects(input: SuiReportTransactionEffectsInput): Promise<void> {
+    const feature = this.getFeature<{
+      reportTransactionEffects: SuiReportTransactionEffectsMethod;
+    }>(FeatureName.SUI__REPORT_TRANSACTION_EFFECTS);
+
+    try {
+      return feature.reportTransactionEffects(input);
+    } catch (e) {
+      throw new WalletError((e as any).message, ErrorCode.WALLET__REPORT_EFFECTS_ERROR)
     }
   }
 

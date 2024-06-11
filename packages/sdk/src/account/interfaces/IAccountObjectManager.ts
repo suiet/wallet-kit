@@ -1,4 +1,4 @@
-import { SuiClient, SuiObjectData } from "@mysten/sui.js/client";
+import { SuiClient, SuiObjectData } from "@mysten/sui/client";
 
 export interface IAccountObjectManager {
   getOwnedObjects(address: string): Promise<SuiObjectData[]>;
