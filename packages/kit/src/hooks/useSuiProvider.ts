@@ -1,4 +1,4 @@
-import { SuiClient } from "@mysten/sui.js/client";
+import { SuiClient } from "@mysten/sui/client";
 import { useMemo } from "react";
 
 export type SuiProvider = SuiClient;

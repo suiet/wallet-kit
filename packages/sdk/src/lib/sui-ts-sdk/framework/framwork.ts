@@ -1,5 +1,4 @@
-import type { StructTag } from "@mysten/sui.js/bcs";
-import { CoinStruct } from "@mysten/sui.js/client";
+import { CoinStruct } from "@mysten/sui/client";
 import {
   getObjectFields,
   getObjectId,
@@ -9,6 +8,9 @@ import {
   SuiObjectResponse,
 } from "../types";
 import { normalizeSuiObjectId } from "../utils";
+import { bcs } from "@mysten/sui/bcs";
+
+type StructTag = typeof bcs.StructTag.$inferType
 
 export type ObjectData = ObjectDataFull | SuiObjectInfo;
 export type ObjectDataFull = SuiObjectResponse | SuiMoveObject;

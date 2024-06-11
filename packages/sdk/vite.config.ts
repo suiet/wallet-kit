@@ -23,19 +23,19 @@ export default defineConfig(({ mode }) => ({
       // make sure to externalize deps that shouldn't be bundled
       // into your library
       external: [
-        "@mysten/sui.js",
-        "@mysten/sui.js/client",
-        "@mysten/sui.js/bcs",
-        "@mysten/sui.js/utils",
-        "@mysten/sui.js/verify",
+        "@mysten/sui",
+        "@mysten/sui/client",
+        "@mysten/sui/bcs",
+        "@mysten/sui/utils",
+        "@mysten/sui/verify",
       ],
       output: {
         globals: {
-          "@mysten/sui.js": "Sui",
-          "@mysten/sui.js/client": "Sui",
-          "@mysten/sui.js/bcs": "Sui",
-          "@mysten/sui.js/utils": "Sui",
-          "@mysten/sui.js/verify": "Sui",
+          "@mysten/sui": "Sui",
+          "@mysten/sui/client": "Sui",
+          "@mysten/sui/bcs": "Sui",
+          "@mysten/sui/utils": "Sui",
+          "@mysten/sui/verify": "Sui",
         },
       },
     },
