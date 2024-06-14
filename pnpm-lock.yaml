@@ -3493,11 +3493,12 @@ packages:
   /@mysten/wallet-standard@0.11.2(typescript@5.4.3):
     resolution: {integrity: sha512-wDuXHwmdYS+9ewH6w4Fg67QwDpYN6JTKPWC/fuEWRuHy4uS77DfrIG6KHtU0tReMGapevXovKpw6WoSHJHDDHg==}
     dependencies:
-      '@mysten/sui.js': 0.51.2(typescript@5.4.3)
+      '@mysten/sui.js': 0.54.1(svelte@4.2.18)(typescript@5.1.6)
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
+      - svelte
       - typescript
-    dev: true
+    dev: false
 
   /@mysten/wallet-standard@0.12.4(svelte@4.2.18)(typescript@5.1.6):
     resolution: {integrity: sha512-y0EiXfWPEp5oV/ml2P0wN6wePpvuUmtCcMrOXK9OdkZ9/9EXeFwMtnE1mJGqGLhZrUMf45SrXMhK6xQwiHxPNg==}

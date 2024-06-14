@@ -41,3 +41,38 @@ node_modules/@mysten/bcs/dist/bcs.d.ts:105:11 - error TS1139: Type parameter dec
 
 A: This is because the `const` parameter declarations used in `@mysten/bcs` were added in `typescript` **v5.0**.
 **So you need to upgrade the version of `typescript` npm package to 5.0 or higher.**
+
+## Q: When using useSuiProvider, I got TypeError: Cannot read properties of undefined (reading 'transport')
+
+Reproducible Code:
+
+```ts
+import { useSuiProvider } from '@suiet/wallet-kit';
+const { getTransactionBlock } = useSuiProvider()
+const transactionInfo = await getTransactionBlock({
+    digest: String(res.digest),
+    options: {
+    showObjectChanges: true,
+    },
+});
+// TypeError: Cannot read properties of undefined (reading 'transport'), at getTransactionBlock
+```
+
+A: This is because the incorrect deconstruction of `useSuiProvider` function. The correct way to use `useSuiProvider` is as a whole instance:
+
+```diff
+import { useSuiProvider } from '@suiet/wallet-kit';
+- const { getTransactionBlock } = useSuiProvider()
++ const suiClient = useSuiProvider()
+- const transactionInfo = await getTransactionBlock({
++ const transactionInfo = await suiClient.getTransactionBlock({
+          digest: String(res.digest),
+          options: {
+            showObjectChanges: true,
+          },
+});
+```
+
+Because the output of useSuiProvider() is simply a SuiClient instance, so deconstructing it will lead to a undefined "this" pointer for the getTransactionBlock method.
+
+

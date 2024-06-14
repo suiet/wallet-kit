@@ -8,10 +8,12 @@ import {
   formatSUI,
   SuiChainId,
   useAccountBalance,
+  useChain,
   useWallet,
 } from "@suiet/wallet-kit";
 import { useMemo } from "react";
 import { TransactionBlock } from "@mysten/sui.js/transactions";
+import { useSuiProvider } from "@suiet/wallet-kit";
 
 const sampleNft = new Map([
   [
@@ -35,6 +37,8 @@ export default function Home() {
     if (!wallet.chain) return "";
     return sampleNft.get(wallet.chain.id) ?? "";
   }, [wallet]);
+  const chain = useChain(SuiChainId.MAIN_NET);
+  const suiClient = useSuiProvider(chain?.rpcUrl ?? "");
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return "";
@@ -60,6 +64,13 @@ export default function Home() {
       const resData = await wallet.signAndExecuteTransactionBlock({
         transactionBlock: tx,
       });
+      const transactionInfo = await suiClient.getTransactionBlock({
+        digest: String(resData.digest),
+        options: {
+          showObjectChanges: true,
+        },
+      });
+      console.log("transactionInfo", transactionInfo);
       console.log("executeMoveCall success", resData);
       alert("executeMoveCall succeeded (see response in the console)");
     } catch (e) {
