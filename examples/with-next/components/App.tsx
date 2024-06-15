@@ -5,7 +5,7 @@ import {
   SuiChainId,
   ErrorCode,
 } from "@suiet/wallet-kit";
-import { TransactionBlock } from "@mysten/sui.js/transactions";
+import { TransactionBlock } from "@mysten/sui/transactions";
 import { useMemo } from "react";
 
 const sampleNft = new Map([

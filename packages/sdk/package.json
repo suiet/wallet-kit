@@ -23,8 +23,8 @@
     }
   },
   "dependencies": {
-    "@mysten/sui.js": "0.54.1",
-    "@mysten/wallet-standard": "0.11.6",
+    "@mysten/sui": "1.1.0",
+    "@mysten/wallet-standard": "0.12.6",
     "@noble/hashes": "^1.3.0",
     "buffer": "^6.0.3",
     "superstruct": "^1.0.3",
@@ -46,6 +46,6 @@
     "vite-plugin-dts": "^2.3.0"
   },
   "peerDependencies": {
-    "@mysten/sui.js": "0.54.1"
+    "@mysten/sui": "1.1.0"
   }
 }

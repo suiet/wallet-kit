@@ -13,7 +13,9 @@ import {
   union,
 } from "superstruct";
 
-import type { CallArg } from "@mysten/sui.js/bcs";
+import type { bcs } from "@mysten/sui/bcs";
+
+type CallArg = typeof bcs.CallArg.$inferType;
 
 export const ObjectOwner = union([
   object({
