@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ReactDOM from "react-dom/client";
 import { ConnectButton, WalletProvider } from "./components";
 import { useAccountBalance, useWallet } from "./hooks";
@@ -29,6 +29,10 @@ const sampleNft = new Map([
 function App() {
   const wallet = useWallet();
   const { balance } = useAccountBalance();
+  const nftContractAddr = useMemo(() => {
+    if (!wallet.chain) return "";
+    return sampleNft.get(wallet.chain.id) ?? "";
+  }, [wallet]);
 
   async function handleExecuteMoveCall(target: string | undefined) {
     if (!target) return;
@@ -80,6 +84,19 @@ function App() {
     // @ts-ignore
     return wallet.account?.publicKey.toString("hex");
   }
+
+  const chainName = (chainId: string | undefined) => {
+    switch (chainId) {
+      case SuiChainId.MAIN_NET:
+        return "Mainnet";
+      case SuiChainId.TEST_NET:
+        return "Testnet";
+      case SuiChainId.DEV_NET:
+        return "Devnet";
+      default:
+        return "Unknown";
+    }
+  };
 
   // @ts-ignore
   return (
@@ -145,21 +162,9 @@ function App() {
             </p>
           </div>
           <div style={{ margin: "8px 0" }}>
-            {wallet.chain?.id === SuiChainId.TestNET ? (
-              <button
-                onClick={() =>
-                  handleExecuteMoveCall(sampleNft.get("sui:testnet"))
-                }
-              >
-                Testnet Mint NFT
-              </button>
-            ) : (
-              <button
-                onClick={() =>
-                  handleExecuteMoveCall(sampleNft.get("sui:devnet"))
-                }
-              >
-                Devnet Mint NFT
+            {nftContractAddr && (
+              <button onClick={() => handleExecuteMoveCall(nftContractAddr)}>
+                Mint {chainName(wallet.chain?.id)} NFT
               </button>
             )}
             <button
