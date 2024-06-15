@@ -9,9 +9,11 @@ import {
   WalletEventListeners,
 } from "@suiet/wallet-sdk";
 import {
-  SignedTransaction,
+  SuiReportTransactionEffectsInput,
   SuiSignAndExecuteTransactionBlockInput,
   SuiSignAndExecuteTransactionBlockOutput,
+  SuiSignAndExecuteTransactionInput,
+  SuiSignAndExecuteTransactionOutput,
   SuiSignMessageInput,
   SuiSignMessageOutput,
   SuiSignPersonalMessageInput,
@@ -39,17 +41,27 @@ export interface WalletContextState {
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
 
+  /** @deprecated Use signAndExecuteTransaction instead  */
   signAndExecuteTransactionBlock(
     input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
   ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 
-  signPersonalMessage(
-    input: Omit<SuiSignPersonalMessageInput, "account">
-  ): Promise<SuiSignPersonalMessageOutput>;
+  /** @deprecated Use signTransaction instead  */
+  signTransactionBlock(
+    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignTransactionBlockOutput>;
+
+  signAndExecuteTransaction(
+    input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">
+  ): Promise<SuiSignAndExecuteTransactionOutput>;
 
   signTransaction(
     input: Omit<SuiSignTransactionInput, "account" | "chain">
-  ): Promise<SignedTransaction>;
+  ): Promise<SuiSignTransactionBlockOutput>;
+
+  signPersonalMessage(
+    input: Omit<SuiSignPersonalMessageInput, "account">
+  ): Promise<SuiSignPersonalMessageOutput>;
 
   /**
    * @deprecated use signTransaction instead
@@ -75,6 +87,10 @@ export interface WalletContextState {
     event: E,
     listener: WalletEventListeners[E]
   ) => () => void;
+
+  reportTransactionEffects(
+    input: SuiReportTransactionEffectsInput
+  ): Promise<void>;
 }
 
 function missProviderMessage(action: string) {
@@ -115,11 +131,20 @@ const DEFAULT_CONTEXT: WalletContextState = {
   async signTransactionBlock() {
     throw new KitError(missProviderMessage("signTransactionBlock"));
   },
+  async signAndExecuteTransaction() {
+    throw new KitError(missProviderMessage("signAndExecuteTransaction"));
+  },
+  async signTransaction() {
+    throw new KitError(missProviderMessage("signTransaction"));
+  },
   async signPersonalMessage() {
     throw new KitError(missProviderMessage("signPersonalMessage"));
   },
   async signMessage() {
     throw new KitError(missProviderMessage("signMessage"));
+  },
+  async reportTransactionEffects() {
+    throw new KitError(missProviderMessage("reportTransactionEffects"));
   },
   verifySignedMessage() {
     throw new KitError(missProviderMessage("verifySignedMessage"));

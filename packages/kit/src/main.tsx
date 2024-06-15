@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ConnectButton, WalletProvider } from "./components";
 import { useAccountBalance, useWallet } from "./hooks";
-import { TransactionBlock } from "@mysten/sui.js/transactions";
 import {
   ErrorCode,
   SuiChainId,
@@ -10,6 +9,7 @@ import {
   defineStashedWallet,
 } from "@suiet/wallet-sdk";
 import { AllDefaultWallets } from "@suiet/wallet-sdk";
+import { Transaction } from "@mysten/sui/transactions";
 
 const sampleNft = new Map([
   [
@@ -33,13 +33,13 @@ function App() {
   async function handleExecuteMoveCall(target: string | undefined) {
     if (!target) return;
     try {
-      const tx = new TransactionBlock();
+      const tx = new Transaction();
       tx.moveCall({
-        target: target as any,
+        target: target,
         arguments: [
-          tx.pure("Suiet NFT"),
-          tx.pure("Suiet Sample NFT"),
-          tx.pure(
+          tx.pure.string("Suiet NFT"),
+          tx.pure.string("Suiet Sample NFT"),
+          tx.pure.string(
             "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
           ),
         ],
