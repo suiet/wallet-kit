@@ -23,6 +23,7 @@ import {
   SuiSignTransactionInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
+import { SuiSignTransactionOutput } from "../../dist/wallet-standard/features/suiSignTransaction";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -41,23 +42,13 @@ export interface WalletContextState {
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
 
-  /** @deprecated Use signAndExecuteTransaction instead  */
-  signAndExecuteTransactionBlock(
-    input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
-  ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
-
-  /** @deprecated Use signTransaction instead  */
-  signTransactionBlock(
-    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
-  ): Promise<SuiSignTransactionBlockOutput>;
-
   signAndExecuteTransaction(
     input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">
   ): Promise<SuiSignAndExecuteTransactionOutput>;
 
   signTransaction(
     input: Omit<SuiSignTransactionInput, "account" | "chain">
-  ): Promise<SuiSignTransactionBlockOutput>;
+  ): Promise<SuiSignTransactionOutput>;
 
   signPersonalMessage(
     input: Omit<SuiSignPersonalMessageInput, "account">
@@ -70,6 +61,11 @@ export interface WalletContextState {
   signTransactionBlock(
     input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
   ): Promise<SuiSignTransactionBlockOutput>;
+
+  /** @deprecated Use signAndExecuteTransaction instead  */
+  signAndExecuteTransactionBlock(
+    input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 
   /**
    * @deprecated use signPersonalMessage instead
@@ -122,32 +118,29 @@ const DEFAULT_CONTEXT: WalletContextState = {
   getAccounts() {
     throw new KitError(missProviderMessage("getAccounts"));
   },
-  async signAndExecuteTransactionBlock() {
-    throw new KitError(missProviderMessage("signAndExecuteTransactionBlock"));
-  },
   async signTransaction() {
     throw new KitError(missProviderMessage("signTransaction"));
-  },
-  async signTransactionBlock() {
-    throw new KitError(missProviderMessage("signTransactionBlock"));
   },
   async signAndExecuteTransaction() {
     throw new KitError(missProviderMessage("signAndExecuteTransaction"));
   },
-  async signTransaction() {
-    throw new KitError(missProviderMessage("signTransaction"));
-  },
   async signPersonalMessage() {
     throw new KitError(missProviderMessage("signPersonalMessage"));
-  },
-  async signMessage() {
-    throw new KitError(missProviderMessage("signMessage"));
   },
   async reportTransactionEffects() {
     throw new KitError(missProviderMessage("reportTransactionEffects"));
   },
   verifySignedMessage() {
     throw new KitError(missProviderMessage("verifySignedMessage"));
+  },
+  async signMessage() {
+    throw new KitError(missProviderMessage("signMessage"));
+  },
+  async signTransactionBlock() {
+    throw new KitError(missProviderMessage("signTransactionBlock"));
+  },
+  async signAndExecuteTransactionBlock() {
+    throw new KitError(missProviderMessage("signAndExecuteTransactionBlock"));
   },
 };
 
