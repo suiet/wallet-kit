@@ -1,5 +1,5 @@
 import { AccountObjectManager } from "../AccountObjectManager";
-import type { PaginatedCoins } from "@mysten/sui.js/client";
+import type { PaginatedCoins } from "@mysten/sui/client";
 import { AccountCoinManager } from "../AccountCoinManager";
 
 const mockedGetCoinsResponse: PaginatedCoins = {

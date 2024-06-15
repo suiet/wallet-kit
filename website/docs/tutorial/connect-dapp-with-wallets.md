@@ -28,12 +28,12 @@ In this section, I am going to walk you through the installation and configurati
 
 ### Installation
 
-Suiet Wallet Kit is a decent wrapper for the official Typescript SDK `@mysten/sui.js` , which handles all the tedious details of wallet connection for you. Therefore, we need to install `@mysten/sui.js` along with the kit `@suiet/wallet-kit`.
+Suiet Wallet Kit is a decent wrapper for the official Typescript SDK `@mysten/sui` , which handles all the tedious details of wallet connection for you. Therefore, we need to install `@mysten/sui` along with the kit `@suiet/wallet-kit`.
 
 >  For simplicity, we choose npm as the package manager, feel free to change to any alternatives.
 
 ```shell
-npm install @mysten/sui.js @suiet/wallet-kit
+npm install @mysten/sui @suiet/wallet-kit
 ```
 
 ### Setup WalletProvider for the App
@@ -116,9 +116,9 @@ We can get several useful information from the connected wallet via Suiet wallet
 Firstly let's display the connection status for the debugging purpose.
 
 ```jsx
-import { 
-  ConnectButton, 
-  useWallet, 
+import {
+  ConnectButton,
+  useWallet,
   addressEllipsis,
 } from "@suiet/wallet-kit";
 
@@ -198,7 +198,7 @@ There you go! So far you should be able to play with the all the properties prov
 
 ### Execute a simple transaction
 
-Now we've come to the most interesting part: sending transactions. With Sui SDK `@mysten/sui.js`, we are able to use [Programmable Transaction](https://docs.sui.io/testnet/build/prog-trans-ts-sdk), one of Sui’s most powerful core developer primitives, to create any type of transactions to interact with smart contracts on Sui.
+Now we've come to the most interesting part: sending transactions. With Sui SDK `@mysten/sui`, we are able to use [Programmable Transaction](https://docs.sui.io/testnet/build/prog-trans-ts-sdk), one of Sui’s most powerful core developer primitives, to create any type of transactions to interact with smart contracts on Sui.
 
 >  For more details of Programmable Transaction, please check out this Sui doc: https://docs.sui.io/testnet/build/prog-trans-ts-sdk.
 
@@ -224,11 +224,11 @@ entry public mint(Arg0: String, Arg1: String, Arg2: String, Arg3: &mut TxContext
 In order to call the mint function of this contract, we first create a function that returns a `TransactionBlock` using Sui TS SDK.
 
 ```jsx
-import { TransactionBlock } from "@mysten/sui.js";
+import { Transaction } from "@mysten/sui";
 
 function createMintNftTxnBlock() {
   // define a programmable transaction block
-  const txb = new TransactionBlock();
+  const txb = new Transaction();
 
   // note that this is a devnet contract address
   const contractAddress =
@@ -262,10 +262,10 @@ Okay, get back to the code. Let's create an async function that creates and send
 
 ```jsx
 import { useWallet } from "@suiet/wallet-kit";
-import { TransactionBlock } from "@mysten/sui.js";
+import { Transaction } from "@mysten/sui";
 
-function createMintNftTxnBlock() { 
-  // ... 
+function createMintNftTxnBlock() {
+  // ...
 }
 
 export default function App() {

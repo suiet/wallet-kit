@@ -9,7 +9,7 @@ import {
   formatSUI,
 } from "@suiet/wallet-kit";
 import "@suiet/wallet-kit/style.css";
-import { TransactionBlock } from "@mysten/sui.js/transactions";
+import { TransactionBlock } from "@mysten/sui/transactions";
 import { useMemo } from "react";
 
 const sampleNft = new Map([

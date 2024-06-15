@@ -3,7 +3,7 @@ import {
   SuiClient,
   SuiObjectData,
   SuiObjectResponse,
-} from "@mysten/sui.js/client";
+} from "@mysten/sui/client";
 
 export class AccountObjectManager implements IAccountObjectManager {
   protected client: SuiClient;
