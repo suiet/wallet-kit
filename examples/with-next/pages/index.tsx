@@ -1,12 +1,23 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import { WalletProvider } from '@suiet/wallet-kit';
-import App from '../components/App';
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import {
+  AllDefaultWallets,
+  defineStashedWallet,
+  WalletProvider,
+} from "@suiet/wallet-kit";
+import App from "../components/App";
 
 export default function Home() {
   return (
-    <WalletProvider>
+    <WalletProvider
+      defaultWallets={[
+        ...AllDefaultWallets,
+        defineStashedWallet({
+          appName: "Suiet Kit Playground",
+        }),
+      ]}
+    >
       <div className={styles.container}>
         <Head>
           <title>Create Next App</title>
