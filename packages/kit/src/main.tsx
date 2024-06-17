@@ -97,7 +97,7 @@ function App() {
       });
       // tx.setGasBudget(1000000);
 
-      if (opts?.isCustomExecution) {
+      if (!opts?.isCustomExecution) {
         const resData = await wallet.signAndExecuteTransaction({
           transaction: tx,
         });
@@ -114,6 +114,7 @@ function App() {
                 signature: signature,
                 options: {
                   showRawEffects: true,
+                  showObjectChanges: true,
                 },
               });
               return res;
@@ -243,7 +244,11 @@ function App() {
             )}
             {nftContractAddr && (
               <button
-                onClick={() => handleSignAndExecuteTransaction(nftContractAddr)}
+                onClick={() =>
+                  handleSignAndExecuteTransaction(nftContractAddr, {
+                    isCustomExecution: true,
+                  })
+                }
               >
                 Sign + Execute Transaction
               </button>
