@@ -24,7 +24,10 @@ import {
   WalletAccount,
   SignedTransaction,
 } from "@mysten/wallet-standard";
-import { ExecuteTransactionOptions } from "../types/params";
+import {
+  ExecuteTransactionOptions,
+  ExecuteTransactionResult,
+} from "../types/params";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -43,10 +46,10 @@ export interface WalletContextState {
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
 
-  signAndExecuteTransaction(
+  signAndExecuteTransaction<Output extends SuiSignAndExecuteTransactionOutput>(
     input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">,
     options?: ExecuteTransactionOptions
-  ): Promise<SuiSignAndExecuteTransactionOutput>;
+  ): Promise<Output>;
 
   signTransaction(
     input: Omit<SuiSignTransactionInput, "account" | "chain">
