@@ -2,7 +2,7 @@ name: SUIET_KIT_CICD_PIPELINE_FOR_EXP
 on:
   push:
     tags:
-      - 0.0.0-experimental*
+      - v*-exp-*
 jobs:
   build:
     runs-on: ubuntu-20.04
