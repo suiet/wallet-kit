@@ -323,6 +323,16 @@ export const WalletProvider = (props: WalletProviderProps) => {
         );
       }
 
+      try {
+        await _wallet.reportTransactionEffects({
+          effects,
+          account,
+          chain: chain.id as IdentifierString,
+        });
+      } catch (error) {
+        console.warn("Failed to report transaction effects:", error);
+      }
+
       return {
         bytes: signedTransaction.bytes,
         signature: signedTransaction.signature,
