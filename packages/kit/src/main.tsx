@@ -1,15 +1,23 @@
 import React, { useMemo } from "react";
 import ReactDOM from "react-dom/client";
 import { ConnectButton, WalletProvider } from "./components";
-import { useAccountBalance, useWallet } from "./hooks";
+import {
+  useAccountBalance,
+  useChain,
+  useSuiProvider,
+  useWallet,
+} from "./hooks";
 import {
   ErrorCode,
   SuiChainId,
   formatSUI,
   defineStashedWallet,
+  SuiTestnetChain,
+  Uint8arrayTool,
 } from "@suiet/wallet-sdk";
 import { AllDefaultWallets } from "@suiet/wallet-sdk";
 import { Transaction } from "@mysten/sui/transactions";
+import { toB64 } from "@mysten/sui/utils";
 
 const sampleNft = new Map([
   [
@@ -29,12 +37,17 @@ const sampleNft = new Map([
 function App() {
   const wallet = useWallet();
   const { balance } = useAccountBalance();
+  const chain = useChain();
+  const client = useSuiProvider(chain?.rpcUrl || SuiTestnetChain.rpcUrl);
+
   const nftContractAddr = useMemo(() => {
     if (!wallet.chain) return "";
     return sampleNft.get(wallet.chain.id) ?? "";
   }, [wallet]);
 
-  async function handleExecuteMoveCall(target: string | undefined) {
+  async function handleSignAndExecuteTransactionBlock(
+    target: string | undefined
+  ) {
     if (!target) return;
     try {
       const tx = new Transaction();
@@ -51,8 +64,65 @@ function App() {
       const resData = await wallet.signAndExecuteTransactionBlock({
         // @ts-ignore
         transactionBlock: tx,
+        options: {
+          showObjectChanges: true,
+        },
       });
       console.log("executeMoveCall success", resData);
+      alert("executeMoveCall succeeded (see response in the console)");
+    } catch (e) {
+      console.error("executeMoveCall failed", e);
+      alert("executeMoveCall failed (see response in the console)");
+    }
+  }
+
+  async function handleSignAndExecuteTransaction(
+    target: string | undefined,
+    opts?: {
+      isCustomExecution?: boolean;
+    }
+  ) {
+    if (!target) return;
+    try {
+      const tx = new Transaction();
+      tx.moveCall({
+        target: target,
+        arguments: [
+          tx.pure.string("Suiet NFT"),
+          tx.pure.string("Suiet Sample NFT"),
+          tx.pure.string(
+            "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
+          ),
+        ],
+      });
+      // tx.setGasBudget(1000000);
+
+      if (opts?.isCustomExecution) {
+        const resData = await wallet.signAndExecuteTransaction({
+          transaction: tx,
+        });
+        console.log("signAndExecuteTransaction success", resData);
+      } else {
+        const resData = await wallet.signAndExecuteTransaction(
+          {
+            transaction: tx,
+          },
+          {
+            execute: async ({ bytes, signature }) => {
+              const res = await client.executeTransactionBlock({
+                transactionBlock: bytes,
+                signature: signature,
+                options: {
+                  showRawEffects: true,
+                },
+              });
+              return res;
+            },
+          }
+        );
+        console.log("signAndExecuteTransaction success", resData);
+      }
+
       alert("executeMoveCall succeeded (see response in the console)");
     } catch (e) {
       console.error("executeMoveCall failed", e);
@@ -161,18 +231,24 @@ function App() {
               SUI Balance: {formatSUI(balance ?? 0)} (id: {wallet.chain?.id})
             </p>
           </div>
-          <div style={{ margin: "8px 0" }}>
+          <div style={{ margin: "8px 0", display: "flex", gap: "8px" }}>
             {nftContractAddr && (
-              <button onClick={() => handleExecuteMoveCall(nftContractAddr)}>
+              <button
+                onClick={() =>
+                  handleSignAndExecuteTransactionBlock(nftContractAddr)
+                }
+              >
                 Mint {chainName(wallet.chain?.id)} NFT
               </button>
             )}
-            <button
-              style={{ marginLeft: "8px" }}
-              onClick={handleSignPersonalMessage}
-            >
-              signMessage
-            </button>
+            {nftContractAddr && (
+              <button
+                onClick={() => handleSignAndExecuteTransaction(nftContractAddr)}
+              >
+                Sign + Execute Transaction
+              </button>
+            )}
+            <button onClick={handleSignPersonalMessage}>signMessage</button>
           </div>
         </div>
       )}
