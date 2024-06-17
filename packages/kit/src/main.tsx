@@ -4,6 +4,7 @@ import { ConnectButton, WalletProvider } from "./components";
 import {
   useAccountBalance,
   useChain,
+  useSuiClient,
   useSuiProvider,
   useWallet,
 } from "./hooks";
@@ -38,7 +39,7 @@ function App() {
   const wallet = useWallet();
   const { balance } = useAccountBalance();
   const chain = useChain();
-  const client = useSuiProvider(chain?.rpcUrl || SuiTestnetChain.rpcUrl);
+  const client = useSuiClient();
 
   const nftContractAddr = useMemo(() => {
     if (!wallet.chain) return "";
