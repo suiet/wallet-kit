@@ -36,7 +36,6 @@ import {
   IDefaultWallet,
   IWalletAdapter,
   KitError,
-  Uint8arrayTool,
   UnknownChain,
   verifySignedMessage,
   WalletEvent,
@@ -49,6 +48,7 @@ import {
 } from "../types/params";
 import { SuiClient } from "@mysten/sui/client";
 import { toB64 } from "@mysten/sui/utils";
+import { SuiClientContext } from "../contexts/SuiClientContext";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -77,6 +77,12 @@ export const WalletProvider = (props: WalletProviderProps) => {
     if (isNonEmptyArray(chains)) return chains[0]; // first one as default chain
     return UnknownChain;
   });
+  // suiClient will automatically be updated when chain changes
+  const suiClient = useMemo(
+    () => new SuiClient({ url: chain.rpcUrl }),
+    [chain]
+  );
+
   const walletOffListeners = useRef<(() => void)[]>([]);
 
   const isCallable = (
@@ -285,10 +291,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         if (typeof options?.execute === "function") {
           return await options.execute(signedTransaction);
         }
-        const client = new SuiClient({
-          url: "",
-        });
-        const { digest, rawEffects } = await client.executeTransactionBlock({
+        const { digest, rawEffects } = await suiClient.executeTransactionBlock({
           transactionBlock: signedTransaction.bytes,
           signature: signedTransaction.signature,
           options: {
@@ -327,7 +330,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         effects,
       };
     },
-    [safelyGetWalletAndAccount, chain]
+    [safelyGetWalletAndAccount, chain, suiClient]
   );
 
   const reportTransactionEffects = useCallback(
@@ -427,7 +430,9 @@ export const WalletProvider = (props: WalletProviderProps) => {
       }}
     >
       <QueryClientProvider client={new QueryClient()}>
-        {children}
+        <SuiClientContext.Provider value={suiClient}>
+          {children}
+        </SuiClientContext.Provider>
       </QueryClientProvider>
     </WalletContext.Provider>
   );
