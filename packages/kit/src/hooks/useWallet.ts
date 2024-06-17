@@ -22,7 +22,9 @@ import {
   SuiSignTransactionBlockOutput,
   SuiSignTransactionInput,
   WalletAccount,
+  SignedTransaction,
 } from "@mysten/wallet-standard";
+import { ExecuteTransactionOptions } from "../types/params";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -41,27 +43,31 @@ export interface WalletContextState {
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
 
-  /** @deprecated Use signAndExecuteTransaction instead  */
-  signAndExecuteTransactionBlock(
-    input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
-  ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
-
-  /** @deprecated Use signTransaction instead  */
-  signTransactionBlock(
-    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
-  ): Promise<SuiSignTransactionBlockOutput>;
-
   signAndExecuteTransaction(
-    input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">
+    input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">,
+    options?: ExecuteTransactionOptions
   ): Promise<SuiSignAndExecuteTransactionOutput>;
 
   signTransaction(
     input: Omit<SuiSignTransactionInput, "account" | "chain">
-  ): Promise<SuiSignTransactionBlockOutput>;
+  ): Promise<SignedTransaction>;
 
   signPersonalMessage(
     input: Omit<SuiSignPersonalMessageInput, "account">
   ): Promise<SuiSignPersonalMessageOutput>;
+
+  /**
+   * @deprecated use signTransaction instead
+   * @param input
+   */
+  signTransactionBlock(
+    input: Omit<SuiSignTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignTransactionBlockOutput>;
+
+  /** @deprecated Use signAndExecuteTransaction instead  */
+  signAndExecuteTransactionBlock(
+    input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
+  ): Promise<SuiSignAndExecuteTransactionBlockOutput>;
 
   /**
    * @deprecated use signPersonalMessage instead
@@ -81,7 +87,7 @@ export interface WalletContextState {
   ) => () => void;
 
   reportTransactionEffects(
-    input: SuiReportTransactionEffectsInput
+    input: Omit<SuiReportTransactionEffectsInput, "account" | "chain">
   ): Promise<void>;
 }
 
@@ -114,29 +120,29 @@ const DEFAULT_CONTEXT: WalletContextState = {
   getAccounts() {
     throw new KitError(missProviderMessage("getAccounts"));
   },
-  async signAndExecuteTransactionBlock() {
-    throw new KitError(missProviderMessage("signAndExecuteTransactionBlock"));
-  },
-  async signTransactionBlock() {
-    throw new KitError(missProviderMessage("signTransactionBlock"));
+  async signTransaction() {
+    throw new KitError(missProviderMessage("signTransaction"));
   },
   async signAndExecuteTransaction() {
     throw new KitError(missProviderMessage("signAndExecuteTransaction"));
   },
-  async signTransaction() {
-    throw new KitError(missProviderMessage("signTransaction"));
-  },
   async signPersonalMessage() {
     throw new KitError(missProviderMessage("signPersonalMessage"));
-  },
-  async signMessage() {
-    throw new KitError(missProviderMessage("signMessage"));
   },
   async reportTransactionEffects() {
     throw new KitError(missProviderMessage("reportTransactionEffects"));
   },
   verifySignedMessage() {
     throw new KitError(missProviderMessage("verifySignedMessage"));
+  },
+  async signMessage() {
+    throw new KitError(missProviderMessage("signMessage"));
+  },
+  async signTransactionBlock() {
+    throw new KitError(missProviderMessage("signTransactionBlock"));
+  },
+  async signAndExecuteTransactionBlock() {
+    throw new KitError(missProviderMessage("signAndExecuteTransactionBlock"));
   },
 };
 

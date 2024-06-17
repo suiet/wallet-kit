@@ -7,16 +7,20 @@ import React, {
 } from "react";
 import { WalletContext } from "../hooks";
 import type {
+  SignedTransaction,
   StandardConnectInput,
+  SuiReportTransactionEffectsInput,
   SuiSignAndExecuteTransactionBlockInput,
+  SuiSignAndExecuteTransactionInput,
   SuiSignMessageInput,
   SuiSignPersonalMessageInput,
   SuiSignTransactionBlockInput,
+  SuiSignTransactionInput,
   WalletAccount,
 } from "@mysten/wallet-standard";
 import { Extendable } from "../types/utils";
 import { isNonEmptyArray } from "../utils";
-import { useAvailableWallets } from "../hooks/useAvaibleWallets";
+import { useAvailableWallets } from "../hooks/useAvailableWallets";
 import { useAutoConnect } from "../hooks/useAutoConnect";
 import { Storage } from "../utils/storage";
 import { StorageKey } from "../constants/storage";
@@ -37,6 +41,14 @@ import {
   WalletEvent,
   WalletEventListeners,
 } from "@suiet/wallet-sdk";
+import { SuiReportTransactionEffectsMethod } from "@mysten/wallet-standard/dist/esm";
+import {
+  ExecuteTransactionOptions,
+  ExecuteTransactionResult,
+} from "../types/params";
+import { SuiClient } from "@mysten/sui/client";
+import { toB64 } from "@mysten/sui/utils";
+import { SuiClientContext } from "../contexts/SuiClientContext";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -65,6 +77,12 @@ export const WalletProvider = (props: WalletProviderProps) => {
     if (isNonEmptyArray(chains)) return chains[0]; // first one as default chain
     return UnknownChain;
   });
+  // suiClient will automatically be updated when chain changes
+  const suiClient = useMemo(
+    () => new SuiClient({ url: chain.rpcUrl }),
+    [chain]
+  );
+
   const walletOffListeners = useRef<(() => void)[]>([]);
 
   const isCallable = (
@@ -87,6 +105,18 @@ export const WalletProvider = (props: WalletProviderProps) => {
       throw new KitError("Failed to call function, wallet not connected");
     }
   };
+
+  const safelyGetWalletAndAccount = useCallback((): [
+    IWalletAdapter,
+    WalletAccount
+  ] => {
+    ensureCallable(walletAdapter, status);
+    if (!account) {
+      throw new KitError("no active account");
+    }
+    const _wallet = walletAdapter as IWalletAdapter;
+    return [_wallet, account];
+  }, [walletAdapter, account, status]);
 
   const connect = useCallback(
     async (adapter: IWalletAdapter, opts?: StandardConnectInput) => {
@@ -186,8 +216,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   const on = useCallback(
     (event: WalletEvent, listener: WalletEventListeners[WalletEvent]) => {
-      ensureCallable(walletAdapter, status);
-      const _wallet = walletAdapter as IWalletAdapter;
+      const [_wallet] = safelyGetWalletAndAccount();
 
       // filter event and params to decide when to emit
       const off = _wallet.on("change", (params) => {
@@ -215,79 +244,151 @@ export const WalletProvider = (props: WalletProviderProps) => {
       walletOffListeners.current.push(off); // should help user manage off cleaners
       return off;
     },
-    [walletAdapter, status]
+    [safelyGetWalletAndAccount]
   );
 
   const getAccounts = useCallback(() => {
-    ensureCallable(walletAdapter, status);
-    const _wallet = walletAdapter as IWalletAdapter;
+    const [_wallet] = safelyGetWalletAndAccount();
     return _wallet.accounts;
-  }, [walletAdapter, status]);
+  }, [safelyGetWalletAndAccount]);
 
   const signAndExecuteTransactionBlock = useCallback(
     async (
       input: Omit<SuiSignAndExecuteTransactionBlockInput, "account" | "chain">
     ) => {
-      ensureCallable(walletAdapter, status);
-      if (!account) {
-        throw new KitError("no active account");
-      }
-      const _wallet = walletAdapter as IWalletAdapter;
+      const [_wallet, account] = safelyGetWalletAndAccount();
       return await _wallet.signAndExecuteTransactionBlock({
         account,
         chain: chain.id as IdentifierString,
         ...input,
       });
     },
-    [walletAdapter, status, chain, account]
+    [safelyGetWalletAndAccount, chain]
+  );
+
+  const signTransaction = useCallback(
+    async (input: Omit<SuiSignTransactionInput, "account" | "chain">) => {
+      const [_wallet, account] = safelyGetWalletAndAccount();
+      return await _wallet.signTransaction({
+        account,
+        chain: chain.id as IdentifierString,
+        ...input,
+      });
+    },
+    [safelyGetWalletAndAccount, chain]
+  );
+
+  const signAndExecuteTransaction = useCallback(
+    async (
+      input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">,
+      options?: ExecuteTransactionOptions
+    ) => {
+      const [_wallet, account] = safelyGetWalletAndAccount();
+
+      const executeTransaction = async (
+        signedTransaction: SignedTransaction
+      ): Promise<ExecuteTransactionResult> => {
+        if (typeof options?.execute === "function") {
+          return await options.execute(signedTransaction);
+        }
+        const { digest, rawEffects } = await suiClient.executeTransactionBlock({
+          transactionBlock: signedTransaction.bytes,
+          signature: signedTransaction.signature,
+          options: {
+            showRawEffects: true,
+          },
+        });
+        return {
+          digest,
+          rawEffects,
+        };
+      };
+
+      const signedTransaction = await _wallet.signTransaction({
+        transaction: input.transaction,
+        account,
+        chain: chain.id as IdentifierString,
+      });
+      const execResult = await executeTransaction(signedTransaction);
+
+      let effects: string;
+
+      if ("effects" in execResult && execResult.effects?.bcs) {
+        effects = execResult.effects.bcs;
+      } else if ("rawEffects" in execResult) {
+        effects = toB64(new Uint8Array(execResult.rawEffects!));
+      } else {
+        throw new Error(
+          "effects or rawEffects not found in the execution result"
+        );
+      }
+
+      try {
+        await _wallet.reportTransactionEffects({
+          effects,
+          account,
+          chain: chain.id as IdentifierString,
+        });
+      } catch (error) {
+        console.warn("Failed to report transaction effects:", error);
+      }
+
+      return {
+        bytes: signedTransaction.bytes,
+        signature: signedTransaction.signature,
+        digest: execResult.digest,
+        effects,
+      };
+    },
+    [safelyGetWalletAndAccount, chain, suiClient]
+  );
+
+  const reportTransactionEffects = useCallback(
+    async (
+      input: Omit<SuiReportTransactionEffectsInput, "account" | "chain">
+    ) => {
+      const [_wallet, account] = safelyGetWalletAndAccount();
+      return await _wallet.reportTransactionEffects({
+        account,
+        chain: chain.id as IdentifierString,
+        ...input,
+      });
+    },
+    [safelyGetWalletAndAccount, chain]
   );
 
   const signTransactionBlock = useCallback(
     async (input: Omit<SuiSignTransactionBlockInput, "account" | "chain">) => {
-      ensureCallable(walletAdapter, status);
-      if (!account) {
-        throw new KitError("no active account");
-      }
-      const _wallet = walletAdapter as IWalletAdapter;
+      const [_wallet, account] = safelyGetWalletAndAccount();
       return await _wallet.signTransactionBlock({
         account,
         chain: chain.id as IdentifierString,
         ...input,
       });
     },
-    [walletAdapter, status, chain, account]
+    [safelyGetWalletAndAccount, chain]
   );
 
   const signMessage = useCallback(
     async (input: Omit<SuiSignMessageInput, "account">) => {
-      ensureCallable(walletAdapter, status);
-      if (!account) {
-        throw new KitError("no active account");
-      }
-
-      const adapter = walletAdapter as IWalletAdapter;
-      return await adapter.signMessage({
+      const [_wallet, account] = safelyGetWalletAndAccount();
+      return await _wallet.signMessage({
         account,
         message: input.message,
       });
     },
-    [walletAdapter, account, status]
+    [safelyGetWalletAndAccount]
   );
 
   const signPersonalMessage = useCallback(
     async (input: Omit<SuiSignPersonalMessageInput, "account">) => {
-      ensureCallable(walletAdapter, status);
-      if (!account) {
-        throw new KitError("no active account");
-      }
-
-      const adapter = walletAdapter as IWalletAdapter;
-      return await adapter.signPersonalMessage({
+      const [_wallet, account] = safelyGetWalletAndAccount();
+      return await _wallet.signPersonalMessage({
         account,
         message: input.message,
       });
     },
-    [walletAdapter, account, status]
+    [safelyGetWalletAndAccount]
   );
 
   useAutoConnect(select, status, allAvailableWallets, autoConnect);
@@ -327,16 +428,21 @@ export const WalletProvider = (props: WalletProviderProps) => {
         on,
         getAccounts,
         account,
-        signAndExecuteTransactionBlock,
         signPersonalMessage,
+        signTransaction,
+        signAndExecuteTransaction,
+        reportTransactionEffects,
         signMessage,
         signTransactionBlock,
+        signAndExecuteTransactionBlock,
         verifySignedMessage,
         address: account?.address,
       }}
     >
       <QueryClientProvider client={new QueryClient()}>
-        {children}
+        <SuiClientContext.Provider value={suiClient}>
+          {children}
+        </SuiClientContext.Provider>
       </QueryClientProvider>
     </WalletContext.Provider>
   );

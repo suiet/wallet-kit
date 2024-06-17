@@ -2,9 +2,12 @@ import { useMemo } from "react";
 import { isNonEmptyArray } from "../utils";
 import { useWalletAdapterDetection } from "./useWalletDetection";
 import { IDefaultWallet, IWallet } from "@suiet/wallet-sdk";
+import { useInstallWebWalletAdapters } from "./useInstallWebWalletAdapters";
 
 export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
+  useInstallWebWalletAdapters(defaultWallets);
   const { data: availableWalletAdapters } = useWalletAdapterDetection();
+
   // configured wallets
   const configuredWallets: IWallet[] = useMemo(() => {
     if (!isNonEmptyArray(defaultWallets)) return [];
