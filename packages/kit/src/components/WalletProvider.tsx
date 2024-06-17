@@ -41,7 +41,6 @@ import {
   WalletEvent,
   WalletEventListeners,
 } from "@suiet/wallet-sdk";
-import { SuiReportTransactionEffectsMethod } from "@mysten/wallet-standard/dist/esm";
 import {
   ExecuteTransactionOptions,
   ExecuteTransactionResult,
@@ -49,6 +48,7 @@ import {
 import { SuiClient } from "@mysten/sui/client";
 import { toB64 } from "@mysten/sui/utils";
 import { SuiClientContext } from "../contexts/SuiClientContext";
+import { SuiSignAndExecuteTransactionOutput } from "@mysten/wallet-standard";
 
 export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
@@ -279,10 +279,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
   );
 
   const signAndExecuteTransaction = useCallback(
-    async (
+    async <Output extends SuiSignAndExecuteTransactionOutput>(
       input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">,
       options?: ExecuteTransactionOptions
-    ) => {
+    ): Promise<Output> => {
       const [_wallet, account] = safelyGetWalletAndAccount();
 
       const executeTransaction = async (
@@ -291,17 +291,14 @@ export const WalletProvider = (props: WalletProviderProps) => {
         if (typeof options?.execute === "function") {
           return await options.execute(signedTransaction);
         }
-        const { digest, rawEffects } = await suiClient.executeTransactionBlock({
+        // by default, we only return the digest and rawEffects
+        return await suiClient.executeTransactionBlock({
           transactionBlock: signedTransaction.bytes,
           signature: signedTransaction.signature,
           options: {
             showRawEffects: true,
           },
         });
-        return {
-          digest,
-          rawEffects,
-        };
       };
 
       const signedTransaction = await _wallet.signTransaction({
@@ -309,14 +306,16 @@ export const WalletProvider = (props: WalletProviderProps) => {
         account,
         chain: chain.id as IdentifierString,
       });
-      const execResult = await executeTransaction(signedTransaction);
+      const { digest, effects, ...res } = await executeTransaction(
+        signedTransaction
+      );
 
-      let effects: string;
+      let effectsB64: string;
 
-      if ("effects" in execResult && execResult.effects?.bcs) {
-        effects = execResult.effects.bcs;
-      } else if ("rawEffects" in execResult) {
-        effects = toB64(new Uint8Array(execResult.rawEffects!));
+      if (effects && "bcs" in (effects as any)) {
+        effectsB64 = (effects as any)?.bcs;
+      } else if (res && (("rawEffects" in res) as any)) {
+        effectsB64 = toB64(new Uint8Array((res as any).rawEffects));
       } else {
         throw new Error(
           "effects or rawEffects not found in the execution result"
@@ -325,7 +324,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
       try {
         await _wallet.reportTransactionEffects({
-          effects,
+          effects: effectsB64,
           account,
           chain: chain.id as IdentifierString,
         });
@@ -336,9 +335,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
       return {
         bytes: signedTransaction.bytes,
         signature: signedTransaction.signature,
-        digest: execResult.digest,
-        effects,
-      };
+        digest: digest,
+        effects: effectsB64,
+        ...res,
+      } as Output;
     },
     [safelyGetWalletAndAccount, chain, suiClient]
   );

@@ -1,16 +1,20 @@
-import { SignedTransaction } from "@mysten/wallet-standard";
+import { SuiTransactionBlockResponse } from "@mysten/sui/client";
+import {
+  SignedTransaction,
+  SuiSignAndExecuteTransactionOutput,
+} from "@mysten/wallet-standard";
+
+export type RpcClientExecuteTransactionResult = SuiTransactionBlockResponse;
+export type GraphQLClientExecuteTransactionResult = {
+  digest: string;
+  effects?: {
+    bcs?: string;
+  };
+};
 
 export type ExecuteTransactionResult =
-  | {
-      digest: string;
-      rawEffects?: number[];
-    }
-  | {
-      digest: string;
-      effects?: {
-        bcs?: string;
-      };
-    };
+  | RpcClientExecuteTransactionResult
+  | GraphQLClientExecuteTransactionResult;
 
 export type ExecuteTransactionOptions = {
   execute?: (
