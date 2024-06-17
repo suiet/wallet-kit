@@ -22,8 +22,8 @@ import {
   SuiSignTransactionBlockOutput,
   SuiSignTransactionInput,
   WalletAccount,
+  SignedTransaction,
 } from "@mysten/wallet-standard";
-import { SuiSignTransactionOutput } from "../../dist/wallet-standard/features/suiSignTransaction";
 
 export interface WalletContextState {
   configuredWallets: IWallet[];
@@ -48,7 +48,7 @@ export interface WalletContextState {
 
   signTransaction(
     input: Omit<SuiSignTransactionInput, "account" | "chain">
-  ): Promise<SuiSignTransactionOutput>;
+  ): Promise<SignedTransaction>;
 
   signPersonalMessage(
     input: Omit<SuiSignPersonalMessageInput, "account">
@@ -85,7 +85,7 @@ export interface WalletContextState {
   ) => () => void;
 
   reportTransactionEffects(
-    input: SuiReportTransactionEffectsInput
+    input: Omit<SuiReportTransactionEffectsInput, "account" | "chain">
   ): Promise<void>;
 }
 
