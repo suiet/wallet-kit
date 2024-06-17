@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => ({
         "@mysten/sui/bcs",
         "@mysten/sui/utils",
         "@mysten/sui/verify",
+        "@mysten/sui/transactions",
       ],
       output: {
         globals: {
@@ -36,6 +37,7 @@ export default defineConfig(({ mode }) => ({
           "@mysten/sui/bcs": "Sui",
           "@mysten/sui/utils": "Sui",
           "@mysten/sui/verify": "Sui",
+          "@mysten/sui/transactions": "Sui",
         },
       },
     },
