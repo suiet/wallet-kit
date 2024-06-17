@@ -1,13 +1,13 @@
-import { Buffer } from "buffer";
+import { fromB64, toHEX } from "@mysten/sui/utils";
 
 export class Uint8arrayTool {
   static toHex(bytes: Uint8Array): string {
-    return Buffer.from(bytes).toString("hex");
+    return toHEX(bytes);
   }
 
   static ensureUint8Array(value: string | Uint8Array | number[]): Uint8Array {
     if (typeof value === "string") {
-      return Uint8Array.from(Buffer.from(value, "base64"));
+      return fromB64(value);
     } else if (value instanceof Uint8Array) {
       return value;
     } else {

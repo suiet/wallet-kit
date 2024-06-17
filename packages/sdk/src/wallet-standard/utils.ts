@@ -1,9 +1,11 @@
 import { Wallet } from "@mysten/wallet-standard";
+import { FeatureName } from "./constants";
 
 export function isStandardWalletAdapterCompatibleWallet(wallet: Wallet) {
-  return (
-    "standard:connect" in wallet.features &&
-    "standard:events" in wallet.features &&
-    "sui:signAndExecuteTransactionBlock" in wallet.features
-  );
+  const res =
+    FeatureName.STANDARD__CONNECT in wallet.features &&
+    FeatureName.STANDARD__EVENTS in wallet.features &&
+    (FeatureName.SUI__SIGN_TRANSACTION in wallet.features ||
+      FeatureName.SUI__SIGN_AND_EXECUTE_TRANSACTION_BLOCK in wallet.features);
+  return res;
 }
