@@ -1,7 +1,11 @@
-'use client'
+"use client";
 
-import {FC} from "react";
-import {WalletProvider} from "@suiet/wallet-kit";
+import { FC } from "react";
+import {
+  AllDefaultWallets,
+  defineStashedWallet,
+  WalletProvider,
+} from "@suiet/wallet-kit";
 
 /**
  * Custom provider component for integrating with third-party providers.
@@ -9,9 +13,16 @@ import {WalletProvider} from "@suiet/wallet-kit";
  * @param props
  * @constructor
  */
-const Providers: FC<any> = ({children}) => {
+const Providers: FC<any> = ({ children }) => {
   return (
-    <WalletProvider>
+    <WalletProvider
+      defaultWallets={[
+        ...AllDefaultWallets,
+        defineStashedWallet({
+          appName: "Suiet Kit Playground",
+        }),
+      ]}
+    >
       {children}
     </WalletProvider>
   );

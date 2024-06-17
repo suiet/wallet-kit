@@ -48,6 +48,7 @@ import {
 import { SuiClient } from "@mysten/sui/client";
 import { toB64 } from "@mysten/sui/utils";
 import { SuiClientContext } from "../contexts/SuiClientContext";
+import { has } from "lodash-es";
 import { SuiSignAndExecuteTransactionOutput } from "@mysten/wallet-standard";
 
 export type WalletProviderProps = Extendable & {

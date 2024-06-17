@@ -9,11 +9,13 @@ import {
   SuiChainId,
   useAccountBalance,
   useChain,
+  useSuiClient,
   useWallet,
 } from "@suiet/wallet-kit";
 import { useMemo } from "react";
-import { TransactionBlock } from "@mysten/sui/transactions";
-import { useSuiProvider } from "@suiet/wallet-kit";
+import { Transaction } from "@mysten/sui/transactions";
+import { SuiSignAndExecuteTransactionOutput } from "@mysten/wallet-standard";
+import { SuiTransactionBlockResponse } from "@mysten/sui/client";
 
 const sampleNft = new Map([
   [
@@ -32,13 +34,14 @@ const sampleNft = new Map([
 
 export default function Home() {
   const wallet = useWallet();
+  const suiClient = useSuiClient();
+
   const { balance } = useAccountBalance();
   const nftContractAddr = useMemo(() => {
     if (!wallet.chain) return "";
     return sampleNft.get(wallet.chain.id) ?? "";
   }, [wallet]);
   const chain = useChain(SuiChainId.MAIN_NET);
-  const suiClient = useSuiProvider(chain?.rpcUrl ?? "");
 
   function uint8arrayToHex(value: Uint8Array | undefined) {
     if (!value) return "";
@@ -50,27 +53,43 @@ export default function Home() {
     if (!target) return;
 
     try {
-      const tx = new TransactionBlock();
+      const tx = new Transaction();
       tx.moveCall({
         target: target as any,
         arguments: [
-          tx.pure("Suiet NFT"),
-          tx.pure("Suiet Sample NFT"),
-          tx.pure(
+          tx.pure.string("Suiet NFT"),
+          tx.pure.string("Suiet Sample NFT"),
+          tx.pure.string(
             "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
           ),
         ],
       });
-      const resData = await wallet.signAndExecuteTransactionBlock({
-        transactionBlock: tx,
-      });
-      const transactionInfo = await suiClient.getTransactionBlock({
-        digest: String(resData.digest),
-        options: {
-          showObjectChanges: true,
+      // const resData = await wallet.signAndExecuteTransactionBlock({
+      //   transactionBlock: tx,
+      //   options: {
+      //     showObjectChanges: true,
+      //   },
+      // });
+
+      const resData = await wallet.signAndExecuteTransaction<
+        SuiSignAndExecuteTransactionOutput & SuiTransactionBlockResponse
+      >(
+        {
+          transaction: tx,
         },
-      });
-      console.log("transactionInfo", transactionInfo);
+        {
+          execute: ({ bytes, signature }) => {
+            return suiClient.executeTransactionBlock({
+              transactionBlock: bytes,
+              signature,
+              options: {
+                showRawEffects: true,
+                showObjectChanges: true,
+              },
+            });
+          },
+        }
+      );
       console.log("executeMoveCall success", resData);
       alert("executeMoveCall succeeded (see response in the console)");
     } catch (e) {

@@ -9,7 +9,7 @@ import {
   formatSUI,
 } from "@suiet/wallet-kit";
 import "@suiet/wallet-kit/style.css";
-import { TransactionBlock } from "@mysten/sui/transactions";
+import { Transaction } from "@mysten/sui/transactions";
 import { useMemo } from "react";
 
 const sampleNft = new Map([
@@ -45,13 +45,13 @@ function App() {
     if (!target) return;
 
     try {
-      const tx = new TransactionBlock();
+      const tx = new Transaction();
       tx.moveCall({
         target: target as any,
         arguments: [
-          tx.pure("Suiet NFT"),
-          tx.pure("Suiet Sample NFT"),
-          tx.pure(
+          tx.pure.string("Suiet NFT"),
+          tx.pure.string("Suiet Sample NFT"),
+          tx.pure.string(
             "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
           ),
         ],
