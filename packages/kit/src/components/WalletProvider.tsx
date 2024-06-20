@@ -36,10 +36,12 @@ import {
   IDefaultWallet,
   IWalletAdapter,
   KitError,
+  normalizeTransaction,
   UnknownChain,
   verifySignedMessage,
   WalletEvent,
   WalletEventListeners,
+  WalletNotImplementError,
 } from "@suiet/wallet-sdk";
 import {
   ExecuteTransactionOptions,
@@ -48,7 +50,6 @@ import {
 import { SuiClient } from "@mysten/sui/client";
 import { toB64 } from "@mysten/sui/utils";
 import { SuiClientContext } from "../contexts/SuiClientContext";
-import { has } from "lodash-es";
 import { SuiSignAndExecuteTransactionOutput } from "@mysten/wallet-standard";
 
 export type WalletProviderProps = Extendable & {
@@ -261,7 +262,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
       return await _wallet.signAndExecuteTransactionBlock({
         account,
         chain: chain.id as IdentifierString,
-        ...input,
+        transactionBlock: input.transactionBlock,
       });
     },
     [safelyGetWalletAndAccount, chain]
@@ -270,11 +271,35 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const signTransaction = useCallback(
     async (input: Omit<SuiSignTransactionInput, "account" | "chain">) => {
       const [_wallet, account] = safelyGetWalletAndAccount();
-      return await _wallet.signTransaction({
-        account,
-        chain: chain.id as IdentifierString,
-        ...input,
-      });
+
+      // Wallet backwards compatibility:
+      // 1. Transaction -> sui:signTransaction
+      // 2. Transaction -> sui:signTransactionBlock
+      let signedTransaction: SignedTransaction;
+      let normalizedTransaction = await normalizeTransaction(input.transaction);
+      if (_wallet.hasFeature(FeatureName.SUI__SIGN_TRANSACTION)) {
+        signedTransaction = await _wallet.signTransaction({
+          transaction: normalizedTransaction,
+          account,
+          chain: chain.id as IdentifierString,
+        });
+      } else if (_wallet.hasFeature(FeatureName.SUI__SIGN_TRANSACTION_BLOCK)) {
+        const signed = await _wallet.signTransactionBlock({
+          transactionBlock: normalizedTransaction,
+          account,
+          chain: chain.id as IdentifierString,
+        });
+        signedTransaction = {
+          signature: signed.signature,
+          bytes: signed.transactionBlockBytes,
+        };
+      } else {
+        throw new WalletNotImplementError(
+          `${FeatureName.SUI__SIGN_TRANSACTION} or ${FeatureName.SUI__SIGN_TRANSACTION_BLOCK}`
+        );
+      }
+
+      return signedTransaction;
     },
     [safelyGetWalletAndAccount, chain]
   );
@@ -302,11 +327,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
         });
       };
 
-      const signedTransaction = await _wallet.signTransaction({
+      const signedTransaction = await signTransaction({
         transaction: input.transaction,
-        account,
-        chain: chain.id as IdentifierString,
       });
+
       const { digest, effects, ...res } = await executeTransaction(
         signedTransaction
       );
@@ -364,7 +388,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
       return await _wallet.signTransactionBlock({
         account,
         chain: chain.id as IdentifierString,
-        ...input,
+        transactionBlock: input.transactionBlock,
       });
     },
     [safelyGetWalletAndAccount, chain]
