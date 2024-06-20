@@ -15,6 +15,7 @@ import {
   defineStashedWallet,
   SuiTestnetChain,
   Uint8arrayTool,
+  Chain,
 } from "@suiet/wallet-sdk";
 import { AllDefaultWallets } from "@suiet/wallet-sdk";
 import { Transaction } from "@mysten/sui/transactions";
@@ -265,9 +266,17 @@ function App() {
 const stashedWallet = defineStashedWallet({
   appName: "Suiet Wallet Kit",
 });
+const suietMainnetChain: Chain = {
+  id: SuiChainId.MAIN_NET,
+  name: "Sui Mainnet",
+  rpcUrl: "https://mainnet.suiet.app/",
+};
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <WalletProvider defaultWallets={[...AllDefaultWallets, stashedWallet]}>
+    <WalletProvider
+      defaultWallets={[...AllDefaultWallets, stashedWallet]}
+      chains={[suietMainnetChain]}
+    >
       <App />
     </WalletProvider>
   </React.StrictMode>

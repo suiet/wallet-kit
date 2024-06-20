@@ -52,8 +52,8 @@ function App() {
           ),
         ],
       });
-      const resData = await wallet.signAndExecuteTransactionBlock({
-        transactionBlock: tx,
+      const resData = await wallet.signAndExecuteTransaction({
+        transaction: tx,
       });
       console.log("executeMoveCall success", resData);
       alert("executeMoveCall succeeded (see response in the console)");
