@@ -34,14 +34,14 @@ yarn add @suiet/wallet-kit
 pnpm install @suiet/wallet-kit
 ```
 
-Next, make sure `@mysten/sui.js` is installed in your project. If not, install it as well.
+Next, make sure `@mysten/sui` is installed in your project. If not, install it as well.
 
 ```shell
-npm install @mysten/sui.js
+npm install @mysten/sui
 # or
-yarn add @mysten/sui.js
+yarn add @mysten/sui
 # or
-pnpm install @mysten/sui.js
+pnpm install @mysten/sui
 ```
 
 Then wrap your `<App />` with our context provider, so that our hooks can work nicely inside your dapp.
@@ -99,7 +99,7 @@ your dapp is already empowered and able to call wallet capabilities.🎉
 
 ```jsx
 import {useWallet} from '@suiet/wallet-kit';
-import {TransactionBlock} from "@mysten/sui.js";
+import {Transaction} from "@mysten/sui/transactions";
 
 const App = () => {
   const wallet = useWallet()
@@ -113,14 +113,14 @@ const App = () => {
 
   // launch a move call for the connected account via wallet
   async function handleMoveCall() {
-    const tx = new TransactionBlock();
+    const tx = new Transaction();
     const packageObjectId = "0x1";
     tx.moveCall({
       target: `${packageObjectId}::nft::mint`,
-      arguments: [tx.pure("Example NFT")],
+      arguments: [tx.pure.string("Example NFT")],
     });
-    await wallet.signAndExecuteTransactionBlock({
-      transactionBlock: tx,
+    await wallet.signAndExecuteTransaction({
+      transaction: tx,
     });
   }
 

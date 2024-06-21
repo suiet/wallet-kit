@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 998
 ---
 
 # Upgrade to v0.2.x
