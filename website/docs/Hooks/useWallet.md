@@ -277,9 +277,27 @@ the [@mysten/wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wa
 |----------------------------------| --------- |
 | [IWalletAdapter](/docs/Types#IWalletAdapter) | undefined | undefined |
 
-### signAndExecuteTransactionBlock
+### signTransaction
 
-The universal function to send and execute transactions via connected wallet.
+The function is for transaction signing.
+
+| Type                                                         | Default |
+|--------------------------------------------------------------| ------- |
+| `({transaction: Transaction}) => Promise<SignedTransaction>` |         |
+
+
+### signAndExecuteTransaction
+
+This is a new API that implements the new recommended flow of signing, executing transactions and reporting the results to the connected wallet, which gives your DApp a fine-grained control for the execution and thus benefits the e2e latency and data consistency.
+
+With this new feature, you can use the `signAndExecuteTransaction` method to sign transactions and have them executed by submitting signed transactions to the fullnode RPC with the control on your DApp side instead of the wallet side.
+
+This is an enhanced API of `signAndExecuteTransactionBlock` where the comparison between the two APIs are shown in the table.
+
+| API |     Execution     | FullNode for Execution |                   GraphQL API support                   | 
+|:-:|:-----------------:| :-: |:-------------------------------------------------------:|
+| signAndExecuteTransactionBlock |   on Wallet | Specified by Wallet |            Depend on wallet's implementation            |
+| signAndExecuteTransaction | on DApp | Specified by DApp |     Can be done by customizing the execute function     |           
 
 | Type                                                                                                                                                                                    | Default |
 |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------- |
@@ -321,9 +339,25 @@ All the wallet events:
 
 ## Deprecated API
 
-### signAndExecuteTransaction
+### signAndExecuteTransactionBlock
 
-Deprecated, use [signAndExecuteTransactionBlock](#signandexecutetransactionblock) instead.
+Deprecated, use [signAndExecuteTransaction](#signandexecutetransaction) instead.
+
+The universal function to send and execute transactions via connected wallet.
+
+| Type                                                                                                                                                                               | Default |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------- |
+| `({transactionBlock: Transaction, requestType?: ExecuteTransactionRequestType, options?: SuiTransactionBlockResponseOptions}) => Promise<SuiSignAndExecuteTransactionBlockOutput>` |         |
+
+### signTransactionBlock
+
+Deprecated, use [signTransaction](#signtransaction) instead.
+
+The function is for transaction signing.
+
+| Type                                                              | Default |
+|-------------------------------------------------------------------| ------- |
+| `({transactionBlock: Transaction}) => Promise<SuiSignTransactionBlockOutput>` |         |
 
 ### executeMoveCall and executeSerializedMoveCall
 
