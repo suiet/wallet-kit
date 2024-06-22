@@ -60,8 +60,8 @@ importers:
   packages/kit:
     dependencies:
       '@mysten/sui':
-        specifier: 1.1.0
-        version: 1.1.0(svelte@4.2.18)(typescript@5.1.6)
+        specifier: 1.2.0
+        version: 1.2.0(svelte@4.2.18)(typescript@5.1.6)
       '@mysten/wallet-standard':
         specifier: 0.12.6
         version: 0.12.6(svelte@4.2.18)(typescript@5.1.6)
@@ -175,8 +175,8 @@ importers:
   packages/sdk:
     dependencies:
       '@mysten/sui':
-        specifier: 1.1.0
-        version: 1.1.0(svelte@4.2.18)(typescript@5.1.6)
+        specifier: 1.2.0
+        version: 1.2.0(svelte@4.2.18)(typescript@5.1.6)
       '@mysten/wallet-standard':
         specifier: 0.12.6
         version: 0.12.6(svelte@4.2.18)(typescript@5.1.6)
@@ -3487,6 +3487,27 @@ packages:
       - svelte
       - typescript
     dev: true
+
+  /@mysten/sui@1.2.0(svelte@4.2.18)(typescript@5.1.6):
+    resolution: {integrity: sha512-USDOckZPGcwi2QAuKHEcieoVuW8Xgsm8vtKyXaRrhVLG2t2q3hCEigquiLXh7S3okBbD/P35xjvhR9PdUeqweA==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
+      '@mysten/bcs': 1.0.2
+      '@noble/curves': 1.1.0
+      '@noble/hashes': 1.3.1
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
+      '@suchipi/femver': 1.0.0
+      bech32: 2.0.0
+      gql.tada: 1.7.5(graphql@16.8.1)(svelte@4.2.18)(typescript@5.1.6)
+      graphql: 16.8.1
+      tweetnacl: 1.0.3
+      valibot: 0.25.0
+    transitivePeerDependencies:
+      - svelte
+      - typescript
+    dev: false
 
   /@mysten/wallet-adapter-base@0.3.0:
     resolution: {integrity: sha512-Sk4J8R+9YYxGtFp2GkEgQX/JLKMGYg/VjB/KCA5D6VwjzjRkk7jgD9ImkSSceNmLeiG2F/VyCndVAPDoAAhzow==}
