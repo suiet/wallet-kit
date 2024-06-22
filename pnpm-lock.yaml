@@ -63,8 +63,8 @@ importers:
         specifier: 1.1.0
         version: 1.1.0(svelte@4.2.18)(typescript@5.1.6)
       '@mysten/wallet-standard':
-        specifier: 0.12.6
-        version: 0.12.6(svelte@4.2.18)(typescript@5.1.6)
+        specifier: 0.12.10
+        version: 0.12.10(svelte@4.2.18)(typescript@5.1.6)
       '@mysten/zksend':
         specifier: ^0.9.4
         version: 0.9.4(svelte@4.2.18)(typescript@5.1.6)
@@ -178,8 +178,8 @@ importers:
         specifier: 1.1.0
         version: 1.1.0(svelte@4.2.18)(typescript@5.1.6)
       '@mysten/wallet-standard':
-        specifier: 0.12.6
-        version: 0.12.6(svelte@4.2.18)(typescript@5.1.6)
+        specifier: 0.12.10
+        version: 0.12.10(svelte@4.2.18)(typescript@5.1.6)
       '@mysten/zksend':
         specifier: ^0.9.4
         version: 0.9.4(svelte@4.2.18)(typescript@5.1.6)
@@ -3488,6 +3488,27 @@ packages:
       - typescript
     dev: true
 
+  /@mysten/sui@1.2.0(svelte@4.2.18)(typescript@5.1.6):
+    resolution: {integrity: sha512-USDOckZPGcwi2QAuKHEcieoVuW8Xgsm8vtKyXaRrhVLG2t2q3hCEigquiLXh7S3okBbD/P35xjvhR9PdUeqweA==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.8.1)
+      '@mysten/bcs': 1.0.2
+      '@noble/curves': 1.1.0
+      '@noble/hashes': 1.3.1
+      '@scure/bip32': 1.3.1
+      '@scure/bip39': 1.2.1
+      '@suchipi/femver': 1.0.0
+      bech32: 2.0.0
+      gql.tada: 1.7.5(graphql@16.8.1)(svelte@4.2.18)(typescript@5.1.6)
+      graphql: 16.8.1
+      tweetnacl: 1.0.3
+      valibot: 0.25.0
+    transitivePeerDependencies:
+      - svelte
+      - typescript
+    dev: false
+
   /@mysten/wallet-adapter-base@0.3.0:
     resolution: {integrity: sha512-Sk4J8R+9YYxGtFp2GkEgQX/JLKMGYg/VjB/KCA5D6VwjzjRkk7jgD9ImkSSceNmLeiG2F/VyCndVAPDoAAhzow==}
     dependencies:
@@ -3509,20 +3530,20 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@mysten/wallet-standard@0.12.4(svelte@4.2.18)(typescript@5.1.6):
-    resolution: {integrity: sha512-y0EiXfWPEp5oV/ml2P0wN6wePpvuUmtCcMrOXK9OdkZ9/9EXeFwMtnE1mJGqGLhZrUMf45SrXMhK6xQwiHxPNg==}
+  /@mysten/wallet-standard@0.12.10(svelte@4.2.18)(typescript@5.1.6):
+    resolution: {integrity: sha512-hwy9S63D/J9llrGHDRqmJTauUcAL2tKeiRut9NdePCe4BJphzowwZxTLZTsyam4fT2K2yvufyVZwp4Ij4FII6Q==}
     dependencies:
-      '@mysten/sui': 1.0.4(svelte@4.2.18)(typescript@5.1.6)
+      '@mysten/sui': 1.2.0(svelte@4.2.18)(typescript@5.1.6)
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - svelte
       - typescript
     dev: false
 
-  /@mysten/wallet-standard@0.12.6(svelte@4.2.18)(typescript@5.1.6):
-    resolution: {integrity: sha512-G92IWhqF4GbPvQE8/UMfaPTuljG4SP817niyXkDxsiP7lMJ3ck6ilMDElNQkljWQV2KJZLYQD6kWO3RcP47zwQ==}
+  /@mysten/wallet-standard@0.12.4(svelte@4.2.18)(typescript@5.1.6):
+    resolution: {integrity: sha512-y0EiXfWPEp5oV/ml2P0wN6wePpvuUmtCcMrOXK9OdkZ9/9EXeFwMtnE1mJGqGLhZrUMf45SrXMhK6xQwiHxPNg==}
     dependencies:
-      '@mysten/sui': 1.1.0(svelte@4.2.18)(typescript@5.1.6)
+      '@mysten/sui': 1.0.4(svelte@4.2.18)(typescript@5.1.6)
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - svelte
