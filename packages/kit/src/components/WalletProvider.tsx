@@ -347,14 +347,16 @@ export const WalletProvider = (props: WalletProviderProps) => {
         );
       }
 
-      try {
-        await _wallet.reportTransactionEffects({
-          effects: effectsB64,
-          account,
-          chain: chain.id as IdentifierString,
-        });
-      } catch (error) {
-        console.warn("Failed to report transaction effects:", error);
+      if (_wallet.hasFeature(FeatureName.SUI__REPORT_TRANSACTION_EFFECTS)) {
+        try {
+          await _wallet.reportTransactionEffects({
+            effects: effectsB64,
+            account,
+            chain: chain.id as IdentifierString,
+          });
+        } catch (error) {
+          console.warn("Failed to report transaction effects:", error);
+        }
       }
 
       return {
