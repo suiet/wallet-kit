@@ -17,7 +17,7 @@ These preset wallets will be displayed as `Popular` on our kit modal by default.
 - [Glass Wallet](https://chrome.google.com/webstore/detail/glass-wallet-sui-wallet/loinekcabhlmhjjbocijdoimmejangoa)
 - [Morphis Wallet](https://chrome.google.com/webstore/detail/morphis-wallet/heefohaffomkkkphnlpohglngmbcclhi)
 - [OneKey Wallet](https://chrome.google.com/webstore/detail/onekey/jnmbobjmhlngoefaiojfljckilhhlhcj)
-- [BitKeep Wallet](https://chrome.google.com/webstore/detail/bitkeep-crypto-nft-wallet/jiidiaalihmmhddjgbnbgdfflelocpak/related)
+- [BitGet Wallet](https://chromewebstore.google.com/detail/bitget-wallet-formerly-bi/jiidiaalihmmhddjgbnbgdfflelocpak)
 
 ## For Dapp Developers
 
