@@ -349,7 +349,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
       if (_wallet.hasFeature(FeatureName.SUI__REPORT_TRANSACTION_EFFECTS)) {
         try {
-        _wallet.hasFeature('')
           await _wallet.reportTransactionEffects({
             effects: effectsB64,
             account,
