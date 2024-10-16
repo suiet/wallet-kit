@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@mysten/sui": "1.1.0",
-    "@mysten/wallet-standard": "0.12.6",
+    "@mysten/wallet-standard": "0.13.7",
     "@mysten/zksend": "^0.9.4",
     "@noble/hashes": "^1.3.0",
     "buffer": "^6.0.3",
