@@ -9,7 +9,6 @@ import {
   WalletProvider,
   defineStashedWallet,
   AllDefaultWallets,
-  SuietWallet,
 } from "@suiet/wallet-kit";
 import "@suiet/wallet-kit/style.css";
 import KitBanner from "../../static/img/kit-banner.svg";
@@ -88,7 +87,7 @@ export default function Home(): JSX.Element {
     >
       <WalletProvider
         autoConnect={false}
-        defaultWallets={[SuietWallet, stashedWalletConfig]}
+        defaultWallets={[...AllDefaultWallets, stashedWalletConfig]}
       >
         <HomepageHeader />
         <main
