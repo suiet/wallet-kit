@@ -63,8 +63,8 @@ importers:
         specifier: 1.12.0
         version: 1.12.0(typescript@5.6.3)
       '@mysten/wallet-standard':
-        specifier: 0.13.7
-        version: 0.13.7(typescript@5.6.3)
+        specifier: 0.13.8
+        version: 0.13.8(typescript@5.6.3)
       '@mysten/zksend':
         specifier: ^0.11.0
         version: 0.11.7(typescript@5.6.3)
@@ -178,8 +178,8 @@ importers:
         specifier: 1.12.0
         version: 1.12.0(typescript@5.6.3)
       '@mysten/wallet-standard':
-        specifier: 0.13.7
-        version: 0.13.7(typescript@5.6.3)
+        specifier: 0.13.8
+        version: 0.13.8(typescript@5.6.3)
       '@mysten/zksend':
         specifier: ^0.11.0
         version: 0.11.7(typescript@5.6.3)
@@ -1719,6 +1719,10 @@ packages:
     resolution: {integrity: sha512-DrSyja04xyGrTGlIQKMwZ6MywxNPkjyIcDLm915Zisoy1/uIgPoHc4cx53JyiG92z/HgowTVGGCCIzH53DIYXA==}
     engines: {node: '>=18'}
 
+  '@mysten/sui@1.13.0':
+    resolution: {integrity: sha512-zxRFWkb5dFjwQh6gGkswNrdSVoeBbjrL70AmRa13seNe8mfnf2lZgE8Kcj1fj4MTsDI2mGNWihQVkK99cprW+w==}
+    engines: {node: '>=18'}
+
   '@mysten/wallet-adapter-base@0.3.0':
     resolution: {integrity: sha512-Sk4J8R+9YYxGtFp2GkEgQX/JLKMGYg/VjB/KCA5D6VwjzjRkk7jgD9ImkSSceNmLeiG2F/VyCndVAPDoAAhzow==}
     deprecated: Wallet adapters have been deprecated in favor of the Wallet Standard. Please upgrade to the latest Wallet Kit versions.
@@ -1729,6 +1733,9 @@ packages:
 
   '@mysten/wallet-standard@0.13.7':
     resolution: {integrity: sha512-FXlqn3Gp4E7aQf33rZQfaCEUeEq9TbmkIFA7kX/Yab5SC5892XVhkLRu040eBs8Cest98jFUZ2ZJ4YWR+a7e5g==}
+
+  '@mysten/wallet-standard@0.13.8':
+    resolution: {integrity: sha512-951AqOzQF5GZU0kWNNuKgUVOcPT1H3DCPfYDUtmi+qymD7+jfCUEB1dJpK2qE1NcE2CDCDm8zrOrXPol1Rlw4Q==}
 
   '@mysten/zksend@0.11.7':
     resolution: {integrity: sha512-v7mFJH7owHmDTyUgyrlj9N58KTkRyp9ZoALbaqmYbXdxshrNtLWwn3sv4iusQpIy9J10/AYSCnXytzBQt59/hA==}
@@ -5657,6 +5664,7 @@ packages:
 
   match-sorter@6.4.0:
     resolution: {integrity: sha512-d4664ahzdL1QTTvmK1iI0JsrxWeJ6gn33qkYtnPg3mcn+naBLtXSgSPOe+X2vUgtgGwaAk3eiaj7gwKjjMAq+Q==}
+    deprecated: This was arguably a breaking change. Not in API, but more results can be returned. Upgrade to the next major when you are ready for that
 
   mdast-squeeze-paragraphs@4.0.0:
     resolution: {integrity: sha512-zxdPn69hkQ1rm4J+2Cs2j6wDEv7O17TfXTJ33tl/+JPIoEmtV9t2ZzBM5LPHE8QlHsmVD8t3vPKCyY3oH+H8MQ==}
@@ -10497,6 +10505,25 @@ snapshots:
       - '@gql.tada/vue-support'
       - typescript
 
+  '@mysten/sui@1.13.0(typescript@5.6.3)':
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
+      '@mysten/bcs': 1.1.0
+      '@noble/curves': 1.6.0
+      '@noble/hashes': 1.5.0
+      '@scure/bip32': 1.5.0
+      '@scure/bip39': 1.4.0
+      '@suchipi/femver': 1.0.0
+      bech32: 2.0.0
+      gql.tada: 1.8.10(graphql@16.9.0)(typescript@5.6.3)
+      graphql: 16.9.0
+      tweetnacl: 1.0.3
+      valibot: 0.36.0
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
   '@mysten/wallet-adapter-base@0.3.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@mysten/sui.js': 0.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -10517,6 +10544,15 @@ snapshots:
   '@mysten/wallet-standard@0.13.7(typescript@5.6.3)':
     dependencies:
       '@mysten/sui': 1.12.0(typescript@5.6.3)
+      '@wallet-standard/core': 1.0.3
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
+  '@mysten/wallet-standard@0.13.8(typescript@5.6.3)':
+    dependencies:
+      '@mysten/sui': 1.13.0(typescript@5.6.3)
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - '@gql.tada/svelte-support'
