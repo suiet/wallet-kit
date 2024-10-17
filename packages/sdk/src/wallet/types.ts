@@ -9,6 +9,7 @@ export type UnregisterWalletCallback = () => void;
 export type RegisterWalletCallbackInput = {
   appName: string;
   origin?: string;
+  network?: "mainnet" | "testnet";
 };
 export type RegisterWalletCallbackExternal = (
   input: RegisterWalletCallbackInput

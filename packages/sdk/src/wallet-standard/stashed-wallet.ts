@@ -10,9 +10,11 @@ export const registerStashedWallet: RegisterWalletCallbackExternal = (
   input: RegisterWalletCallbackInput
 ): UnregisterWalletCallback => {
   const wallets = getWallets();
+  const { appName, origin, network = "mainnet" } = input;
   const wallet = new StashedWallet({
-    name: input.appName,
-    origin: input.origin,
+    name: appName,
+    origin: origin,
+    network: network,
   });
 
   const unregister = wallets.register(wallet);
