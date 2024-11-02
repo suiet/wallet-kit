@@ -1,10 +1,28 @@
 import { Uint8arrayTool } from "../binary";
 
 describe("Uint8arrayTool ", () => {
+  const testBytes = new Uint8Array([0, 1, 2, 3, 4, 5]);
+  const testHex = "000102030405";
+  const testBase64 = "AAECAwQF";
+
   it("should be able to convert to hex", () => {
-    const bytes = new Uint8Array([0, 1, 2, 3, 4, 5]);
-    const hex = Uint8arrayTool.toHex(bytes);
-    expect(hex).toBe("000102030405");
+    const hex = Uint8arrayTool.toHex(testBytes);
+    expect(hex).toBe(testHex);
+  });
+
+  it("should be able to convert to base64", () => {
+    const base64 = Uint8arrayTool.toBase64(testBytes);
+    expect(base64).toBe(testBase64);
+  });
+
+  it("should be able to convert from hex", () => {
+    const bytes = Uint8arrayTool.fromHex(testHex);
+    expect(bytes).toEqual(testBytes);
+  });
+
+  it("should be able to convert from base64", () => {
+    const bytes = Uint8arrayTool.fromBase64(testBase64);
+    expect(bytes).toEqual(testBytes);
   });
 
   it("should be able to ensure Uint8Array", () => {
