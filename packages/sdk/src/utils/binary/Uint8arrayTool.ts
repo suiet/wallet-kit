@@ -1,17 +1,29 @@
-import { fromB64, toHEX } from "@mysten/sui/utils";
+import { Buffer } from 'buffer';
 
 export class Uint8arrayTool {
   static toHex(bytes: Uint8Array): string {
-    return toHEX(bytes);
+    return Buffer.from(bytes).toString('hex');
   }
 
-  static ensureUint8Array(value: string | Uint8Array | number[]): Uint8Array {
-    if (typeof value === "string") {
-      return fromB64(value);
+  static toBase64(bytes: Uint8Array): string {
+    return Buffer.from(bytes).toString('base64');
+  }
+
+  static fromHex(hex: string): Uint8Array {
+    return Uint8Array.from(Buffer.from(hex, 'hex'));
+  }
+
+  static fromBase64(b64: string): Uint8Array {
+    return Uint8Array.from(Buffer.from(b64, 'base64'));
+  }
+
+  static ensureUint8Array(value: unknown): Uint8Array {
+    if (typeof value === 'string') {
+      return Uint8Array.from(Buffer.from(value, 'base64'));
     } else if (value instanceof Uint8Array) {
       return value;
     } else {
-      return Uint8Array.from(value);
+      return Uint8Array.from(value as any);
     }
   }
 
@@ -30,3 +42,4 @@ export class Uint8arrayTool {
     return true;
   }
 }
+
