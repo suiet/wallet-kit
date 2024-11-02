@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "sdk",
+			"path": "packages/sdk"
+		},
+		{
+			"name": "kit",
+			"path": "packages/kit"
+		}
+	],
+	"settings": {
+		"jest.disabledWorkspaceFolders": [
+			"wallet-kit"
+		]
+	}
+}
