@@ -7,6 +7,8 @@ import {
 } from "@suiet/wallet-kit";
 import { Transaction } from "@mysten/sui/transactions";
 import { useMemo } from "react";
+import { Ed25519PublicKey } from "@mysten/sui/keypairs/ed25519";
+import { Buffer } from "buffer";
 
 const sampleNft = new Map([
   [
@@ -87,6 +89,51 @@ function App() {
     }
   }
 
+  const handleSignTxnAndVerifySignature = async (contractAddress: string) => {
+    const txn = new Transaction();
+    txn.moveCall({
+      target: contractAddress as any,
+      arguments: [
+        txn.pure.string("Suiet NFT"),
+        txn.pure.string("Suiet Sample NFT"),
+        txn.pure.string(
+          "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
+        ),
+      ],
+    });
+    txn.setSender(wallet.account?.address as string);
+
+    try {
+      const signedTxn = await wallet.signTransaction({
+        transaction: txn,
+      });
+
+      console.log(`Sign and verify txn:`);
+      console.log("--wallet: ", wallet.adapter?.name);
+      console.log("--account: ", wallet.account?.address);
+      const publicKey = wallet.account?.publicKey;
+      if (!publicKey) {
+        console.error("no public key provided by wallet");
+        return;
+      }
+      console.log("-- publicKey: ", publicKey);
+      const pubKey = new Ed25519PublicKey(publicKey);
+      console.log("-- signed txnBytes: ", signedTxn.bytes);
+      console.log("-- signed signature: ", signedTxn.signature);
+      const txnBytes = new Uint8Array(Buffer.from(signedTxn.bytes, "base64"));
+      const isValid = await pubKey.verifyTransaction(txnBytes, signedTxn.signature);
+      console.log("-- use pubKey to verify transaction: ", isValid);
+      if (!isValid) {
+        alert(`signTransaction succeed, but verify transaction failed`);
+      } else {
+        alert(`signTransaction succeed, and verify transaction succeed!`);
+      }
+    } catch (e) {
+      console.error("signTransaction failed", e);
+      alert("signTransaction failed (see response in the console)");
+    }
+  };
+
   const chainName = (chainId: string | undefined) => {
     switch (chainId) {
       case SuiChainId.MAIN_NET:
@@ -156,6 +203,11 @@ function App() {
                 </button>
               )}
               <button onClick={handleSignMsg}>signMessage</button>
+              {nftContractAddr && (
+                <button onClick={() => handleSignTxnAndVerifySignature(nftContractAddr)}>
+                  Sign & Verify Transaction
+                </button>
+              )}
             </div>
           </div>
         )}
