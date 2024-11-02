@@ -19,7 +19,7 @@ import {
 } from "@suiet/wallet-sdk";
 import { AllDefaultWallets } from "@suiet/wallet-sdk";
 import { Transaction } from "@mysten/sui/transactions";
-import { toB64 } from "@mysten/sui/utils";
+import { Ed25519PublicKey } from '@mysten/sui/keypairs/ed25519';
 
 const sampleNft = new Map([
   [
@@ -35,6 +35,23 @@ const sampleNft = new Map([
     "0x5b45da03d42b064f5e051741b6fed3b29eb817c7923b83b92f37a1d2abf4fbab::nft::mint",
   ],
 ]);
+
+
+function createMintNftTxb(contractAddress: string) {
+  const tx = new Transaction();
+  tx.moveCall({
+    target: contractAddress,
+    arguments: [
+      tx.pure.string("Suiet NFT"),
+      tx.pure.string("Suiet Sample NFT"),
+      tx.pure.string(
+        "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
+      ),
+    ],
+  });
+  return tx;
+}
+
 
 function App() {
   const wallet = useWallet();
@@ -52,17 +69,7 @@ function App() {
   ) {
     if (!target) return;
     try {
-      const tx = new Transaction();
-      tx.moveCall({
-        target: target,
-        arguments: [
-          tx.pure.string("Suiet NFT"),
-          tx.pure.string("Suiet Sample NFT"),
-          tx.pure.string(
-            "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
-          ),
-        ],
-      });
+      const tx = createMintNftTxb(target);
       const resData = await wallet.signAndExecuteTransactionBlock({
         // @ts-ignore
         transactionBlock: tx,
@@ -86,18 +93,7 @@ function App() {
   ) {
     if (!target) return;
     try {
-      const tx = new Transaction();
-      tx.moveCall({
-        target: target,
-        arguments: [
-          tx.pure.string("Suiet NFT"),
-          tx.pure.string("Suiet Sample NFT"),
-          tx.pure.string(
-            "https://xc6fbqjny4wfkgukliockypoutzhcqwjmlw2gigombpp2ynufaxa.arweave.net/uLxQwS3HLFUailocJWHupPJxQsli7aMgzmBe_WG0KC4"
-          ),
-        ],
-      });
-      // tx.setGasBudget(1000000);
+      const tx = createMintNftTxb(target);
 
       if (!opts?.isCustomExecution) {
         const resData = await wallet.signAndExecuteTransaction({
@@ -170,6 +166,29 @@ function App() {
         return "Unknown";
     }
   };
+
+  const handleSignTxnAndVerifySignature = async (contractAddress: string) => {
+    const txn = createMintNftTxb(contractAddress);
+    txn.setSender(wallet.account?.address as string);
+    const signedTxn = await wallet.signTransaction({
+      transaction: txn,
+    });
+    console.log(`Sign and verify txn:`)
+    console.log('--wallet: ', wallet.adapter?.name)
+    console.log('--account: ', wallet.account?.address)
+    const publicKey = wallet.account?.publicKey;
+    if (!publicKey) {
+      console.error("no public key provided by wallet");
+      return;
+    }
+    console.log("-- publicKey: ", publicKey);
+    const pubKey = new Ed25519PublicKey(publicKey);
+    console.log('-- signed txnBytes: ', signedTxn.bytes)
+    console.log("-- signed signature: ", signedTxn.signature);
+    const txnBytes = Uint8arrayTool.fromBase64(signedTxn.bytes);
+    const isValid = await pubKey.verifyTransaction(txnBytes, signedTxn.signature);
+    console.log("-- use pubKey to verify transaction: ", isValid);
+  }
 
   // @ts-ignore
   return (
@@ -256,6 +275,27 @@ function App() {
               </button>
             )}
             <button onClick={handleSignPersonalMessage}>signMessage</button>
+          </div>
+          <div style={{ margin: "8px 0", display: "flex", gap: "8px" }}>
+            {nftContractAddr && (
+              <button
+                onClick={() =>
+                  handleSignAndExecuteTransactionBlock(nftContractAddr)
+                }
+              >
+                Mint {chainName(wallet.chain?.id)} NFT
+              </button>
+            )}
+            <button onClick={handleSignPersonalMessage}>signMessage</button>
+            {nftContractAddr && (
+              <button
+                onClick={() =>
+                  handleSignTxnAndVerifySignature(nftContractAddr)
+                }
+              >
+                Sign Transaction + Verify Signature
+                </button>
+            )}
           </div>
         </div>
       )}
