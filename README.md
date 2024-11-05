@@ -12,7 +12,7 @@
 
 Suiet wallet kit is an awesome react toolkit for DApps to interact with all the wallets in Sui💧 easily 🥳
 
-Now we announce the **[Sui Wallet Standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/wallet-standard)** is supported ✅ Update to the latest kit version and empower your dapp with auto-detect-wallet feature 🥳 
+Now we announce the **[Sui Wallet Standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-standard)** is supported ✅ Update to the latest kit version and empower your dapp with auto-detect-wallet feature 🥳 
 
 > ⭐️ That means with our kit, your dapp can automatically detect all the installed wallets which implement wallet-standard in users' browser, rather than manually importing specific wallet adapter.
 
