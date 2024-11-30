@@ -63,8 +63,8 @@ importers:
         specifier: 1.12.0
         version: 1.12.0(typescript@5.6.3)
       '@mysten/wallet-standard':
-        specifier: 0.13.7
-        version: 0.13.7(typescript@5.6.3)
+        specifier: 0.13.16
+        version: 0.13.16(typescript@5.6.3)
       '@mysten/zksend':
         specifier: ^0.11.0
         version: 0.11.7(typescript@5.6.3)
@@ -178,8 +178,8 @@ importers:
         specifier: 1.12.0
         version: 1.12.0(typescript@5.6.3)
       '@mysten/wallet-standard':
-        specifier: 0.13.7
-        version: 0.13.7(typescript@5.6.3)
+        specifier: 0.13.16
+        version: 0.13.16(typescript@5.6.3)
       '@mysten/zksend':
         specifier: ^0.11.0
         version: 0.11.7(typescript@5.6.3)
@@ -1710,6 +1710,9 @@ packages:
   '@mysten/bcs@1.1.0':
     resolution: {integrity: sha512-yy9/1Y4d0FlRywS1+9ze/T7refCbrvwFwJIOKs9M3QBK1njbcHZp+LkVeLqBvIJA5eZ3ZCzmhQ1Xq4Sed5mEBA==}
 
+  '@mysten/bcs@1.1.1':
+    resolution: {integrity: sha512-8X3IwmVfkwgHnNHR4izpi7f7aD0iVDU2B8p2KoIzCA9sCGcl9O2RnFDezHbNGgT+yBT+dKVDpTAczhnwZ6eUkQ==}
+
   '@mysten/sui.js@0.14.0':
     resolution: {integrity: sha512-jQdeg6DfCtvwhcyKS8ipYSjMiKhDynWYzPcoO5MkcrATsEf8/Ktt7EU6+xEa3rfNLhYVKS5Qo2c2Nno+/HtlTA==}
     engines: {node: '>=16'}
@@ -1719,6 +1722,10 @@ packages:
     resolution: {integrity: sha512-DrSyja04xyGrTGlIQKMwZ6MywxNPkjyIcDLm915Zisoy1/uIgPoHc4cx53JyiG92z/HgowTVGGCCIzH53DIYXA==}
     engines: {node: '>=18'}
 
+  '@mysten/sui@1.16.0':
+    resolution: {integrity: sha512-KI4richLtbq4RYbv5SmhWMIFD5BRW0tNOSGxZMLxjDBqBwkTqkQ4WBvmxjpbG/2WsLw0SCNrc7JYmoiaB58aLA==}
+    engines: {node: '>=18'}
+
   '@mysten/wallet-adapter-base@0.3.0':
     resolution: {integrity: sha512-Sk4J8R+9YYxGtFp2GkEgQX/JLKMGYg/VjB/KCA5D6VwjzjRkk7jgD9ImkSSceNmLeiG2F/VyCndVAPDoAAhzow==}
     deprecated: Wallet adapters have been deprecated in favor of the Wallet Standard. Please upgrade to the latest Wallet Kit versions.
@@ -1726,6 +1733,9 @@ packages:
   '@mysten/wallet-adapter-sui-wallet@0.3.0':
     resolution: {integrity: sha512-PnbXWiH2hoWMu3FFZ5OY2PKTnRrTa+ZGy1UEA4EuYeW0kO+iUi56Us8yss9ZbrwWCAUbRs6k+ujbmGECg1VOkA==}
     deprecated: Wallet adapters have been deprecated in favor of the Wallet Standard. Please upgrade to the latest Wallet Kit versions.
+
+  '@mysten/wallet-standard@0.13.16':
+    resolution: {integrity: sha512-0UEsEmQ/JzYFfba4enKyzv4VOqFSZx6XJmmPrQZxPNqShDq0EI60q5K7P91gWMmMlK3Dxq7nOUJASWZL12Yb4g==}
 
   '@mysten/wallet-standard@0.13.7':
     resolution: {integrity: sha512-FXlqn3Gp4E7aQf33rZQfaCEUeEq9TbmkIFA7kX/Yab5SC5892XVhkLRu040eBs8Cest98jFUZ2ZJ4YWR+a7e5g==}
@@ -5345,6 +5355,9 @@ packages:
   joi@17.13.3:
     resolution: {integrity: sha512-otDA4ldcIx+ZXsKHWmp0YizCweVRZG96J10b0FevjfuncLO1oX59THoAmHkNubYJ+9gWsYsp5k8v4ib6oDv1fA==}
 
+  jose@5.9.6:
+    resolution: {integrity: sha512-AMlnetc9+CV9asI19zHmrgS/WYsWUwCn2R7RzlbJWD7F9eWYUTGyBmU9o6PxngtLGOiDGPRu+Uc4fhKzbpteZQ==}
+
   js-sha3@0.8.0:
     resolution: {integrity: sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==}
 
@@ -5657,6 +5670,7 @@ packages:
 
   match-sorter@6.4.0:
     resolution: {integrity: sha512-d4664ahzdL1QTTvmK1iI0JsrxWeJ6gn33qkYtnPg3mcn+naBLtXSgSPOe+X2vUgtgGwaAk3eiaj7gwKjjMAq+Q==}
+    deprecated: This was arguably a breaking change. Not in API, but more results can be returned. Upgrade to the next major when you are ready for that
 
   mdast-squeeze-paragraphs@4.0.0:
     resolution: {integrity: sha512-zxdPn69hkQ1rm4J+2Cs2j6wDEv7O17TfXTJ33tl/+JPIoEmtV9t2ZzBM5LPHE8QlHsmVD8t3vPKCyY3oH+H8MQ==}
@@ -6308,6 +6322,9 @@ packages:
   pkg-up@3.1.0:
     resolution: {integrity: sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==}
     engines: {node: '>=8'}
+
+  poseidon-lite@0.2.1:
+    resolution: {integrity: sha512-xIr+G6HeYfOhCuswdqcFpSX47SPhm0EpisWJ6h7fHlWwaVIvH3dLnejpatrtw6Xc6HaLrpq05y7VRfvDmDGIog==}
 
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
@@ -10458,6 +10475,10 @@ snapshots:
     dependencies:
       bs58: 6.0.0
 
+  '@mysten/bcs@1.1.1':
+    dependencies:
+      bs58: 6.0.0
+
   '@mysten/sui.js@0.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@mysten/bcs': 0.3.0
@@ -10497,6 +10518,27 @@ snapshots:
       - '@gql.tada/vue-support'
       - typescript
 
+  '@mysten/sui@1.16.0(typescript@5.6.3)':
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
+      '@mysten/bcs': 1.1.1
+      '@noble/curves': 1.6.0
+      '@noble/hashes': 1.5.0
+      '@scure/bip32': 1.5.0
+      '@scure/bip39': 1.4.0
+      '@suchipi/femver': 1.0.0
+      bech32: 2.0.0
+      gql.tada: 1.8.10(graphql@16.9.0)(typescript@5.6.3)
+      graphql: 16.9.0
+      jose: 5.9.6
+      poseidon-lite: 0.2.1
+      tweetnacl: 1.0.3
+      valibot: 0.36.0
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
   '@mysten/wallet-adapter-base@0.3.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@mysten/sui.js': 0.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -10513,6 +10555,15 @@ snapshots:
       - bufferutil
       - encoding
       - utf-8-validate
+
+  '@mysten/wallet-standard@0.13.16(typescript@5.6.3)':
+    dependencies:
+      '@mysten/sui': 1.16.0(typescript@5.6.3)
+      '@wallet-standard/core': 1.0.3
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
 
   '@mysten/wallet-standard@0.13.7(typescript@5.6.3)':
     dependencies:
@@ -14861,6 +14912,8 @@ snapshots:
       '@sideway/formula': 3.0.1
       '@sideway/pinpoint': 2.0.0
 
+  jose@5.9.6: {}
+
   js-sha3@0.8.0: {}
 
   js-tokens@4.0.0: {}
@@ -15712,6 +15765,8 @@ snapshots:
   pkg-up@3.1.0:
     dependencies:
       find-up: 3.0.0
+
+  poseidon-lite@0.2.1: {}
 
   possible-typed-array-names@1.0.0: {}
 
