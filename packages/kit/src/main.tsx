@@ -134,8 +134,12 @@ function App() {
 
     try {
       const msg = "Hello world!";
+      const msgBytes = new TextEncoder().encode(msg);
+      // Convert ReadonlyUint8Array to Uint8Array
+      const msgUint8Array = new Uint8Array(msgBytes);
+      
       const result = await wallet.signPersonalMessage({
-        message: new TextEncoder().encode(msg),
+        message: msgUint8Array,
       });
       const isValid = await wallet.verifySignedMessage(
         result,
