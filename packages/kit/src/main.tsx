@@ -141,9 +141,10 @@ function App() {
       const result = await wallet.signPersonalMessage({
         message: msgUint8Array,
       });
+      const publickKey = new Uint8Array(wallet.account.publicKey);
       const isValid = await wallet.verifySignedMessage(
         result,
-        wallet.account.publicKey
+        publickKey
       );
       console.log("verify signedMessage", isValid);
       alert("signMessage succeeded (see response in the console)");
