@@ -25,3 +25,9 @@ See [https://kit.suiet.app/docs/QuickStart](https://kit.suiet.app/docs/QuickStar
 > 💡 Have fun with [Demo Playground](https://wallet-kit-demo.vercel.app/) + [Vite example repo](https://github.com/suiet/wallet-kit/tree/main/examples/with-vite) 
 
 <img src="/assets/wallet-kit.png" />
+
+## Warning: Scam Links in Comments
+
+We've recently observed SCAMMERS posing as repository maintainers and posting phishing links in the comments. **Please DO NOT trust any links containing the words "HELP CENTER" or "ONLINE ASSISTANT," as they are SCAMS!** Only trust individuals with a "member" badge, as they are the official maintainers of Suiet.
+
+For any PRODUCT or USAGE-related issues, please report them in our official Discord channel: https://discord.gg/suiet-1018380867191713872, or Telegram channel: https://t.me/suiet_dev. Our support team is committed to assisting you there.
