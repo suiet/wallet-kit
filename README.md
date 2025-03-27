@@ -1,3 +1,16 @@
+# Warning: Potential Scam Links in Comments ⚠️
+
+We've recently observed SCAMMERS posing as repository maintainers and posting phishing links in the comments. **Please DO NOT trust any links containing the words "HELP CENTER" or "ONLINE ASSISTANT," as they are SCAMS!** Only trust individuals with a "member" badge, as they are the official maintainers of Suiet.
+
+This repository is intended for developer questions, bug reports, or feature requests.
+
+**For any PRODUCT or USAGE-related issues, please report them in our official Discord channel: https://discord.gg/suiet-1018380867191713872, or Telegram channel: https://t.me/suiet_dev.** Our support team is committed to assisting you there.
+
+Thank you for using Suiet wallet. We are dedicated to providing you with the best wallet experience on Sui.
+
+Best regards,
+The Suiet Team
+
 <p align="center"><a href="https://suiet.app">
 <img width="480" src="/assets/LogoWithSlogen.png"/>
 </a></p>
