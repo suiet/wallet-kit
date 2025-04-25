@@ -3,7 +3,7 @@
 import { FC } from "react";
 import {
   AllDefaultWallets,
-  defineStashedWallet,
+  defineSlushWallet,
   WalletProvider,
 } from "@suiet/wallet-kit";
 
@@ -18,7 +18,7 @@ const Providers: FC<any> = ({ children }) => {
     <WalletProvider
       defaultWallets={[
         ...AllDefaultWallets,
-        defineStashedWallet({
+        defineSlushWallet({
           appName: "Suiet Kit Playground",
         }),
       ]}
