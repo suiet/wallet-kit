@@ -12,7 +12,7 @@ import {
   ErrorCode,
   SuiChainId,
   formatSUI,
-  defineStashedWallet,
+  defineSlushWallet,
   SuiTestnetChain,
   Uint8arrayTool,
   Chain,
@@ -308,7 +308,7 @@ function App() {
   );
 }
 
-const stashedWallet = defineStashedWallet({
+const slushWallet = defineSlushWallet({
   appName: "Suiet Wallet Kit",
 });
 const suietMainnetChain: Chain = {
@@ -319,7 +319,7 @@ const suietMainnetChain: Chain = {
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <WalletProvider
-      defaultWallets={[...AllDefaultWallets, stashedWallet]}
+      defaultWallets={[...AllDefaultWallets, slushWallet]}
       chains={[suietMainnetChain]}
     >
       <App />
