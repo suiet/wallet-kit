@@ -1,5 +1,5 @@
 import { getWallets } from "@mysten/wallet-standard";
-import { SlushWallet } from "@mysten/slush-wallet";
+import { SLUSH_WALLET_NAME, SlushWallet } from "@mysten/slush-wallet";
 import {
   RegisterWalletCallbackExternal,
   RegisterWalletCallbackInput,
@@ -16,8 +16,8 @@ export const registerSlushWallet: RegisterWalletCallbackExternal = (
     origin: origin,
     chain: `sui:${network}`,
     metadata: {
-      id: 'slush-wallet',
-      walletName: appName,
+      id: 'slush-web-wallet',
+      walletName: SLUSH_WALLET_NAME,
       icon: '',
       enabled: true
     }

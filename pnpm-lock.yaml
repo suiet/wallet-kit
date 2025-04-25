@@ -66,8 +66,8 @@ importers:
         specifier: 1.12.0
         version: 1.12.0(typescript@5.1.6)
       '@mysten/wallet-standard':
-        specifier: 0.13.7
-        version: 0.13.7(typescript@5.1.6)
+        specifier: 0.14.7
+        version: 0.14.7(typescript@5.1.6)
       '@mysten/zksend':
         specifier: 0.11.0
         version: 0.11.0(typescript@5.1.6)
@@ -184,8 +184,8 @@ importers:
         specifier: 1.12.0
         version: 1.12.0(typescript@5.1.6)
       '@mysten/wallet-standard':
-        specifier: 0.13.7
-        version: 0.13.7(typescript@5.1.6)
+        specifier: 0.14.7
+        version: 0.14.7(typescript@5.1.6)
       '@mysten/zksend':
         specifier: 0.11.0
         version: 0.11.0(typescript@5.1.6)
@@ -10464,15 +10464,6 @@ snapshots:
   '@mysten/wallet-standard@0.13.3(typescript@5.1.6)':
     dependencies:
       '@mysten/sui': 1.8.0(typescript@5.1.6)
-      '@wallet-standard/core': 1.0.3
-    transitivePeerDependencies:
-      - '@gql.tada/svelte-support'
-      - '@gql.tada/vue-support'
-      - typescript
-
-  '@mysten/wallet-standard@0.13.7(typescript@5.1.6)':
-    dependencies:
-      '@mysten/sui': 1.12.0(typescript@5.1.6)
       '@wallet-standard/core': 1.0.3
     transitivePeerDependencies:
       - '@gql.tada/svelte-support'
