@@ -7,7 +7,6 @@ You can configure your wallet list on the select modal by passing `defaultWallet
 
 We've prepared a set of [preset wallets](../CanIUse#preset-wallets) that you can import directly, also you can customize new wallet items. By default, we include all the preset wallets.
 
-
 ## Default Usage
 
 :::tip
@@ -48,7 +47,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 > More details about the capabilities and limitations of Stashed Wallet, please refer to [dApp Integration - Sui Typescript SDK](https://sdk.mystenlabs.com/zksend/dapp)
 
-Suiet wallet kit supports DApp to integrate Stashed Wallet by simple configurations. 
+Suiet wallet kit supports DApp to integrate Stashed Wallet by simple configurations.
 
 Firstly, locate the component that uses `<WalletProvider />`. Then define the stashed wallet config by `defineStashedWallet` function. You need to pass your DApp name as parameter, which will be displayed when connecting to the Stashed Wallet.
 
@@ -58,6 +57,7 @@ Secondly, add the stashed wallet to the `defaultWallets` array in `<WalletProvid
 import {
   WalletProvider,
   defineStashedWallet,
+  defineSlushWallet,
   AllDefaultWallets,
 } from "@suiet/wallet-kit";
 
@@ -65,12 +65,19 @@ const stashedWalletConfig = defineStashedWallet({
   appName: "Your DApp Name",
 });
 
+const slushWalletConfig = defineSlushWallet({
+  appName: "Your DApp Name",
+});
+
 export default function App() {
   return (
-    <WalletProvider defaultWallets={[
-      ...AllDefaultWallets,
-      stashedWalletConfig,
-    ]}>
+    <WalletProvider
+      defaultWallets={[
+        ...AllDefaultWallets,
+        stashedWalletConfig,
+        slushWalletConfig,
+      ]}
+    >
       <YourComponent />
     </WalletProvider>
   );
@@ -81,8 +88,6 @@ There we go! Now you can see the Stashed Wallet in the wallet-select modal.
 
 ![stashed-wallet-integration](/img/stashed-wallet-integration.png)
 
-
-
 ## Using Hook Only
 
 If you use our `useWallet` hook only and have a customized wallet-select modal, then you can access configured wallet list by `configuredWallets` from `useWallet`. Also we provide `detectedWallets` for those wallets which are not preconfigured but detected from user browser.
@@ -91,19 +96,21 @@ If you use our `useWallet` hook only and have a customized wallet-select modal, 
 // make sure this code is under <WalletProvider />
 
 function App() {
-  const {configuredWallets, detectedWallets} = useWallet();
-  
+  const { configuredWallets, detectedWallets } = useWallet();
+
   return (
     <>
-      <CustomizedWalletModal list={[...configuredWallets, ...detectedWallets]} />
+      <CustomizedWalletModal
+        list={[...configuredWallets, ...detectedWallets]}
+      />
     </>
-  )
+  );
 }
 ```
 
 ## Define New Wallet
 
-If our wallet presets do not cover the wallets you need, you can simply define it using our  `defineWallet` function.
+If our wallet presets do not cover the wallets you need, you can simply define it using our `defineWallet` function.
 
 ```jsx
 import {

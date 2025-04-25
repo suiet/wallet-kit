@@ -6,6 +6,7 @@ import "./index.css";
 import {
   AllDefaultWallets,
   defineStashedWallet,
+  defineSlushWallet,
   WalletProvider,
 } from "@suiet/wallet-kit";
 
@@ -17,6 +18,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         defineStashedWallet({
           appName: "Suiet Kit Playground",
         }),
+        defineSlushWallet({
+          appName: "Suiet Kit Playground",
+        }),
       ]}
     >
       {/* if you want to custiomize you wallet list, please check this doc
@@ -24,5 +28,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
        */}
       <App />
     </WalletProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

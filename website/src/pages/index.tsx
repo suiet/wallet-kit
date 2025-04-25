@@ -8,6 +8,7 @@ import {
   ConnectButton,
   WalletProvider,
   defineStashedWallet,
+  defineSlushWallet,
   AllDefaultWallets,
 } from "@suiet/wallet-kit";
 import "@suiet/wallet-kit/style.css";
@@ -26,7 +27,7 @@ const Badge = (props: {
   const { color = "green" } = props;
   const encode = encodeURIComponent;
   const link = `https://badgen.net/badge/${encode(props.subject)}/${encode(
-    props.status
+    props.status,
   )}/${encode(color)}`;
   return (
     <a href={props.href} className={props.className}>
@@ -77,6 +78,10 @@ const stashedWalletConfig = defineStashedWallet({
   appName: "Suiet Wallet Kit Doc Site",
 });
 
+const slushWalletConfig = defineSlushWallet({
+  appName: "Suiet Wallet Kit Doc Site",
+});
+
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
@@ -87,7 +92,11 @@ export default function Home(): JSX.Element {
     >
       <WalletProvider
         autoConnect={false}
-        defaultWallets={[...AllDefaultWallets, stashedWalletConfig]}
+        defaultWallets={[
+          ...AllDefaultWallets,
+          stashedWalletConfig,
+          slushWalletConfig,
+        ]}
       >
         <HomepageHeader />
         <main

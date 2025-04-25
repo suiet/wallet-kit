@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import {
   AllDefaultWallets,
   defineStashedWallet,
+  defineSlushWallet,
   WalletProvider,
 } from "@suiet/wallet-kit";
 import App from "../components/App";
@@ -14,6 +15,9 @@ export default function Home() {
       defaultWallets={[
         ...AllDefaultWallets,
         defineStashedWallet({
+          appName: "Suiet Kit Playground",
+        }),
+        defineSlushWallet({
           appName: "Suiet Kit Playground",
         }),
       ]}
