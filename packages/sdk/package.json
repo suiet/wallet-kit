@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@mysten/slush-wallet": "^0.1.0",
+    "@mysten/slush-wallet": "0.1.0",
     "@mysten/sui": "1.28.2",
     "@mysten/wallet-standard": "0.14.7",
     "@mysten/zksend": "0.11.0",
@@ -48,6 +48,6 @@
     "vite-plugin-dts": "2.3.0"
   },
   "peerDependencies": {
-    "@mysten/sui": "1.12.0"
+    "@mysten/sui": "1.28.2"
   }
 }
