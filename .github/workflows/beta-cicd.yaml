@@ -1,8 +1,8 @@
-name: SUIET_KIT_CICD_PIPELINE
+name: SUIET_KIT_CICD_PIPELINE_FOR_BETA
 on:
   push:
     tags:
-      - v[0-9]+.[0-9]+.[0-9]+
+      - v*-beta.*
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -23,14 +23,6 @@ jobs:
       - name: Build all packages
         run: npm run build:all
       - name: Publish all packages
-        run: npm run ci:publish
+        run: npm run beta:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{github.ref_name}}
-          prerelease: false
-          title: "${{ env.RELEASE_VERSION }}"

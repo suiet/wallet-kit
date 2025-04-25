@@ -12,6 +12,7 @@
     "prepare": "husky install",
     "ci:publish": "pnpm publish -r --no-git-checks --access public",
     "exp:publish": "pnpm publish -r --no-git-checks --access public --tag experimental",
+    "beta:publish": "pnpm publish -r --no-git-checks --access public --tag beta",
     "build:all": "run-s build:sdk build:kit",
     "dev:kit": "pnpm --filter @suiet/wallet-kit dev",
     "build:kit": "pnpm --filter @suiet/wallet-kit build",

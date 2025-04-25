@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.3.4",
+  "version": "0.3.5-beta.1",
   "type": "module",
   "files": [
     "dist"
@@ -27,7 +27,7 @@
   "dependencies": {
     "@mysten/slush-wallet": "^0.1.0",
     "@mysten/sui": "1.12.0",
-    "@mysten/wallet-standard": "0.13.7",
+    "@mysten/wallet-standard": "0.14.7",
     "@mysten/zksend": "0.11.0",
     "@radix-ui/react-dialog": "1.0.2",
     "@suiet/wallet-sdk": "workspace:*",
