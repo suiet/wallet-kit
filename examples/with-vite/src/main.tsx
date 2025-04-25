@@ -5,7 +5,7 @@ import "./index.css";
 
 import {
   AllDefaultWallets,
-  defineStashedWallet,
+  defineSlushWallet,
   WalletProvider,
 } from "@suiet/wallet-kit";
 
@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <WalletProvider
       defaultWallets={[
         ...AllDefaultWallets,
-        defineStashedWallet({
+        defineSlushWallet({
           appName: "Suiet Kit Playground",
         }),
       ]}
