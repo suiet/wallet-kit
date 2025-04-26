@@ -42,26 +42,26 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 )
 ```
 
-## Add Stashed Wallet (New)
+## Add Slush Web Wallet
 
-[Stashed Wallet](https://getstashed.com/home) is a new web wallet empowered by ZkSend, launched by Mysten Lab, which aims to onboard new users to web3 in a easy way.
+[Slush Web Wallet](https://my.slush.app/) is a new web wallet empowered by ZkSend, launched by Mysten Lab, which aims to onboard new users to web3 in a easy way.
 
-> More details about the capabilities and limitations of Stashed Wallet, please refer to [dApp Integration - Sui Typescript SDK](https://sdk.mystenlabs.com/zksend/dapp)
+> More details about the capabilities and limitations of Slush Web Wallet, please refer to [dApp Integration - Sui Typescript SDK](https://sdk.mystenlabs.com/zksend/dapp)
 
-Suiet wallet kit supports DApp to integrate Stashed Wallet by simple configurations. 
+Suiet wallet kit supports DApp to integrate Slush Web Wallet by simple configurations. 
 
-Firstly, locate the component that uses `<WalletProvider />`. Then define the stashed wallet config by `defineStashedWallet` function. You need to pass your DApp name as parameter, which will be displayed when connecting to the Stashed Wallet.
+Firstly, locate the component that uses `<WalletProvider />`. Then define the Slush Web Wallet config by `defineSlushWallet` function. You need to pass your DApp name as parameter, which will be displayed when connecting to the Slush Web Wallet.
 
-Secondly, add the stashed wallet to the `defaultWallets` array in `<WalletProvider />`. If you want to use the default presets along with the stashed wallet, you can simply add the stashed wallet to the array.
+Secondly, add the Slush Web Wallet to the `defaultWallets` array in `<WalletProvider />`. If you want to use the default presets along with the Slush Web Wallet, you can simply add the Slush Web Wallet to the array.
 
 ```tsx
 import {
   WalletProvider,
-  defineStashedWallet,
+  defineSlushWallet,
   AllDefaultWallets,
 } from "@suiet/wallet-kit";
 
-const stashedWalletConfig = defineStashedWallet({
+const slushWebWalletConfig = defineSlushWallet({
   appName: "Your DApp Name",
 });
 
@@ -69,7 +69,7 @@ export default function App() {
   return (
     <WalletProvider defaultWallets={[
       ...AllDefaultWallets,
-      stashedWalletConfig,
+      slushWebWalletConfig,
     ]}>
       <YourComponent />
     </WalletProvider>
@@ -77,9 +77,9 @@ export default function App() {
 }
 ```
 
-There we go! Now you can see the Stashed Wallet in the wallet-select modal.
+There we go! Now you can see the Slush Web Wallet in the wallet-select modal.
 
-![stashed-wallet-integration](/img/stashed-wallet-integration.png)
+![slush-web-wallet-integration](/img/slush-web-wallet-integration.png)
 
 
 
