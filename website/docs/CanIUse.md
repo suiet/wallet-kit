@@ -10,7 +10,7 @@ These preset wallets will be displayed as `Popular` on our kit modal by default.
 > If you are a wallet developer and want to list your wallet below, feel free to contact our team 🥳 [Twitter@suiet_wallet](https://twitter.com/suiet_wallet)
 
 - [Suiet Wallet](https://chrome.google.com/webstore/detail/suiet/khpkpbbcccdmmclmpigdgddabeilkdpd)
-- [Sui Wallet](https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)
+- [Slush Wallet](https://chromewebstore.google.com/detail/slush-%E2%80%94-a-sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)
 - [Ethos Wallet](https://chrome.google.com/webstore/detail/ethos-sui-wallet/mcbigmjiafegjnnogedioegffbooigli)
 - [Martian Wallet](https://chrome.google.com/webstore/detail/martian-wallet-aptos-sui/efbglgofoippbgcjepnhiblaibcnclgk)
 - [Surf Wallet](https://chrome.google.com/webstore/detail/surf-sui-wallet/emeeapjkbcbpbpgaagfchmcgglmebnen)
@@ -39,8 +39,7 @@ Remember to handle exceptional cases if some wallet adapters do not support cert
 |wallet|signAndExecuteTransactionBlock| signPersonalMessage |chain|account.publicKey|
 |:-:|:-:|:-------------------:|:-:|:-:|
 |[Suiet Wallet](https://suiet.app/)|✅|          ✅          |✅|✅|
-|[Sui Wallet](https://chrome.google.com/webstore/detail/sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)|✅|          ✅          |✅|❌|
-|[Ethos Wallet](https://ethoswallet.xyz/)|✅|          ✅          |❌|❌|
+|[Slush Wallet](https://chromewebstore.google.com/detail/slush-%E2%80%94-a-sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)|✅|          ✅          |✅|❌|
 
 
 ## For Wallet Developers
