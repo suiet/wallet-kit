@@ -2,7 +2,7 @@ import * as presets from "./preset-wallets";
 
 export const AllDefaultWallets = [
   presets.SuietWallet,
-  presets.SuiWallet,
+  presets.SlushWallet,
   ...[
     presets.EthosWallet,
     presets.MartianWallet,
