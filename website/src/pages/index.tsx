@@ -87,8 +87,7 @@ export default function Home(): JSX.Element {
     >
       <WalletProvider
         autoConnect={false}
-        // defaultWallets={[...AllDefaultWallets, slushWebWalletConfig]}
-        defaultWallets={[slushWebWalletConfig]}
+        defaultWallets={[...AllDefaultWallets, slushWebWalletConfig]}
       >
         <HomepageHeader />
         <main
