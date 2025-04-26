@@ -7,7 +7,7 @@ import styles from "./index.module.css";
 import {
   ConnectButton,
   WalletProvider,
-  defineStashedWallet,
+  defineSlushWallet,
   AllDefaultWallets,
 } from "@suiet/wallet-kit";
 import "@suiet/wallet-kit/style.css";
@@ -73,7 +73,7 @@ function HomepageHeader() {
   );
 }
 
-const stashedWalletConfig = defineStashedWallet({
+const slushWebWalletConfig = defineSlushWallet({
   appName: "Suiet Wallet Kit Doc Site",
 });
 
@@ -87,7 +87,7 @@ export default function Home(): JSX.Element {
     >
       <WalletProvider
         autoConnect={false}
-        defaultWallets={[...AllDefaultWallets, stashedWalletConfig]}
+        defaultWallets={[...AllDefaultWallets, slushWebWalletConfig]}
       >
         <HomepageHeader />
         <main

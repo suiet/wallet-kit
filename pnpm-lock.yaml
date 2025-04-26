@@ -60,7 +60,7 @@ importers:
   packages/kit:
     dependencies:
       '@mysten/slush-wallet':
-        specifier: ^0.1.0
+        specifier: 0.1.0
         version: 0.1.0(typescript@5.1.6)
       '@mysten/sui':
         specifier: 1.28.2
@@ -178,7 +178,7 @@ importers:
   packages/sdk:
     dependencies:
       '@mysten/slush-wallet':
-        specifier: ^0.1.0
+        specifier: 0.1.0
         version: 0.1.0(typescript@5.1.6)
       '@mysten/sui':
         specifier: 1.28.2
@@ -254,8 +254,8 @@ importers:
         specifier: ^1.6.22
         version: 1.6.22(react@18.3.1)
       '@suiet/wallet-kit':
-        specifier: 'workspace: *'
-        version: link:../packages/kit
+        specifier: 0.3.5
+        version: 0.3.5(@mysten/sui@1.28.2(typescript@5.6.3))(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
@@ -2099,6 +2099,18 @@ packages:
 
   '@suchipi/femver@1.0.0':
     resolution: {integrity: sha512-bprE8+K5V+DPX7q2e2K57ImqNBdfGHDIWaGI5xHxZoxbKOuQZn4wzPiUxOAHnsUr3w3xHrWXwN7gnG/iIuEMIg==}
+
+  '@suiet/wallet-kit@0.3.5':
+    resolution: {integrity: sha512-Z+XZyHR92UCtRMywo2JwNyn2pOTMUPg5pIsmnRImXLk5g9rB4fmNPrQGnzYL/jcvD20pfHeSBwYC9NkCJYZ3WQ==}
+    peerDependencies:
+      '@mysten/sui': 1.28.2
+      react: '*'
+      react-dom: '*'
+
+  '@suiet/wallet-sdk@0.3.4':
+    resolution: {integrity: sha512-3A8xYYQ2si7eIy/4VzesnCLJnZlWK42f/Yxse82I8dXX9ecCrlyotWuLuixThbzp3QNnKH5AFz6YytxVnycfCA==}
+    peerDependencies:
+      '@mysten/sui': 1.28.2
 
   '@svgr/babel-plugin-add-jsx-attribute@6.5.1':
     resolution: {integrity: sha512-9PYGcXrAxitycIjRmZB+Q0JaN07GZIWaTBIGQzfaZv+qr1n8X1XUEJ5rZ/vx6OVD9RRYlrNnXWExQXcmZeD/BQ==}
@@ -10344,6 +10356,19 @@ snapshots:
       - '@gql.tada/vue-support'
       - typescript
 
+  '@mysten/slush-wallet@0.1.0(typescript@5.6.3)':
+    dependencies:
+      '@mysten/sui': 1.28.2(typescript@5.6.3)
+      '@mysten/utils': 0.0.0
+      '@mysten/wallet-standard': 0.14.7(typescript@5.6.3)
+      '@mysten/window-wallet-core': 0.0.2
+      mitt: 3.0.1
+      valibot: 0.36.0
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
   '@mysten/sui.js@0.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@mysten/bcs': 0.3.0
@@ -10402,6 +10427,25 @@ snapshots:
       - '@gql.tada/vue-support'
       - typescript
 
+  '@mysten/sui@1.28.2(typescript@5.6.3)':
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
+      '@mysten/bcs': 1.6.0
+      '@mysten/utils': 0.0.0
+      '@noble/curves': 1.9.0
+      '@noble/hashes': 1.8.0
+      '@scure/base': 1.2.5
+      '@scure/bip32': 1.7.0
+      '@scure/bip39': 1.6.0
+      gql.tada: 1.8.10(graphql@16.9.0)(typescript@5.6.3)
+      graphql: 16.9.0
+      poseidon-lite: 0.2.1
+      valibot: 0.36.0
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
   '@mysten/sui@1.8.0(typescript@5.1.6)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
@@ -10413,6 +10457,25 @@ snapshots:
       '@suchipi/femver': 1.0.0
       bech32: 2.0.0
       gql.tada: 1.8.10(graphql@16.9.0)(typescript@5.1.6)
+      graphql: 16.9.0
+      tweetnacl: 1.0.3
+      valibot: 0.36.0
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
+  '@mysten/sui@1.8.0(typescript@5.6.3)':
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
+      '@mysten/bcs': 1.0.4
+      '@noble/curves': 1.6.0
+      '@noble/hashes': 1.5.0
+      '@scure/bip32': 1.5.0
+      '@scure/bip39': 1.4.0
+      '@suchipi/femver': 1.0.0
+      bech32: 2.0.0
+      gql.tada: 1.8.10(graphql@16.9.0)(typescript@5.6.3)
       graphql: 16.9.0
       tweetnacl: 1.0.3
       valibot: 0.36.0
@@ -10451,6 +10514,15 @@ snapshots:
       - '@gql.tada/vue-support'
       - typescript
 
+  '@mysten/wallet-standard@0.13.3(typescript@5.6.3)':
+    dependencies:
+      '@mysten/sui': 1.8.0(typescript@5.6.3)
+      '@wallet-standard/core': 1.0.3
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
   '@mysten/wallet-standard@0.13.7(typescript@5.6.3)':
     dependencies:
       '@mysten/sui': 1.12.0(typescript@5.6.3)
@@ -10469,6 +10541,15 @@ snapshots:
       - '@gql.tada/vue-support'
       - typescript
 
+  '@mysten/wallet-standard@0.14.7(typescript@5.6.3)':
+    dependencies:
+      '@mysten/sui': 1.28.2(typescript@5.6.3)
+      '@wallet-standard/core': 1.1.0
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
   '@mysten/window-wallet-core@0.0.2':
     dependencies:
       '@mysten/utils': 0.0.0
@@ -10479,6 +10560,18 @@ snapshots:
     dependencies:
       '@mysten/sui': 1.8.0(typescript@5.1.6)
       '@mysten/wallet-standard': 0.13.3(typescript@5.1.6)
+      mitt: 3.0.1
+      nanostores: 0.10.3
+      valibot: 0.36.0
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
+
+  '@mysten/zksend@0.11.0(typescript@5.6.3)':
+    dependencies:
+      '@mysten/sui': 1.8.0(typescript@5.6.3)
+      '@mysten/wallet-standard': 0.13.3(typescript@5.6.3)
       mitt: 3.0.1
       nanostores: 0.10.3
       valibot: 0.36.0
@@ -10658,10 +10751,20 @@ snapshots:
       '@babel/runtime': 7.25.7
       react: 18.2.0
 
+  '@radix-ui/react-compose-refs@1.0.0(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      react: 18.3.1
+
   '@radix-ui/react-context@1.0.0(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
       react: 18.2.0
+
+  '@radix-ui/react-context@1.0.0(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      react: 18.3.1
 
   '@radix-ui/react-dialog@1.0.2(@types/react@18.0.25)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -10685,6 +10788,28 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
+  '@radix-ui/react-dialog@1.0.2(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/primitive': 1.0.0
+      '@radix-ui/react-compose-refs': 1.0.0(react@18.3.1)
+      '@radix-ui/react-context': 1.0.0(react@18.3.1)
+      '@radix-ui/react-dismissable-layer': 1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-focus-guards': 1.0.0(react@18.3.1)
+      '@radix-ui/react-focus-scope': 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-id': 1.0.0(react@18.3.1)
+      '@radix-ui/react-portal': 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-presence': 1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-primitive': 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-slot': 1.0.1(react@18.3.1)
+      '@radix-ui/react-use-controllable-state': 1.0.0(react@18.3.1)
+      aria-hidden: 1.2.4
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-remove-scroll: 2.5.5(@types/react@18.3.11)(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
+
   '@radix-ui/react-dismissable-layer@1.0.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
@@ -10696,10 +10821,26 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
+  '@radix-ui/react-dismissable-layer@1.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/primitive': 1.0.0
+      '@radix-ui/react-compose-refs': 1.0.0(react@18.3.1)
+      '@radix-ui/react-primitive': 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-use-callback-ref': 1.0.0(react@18.3.1)
+      '@radix-ui/react-use-escape-keydown': 1.0.2(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@radix-ui/react-focus-guards@1.0.0(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
       react: 18.2.0
+
+  '@radix-ui/react-focus-guards@1.0.0(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      react: 18.3.1
 
   '@radix-ui/react-focus-scope@1.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -10710,11 +10851,26 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
+  '@radix-ui/react-focus-scope@1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/react-compose-refs': 1.0.0(react@18.3.1)
+      '@radix-ui/react-primitive': 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-use-callback-ref': 1.0.0(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@radix-ui/react-id@1.0.0(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
       '@radix-ui/react-use-layout-effect': 1.0.0(react@18.2.0)
       react: 18.2.0
+
+  '@radix-ui/react-id@1.0.0(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/react-use-layout-effect': 1.0.0(react@18.3.1)
+      react: 18.3.1
 
   '@radix-ui/react-portal@1.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -10722,6 +10878,13 @@ snapshots:
       '@radix-ui/react-primitive': 1.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+
+  '@radix-ui/react-portal@1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/react-primitive': 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@radix-ui/react-presence@1.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -10731,6 +10894,14 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
+  '@radix-ui/react-presence@1.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/react-compose-refs': 1.0.0(react@18.3.1)
+      '@radix-ui/react-use-layout-effect': 1.0.0(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@radix-ui/react-primitive@1.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
@@ -10738,16 +10909,34 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
+  '@radix-ui/react-primitive@1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/react-slot': 1.0.1(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@radix-ui/react-slot@1.0.1(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
       '@radix-ui/react-compose-refs': 1.0.0(react@18.2.0)
       react: 18.2.0
 
+  '@radix-ui/react-slot@1.0.1(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/react-compose-refs': 1.0.0(react@18.3.1)
+      react: 18.3.1
+
   '@radix-ui/react-use-callback-ref@1.0.0(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
       react: 18.2.0
+
+  '@radix-ui/react-use-callback-ref@1.0.0(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      react: 18.3.1
 
   '@radix-ui/react-use-controllable-state@1.0.0(react@18.2.0)':
     dependencies:
@@ -10755,16 +10944,33 @@ snapshots:
       '@radix-ui/react-use-callback-ref': 1.0.0(react@18.2.0)
       react: 18.2.0
 
+  '@radix-ui/react-use-controllable-state@1.0.0(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/react-use-callback-ref': 1.0.0(react@18.3.1)
+      react: 18.3.1
+
   '@radix-ui/react-use-escape-keydown@1.0.2(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
       '@radix-ui/react-use-callback-ref': 1.0.0(react@18.2.0)
       react: 18.2.0
 
+  '@radix-ui/react-use-escape-keydown@1.0.2(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      '@radix-ui/react-use-callback-ref': 1.0.0(react@18.3.1)
+      react: 18.3.1
+
   '@radix-ui/react-use-layout-effect@1.0.0(react@18.2.0)':
     dependencies:
       '@babel/runtime': 7.25.7
       react: 18.2.0
+
+  '@radix-ui/react-use-layout-effect@1.0.0(react@18.3.1)':
+    dependencies:
+      '@babel/runtime': 7.25.7
+      react: 18.3.1
 
   '@rollup/plugin-inject@5.0.5':
     dependencies:
@@ -11014,6 +11220,46 @@ snapshots:
       webpack-sources: 3.2.3
 
   '@suchipi/femver@1.0.0': {}
+
+  '@suiet/wallet-kit@0.3.5(@mysten/sui@1.28.2(typescript@5.6.3))(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)':
+    dependencies:
+      '@mysten/slush-wallet': 0.1.0(typescript@5.6.3)
+      '@mysten/sui': 1.28.2(typescript@5.6.3)
+      '@mysten/wallet-standard': 0.14.7(typescript@5.6.3)
+      '@mysten/zksend': 0.11.0(typescript@5.6.3)
+      '@radix-ui/react-dialog': 1.0.2(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@suiet/wallet-sdk': 0.3.4(@mysten/sui@1.28.2(typescript@5.6.3))(typescript@5.6.3)
+      '@svgr/rollup': 6.5.1
+      '@wallet-standard/core': 1.0.3
+      buffer: 6.0.3
+      classnames: 2.3.2
+      lodash-es: 4.17.21
+      mitt: 3.0.0
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-query: 3.39.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - '@types/react'
+      - react-native
+      - supports-color
+      - typescript
+
+  '@suiet/wallet-sdk@0.3.4(@mysten/sui@1.28.2(typescript@5.6.3))(typescript@5.6.3)':
+    dependencies:
+      '@mysten/slush-wallet': 0.1.0(typescript@5.6.3)
+      '@mysten/sui': 1.28.2(typescript@5.6.3)
+      '@mysten/wallet-standard': 0.14.7(typescript@5.6.3)
+      '@mysten/zksend': 0.11.0(typescript@5.6.3)
+      '@noble/hashes': 1.3.0
+      buffer: 6.0.3
+      superstruct: 1.0.3
+      tweetnacl: 1.0.3
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - typescript
 
   '@svgr/babel-plugin-add-jsx-attribute@6.5.1(@babel/core@7.25.8)':
     dependencies:
@@ -16259,6 +16505,15 @@ snapshots:
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
 
+  react-query@3.39.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.25.7
+      broadcast-channel: 3.7.0
+      match-sorter: 6.4.0
+      react: 18.3.1
+    optionalDependencies:
+      react-dom: 18.3.1(react@18.3.1)
+
   react-refresh@0.14.2: {}
 
   react-remove-scroll-bar@2.3.6(@types/react@18.0.25)(react@18.2.0):
@@ -16268,6 +16523,14 @@ snapshots:
       tslib: 2.8.0
     optionalDependencies:
       '@types/react': 18.0.25
+
+  react-remove-scroll-bar@2.3.6(@types/react@18.3.11)(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-style-singleton: 2.2.1(@types/react@18.3.11)(react@18.3.1)
+      tslib: 2.8.0
+    optionalDependencies:
+      '@types/react': 18.3.11
 
   react-remove-scroll@2.5.5(@types/react@18.0.25)(react@18.2.0):
     dependencies:
@@ -16279,6 +16542,17 @@ snapshots:
       use-sidecar: 1.1.2(@types/react@18.0.25)(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.0.25
+
+  react-remove-scroll@2.5.5(@types/react@18.3.11)(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-remove-scroll-bar: 2.3.6(@types/react@18.3.11)(react@18.3.1)
+      react-style-singleton: 2.2.1(@types/react@18.3.11)(react@18.3.1)
+      tslib: 2.8.0
+      use-callback-ref: 1.3.2(@types/react@18.3.11)(react@18.3.1)
+      use-sidecar: 1.1.2(@types/react@18.3.11)(react@18.3.1)
+    optionalDependencies:
+      '@types/react': 18.3.11
 
   react-router-config@5.1.1(react-router@5.3.4(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -16318,6 +16592,15 @@ snapshots:
       tslib: 2.8.0
     optionalDependencies:
       '@types/react': 18.0.25
+
+  react-style-singleton@2.2.1(@types/react@18.3.11)(react@18.3.1):
+    dependencies:
+      get-nonce: 1.0.1
+      invariant: 2.2.4
+      react: 18.3.1
+      tslib: 2.8.0
+    optionalDependencies:
+      '@types/react': 18.3.11
 
   react-textarea-autosize@8.5.4(@types/react@18.3.11)(react@18.3.1):
     dependencies:
@@ -17604,6 +17887,13 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.0.25
 
+  use-callback-ref@1.3.2(@types/react@18.3.11)(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      tslib: 2.8.0
+    optionalDependencies:
+      '@types/react': 18.3.11
+
   use-composed-ref@1.3.0(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -17628,6 +17918,14 @@ snapshots:
       tslib: 2.8.0
     optionalDependencies:
       '@types/react': 18.0.25
+
+  use-sidecar@1.1.2(@types/react@18.3.11)(react@18.3.1):
+    dependencies:
+      detect-node-es: 1.1.0
+      react: 18.3.1
+      tslib: 2.8.0
+    optionalDependencies:
+      '@types/react': 18.3.11
 
   utf-8-validate@5.0.10:
     dependencies:
