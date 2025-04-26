@@ -1,6 +1,6 @@
 {
   "name": "@suiet/wallet-kit",
-  "version": "0.3.5-beta.1",
+  "version": "0.3.5",
   "type": "module",
   "files": [
     "dist"
@@ -67,7 +67,7 @@
     "vite-plugin-svgr": "2.2.1"
   },
   "peerDependencies": {
-    "@mysten/sui": "1.28.2"
+    "@mysten/sui": "1.28.2",
     "react": "*",
     "react-dom": "*"
   },
