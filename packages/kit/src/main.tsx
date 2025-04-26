@@ -311,16 +311,10 @@ function App() {
 const slushWallet = defineSlushWallet({
   appName: "Suiet Wallet Kit",
 });
-const suietMainnetChain: Chain = {
-  id: SuiChainId.MAIN_NET,
-  name: "Sui Mainnet",
-  rpcUrl: "https://mainnet.suiet.app/",
-};
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <WalletProvider
       defaultWallets={[...AllDefaultWallets, slushWallet]}
-      chains={[suietMainnetChain]}
     >
       <App />
     </WalletProvider>
