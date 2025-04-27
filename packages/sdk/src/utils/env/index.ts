@@ -1,0 +1,1 @@
+export { BrowserEnvDetector } from './BrowserEnvDetector';
