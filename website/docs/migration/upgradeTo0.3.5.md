@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Upgrade to v0.3.5
+# Upgrade to v0.3.6
 
 Hi developers, new upgrade is coming 📣 We are proud to announce the Suiet Wallet Kit v0.3.5 release 🥳
 
@@ -20,9 +20,9 @@ Sui has rebranded their wallets:
 
 The wallet kit has been updated to reflect these changes with:
 - Wallet presets now include Slush Wallet option
-- A new hook `useSlushWallet` is added for Slush web wallet registration
+- A new hook `useSlushWebWallet` is added for Slush web wallet registration
 
 
 ### [Deprecated] - useStashedWallet
 
-The `useStashedWallet` hook has been deprecated and replaced with `useSlushWallet` due to the rebranding of Stashed Wallet to Slush Web Wallet.
+The `useStashedWallet` and `useSlushWallet` hook has been deprecated and replaced with `useSlushWebWallet` due to the rebranding of Stashed Wallet to Slush Web Wallet.
