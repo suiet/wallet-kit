@@ -20,6 +20,7 @@ import {
 import { AllDefaultWallets } from "@suiet/wallet-sdk";
 import { Transaction } from "@mysten/sui/transactions";
 import { Ed25519PublicKey } from '@mysten/sui/keypairs/ed25519';
+import { BrowserEnvDetector } from "../../../packages/sdk/src/utils/env";
 
 const sampleNft = new Map([
   [
@@ -195,6 +196,20 @@ function App() {
     console.log("-- use pubKey to verify transaction: ", isValid);
   }
 
+  const handleDetectEnvironment = () => {
+    const envInfo = BrowserEnvDetector.detectEnvironment();
+    const adapterId = wallet.adapter?.id;
+    const adapterName = wallet.adapter?.name;
+    alert(
+      `Browser Environment:\n` +
+      `- Is Browser: ${envInfo.isBrowser}\n` +
+      `- Is Mobile Browser: ${envInfo.isMobileBrowser}\n` +
+      `- Adapter ID: ${adapterId}\n` +
+      `- Adapter Name: ${adapterName}\n`
+    );
+    console.log("Environment detection results:", envInfo);
+  };
+
   // @ts-ignore
   return (
     <div
@@ -230,7 +245,12 @@ function App() {
       />
 
       {!wallet.connected ? (
-        <p>Connect DApp with Suiet wallet from now!</p>
+        <div>
+          <p>Connect DApp with Suiet wallet from now!</p>
+          <button onClick={handleDetectEnvironment} style={{ marginTop: "16px" }}>
+            Detect Browser Environment
+          </button>
+        </div>
       ) : (
         <div
           style={{
@@ -299,8 +319,11 @@ function App() {
                 }
               >
                 Sign Transaction + Verify Signature
-                </button>
+              </button>
             )}
+            <button onClick={handleDetectEnvironment}>
+              Detect Browser Environment
+            </button>
           </div>
         </div>
       )}
