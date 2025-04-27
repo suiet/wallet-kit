@@ -17,6 +17,7 @@ export type RegisterWalletCallbackExternal = (
 export type RegisterWalletCallback = () => UnregisterWalletCallback;
 
 export interface IWallet {
+  id?: string; // if not provided, use name as id
   name: string;
   label: string;
   type?: WalletType; // extension wallet by default
