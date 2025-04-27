@@ -48,6 +48,9 @@ export class WalletAdapter implements IWalletAdapter {
   constructor(standardWalletAdapter: Wallet) {
     this.standardWalletAdapter = standardWalletAdapter;
   }
+  get id() {
+    return this.standardWalletAdapter?.id;
+  }
 
   get name() {
     return this.standardWalletAdapter.name;

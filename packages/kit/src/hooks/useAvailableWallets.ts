@@ -1,13 +1,24 @@
 import { useMemo } from "react";
 import { isNonEmptyArray } from "../utils";
 import { useWalletAdapterDetection } from "./useWalletDetection";
-import { IDefaultWallet, IWallet } from "@suiet/wallet-sdk";
+import { IDefaultWallet, IWallet, IWalletAdapter } from "@suiet/wallet-sdk";
 import { useInstallWebWalletAdapters } from "./useInstallWebWalletAdapters";
 
 export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
   useInstallWebWalletAdapters(defaultWallets);
   const { data: availableWalletAdapters } = useWalletAdapterDetection();
 
+  const doesAdapterMatchDefaultWallet = (defaultWallet: IDefaultWallet, detectedWalletAdapter: IWalletAdapter) => {
+    // use id as a higher priority to find adapter
+    // if id not found, then use name
+    if (detectedWalletAdapter?.id && detectedWalletAdapter.id === defaultWallet?.id) {
+      return true;
+    }
+    if (detectedWalletAdapter?.name && detectedWalletAdapter.name === defaultWallet?.name) {
+      return true;
+    }
+    return false;
+  };
   // configured wallets
   const configuredWallets: IWallet[] = useMemo(() => {
     if (!isNonEmptyArray(defaultWallets)) return [];
@@ -24,7 +35,7 @@ export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
 
     return defaultWallets.map((item) => {
       const foundAdapter = availableWalletAdapters.find(
-        (walletAdapter) => item.name === walletAdapter.name
+        (walletAdapter) => doesAdapterMatchDefaultWallet(item, walletAdapter)
       );
       if (foundAdapter) {
         return {
