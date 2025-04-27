@@ -6,7 +6,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite --port 3000",
+    "dev": "vite --port 3000 --host",
     "build": "tsc --emitDeclarationOnly && vite build",
     "preview": "vite preview",
     "test": "jest --reporters jest-simple-dot-reporter --collectCoverage=false",
