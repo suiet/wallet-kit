@@ -17,10 +17,9 @@ import {
   Uint8arrayTool,
   Chain,
 } from "@suiet/wallet-sdk";
-import { AllDefaultWallets } from "@suiet/wallet-sdk";
+import { AllDefaultWallets, BrowserEnvDetector } from "@suiet/wallet-sdk";
 import { Transaction } from "@mysten/sui/transactions";
 import { Ed25519PublicKey } from '@mysten/sui/keypairs/ed25519';
-import { BrowserEnvDetector } from "../../../packages/sdk/src/utils/env";
 
 const sampleNft = new Map([
   [
