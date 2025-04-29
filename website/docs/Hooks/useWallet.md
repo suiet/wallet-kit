@@ -25,13 +25,13 @@ Make sure it runs in a React component under `WalletProvider`
 We start with a simple senario like getting information from the connected wallet .
 
 ```jsx
-import {useWallet} from '@suiet/wallet-kit'
+import { useWallet } from "@suiet/wallet-kit";
 
 function App() {
   const wallet = useWallet();
-  console.log('wallet status', wallet.status)
-  console.log('connected wallet name', wallet.name)
-  console.log('connected account info', wallet.account)
+  console.log("wallet status", wallet.status);
+  console.log("connected wallet name", wallet.name);
+  console.log("connected account info", wallet.account);
 }
 ```
 
@@ -47,13 +47,13 @@ batch transactions in one call.
 Here we define a `moveCall` transaction to implement a simple nft minting example.
 
 ```jsx
-import {useWallet} from '@suiet/wallet-kit'
+import { useWallet } from "@suiet/wallet-kit";
 
 function App() {
   const wallet = useWallet();
 
   async function handleSignAndExecuteTxBlock() {
-    if (!wallet.connected) return
+    if (!wallet.connected) return;
 
     // define a programmable transaction
     const tx = new TransactionBlock();
@@ -66,18 +66,16 @@ function App() {
     try {
       // execute the programmable transaction
       const resData = await wallet.signAndExecuteTransactionBlock({
-        transactionBlock: tx
+        transactionBlock: tx,
       });
-      console.log('nft minted successfully!', resData);
-      alert('Congrats! your nft is minted!')
+      console.log("nft minted successfully!", resData);
+      alert("Congrats! your nft is minted!");
     } catch (e) {
-      console.error('nft mint failed', e);
+      console.error("nft mint failed", e);
     }
   }
 
-  return (
-    <button onClick={handleSignAndExecuteTx}> Mint Your NFT !</button>
-  )
+  return <button onClick={handleSignAndExecuteTx}> Mint Your NFT !</button>;
 }
 ```
 
@@ -98,38 +96,42 @@ Here is an example for signing a simple message "Hello World".
 
 > Update: we prefer `signPersonalMessage` over `signMessage` according to the latest wallet standard.
 
-
 ```tsx
-import {useWallet} from '@suiet/wallet-kit'
-import * as tweetnacl from 'tweetnacl'
+import { useWallet } from "@suiet/wallet-kit";
+import * as tweetnacl from "tweetnacl";
 
 function App() {
   const wallet = useWallet();
 
   async function handleSignMsg() {
     try {
-      const msg = 'Hello world!'
-      // convert string to Uint8Array 
-      const msgBytes = new TextEncoder().encode(msg)
-      
+      const msg = "Hello world!";
+      // convert string to Uint8Array
+      const msgBytes = new TextEncoder().encode(msg);
+
       const result = await wallet.signPersonalMessage({
-        message: msgBytes
-      })
-			// verify signature with publicKey and SignedMessage (params are all included in result)
-      const verifyResult = await wallet.verifySignedMessage(result, wallet.account.publicKey)
+        message: msgBytes,
+      });
+      // verify signature with publicKey and SignedMessage (params are all included in result)
+      const verifyResult = await wallet.verifySignedMessage(
+        result,
+        wallet.account.publicKey
+      );
       if (!verifyResult) {
-        console.log('signPersonalMessage succeed, but verify signedMessage failed')
+        console.log(
+          "signPersonalMessage succeed, but verify signedMessage failed"
+        );
       } else {
-        console.log('signPersonalMessage succeed, and verify signedMessage succeed!')
+        console.log(
+          "signPersonalMessage succeed, and verify signedMessage succeed!"
+        );
       }
     } catch (e) {
-      console.error('signPersonalMessage failed', e)
+      console.error("signPersonalMessage failed", e);
     }
   }
 
-  return (
-    <button onClick={handleSignMsg}> Sign Message </button>
-  )
+  return <button onClick={handleSignMsg}> Sign Message </button>;
 }
 ```
 
@@ -142,28 +144,28 @@ information.
 
 :::
 
-Your dapp can get the current connected chain of wallet. 
+Your dapp can get the current connected chain of wallet.
 
 :::info
 For most wallets, if **user switches network inside the wallet**, the value **WOULD NOT** get updated. (Except for Suiet Wallet, we implemented this network change notification for a better development experience)
 
-This is because Sui team suggests each dapp should separate the environments for each chain (sui:devnet, sui:testnet, sui:mainnet). 
+This is because Sui team suggests each dapp should separate the environments for each chain (sui:devnet, sui:testnet, sui:mainnet).
 And the active chain returned by the connected wallet could be used to match the dapp's environment.
 
 In a nutshell, eliminating the need to switch network for dapp is a better user experience for a long term.
 :::
 
 ```tsx
-import {useWallet} from '@suiet/wallet-kit'
-import * as tweetnacl from 'tweetnacl'
+import { useWallet } from "@suiet/wallet-kit";
+import * as tweetnacl from "tweetnacl";
 
 function App() {
   const wallet = useWallet();
 
   useEffect(() => {
     if (!wallet.connected) return;
-    console.log('current connected chain (network)', wallet.chain?.name)  // example output: "sui:devnet", "sui:testnet" or "sui:mainnet"
-  }, [wallet.connected])
+    console.log("current connected chain (network)", wallet.chain?.name); // example output: "sui:devnet", "sui:testnet" or "sui:mainnet"
+  }, [wallet.connected]);
 }
 ```
 
@@ -181,19 +183,19 @@ The name of connected wallet.
 
 The connection status of wallet.
 
-| Properties | Type                                             | Default        |
-| ---------- | ------------------------------------------------ | -------------- |
-| connecting | boolean                                          | false          |
-| connected  | boolean                                          | false          |
+| Properties | Type                                          | Default        |
+| ---------- | --------------------------------------------- | -------------- |
+| connecting | boolean                                       | false          |
+| connected  | boolean                                       | false          |
 | status     | 'disconnected' \| 'connecting' \| 'connected' | 'disconnected' |
 
 ```ts
-const {status, connected, connecting} = useWallet();
+const { status, connected, connecting } = useWallet();
 
 // the assert expressions are equally the same
-assert(status === 'disconnected', !connecting && !connected); // not connect to wallet
-assert(status === 'connecting', connecting); // now connecting to the wallet
-assert(status === 'connected', connected); // connected to the wallet
+assert(status === "disconnected", !connecting && !connected); // not connect to wallet
+assert(status === "connecting", connecting); // now connecting to the wallet
+assert(status === "connected", connected); // connected to the wallet
 ```
 
 ### account
@@ -205,12 +207,12 @@ The account info in the connected wallet, including address, publicKey etc.
 | [WalletAccount](/docs/Types#WalletAccount) | undefined |
 
 ```ts
-const {connected, account} = useWallet();
+const { connected, account } = useWallet();
 
 function printAccountInfo() {
-  if (!connected) return
-  console.log(account?.address)
-  console.log(account?.publicKey)
+  if (!connected) return;
+  console.log(account?.address);
+  console.log(account?.publicKey);
 }
 ```
 
@@ -235,19 +237,67 @@ Get all the accessible accounts returned by wallet.
 The getAccounts will get the current wallet's account address. Now one wallet only have one account.
 
 ```jsx
-import {useWallet} from '@suiet/wallet-kit';
+import { useWallet } from "@suiet/wallet-kit";
 
 function YourComponent() {
   const wallet = useWallet();
 
   function handleGetAccounts() {
-    if (!wallet.connected) return
+    if (!wallet.connected) return;
     getAccounts().then((accounts) => {
       console.log(accounts);
-    })
+    });
   }
 }
 ```
+
+### switchAccount
+
+Switches the current main `account` to the one with the given address. Accepts optional callbacks for success and error handling.
+
+| Type                                                                                                      | Default |
+| --------------------------------------------------------------------------------------------------------- | ------- |
+| `(address: string, opts?: { onSuccess?: () => void; onError?: (error: Error) => void }) => Promise<void>` |         |
+
+```tsx
+import { useWallet } from "@suiet/wallet-kit";
+
+function YourComponent() {
+  const wallet = useWallet();
+
+  async function handleSwitchAccount() {
+    if (!wallet.connected) return;
+
+    try {
+      const accounts = await wallet.getAccounts();
+      if (accounts.length > 1) {
+        await wallet.switchAccount(accounts[1], {
+          onSuccess: () => {
+            console.log("Successfully switched to account:", accounts[1]);
+            // Handle successful account switch, e.g., update UI
+          },
+          onError: (error) => {
+            console.error("Failed to switch account:", error);
+            // Handle error, e.g., show error message to user
+          },
+        });
+      }
+    } catch (e) {
+      console.error("Failed to switch account:", e);
+    }
+  }
+
+  return <button onClick={handleSwitchAccount}>Switch Account</button>;
+}
+```
+
+:::caution
+Make sure the address you're switching to is available in the wallet's accounts. You can use `getAccounts()` to get the list of available addresses first.
+:::
+
+:::tip
+The `opts` parameter is optional. You can provide either both callbacks, just one, or none at all depending on your needs.
+:::
 
 ### chains
 
@@ -263,8 +313,8 @@ Current connected chain of wallet.
 
 Might not be synced with the wallet if the wallet doesn't support wallet-standard "change" event.
 
-| Type   | Default                                                      |
-| ------ | ------------------------------------------------------------ |
+| Type   | Default                                                                                 |
+| ------ | --------------------------------------------------------------------------------------- |
 | string | the first value of configured [chains](./#chains) or [UnknownChain](/docs/Types/#Chain) |
 
 ### adapter
@@ -273,8 +323,8 @@ The adapter normalized from the raw adapter of the connected wallet. You can cal
 it, which is followed
 the [@mysten/wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wallet-adapter/wallet-standard)
 
-| Type                             | Default   |
-|----------------------------------| --------- |
+| Type                                         | Default   |
+| -------------------------------------------- | --------- | --------- |
 | [IWalletAdapter](/docs/Types#IWalletAdapter) | undefined | undefined |
 
 ### signTransaction
@@ -282,9 +332,8 @@ the [@mysten/wallet-standard](https://github.com/MystenLabs/sui/tree/main/sdk/wa
 The function is for transaction signing.
 
 | Type                                                         | Default |
-|--------------------------------------------------------------| ------- |
+| ------------------------------------------------------------ | ------- |
 | `({transaction: Transaction}) => Promise<SignedTransaction>` |         |
-
 
 ### signAndExecuteTransaction
 
@@ -294,13 +343,13 @@ With this new feature, you can use the `signAndExecuteTransaction` method to sig
 
 This is an enhanced API of `signAndExecuteTransactionBlock` where the comparison between the two APIs are shown in the table.
 
-| API |     Execution     | FullNode for Execution |                   GraphQL API support                   | 
-|:-:|:-----------------:| :-: |:-------------------------------------------------------:|
-| signAndExecuteTransactionBlock |   on Wallet | Specified by Wallet |            Depend on wallet's implementation            |
-| signAndExecuteTransaction | on DApp | Specified by DApp |     Can be done by customizing the execute function     |           
+|              API               | Execution | FullNode for Execution |               GraphQL API support               |
+| :----------------------------: | :-------: | :--------------------: | :---------------------------------------------: |
+| signAndExecuteTransactionBlock | on Wallet |  Specified by Wallet   |        Depend on wallet's implementation        |
+|   signAndExecuteTransaction    |  on DApp  |   Specified by DApp    | Can be done by customizing the execute function |
 
 | Type                                                                                                                                                                                    | Default |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------- |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | `({transactionBlock: TransactionBlock, requestType?: ExecuteTransactionRequestType, options?: SuiTransactionBlockResponseOptions}) => Promise<SuiSignAndExecuteTransactionBlockOutput>` |         |
 
 ### signPersonalMessage
@@ -308,7 +357,7 @@ This is an enhanced API of `signAndExecuteTransactionBlock` where the comparison
 The function is for message signing.
 
 | Type                                                                            | Default |
-|---------------------------------------------------------------------------------| ------- |
+| ------------------------------------------------------------------------------- | ------- |
 | `(input: {message: Uint8Array}) => Promise<{signature: string; bytes: string}>` |         |
 
 ### verifySignedMessage
@@ -318,23 +367,23 @@ This function is for verifying the output of `signPersonalMessage` following the
 For details please check [here](https://github.com/suiet/wallet-kit/blob/main/packages/sdk/src/utils/verifySignedMessage.ts#L10)
 
 | Type                                                                     | Default |
-|--------------------------------------------------------------------------| ------- |
+| ------------------------------------------------------------------------ | ------- |
 | `(input: {signature: string; messageBytes: string}) => Promise<boolean>` |         |
 
 ### on
 
 The function for wallet event listening. Returns the off function to remove listener.
 
-| Type                                                         | Default |
-| ------------------------------------------------------------ | ------- |
+| Type                                                                                    | Default |
+| --------------------------------------------------------------------------------------- | ------- |
 | `<E extends WalletEvent>(event: E, listener: WalletEventListeners[E], ) => () => void;` |         |
 
 All the wallet events:
 
-| Event         | Listener                                                     | Description                                               |
-| ------------- | ------------------------------------------------------------ | --------------------------------------------------------- |
-| accountChange | `(params: { account: WalletAccount; }) => void;`             | Emit when wallet app changes its account                  |
-| featureChange | `(params: { features: string[]; }) => void;`                 | Emit when wallet app changes its wallet-standard features |
+| Event         | Listener                                                                               | Description                                               |
+| ------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| accountChange | `(params: { account: WalletAccount; }) => void;`                                       | Emit when wallet app changes its account                  |
+| featureChange | `(params: { features: string[]; }) => void;`                                           | Emit when wallet app changes its wallet-standard features |
 | change        | `(params: { chain?: string, account?: WalletAccount; features?: string[]; }) => void;` | Raw change event defined by wallet-standard               |
 
 ## Deprecated API
@@ -346,7 +395,7 @@ Deprecated, use [signAndExecuteTransaction](#signandexecutetransaction) instead.
 The universal function to send and execute transactions via connected wallet.
 
 | Type                                                                                                                                                                               | Default |
-|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------- |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | `({transactionBlock: Transaction, requestType?: ExecuteTransactionRequestType, options?: SuiTransactionBlockResponseOptions}) => Promise<SuiSignAndExecuteTransactionBlockOutput>` |         |
 
 ### signTransactionBlock
@@ -355,8 +404,8 @@ Deprecated, use [signTransaction](#signtransaction) instead.
 
 The function is for transaction signing.
 
-| Type                                                              | Default |
-|-------------------------------------------------------------------| ------- |
+| Type                                                                          | Default |
+| ----------------------------------------------------------------------------- | ------- |
 | `({transactionBlock: Transaction}) => Promise<SuiSignTransactionBlockOutput>` |         |
 
 ### executeMoveCall and executeSerializedMoveCall
@@ -388,6 +437,5 @@ const wallet = useWallet();
 Deprecated, use [signPersonalMessage](#signpersonalmessage) instead.
 
 | Type                                                                                   | Default |
-|----------------------------------------------------------------------------------------| ------- |
+| -------------------------------------------------------------------------------------- | ------- |
 | `(input: {message: Uint8Array}) => Promise<{signature: string; messageBytes: string}>` |         |
-

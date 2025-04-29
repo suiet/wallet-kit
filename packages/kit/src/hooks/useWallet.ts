@@ -45,7 +45,20 @@ export interface WalletContextState {
   select: (walletName: string) => Promise<void>;
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
-
+  /**
+   * Switch current account with the account that has the given address
+   * @param address - The address of the account to switch to
+   * @param opts - Optional options
+   * @param opts.onSuccess - Callback function to be called if the account is switched successfully
+   * @param opts.onError - Callback function to be called if the account is not switched successfully
+   */
+  switchAccount: (
+    address: WalletAccount["address"],
+    opts?: {
+      onSuccess?: () => void;
+      onError?: (error: Error) => void;
+    }
+  ) => void;
   signAndExecuteTransaction<Output extends SuiSignAndExecuteTransactionOutput>(
     input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">,
     options?: ExecuteTransactionOptions
@@ -122,6 +135,9 @@ const DEFAULT_CONTEXT: WalletContextState = {
   },
   getAccounts() {
     throw new KitError(missProviderMessage("getAccounts"));
+  },
+  switchAccount() {
+    throw new KitError(missProviderMessage("switchAccount"));
   },
   async signTransaction() {
     throw new KitError(missProviderMessage("signTransaction"));
