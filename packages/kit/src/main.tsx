@@ -13,9 +13,7 @@ import {
   SuiChainId,
   formatSUI,
   defineSlushWallet,
-  SuiTestnetChain,
   Uint8arrayTool,
-  Chain,
 } from "@suiet/wallet-sdk";
 import { AllDefaultWallets, BrowserEnvDetector } from "@suiet/wallet-sdk";
 import { Transaction } from "@mysten/sui/transactions";
@@ -58,6 +56,9 @@ function App() {
   const { balance } = useAccountBalance();
   const chain = useChain();
   const client = useSuiClient();
+
+  console.log('wallet: ', wallet)
+  console.log('chain: ', chain)
 
   const nftContractAddr = useMemo(() => {
     if (!wallet.chain) return "";
