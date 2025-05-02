@@ -6,3 +6,4 @@ export * from "./binary";
 export * from "./check";
 export * from "./transaction";
 export * from "./env";
+export * from "./signature";

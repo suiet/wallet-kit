@@ -81,7 +81,7 @@ function App() {
 }
 ```
 
-### Sign Message
+### Sign Personal Message
 
 [Message signing](https://en.bitcoin.it/wiki/Message_signing#:~:text=Message%20signing%20is%20the%20action,they%20correspond%20to%20each%20other.)
 is an important action to **verify whether an approval is confirmed by the owner of an account**.
@@ -95,8 +95,6 @@ Here is an example for signing a simple message "Hello World".
 
 > Notice that all the params are Uint8Array (i.e. bytes) type. For browser app, you can
 > use [TextEncoder](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder) to encode and decode.
-
-> Update: we prefer `signPersonalMessage` over `signMessage` according to the latest wallet standard.
 
 
 ```tsx
@@ -115,8 +113,8 @@ function App() {
       const result = await wallet.signPersonalMessage({
         message: msgBytes
       })
-			// verify signature with publicKey and SignedMessage (params are all included in result)
-      const verifyResult = await wallet.verifySignedMessage(result, wallet.account.publicKey)
+      // directly input the signed result for verification
+      const verifyResult = await wallet.verifySignedPersonalMessage(result)
       if (!verifyResult) {
         console.log('signPersonalMessage succeed, but verify signedMessage failed')
       } else {
@@ -305,21 +303,35 @@ This is an enhanced API of `signAndExecuteTransactionBlock` where the comparison
 
 ### signPersonalMessage
 
-The function is for message signing.
+The function is for personal message signing. The return strings are in base64 format.
 
 | Type                                                                            | Default |
 |---------------------------------------------------------------------------------| ------- |
 | `(input: {message: Uint8Array}) => Promise<{signature: string; bytes: string}>` |         |
 
-### verifySignedMessage
+### verifySignedPersonalMessage
 
 This function is for verifying the output of `signPersonalMessage` following the Sui standard. Returns `true` if the returned signature matches the message to be signed and the signer's publicKey.
 
-For details please check [here](https://github.com/suiet/wallet-kit/blob/main/packages/sdk/src/utils/verifySignedMessage.ts#L10)
+The signature and bytes strings are in base64 format.
+
+It supports signatures of multiple schemes, such as  ed25519, secp256k1, secp256r1, and zk account signatures.
 
 | Type                                                                     | Default |
 |--------------------------------------------------------------------------| ------- |
-| `(input: {signature: string; messageBytes: string}) => Promise<boolean>` |         |
+| `(input: {signature: string; bytes: string}) => Promise<boolean>` |         |
+
+### verifySignedTransactoin
+
+This function is for verifying the output of `signTransaction` following the Sui standard. Returns `true` if the returned signature matches the message to be signed and the signer's publicKey.
+
+The signature and bytes strings are in base64 format.
+
+It supports signatures of multiple schemes, such as  ed25519, secp256k1, secp256r1, and zk account signatures.
+
+| Type                                                                     | Default |
+|--------------------------------------------------------------------------| ------- |
+| `(input: {signature: string; bytes: string}) => Promise<boolean>` |         |
 
 ### on
 
@@ -391,3 +403,7 @@ Deprecated, use [signPersonalMessage](#signpersonalmessage) instead.
 |----------------------------------------------------------------------------------------| ------- |
 | `(input: {message: Uint8Array}) => Promise<{signature: string; messageBytes: string}>` |         |
 
+
+### verifySignedMessage
+
+Deprecated, use [verifySignedPersonalMessage](#verifysignedpersonalmessage) instead.
