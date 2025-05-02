@@ -11,13 +11,15 @@ These preset wallets will be displayed as `Popular` on our kit modal by default.
 
 - [Suiet Wallet](https://chrome.google.com/webstore/detail/suiet/khpkpbbcccdmmclmpigdgddabeilkdpd)
 - [Slush Wallet](https://chromewebstore.google.com/detail/slush-%E2%80%94-a-sui-wallet/opcgpfmipidbgpenhmajoajpbobppdil)
-- [Ethos Wallet](https://chrome.google.com/webstore/detail/ethos-sui-wallet/mcbigmjiafegjnnogedioegffbooigli)
+- [Phantom Wallet](https://chromewebstore.google.com/detail/phantom/bfnaelmomeimhlpmgjnjophhpkkoljpa)
 - [Martian Wallet](https://chrome.google.com/webstore/detail/martian-wallet-aptos-sui/efbglgofoippbgcjepnhiblaibcnclgk)
 - [Surf Wallet](https://chrome.google.com/webstore/detail/surf-sui-wallet/emeeapjkbcbpbpgaagfchmcgglmebnen)
 - [Glass Wallet](https://chrome.google.com/webstore/detail/glass-wallet-sui-wallet/loinekcabhlmhjjbocijdoimmejangoa)
-- [Morphis Wallet](https://chrome.google.com/webstore/detail/morphis-wallet/heefohaffomkkkphnlpohglngmbcclhi)
 - [OneKey Wallet](https://chrome.google.com/webstore/detail/onekey/jnmbobjmhlngoefaiojfljckilhhlhcj)
-- [BitGet Wallet](https://chromewebstore.google.com/detail/bitget-wallet-formerly-bi/jiidiaalihmmhddjgbnbgdfflelocpak)
+- [Bitget Wallet](https://chromewebstore.google.com/detail/bitget-wallet-formerly-bi/jiidiaalihmmhddjgbnbgdfflelocpak)
+- [OKX Wallet](https://chromewebstore.google.com/detail/okx-wallet/mcohilncbfahbmgdjkbpemcciiolgcge)
+- [Nightly Wallet](https://chrome.google.com/webstore/detail/nightly/fiikommddbeccaoicoejoniammnalkfa)
+- [TokenPocket Wallet](https://chromewebstore.google.com/detail/tokenpocket-web3-crypto-w/mfgccjchihfkkindfppnaooecgfneiii)
 
 ## For Dapp Developers
 
