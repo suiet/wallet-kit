@@ -142,16 +142,16 @@ function App() {
       const result = await wallet.signPersonalMessage({
         message: msgUint8Array,
       });
-      const publickKey = new Uint8Array(wallet.account.publicKey);
-      const isValid = await wallet.verifySignedMessage(
-        result,
-        publickKey
-      );
+      const isValid = await wallet.verifySignedPersonalMessage(result);
       console.log("verify signedMessage", isValid);
-      alert("signMessage succeeded (see response in the console)");
+      if (!isValid) {
+        alert("signMessage succeeded but signature verification failed");
+      } else {
+        alert("signMessage succeeded and signature verification passed");
+      }
     } catch (e) {
       console.error("signMessage failed", e);
-      alert("signMessage failed (see response in the console)");
+      alert("signMessage failed: " + e);
     }
   }
 
@@ -176,24 +176,29 @@ function App() {
   const handleSignTxnAndVerifySignature = async (contractAddress: string) => {
     const txn = createMintNftTxb(contractAddress);
     txn.setSender(wallet.account?.address as string);
-    const signedTxn = await wallet.signTransaction({
-      transaction: txn,
-    });
-    console.log(`Sign and verify txn:`)
-    console.log('--wallet: ', wallet.adapter?.name)
-    console.log('--account: ', wallet.account?.address)
-    const publicKey = wallet.account?.publicKey;
-    if (!publicKey) {
-      console.error("no public key provided by wallet");
+    let signedTxn;
+    try {
+      signedTxn = await wallet.signTransaction({
+        transaction: txn,
+      });
+    } catch (e) {
+      console.error("signTransaction failed", e);
+      alert("signTransaction failed: " + e);
       return;
     }
-    console.log("-- publicKey: ", publicKey);
-    const pubKey = new Ed25519PublicKey(publicKey);
-    console.log('-- signed txnBytes: ', signedTxn.bytes)
-    console.log("-- signed signature: ", signedTxn.signature);
-    const txnBytes = Uint8arrayTool.fromBase64(signedTxn.bytes);
-    const isValid = await pubKey.verifyTransaction(txnBytes, signedTxn.signature);
-    console.log("-- use pubKey to verify transaction: ", isValid);
+    console.log(`Sign and verify txn:`)
+    try {
+      const isValid = await wallet.verifySignedTransaction(signedTxn);
+      console.log("verifySignedTransaction: ", isValid);
+      if (!isValid) {
+        alert("signTransaction succeeded but signature verification failed");
+      } else {
+        alert("signTransaction succeeded and signature verification passed");
+      }
+    } catch (e) {
+      console.error("verifySignedTransaction failed", e);
+      alert("verifySignedTransaction failed: " + e);
+    }
   }
 
   const handleDetectEnvironment = () => {
