@@ -2,10 +2,8 @@ import {
   SuiSignMessageOutput,
   SuiSignPersonalMessageOutput,
 } from "@mysten/wallet-standard";
-import { verifyPersonalMessageSignature } from "@mysten/sui/verify";
-import { stringBytesToUint8Array } from "./stringBytesToUint8Array";
-import { Uint8arrayTool } from "./binary";
 import { has } from "./check";
+import { SignatureVerifier } from "./signature/SignatureVerifier";
 
 /**
  * @deprecated use SignatureVerifier instead
@@ -28,11 +26,12 @@ export async function verifySignedMessage(
     );
   }
   try {
-    const parsedPublicKey = await verifyPersonalMessageSignature(
-      stringBytesToUint8Array(message),
-      input.signature
-    );
-    return Uint8arrayTool.bytesEqual(parsedPublicKey.toRawBytes(), publicKey);
+    const signatureVerifier = new SignatureVerifier();
+    const isValid = await signatureVerifier.verifySignedPersonalMessage({
+      bytes: message,
+      signature: input.signature,
+    });
+    return isValid;
   } catch (e) {
     console.error('e: ', e)
     return false;

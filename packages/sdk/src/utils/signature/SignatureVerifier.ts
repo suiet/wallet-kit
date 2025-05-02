@@ -5,7 +5,7 @@ import { Uint8arrayTool } from "../binary";
 import { ErrorCode, WalletError } from "../../error-handling";
 
 export class SignatureVerifier implements ISignatureVerifier {
-  constructor(private readonly address: string) {
+  constructor(private readonly address?: string) {
     this.address = address;
   }
 
