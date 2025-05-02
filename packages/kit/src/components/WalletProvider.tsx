@@ -14,6 +14,7 @@ import type {
   SuiSignAndExecuteTransactionInput,
   SuiSignMessageInput,
   SuiSignPersonalMessageInput,
+  SuiSignPersonalMessageOutput,
   SuiSignTransactionBlockInput,
   SuiSignTransactionInput,
   WalletAccount,
@@ -37,6 +38,7 @@ import {
   IWalletAdapter,
   KitError,
   normalizeTransaction,
+  SignatureVerifier,
   UnknownChain,
   verifySignedMessage,
   WalletEvent,
@@ -418,6 +420,32 @@ export const WalletProvider = (props: WalletProviderProps) => {
     [safelyGetWalletAndAccount]
   );
 
+  /**
+   * ------------ Signature verification  ---------------------
+   */
+  const signatureVerifier = useMemo(() => {
+    if (!account) return null;
+    return new SignatureVerifier(account.address);
+  }, [account]);
+
+  const verifySignedPersonalMessage = useCallback(
+    async (input: SuiSignPersonalMessageOutput) => {
+      if (!signatureVerifier) throw new KitError("Please connect to an account first");
+      return await signatureVerifier.verifySignedPersonalMessage(input);
+    },
+    [signatureVerifier]
+  );
+
+  const verifySignedTransaction = useCallback(
+    async (input: SignedTransaction) => {
+      if (!signatureVerifier) throw new KitError("Please connect to an account first");
+      return await signatureVerifier.verifySignedTransaction(input);
+    },
+    [signatureVerifier]
+  );
+
+  // ------------------------------------------------------------
+
   useAutoConnect(select, status, allAvailableWallets, autoConnect);
 
   // sync kit's chain with wallet's active chain
@@ -462,6 +490,8 @@ export const WalletProvider = (props: WalletProviderProps) => {
         signMessage,
         signTransactionBlock,
         signAndExecuteTransactionBlock,
+        verifySignedPersonalMessage,
+        verifySignedTransaction,
         verifySignedMessage,
         address: account?.address,
       }}

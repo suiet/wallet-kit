@@ -8,6 +8,7 @@ import { Uint8arrayTool } from "./binary";
 import { has } from "./check";
 
 /**
+ * @deprecated use SignatureVerifier instead
  * Verify a signed message based on Sui standard
  * @param input
  * @param publicKey
@@ -32,7 +33,8 @@ export async function verifySignedMessage(
       input.signature
     );
     return Uint8arrayTool.bytesEqual(parsedPublicKey.toRawBytes(), publicKey);
-  } catch {
+  } catch (e) {
+    console.error('e: ', e)
     return false;
   }
 }
