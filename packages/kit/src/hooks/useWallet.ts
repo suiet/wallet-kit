@@ -59,6 +59,23 @@ export interface WalletContextState {
     input: Omit<SuiSignPersonalMessageInput, "account">
   ): Promise<SuiSignPersonalMessageOutput>;
 
+  verifySignedPersonalMessage(
+    input: SuiSignPersonalMessageOutput,
+  ): Promise<boolean>;
+
+  verifySignedTransaction(
+    input: SignedTransaction,
+  ): Promise<boolean>;
+
+  on: <E extends WalletEvent>(
+    event: E,
+    listener: WalletEventListeners[E]
+  ) => () => void;
+
+  reportTransactionEffects(
+    input: Omit<SuiReportTransactionEffectsInput, "account" | "chain">
+  ): Promise<void>;
+
   /**
    * @deprecated use signTransaction instead
    * @param input
@@ -79,19 +96,13 @@ export interface WalletContextState {
     input: Omit<SuiSignMessageInput, "account">
   ): Promise<SuiSignMessageOutput>;
 
+  /**
+   * @deprecated use verifySignedMessage instead
+   */
   verifySignedMessage(
     input: SuiSignPersonalMessageOutput | SuiSignMessageOutput,
     publicKey: Uint8Array
   ): Promise<boolean>;
-
-  on: <E extends WalletEvent>(
-    event: E,
-    listener: WalletEventListeners[E]
-  ) => () => void;
-
-  reportTransactionEffects(
-    input: Omit<SuiReportTransactionEffectsInput, "account" | "chain">
-  ): Promise<void>;
 }
 
 function missProviderMessage(action: string) {
@@ -131,6 +142,12 @@ const DEFAULT_CONTEXT: WalletContextState = {
   },
   async signPersonalMessage() {
     throw new KitError(missProviderMessage("signPersonalMessage"));
+  },
+  async verifySignedPersonalMessage() {
+    throw new KitError(missProviderMessage("verifySignedPersonalMessage"));
+  },
+  async verifySignedTransaction() {
+    throw new KitError(missProviderMessage("verifySignedTransaction"));
   },
   async reportTransactionEffects() {
     throw new KitError(missProviderMessage("reportTransactionEffects"));
