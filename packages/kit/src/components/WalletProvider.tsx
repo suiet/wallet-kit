@@ -107,17 +107,21 @@ export const WalletProvider = (props: WalletProviderProps) => {
     }
   };
 
+  const safelyGetWallet = useCallback((): IWalletAdapter => {
+    ensureCallable(walletAdapter, status);
+    return walletAdapter as IWalletAdapter;
+  }, [walletAdapter, status]);
+
   const safelyGetWalletAndAccount = useCallback((): [
     IWalletAdapter,
     WalletAccount
   ] => {
-    ensureCallable(walletAdapter, status);
+    const _wallet = safelyGetWallet();
     if (!account) {
       throw new KitError("no active account connected");
     }
-    const _wallet = walletAdapter as IWalletAdapter;
     return [_wallet, account];
-  }, [walletAdapter, account, status]);
+  }, [safelyGetWallet, account]);
 
   const connect = useCallback(
     async (adapter: IWalletAdapter, opts?: StandardConnectInput) => {
@@ -220,7 +224,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   const on = useCallback(
     (event: WalletEvent, listener: WalletEventListeners[WalletEvent]) => {
-      const [_wallet] = safelyGetWalletAndAccount();
+      const _wallet = safelyGetWallet();
 
       // filter event and params to decide when to emit
       const off = _wallet.on("change", (params) => {
@@ -248,17 +252,17 @@ export const WalletProvider = (props: WalletProviderProps) => {
       walletOffListeners.current.push(off); // should help user manage off cleaners
       return off;
     },
-    [safelyGetWalletAndAccount]
+    [safelyGetWallet]
   );
 
   const getAccounts = useCallback(() => {
-    const [_wallet] = safelyGetWalletAndAccount();
+    const _wallet = safelyGetWallet();
     return _wallet.accounts;
-  }, [safelyGetWalletAndAccount]);
+  }, [safelyGetWallet]);
 
   const switchAccount = useCallback(
     async (address: WalletAccount["address"]) => {
-      const [_wallet] = safelyGetWalletAndAccount();
+      const _wallet = safelyGetWallet();
 
       const account = _wallet.accounts.find((item) => item.address === address);
 
@@ -269,7 +273,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
       setAccount(account);
       return account;
     },
-    [safelyGetWalletAndAccount]
+    [safelyGetWallet]
   );
 
   const signAndExecuteTransactionBlock = useCallback(
