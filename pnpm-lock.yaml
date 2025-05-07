@@ -254,8 +254,8 @@ importers:
         specifier: ^1.6.22
         version: 1.6.22(react@18.3.1)
       '@suiet/wallet-kit':
-        specifier: 0.3.5
-        version: 0.3.5(@mysten/sui@1.28.2(typescript@5.6.3))(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
+        specifier: 0.3.7
+        version: 0.3.7(@mysten/sui@1.28.2(typescript@5.6.3))(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
@@ -2100,15 +2100,15 @@ packages:
   '@suchipi/femver@1.0.0':
     resolution: {integrity: sha512-bprE8+K5V+DPX7q2e2K57ImqNBdfGHDIWaGI5xHxZoxbKOuQZn4wzPiUxOAHnsUr3w3xHrWXwN7gnG/iIuEMIg==}
 
-  '@suiet/wallet-kit@0.3.5':
-    resolution: {integrity: sha512-Z+XZyHR92UCtRMywo2JwNyn2pOTMUPg5pIsmnRImXLk5g9rB4fmNPrQGnzYL/jcvD20pfHeSBwYC9NkCJYZ3WQ==}
+  '@suiet/wallet-kit@0.3.7':
+    resolution: {integrity: sha512-+WNZ1V5IfEcU5PCnaDxFgVA+8KierrrpkEJYdM36vNVALlURS7nWVf8mGWR8VhpQE2T5qoDAenTGt6e2Uktxaw==}
     peerDependencies:
       '@mysten/sui': 1.28.2
       react: '*'
       react-dom: '*'
 
-  '@suiet/wallet-sdk@0.3.4':
-    resolution: {integrity: sha512-3A8xYYQ2si7eIy/4VzesnCLJnZlWK42f/Yxse82I8dXX9ecCrlyotWuLuixThbzp3QNnKH5AFz6YytxVnycfCA==}
+  '@suiet/wallet-sdk@0.3.6':
+    resolution: {integrity: sha512-c6Cx5xtTPqLweCsxIr6BvB3PBn85InaHD8l+JODUip6L9OF8y7K20WeGXk0cFWWg1pCtm87f5rQIDsSVFzoBFw==}
     peerDependencies:
       '@mysten/sui': 1.28.2
 
@@ -10394,7 +10394,7 @@ snapshots:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@mysten/bcs': 1.1.0
       '@noble/curves': 1.6.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.5.0
       '@scure/bip39': 1.4.0
       '@suchipi/femver': 1.0.0
@@ -10451,7 +10451,7 @@ snapshots:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@mysten/bcs': 1.0.4
       '@noble/curves': 1.6.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.5.0
       '@scure/bip39': 1.4.0
       '@suchipi/femver': 1.0.0
@@ -10470,7 +10470,7 @@ snapshots:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@mysten/bcs': 1.0.4
       '@noble/curves': 1.6.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.5.0
       '@scure/bip39': 1.4.0
       '@suchipi/femver': 1.0.0
@@ -11221,14 +11221,14 @@ snapshots:
 
   '@suchipi/femver@1.0.0': {}
 
-  '@suiet/wallet-kit@0.3.5(@mysten/sui@1.28.2(typescript@5.6.3))(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)':
+  '@suiet/wallet-kit@0.3.7(@mysten/sui@1.28.2(typescript@5.6.3))(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)':
     dependencies:
       '@mysten/slush-wallet': 0.1.0(typescript@5.6.3)
       '@mysten/sui': 1.28.2(typescript@5.6.3)
       '@mysten/wallet-standard': 0.14.7(typescript@5.6.3)
       '@mysten/zksend': 0.11.0(typescript@5.6.3)
       '@radix-ui/react-dialog': 1.0.2(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@suiet/wallet-sdk': 0.3.4(@mysten/sui@1.28.2(typescript@5.6.3))(typescript@5.6.3)
+      '@suiet/wallet-sdk': 0.3.6(@mysten/sui@1.28.2(typescript@5.6.3))(typescript@5.6.3)
       '@svgr/rollup': 6.5.1
       '@wallet-standard/core': 1.0.3
       buffer: 6.0.3
@@ -11246,7 +11246,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@suiet/wallet-sdk@0.3.4(@mysten/sui@1.28.2(typescript@5.6.3))(typescript@5.6.3)':
+  '@suiet/wallet-sdk@0.3.6(@mysten/sui@1.28.2(typescript@5.6.3))(typescript@5.6.3)':
     dependencies:
       '@mysten/slush-wallet': 0.1.0(typescript@5.6.3)
       '@mysten/sui': 1.28.2(typescript@5.6.3)
