@@ -216,12 +216,13 @@ function App() {
   };
 
 
-  const handleSwitchAccount = (address: string) => {
-    wallet.switchAccount(address);
-    console.log("switch account to: ", address);
+  const handleSwitchAccount = async (address: string) => {
+    const newAccount = await wallet.switchAccount(address);
+    console.log("switch account to: ", newAccount);
   }
 
   const renderWalletAccounts = () => {
+    if (!wallet.connected) return null;
     const accounts = wallet.getAccounts();
     if (!accounts?.length) return null;
     return <ol>
