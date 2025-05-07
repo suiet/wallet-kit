@@ -229,9 +229,9 @@ Get all the accessible accounts returned by wallet.
 
 | Type                    | Default |
 | ----------------------- | ------- |
-| () => Promise<string[]> |         |
+| () => string[] |         |
 
-The getAccounts will get the current wallet's account address. Now one wallet only have one account.
+The getAccounts will return the permitted account list of the current wallet.
 
 ```jsx
 import {useWallet} from '@suiet/wallet-kit';
@@ -241,9 +241,7 @@ function YourComponent() {
 
   function handleGetAccounts() {
     if (!wallet.connected) return
-    getAccounts().then((accounts) => {
-      console.log(accounts);
-    })
+    const accounts = getAccounts()
   }
 }
 ```
@@ -265,7 +263,7 @@ function YourComponent() {
   async function handleSwitchAccount() {
     if (!wallet.connected) return;
 
-    const accounts = await wallet.getAccounts();
+    const accounts = wallet.getAccounts();
     try {
       if (accounts.length > 1) {
         const newAccount = await wallet.switchAccount(accounts[1]);
