@@ -96,10 +96,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
     return walletAdapter && status === ConnectionStatus.CONNECTED;
   };
 
-  const [account, setAccount] = useState<WalletAccount | undefined>(() => {
+  const account = useMemo<WalletAccount | undefined>(() => {
     if (!isCallable(walletAdapter, status)) return;
     return (walletAdapter as IWalletAdapter).accounts[0]; // use first account by default
-  });
+  }, [walletAdapter, status]);
 
   const ensureCallable = (
     walletAdapter: IWalletAdapter | undefined,
@@ -255,31 +255,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
     const [_wallet] = safelyGetWalletAndAccount();
     return _wallet.accounts;
   }, [safelyGetWalletAndAccount]);
-
-  const switchAccount = useCallback(
-    (
-      address: WalletAccount["address"],
-      opts: {
-        onSuccess?: () => void;
-        onError?: (error: Error) => void;
-      } = {}
-    ) => {
-      const [_wallet] = safelyGetWalletAndAccount();
-
-      const account = _wallet.accounts.find((item) => item.address === address);
-
-      if (!account) {
-        opts?.onError?.(new KitError("account not found, or not connected"));
-
-        return;
-      }
-
-      setAccount(account);
-
-      opts?.onSuccess?.();
-    },
-    [safelyGetWalletAndAccount]
-  );
 
   const signAndExecuteTransactionBlock = useCallback(
     async (
@@ -507,7 +482,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
         disconnect,
         on,
         getAccounts,
-        switchAccount,
         account,
         signPersonalMessage,
         signTransaction,
