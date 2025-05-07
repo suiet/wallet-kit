@@ -97,6 +97,7 @@ Here is an example for signing a simple message "Hello World".
 > use [TextEncoder](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder) to encode and decode.
 
 
+
 ```tsx
 import {useWallet} from '@suiet/wallet-kit'
 import * as tweetnacl from 'tweetnacl'
@@ -228,9 +229,9 @@ Get all the accessible accounts returned by wallet.
 
 | Type                    | Default |
 | ----------------------- | ------- |
-| () => Promise<string[]> |         |
+| () => string[] |         |
 
-The getAccounts will get the current wallet's account address. Now one wallet only have one account.
+The getAccounts will return the permitted account list of the current wallet.
 
 ```jsx
 import {useWallet} from '@suiet/wallet-kit';
@@ -240,12 +241,52 @@ function YourComponent() {
 
   function handleGetAccounts() {
     if (!wallet.connected) return
-    getAccounts().then((accounts) => {
-      console.log(accounts);
-    })
+    const accounts = getAccounts()
   }
 }
 ```
+
+### switchAccount
+
+Switches the current main `account` to the one with the given address. Accepts optional callbacks for success and error handling.
+
+| Type                                                                                                      | Default |
+| --------------------------------------------------------------------------------------------------------- | ------- |
+| `(address: string) => Promise<WalletAccount>` |         |
+
+```tsx
+import { useWallet } from "@suiet/wallet-kit";
+
+function YourComponent() {
+  const wallet = useWallet();
+
+  async function handleSwitchAccount() {
+    if (!wallet.connected) return;
+
+    const accounts = wallet.getAccounts();
+    try {
+      if (accounts.length > 1) {
+        const newAccount = await wallet.switchAccount(accounts[1]);
+        console.log('Successfully switched to new account: ', newAccount)
+      } else {
+        console.log('Failed to switch account due to only one proposed account by wallet')
+      }
+    } catch (e) {
+      console.error("Failed to switch account:", e);
+    }
+  }
+
+  return <button onClick={handleSwitchAccount}>Switch Account</button>;
+}
+```
+
+:::caution
+Make sure the address you're switching to is available in the wallet's accounts. You can use `getAccounts()` to get the list of available addresses first.
+:::
+
+:::tip
+The `opts` parameter is optional. You can provide either both callbacks, just one, or none at all depending on your needs.
+:::
 
 ### chains
 

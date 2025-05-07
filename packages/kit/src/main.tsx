@@ -215,6 +215,28 @@ function App() {
     console.log("Environment detection results:", envInfo);
   };
 
+
+  const handleSwitchAccount = async (address: string) => {
+    const newAccount = await wallet.switchAccount(address);
+    console.log("switch account to: ", newAccount);
+  }
+
+  const renderWalletAccounts = () => {
+    if (!wallet.connected) return null;
+    const accounts = wallet.getAccounts();
+    if (!accounts?.length) return null;
+    return <ol>
+      {accounts.map((account) => {
+        return <li key={account.address} onClick={() => handleSwitchAccount(account.address)}
+          style={{ cursor: "pointer" }}
+        >
+          <p>address: {account.address}</p>
+          <p>publicKey: {account.publicKey ?? "not supported"}</p>
+        </li>
+      })}
+    </ol>;
+  }
+
   // @ts-ignore
   return (
     <div
@@ -276,6 +298,8 @@ function App() {
             </p>
             <p>account address: {wallet.account?.address}</p>
             <p>account publicKey: {getPublicKey() || "not supported"}</p>
+            <p>Available Accounts:</p>
+            {renderWalletAccounts()}
             <p>
               current chain: {wallet.chain?.name} (id: {wallet.chain?.id})
             </p>

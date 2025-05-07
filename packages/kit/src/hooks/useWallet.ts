@@ -45,7 +45,7 @@ export interface WalletContextState {
   select: (walletName: string) => Promise<void>;
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
-
+  switchAccount: (address: WalletAccount["address"]) => Promise<WalletAccount>;
   signAndExecuteTransaction<Output extends SuiSignAndExecuteTransactionOutput>(
     input: Omit<SuiSignAndExecuteTransactionInput, "account" | "chain">,
     options?: ExecuteTransactionOptions
@@ -133,6 +133,9 @@ const DEFAULT_CONTEXT: WalletContextState = {
   },
   getAccounts() {
     throw new KitError(missProviderMessage("getAccounts"));
+  },
+  switchAccount() {
+    throw new KitError(missProviderMessage("switchAccount"));
   },
   async signTransaction() {
     throw new KitError(missProviderMessage("signTransaction"));

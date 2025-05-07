@@ -96,10 +96,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
     return walletAdapter && status === ConnectionStatus.CONNECTED;
   };
 
-  const account = useMemo<WalletAccount | undefined>(() => {
-    if (!isCallable(walletAdapter, status)) return;
-    return (walletAdapter as IWalletAdapter).accounts[0]; // use first account by default
-  }, [walletAdapter, status]);
+  const [account, setAccount] = useState<WalletAccount | undefined>(undefined);
 
   const ensureCallable = (
     walletAdapter: IWalletAdapter | undefined,
@@ -116,7 +113,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   ] => {
     ensureCallable(walletAdapter, status);
     if (!account) {
-      throw new KitError("no active account");
+      throw new KitError("no active account connected");
     }
     const _wallet = walletAdapter as IWalletAdapter;
     return [_wallet, account];
@@ -139,12 +136,14 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
         setWalletAdapter(adapter);
         setStatus(ConnectionStatus.CONNECTED);
+        setAccount(res.accounts[0]); // select the first account by default
 
         const storage = new Storage();
         storage.setItem(StorageKey.LAST_CONNECT_WALLET_NAME, adapter.name);
         return res;
       } catch (e) {
         setWalletAdapter(undefined);
+        setAccount(undefined);
         setStatus(ConnectionStatus.DISCONNECTED);
         throw e;
       }
@@ -183,6 +182,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
       }
     } finally {
       setWalletAdapter(undefined);
+      setAccount(undefined);
       setStatus(ConnectionStatus.DISCONNECTED);
       setChain(chains?.[0] ?? UnknownChain);
     }
@@ -255,6 +255,22 @@ export const WalletProvider = (props: WalletProviderProps) => {
     const [_wallet] = safelyGetWalletAndAccount();
     return _wallet.accounts;
   }, [safelyGetWalletAndAccount]);
+
+  const switchAccount = useCallback(
+    async (address: WalletAccount["address"]) => {
+      const [_wallet] = safelyGetWalletAndAccount();
+
+      const account = _wallet.accounts.find((item) => item.address === address);
+
+      if (!account) {
+        throw new KitError(`account not found with address: ${address}`);
+      }
+
+      setAccount(account);
+      return account;
+    },
+    [safelyGetWalletAndAccount]
+  );
 
   const signAndExecuteTransactionBlock = useCallback(
     async (
@@ -478,11 +494,13 @@ export const WalletProvider = (props: WalletProviderProps) => {
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
+        account,
+        address: account?.address,
         select,
         disconnect,
         on,
         getAccounts,
-        account,
+        switchAccount,
         signPersonalMessage,
         signTransaction,
         signAndExecuteTransaction,
@@ -493,7 +511,6 @@ export const WalletProvider = (props: WalletProviderProps) => {
         verifySignedPersonalMessage,
         verifySignedTransaction,
         verifySignedMessage,
-        address: account?.address,
       }}
     >
       <QueryClientProvider client={new QueryClient()}>
