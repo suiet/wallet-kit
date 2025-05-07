@@ -224,7 +224,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   const on = useCallback(
     (event: WalletEvent, listener: WalletEventListeners[WalletEvent]) => {
-      const [_wallet] = safelyGetWalletAndAccount();
+      const _wallet = safelyGetWallet();
 
       // filter event and params to decide when to emit
       const off = _wallet.on("change", (params) => {
@@ -252,7 +252,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
       walletOffListeners.current.push(off); // should help user manage off cleaners
       return off;
     },
-    [safelyGetWalletAndAccount]
+    [safelyGetWallet]
   );
 
   const getAccounts = useCallback(() => {
