@@ -10394,7 +10394,7 @@ snapshots:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@mysten/bcs': 1.1.0
       '@noble/curves': 1.6.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.5.0
       '@scure/bip39': 1.4.0
       '@suchipi/femver': 1.0.0
@@ -10451,7 +10451,7 @@ snapshots:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@mysten/bcs': 1.0.4
       '@noble/curves': 1.6.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.5.0
       '@scure/bip39': 1.4.0
       '@suchipi/femver': 1.0.0
@@ -10470,7 +10470,7 @@ snapshots:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
       '@mysten/bcs': 1.0.4
       '@noble/curves': 1.6.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.8.0
       '@scure/bip32': 1.5.0
       '@scure/bip39': 1.4.0
       '@suchipi/femver': 1.0.0

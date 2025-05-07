@@ -78,4 +78,49 @@ function WalletSelector() {
 }
 ```
 
-T
+### Switch between accounts
+
+Once connected, users may want to switch between different accounts in their wallet. You can use `switchAccount` method to achieve this:
+
+```jsx
+import { useWallet } from '@suiet/wallet-kit';
+
+function AccountSwitcher() {
+  const wallet = useWallet();
+
+  async function handleSwitchAccount(address) {
+    if (!wallet.connected) return
+    try {
+      const newAccount = await wallet.switchAccount(address);
+      console.log('Successfully switched to account:', newAccount);
+    } catch (e) {
+      console.error('Failed to switch account:', e);
+    }
+  }
+
+  const renderWalletAccounts = () => {
+    if (!wallet.connected) return null;
+    const accounts = wallet.getAccounts();
+    if (!accounts?.length) return null;
+    return <ol>
+      {accounts.map((account) => {
+        return <li key={account.address} onClick={() => handleSwitchAccount(account.address)}
+          style={{ cursor: "pointer" }}
+        >
+          <p>address: {account.address}</p>
+          <p>publicKey: {account.publicKey ?? "not supported"}</p>
+        </li>
+      })}
+    </ol>;
+  }
+
+  return (
+    <div>
+      <h3>Your Accounts</h3>
+      {renderWalletAccounts()}
+    </div>
+  );
+}
+```
+
+
