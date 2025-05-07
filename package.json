@@ -18,7 +18,8 @@
     "build:kit": "pnpm --filter @suiet/wallet-kit build",
     "build:website": "pnpm --filter @suiet/wallet-sdk build && pnpm --filter suiet-kit-doc build",
     "dev:sdk": "pnpm --filter @suiet/wallet-sdk dev",
-    "build:sdk": "pnpm --filter @suiet/wallet-sdk build"
+    "build:sdk": "pnpm --filter @suiet/wallet-sdk build",
+    "update:examples": "node ./scripts/update-example-deps.mjs"
   },
   "keywords": [],
   "author": "",
