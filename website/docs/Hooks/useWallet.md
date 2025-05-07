@@ -240,15 +240,19 @@ function YourComponent() {
   const wallet = useWallet();
 
   function handleGetAccounts() {
-    if (!wallet.connected) return
-    const accounts = getAccounts()
+    if (!wallet.connected) return;
+    const accounts = wallet.getAccounts();
+    console.log('Permitted accounts of this wallet:', accounts)
   }
 }
 ```
 
 ### switchAccount
 
-Switches the current main `account` to the one with the given address. Accepts optional callbacks for success and error handling.
+Switches the current main `account` to the one with the given address.
+
+Make sure the address you're switching to is available in the wallet's accounts. You can use `wallet.getAccounts()` to get the list of available accounts.
+
 
 | Type                                                                                                      | Default |
 | --------------------------------------------------------------------------------------------------------- | ------- |
@@ -279,14 +283,6 @@ function YourComponent() {
   return <button onClick={handleSwitchAccount}>Switch Account</button>;
 }
 ```
-
-:::caution
-Make sure the address you're switching to is available in the wallet's accounts. You can use `getAccounts()` to get the list of available addresses first.
-:::
-
-:::tip
-The `opts` parameter is optional. You can provide either both callbacks, just one, or none at all depending on your needs.
-:::
 
 ### chains
 
