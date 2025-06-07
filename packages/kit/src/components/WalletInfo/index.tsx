@@ -12,6 +12,7 @@ import {
   UnknownChain,
   BaseError,
 } from "@suiet/wallet-sdk";
+import { AccountModal } from "../Modal/AccountModal";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
@@ -20,9 +21,9 @@ export type ConnectButtonProps = Extendable & {
 };
 
 function WalletInfo(props: ConnectButtonProps) {
-  const { disconnect, account, chain, connected, name } = useWallet();
+  const { account, chain, connected } = useWallet();
   const { balance } = useAccountBalance();
-  const [showDisconnectButton, setShowDisconnectButton] = useState(false);
+  const [showAccountModal, setShowAccountModal] = useState(false);
 
   const renderBalance = useCallback(() => {
     if (!chain || chain.id === UnknownChain.id) {
@@ -38,66 +39,45 @@ function WalletInfo(props: ConnectButtonProps) {
       className={classnames("wkit-connected-container", props.className)}
       style={props.style}
     >
-      <button
-        className={classnames("wkit-connected-button")}
-        onClick={() => {
-          setShowDisconnectButton(!showDisconnectButton);
-        }}
+      <AccountModal
+        open={showAccountModal}
+        onOpenChange={setShowAccountModal}
+        onDisconnectSuccess={props.onDisconnectSuccess}
+        onDisconnectError={props.onDisconnectError}
       >
-        <span className={"wkit-connected-button__balance"}>
-          {renderBalance()}
-        </span>
-        <div className={"wkit-connected-button__divider"}></div>
-        <div className={"wkit-address-select"}>
-          <div className={"wkit-address-select__content"}>
-            {/* Option 1 */}
-            {(account as any)?.suinsName ? (
-              <>
-                <span className={"wkit-address-select__name"}>
-                  {(account as any).suinsName}
-                </span>
-                <span className={"wkit-address-select__address-secondary"}>
+        <button
+          className={classnames("wkit-connected-button")}
+          onClick={() => {
+            setShowAccountModal(true);
+          }}
+        >
+          <span className={"wkit-connected-button__balance"}>
+            {renderBalance()}
+          </span>
+          <div className={"wkit-connected-button__divider"}></div>
+          <div className={"wkit-address-select"}>
+            <div className={"wkit-address-select__content"}>
+              {(account as any)?.suinsName ? (
+                <>
+                  <span className={"wkit-address-select__name"}>
+                    {(account as any).suinsName}
+                  </span>
+                  <span className={"wkit-address-select__address-secondary"}>
+                    {addressEllipsis((account as WalletAccount)?.address)}
+                  </span>
+                </>
+              ) : (
+                <span className={"wkit-address-select__address"}>
                   {addressEllipsis((account as WalletAccount)?.address)}
                 </span>
-              </>
-            ) : (
-              <span className={"wkit-address-select__address"}>
-                {(account as any)?.suinsName ? 
-                  (account as any).suinsName : 
-                  addressEllipsis((account as WalletAccount)?.address)}
-              </span>
-            )}
-            {/* Option 2 */}
-            {/* <span className={"wkit-address-select__address"}>
-              {(account as any)?.suinsName ? 
-                (account as any).suinsName : 
-                addressEllipsis((account as WalletAccount)?.address)}
-            </span> */}
+              )}
+            </div>
+            <span className={"wkit-address-select__right-arrow"}>
+              <SvgArrowDown />
+            </span>
           </div>
-          <span className={"wkit-address-select__right-arrow"}>
-            <SvgArrowDown />
-          </span>
-        </div>
-      </button>
-      {showDisconnectButton && (
-        <div className="wkit-disconnect-button__container">
-          <button
-            className={"wkit-disconnect-button"}
-            onClick={async () => {
-              setShowDisconnectButton(false);
-              try {
-                await disconnect();
-              } catch (e) {
-                props?.onDisconnectError?.(e as BaseError);
-                return;
-              }
-              props?.onDisconnectSuccess?.(name as string);
-            }}
-          >
-            Disconnect
-          </button>
-        </div>
-      )}
+        </button>
+      </AccountModal>
     </div>
   );
 }
