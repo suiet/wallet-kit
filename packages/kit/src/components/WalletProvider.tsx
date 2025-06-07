@@ -26,7 +26,7 @@ import { useAutoConnect } from "../hooks/useAutoConnect";
 import { Storage } from "../utils/storage";
 import { StorageKey } from "../constants/storage";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { useSuinsName } from "../hooks/useSuinsName";
+import { useSuinsNames } from "../hooks/useSuinsName";
 import { IdentifierString } from "@wallet-standard/core";
 import getActiveChainFromConnectResult from "../utils/getActiveChainFromConnectResult";
 import {
@@ -49,6 +49,7 @@ import {
 import {
   ExecuteTransactionOptions,
   ExecuteTransactionResult,
+  WalletAccountExtended,
 } from "../types/params";
 import { SuiClient } from "@mysten/sui/client";
 import { toB64 } from "@mysten/sui/utils";
@@ -99,11 +100,25 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   const [account, setAccount] = useState<WalletAccount | undefined>(undefined);
   
-  const { primaryName } = useSuinsName({
+  const { defaultName } = useSuinsNames({
     address: account?.address,
-    chainId: chain?.id,
+    chain: chain,
     enabled: !!account?.address,
   });
+
+  // compose wallet account with suins name
+  const walletAccount: WalletAccountExtended | undefined = useMemo(() => {
+    if (!account) return undefined;
+    return {
+      address: account.address,
+      publicKey: account.publicKey,
+      chains: account.chains,
+      features: account.features,
+      label: account.label,
+      icon: account.icon,
+      suinsName: defaultName
+    } as WalletAccountExtended;
+  }, [account, defaultName]);
 
   const ensureCallable = (
     walletAdapter: IWalletAdapter | undefined,
@@ -505,8 +520,8 @@ export const WalletProvider = (props: WalletProviderProps) => {
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
-        account: account ? { ...account, suinsName: primaryName } : undefined,
-        address: account?.address,
+        account: walletAccount,
+        address: walletAccount?.address,
         select,
         disconnect,
         on,
