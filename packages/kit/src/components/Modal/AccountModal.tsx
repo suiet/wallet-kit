@@ -18,6 +18,9 @@ export type AccountModalProps = Extendable & {
 const Header = () => {
   return (
     <div className={"wkit-dialog__header"}>
+    <Dialog.Title className={"wkit-dialog__title"}>
+      {"Account"}
+    </Dialog.Title>
       <Dialog.Close
         style={{ position: "absolute", right: "16px", top: "16px" }}
         className={"wkit-dialog__close"}
@@ -73,12 +76,12 @@ export const AccountModal = (props: AccountModalProps) => {
                 {suinsName}
               </div>
               <div className="wkit-account-modal__address">
-                {account?.address}
+                {addressEllipsis(account?.address ?? '')}
               </div>
             </>
           ) : (
-            <div className="wkit-account-modal__address wkit-account-modal__address--primary">
-              {account?.address}
+            <div className="wkit-account-modal__name">
+              {addressEllipsis(account?.address ?? '')}
             </div>
           )}
         </div>
@@ -89,7 +92,9 @@ export const AccountModal = (props: AccountModalProps) => {
             onClick={handleCopyAddress}
           >
             <SvgCopy />
-            {copySuccess ? 'Copied!' : 'Copy Address'}
+            <span className="wkit-account-modal__action-button-text">
+              {copySuccess ? 'Copied!' : 'Copy Address'}
+            </span>
           </button>
           
           <button
@@ -97,7 +102,9 @@ export const AccountModal = (props: AccountModalProps) => {
             onClick={handleDisconnect}
           >
             <SvgDisconnect />
-            Disconnect
+            <span className="wkit-account-modal__action-button-text wkit-account-modal__action-button-text--danger">
+              Disconnect
+            </span>
           </button>
         </div>
       </div>
