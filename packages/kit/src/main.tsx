@@ -7,6 +7,7 @@ import {
   useSuiClient,
   useSuiProvider,
   useWallet,
+  useSuinsName,
 } from "./hooks";
 import {
   ErrorCode,
@@ -18,6 +19,7 @@ import {
 import { AllDefaultWallets, BrowserEnvDetector } from "@suiet/wallet-sdk";
 import { Transaction } from "@mysten/sui/transactions";
 import { Ed25519PublicKey } from '@mysten/sui/keypairs/ed25519';
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const sampleNft = new Map([
   [
@@ -59,6 +61,8 @@ function App() {
 
   console.log('wallet: ', wallet)
   console.log('chain: ', chain)
+  console.log('account address: ', wallet.account?.address)
+  console.log('account SuinsName: ', wallet.account?.suinsName)
 
   const nftContractAddr = useMemo(() => {
     if (!wallet.chain) return "";
@@ -157,7 +161,7 @@ function App() {
 
   function getPublicKey() {
     // @ts-ignore
-    return wallet.account?.publicKey.toString("hex");
+    return wallet.account?.publicKey?.toString("hex");
   }
 
   const chainName = (chainId: string | undefined) => {
@@ -364,15 +368,19 @@ function App() {
   );
 }
 
+const queryClient = new QueryClient();
+
 const slushWallet = defineSlushWallet({
   appName: "Suiet Wallet Kit",
 });
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <WalletProvider
-      defaultWallets={[...AllDefaultWallets, slushWallet]}
-    >
-      <App />
-    </WalletProvider>
+    <QueryClientProvider client={queryClient}>
+      <WalletProvider
+        defaultWallets={[...AllDefaultWallets, slushWallet]}
+      >
+        <App />
+      </WalletProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
