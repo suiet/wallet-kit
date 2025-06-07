@@ -186,10 +186,10 @@ function App() {
                   ? "connected"
                   : "disconnected"}
               </p>
-              <p>wallet address: {wallet.account?.address}</p>
-              <p>wallet label: {wallet.account?.label || "no label provided"}</p>
+              <p>account address: {wallet.account?.address}</p>
+              <p>account label: {wallet.account?.label || "no label provided"}</p>
               <p>current network: {wallet.chain?.name}</p>
-              <p>wallet balance: {String(balance)} SUI</p>
+              <p>account balance: {String(balance)} SUI</p>
               <p>
                 wallet publicKey: {uint8arrayToHex(wallet.account?.publicKey)}
               </p>

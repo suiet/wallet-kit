@@ -246,7 +246,7 @@ export default function Home() {
                   : "disconnected"}
               </p>
               <p>
-                wallet address: {addressEllipsis(wallet.account?.address ?? "")}
+                account address: {addressEllipsis(wallet.account?.address ?? "")}
               </p>
               <p>account label: {wallet.account?.label || "no label provided"}</p>
               <p>current network: {wallet.chain?.name}</p>

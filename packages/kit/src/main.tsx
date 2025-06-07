@@ -300,6 +300,7 @@ function App() {
             <p>account address: {wallet.account?.address}</p>
             <p>account label: {wallet.account?.label || "no label provided"}</p>
             <p>account publicKey: {getPublicKey() || "not supported"}</p>
+            <br />
             <p>Available Accounts:</p>
             {renderWalletAccounts()}
             <p>
@@ -308,6 +309,7 @@ function App() {
             <p>
               SUI Balance: {formatSUI(balance ?? 0)} (id: {wallet.chain?.id})
             </p>
+            <br />
           </div>
           <div style={{ margin: "8px 0", display: "flex", gap: "8px" }}>
             {nftContractAddr && (
