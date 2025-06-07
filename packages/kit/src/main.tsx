@@ -231,6 +231,7 @@ function App() {
           style={{ cursor: "pointer" }}
         >
           <p>address: {account.address}</p>
+          <p>label: {account.label ?? "no label"}</p>
           <p>publicKey: {account.publicKey ?? "not supported"}</p>
         </li>
       })}
@@ -297,6 +298,7 @@ function App() {
                 : "disconnected"}
             </p>
             <p>account address: {wallet.account?.address}</p>
+            <p>account label: {wallet.account?.label || "no label provided"}</p>
             <p>account publicKey: {getPublicKey() || "not supported"}</p>
             <p>Available Accounts:</p>
             {renderWalletAccounts()}
