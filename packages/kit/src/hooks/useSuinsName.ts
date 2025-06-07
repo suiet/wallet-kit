@@ -18,7 +18,7 @@ export interface UseSuinsNameResult {
   error: any;
 }
 
-export function useSuinsNames(params?: UseSuinsNameParams): UseSuinsNameResult {
+export function useSuinsName(params?: UseSuinsNameParams): UseSuinsNameResult {
   const {
     address,
     chain,

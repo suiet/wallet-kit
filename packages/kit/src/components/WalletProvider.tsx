@@ -26,7 +26,7 @@ import { useAutoConnect } from "../hooks/useAutoConnect";
 import { Storage } from "../utils/storage";
 import { StorageKey } from "../constants/storage";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { useSuinsNames } from "../hooks/useSuinsName";
+import { useSuinsName } from "../hooks/useSuinsName";
 import { IdentifierString } from "@wallet-standard/core";
 import getActiveChainFromConnectResult from "../utils/getActiveChainFromConnectResult";
 import {
@@ -100,7 +100,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
 
   const [account, setAccount] = useState<WalletAccount | undefined>(undefined);
   
-  const { defaultName } = useSuinsNames({
+  const { defaultName } = useSuinsName({
     address: account?.address,
     chain: chain,
     enabled: !!account?.address,
