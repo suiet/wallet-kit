@@ -108,10 +108,7 @@ export default function Home() {
       const result = await wallet.signPersonalMessage({
         message: msgBytes,
       });
-      const verifyResult = await wallet.verifySignedMessage(
-        result,
-        wallet.account.publicKey
-      );
+      const verifyResult = await wallet.verifySignedPersonalMessage(result);
       console.log("verify signedMessage", verifyResult);
       if (!verifyResult) {
         alert(`signMessage succeed, but verify signedMessage failed`);
@@ -251,6 +248,7 @@ export default function Home() {
               <p>
                 wallet address: {addressEllipsis(wallet.account?.address ?? "")}
               </p>
+              <p>account label: {wallet.account?.label || "no label provided"}</p>
               <p>current network: {wallet.chain?.name}</p>
               <p>
                 wallet balance:{" "}
