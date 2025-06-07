@@ -1,36 +1,34 @@
 import { useQuery } from "react-query";
 import { QueryKey, queryKey } from "../constants";
 import { useCallback } from "react";
-import { useChain } from "./useChain";
 import { SuiClient } from "@mysten/sui/client";
-import { resolveAddressToSuiNSNames } from "@suiet/wallet-sdk";
+import { Chain, resolveAddressToSuiNSNames } from "@suiet/wallet-sdk";
 
 export interface UseSuinsNameParams {
-  address?: string;
-  chainId?: string;
-  cacheDuration?: number;
+  address: string | undefined;
+  chain: Chain | undefined;
   enabled?: boolean;
+  cacheDuration?: number;
 }
 
 export interface UseSuinsNameResult {
+  defaultName: string | null;
   names: string[];
-  primaryName: string | null;
-  isLoading: boolean;
+  loading: boolean;
   error: any;
 }
 
-export function useSuinsName(params?: UseSuinsNameParams): UseSuinsNameResult {
+export function useSuinsNames(params?: UseSuinsNameParams): UseSuinsNameResult {
   const {
     address,
-    chainId,
+    chain,
     cacheDuration = 5 * 60 * 1000,
     enabled = true,
   } = params || {};
-  const chain = useChain(chainId);
 
   const key = queryKey(QueryKey.SUINS_NAME, {
     address,
-    chainId,
+    chainId: chain?.id,
   });
 
   const resolveSuinsNames = useCallback(async () => {
@@ -39,7 +37,8 @@ export function useSuinsName(params?: UseSuinsNameParams): UseSuinsNameResult {
     const suiClient = new SuiClient({
       url: chain.rpcUrl,
     });
-    return resolveAddressToSuiNSNames(suiClient, address);
+    const names = await resolveAddressToSuiNSNames(suiClient, address);
+    return names;
   }, [chain, address]);
 
   const { data: names = [], isLoading, error } = useQuery(key, resolveSuinsNames, {
@@ -49,9 +48,9 @@ export function useSuinsName(params?: UseSuinsNameParams): UseSuinsNameResult {
   });
 
   return {
+    defaultName: names.length > 0 ? names[0] : null,
     names,
-    primaryName: names.length > 0 ? names[0] : null,
-    isLoading,
+    loading: isLoading,
     error,
   };
 }
