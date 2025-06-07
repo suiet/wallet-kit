@@ -112,10 +112,7 @@ function App() {
       const result = await wallet.signPersonalMessage({
         message: msgBytes,
       });
-      const verifyResult = await wallet.verifySignedMessage(
-        result,
-        wallet.account.publicKey as any
-      );
+      const verifyResult = await wallet.verifySignedPersonalMessage(result);
       console.log("verify signedMessage", verifyResult);
       if (!verifyResult) {
         alert(`signMessage succeed, but verify signedMessage failed`);
@@ -217,6 +214,7 @@ function App() {
                   : "disconnected"}
               </p>
               <p>wallet address: {wallet.account?.address}</p>
+              <p>wallet label: {wallet.account?.label || "no label provided"}</p>
               <p>current network: {wallet.chain?.name}</p>
               <p>
                 wallet balance:{" "}
