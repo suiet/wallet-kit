@@ -26,6 +26,7 @@ import { useAutoConnect } from "../hooks/useAutoConnect";
 import { Storage } from "../utils/storage";
 import { StorageKey } from "../constants/storage";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { useSuinsName } from "../hooks/useSuinsName";
 import { IdentifierString } from "@wallet-standard/core";
 import getActiveChainFromConnectResult from "../utils/getActiveChainFromConnectResult";
 import {
@@ -97,6 +98,12 @@ export const WalletProvider = (props: WalletProviderProps) => {
   };
 
   const [account, setAccount] = useState<WalletAccount | undefined>(undefined);
+  
+  const { primaryName } = useSuinsName({
+    address: account?.address,
+    chainId: chain?.id,
+    enabled: !!account?.address,
+  });
 
   const ensureCallable = (
     walletAdapter: IWalletAdapter | undefined,
@@ -498,7 +505,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
-        account,
+        account: account ? { ...account, suinsName: primaryName } : undefined,
         address: account?.address,
         select,
         disconnect,
