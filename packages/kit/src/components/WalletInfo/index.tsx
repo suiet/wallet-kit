@@ -50,6 +50,7 @@ function WalletInfo(props: ConnectButtonProps) {
         <div className={"wkit-connected-button__divider"}></div>
         <div className={"wkit-address-select"}>
           <div className={"wkit-address-select__content"}>
+            {/* Option 1 */}
             {(account as any)?.suinsName ? (
               <>
                 <span className={"wkit-address-select__name"}>
@@ -61,9 +62,17 @@ function WalletInfo(props: ConnectButtonProps) {
               </>
             ) : (
               <span className={"wkit-address-select__address"}>
-                {addressEllipsis((account as WalletAccount)?.address)}
+                {(account as any)?.suinsName ? 
+                  (account as any).suinsName : 
+                  addressEllipsis((account as WalletAccount)?.address)}
               </span>
             )}
+            {/* Option 2 */}
+            {/* <span className={"wkit-address-select__address"}>
+              {(account as any)?.suinsName ? 
+                (account as any).suinsName : 
+                addressEllipsis((account as WalletAccount)?.address)}
+            </span> */}
           </div>
           <span className={"wkit-address-select__right-arrow"}>
             <SvgArrowDown />
