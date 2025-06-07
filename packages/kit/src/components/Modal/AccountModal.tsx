@@ -1,0 +1,124 @@
+import React, { useCallback, useState } from "react";
+import { BaseModal } from "./BaseModal";
+import { Extendable } from "../../types/utils";
+import * as Dialog from "@radix-ui/react-dialog";
+import { SvgClose, SvgCopy, SvgDisconnect } from "../Icon/SvgIcons";
+import { useWallet } from "../../hooks";
+import { addressEllipsis, BaseError } from "@suiet/wallet-sdk";
+import type { WalletAccount } from "@mysten/wallet-standard";
+import "./index.scss";
+
+export type AccountModalProps = Extendable & {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  onDisconnectSuccess?: (walletName: string) => void;
+  onDisconnectError?: (error: BaseError) => void;
+};
+
+const Header = () => {
+  return (
+    <div className={"wkit-dialog__header"}>
+      <Dialog.Close
+        style={{ position: "absolute", right: "16px", top: "16px" }}
+        className={"wkit-dialog__close"}
+      >
+        <SvgClose />
+      </Dialog.Close>
+    </div>
+  );
+};
+
+export const AccountModal = (props: AccountModalProps) => {
+  const { disconnect, account, name } = useWallet();
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  const {
+    onDisconnectSuccess = () => {},
+    onDisconnectError = (err) => {
+      throw err;
+    },
+  } = props;
+
+  const handleCopyAddress = useCallback(async () => {
+    if (!account?.address) return;
+    
+    try {
+      await navigator.clipboard.writeText(account.address);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (error) {
+      console.warn('Failed to copy address:', error);
+    }
+  }, [account?.address]);
+
+  const handleDisconnect = useCallback(async () => {
+    try {
+      await disconnect();
+      props.onOpenChange?.(false);
+      onDisconnectSuccess(name as string);
+    } catch (error) {
+      onDisconnectError(error as BaseError);
+    }
+  }, [disconnect, name, onDisconnectSuccess, onDisconnectError, props]);
+
+  const renderAccountInfo = () => {
+    const suinsName = (account as any)?.suinsName;
+    
+    return (
+      <div className="wkit-account-modal__content">
+        <div className="wkit-account-modal__info">
+          {suinsName ? (
+            <>
+              <div className="wkit-account-modal__name">
+                {suinsName}
+              </div>
+              <div className="wkit-account-modal__address">
+                {account?.address}
+              </div>
+            </>
+          ) : (
+            <div className="wkit-account-modal__address wkit-account-modal__address--primary">
+              {account?.address}
+            </div>
+          )}
+        </div>
+        
+        <div className="wkit-account-modal__actions">
+          <button
+            className="wkit-account-modal__action-button"
+            onClick={handleCopyAddress}
+          >
+            <SvgCopy />
+            {copySuccess ? 'Copied!' : 'Copy Address'}
+          </button>
+          
+          <button
+            className="wkit-account-modal__action-button wkit-account-modal__action-button--disconnect"
+            onClick={handleDisconnect}
+          >
+            <SvgDisconnect />
+            Disconnect
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <BaseModal
+      open={props.open}
+      onOpenChange={props.onOpenChange}
+      trigger={props.children}
+      contentProps={{
+        onOpenAutoFocus: (e: Event) => {
+          e.preventDefault();
+        },
+      }}
+    >
+      <Header />
+      {renderAccountInfo()}
+    </BaseModal>
+  );
+};
+
+export default AccountModal;
