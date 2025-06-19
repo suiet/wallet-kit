@@ -83,11 +83,76 @@ First, figure out the CSS class name of the component you want to customize. For
 
 ![customize-css-instruction](../../static/img/customize-css-instruction.png)
 
+## CSS Class Names Reference
+
+Below are the CSS class names used by different components that you can customize:
+
+### AccountModal Component
+
+| CSS Class Name | Description |
+| --- | --- |
+| `wkit-account-modal__content` | Main content container of the account modal |
+| `wkit-account-modal__info` | Information section containing name and address |
+| `wkit-account-modal__name` | Display name or SuiNS name |
+| `wkit-account-modal__address` | Wallet address display |
+| `wkit-account-modal__address--primary` | Primary address variant (when no SuiNS name) |
+| `wkit-account-modal__actions` | Container for action buttons |
+| `wkit-account-modal__action-button` | Individual action button (copy, disconnect) |
+| `wkit-account-modal__action-button--disconnect` | Disconnect button variant |
+| `wkit-account-modal__action-button-text` | Text inside action buttons |
+| `wkit-account-modal__action-button-text--danger` | Danger text variant for disconnect |
+
+### Dialog/Modal Shared Classes
+
+| CSS Class Name | Description |
+| --- | --- |
+| `wkit-dialog__overlay` | Modal overlay background |
+| `wkit-dialog__content` | Modal content container |
+| `wkit-dialog__header` | Modal header section |
+| `wkit-dialog__title` | Modal title text |
+| `wkit-dialog__close` | Close button |
+
+### ConnectModal Component
+
+| CSS Class Name | Description |
+| --- | --- |
+| `wkit-select__scroll` | Scrollable wallet list container |
+| `wkit-select__container` | Wallet section container |
+| `wkit-select__title` | Section title (e.g., "Popular", "Others") |
+| `wkit-select-item` | Individual wallet item |
+| `wkit-select-item__icon` | Wallet icon container |
+| `wkit-select-item__icon-img` | Wallet icon image |
+
+### Button Component
+
+| CSS Class Name | Description |
+| --- | --- |
+| `wkit-button` | Main connect button |
+
 Then override the styles in your own CSS file.
 
 ```scss title="./suiet-wallet-kit-custom.css"
 .wkit-button {
   height: 64px; // For example, override the height of the button
+}
+
+/* Customize AccountModal */
+.wkit-account-modal__content {
+  padding: 24px 0; // Increase padding
+}
+
+.wkit-account-modal__name {
+  color: #2563eb; // Change name color to blue
+  font-size: 20px; // Increase font size
+}
+
+.wkit-account-modal__action-button {
+  border-radius: 8px; // Make buttons more rounded
+  padding: 12px 16px; // Increase button padding
+}
+
+.wkit-account-modal__action-button--disconnect {
+  background-color: rgba(220, 38, 38, 0.1); // Custom disconnect button color
 }
 ```
 
