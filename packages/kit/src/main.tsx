@@ -302,6 +302,7 @@ function App() {
                 : "disconnected"}
             </p>
             <p>account address: {wallet.account?.address}</p>
+            <p>account suinsName: {wallet.account?.suinsName}</p>
             <p>account label: {wallet.account?.label || "no label provided"}</p>
             <p>account publicKey: {getPublicKey() || "not supported"}</p>
             <br />
