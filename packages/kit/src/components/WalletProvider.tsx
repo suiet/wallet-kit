@@ -26,6 +26,7 @@ import { useAutoConnect } from "../hooks/useAutoConnect";
 import { Storage } from "../utils/storage";
 import { StorageKey } from "../constants/storage";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { useSuinsName } from "../hooks/useSuinsName";
 import { IdentifierString } from "@wallet-standard/core";
 import getActiveChainFromConnectResult from "../utils/getActiveChainFromConnectResult";
 import {
@@ -48,6 +49,7 @@ import {
 import {
   ExecuteTransactionOptions,
   ExecuteTransactionResult,
+  WalletAccountExtended,
 } from "../types/params";
 import { SuiClient } from "@mysten/sui/client";
 import { toB64 } from "@mysten/sui/utils";
@@ -58,6 +60,8 @@ export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
   chains?: Chain[];
   autoConnect?: boolean;
+  useLegacyDisconnectDropdown?: boolean;
+  enableSuiNS?: boolean;
 };
 
 export const WalletProvider = (props: WalletProviderProps) => {
@@ -66,6 +70,8 @@ export const WalletProvider = (props: WalletProviderProps) => {
     chains = DefaultChains,
     autoConnect = true,
     children,
+    useLegacyDisconnectDropdown = false,
+    enableSuiNS = true,
   } = props;
 
   const { allAvailableWallets, configuredWallets, detectedWallets } =
@@ -97,6 +103,26 @@ export const WalletProvider = (props: WalletProviderProps) => {
   };
 
   const [account, setAccount] = useState<WalletAccount | undefined>(undefined);
+  
+  const { defaultName } = useSuinsName({
+    address: account?.address,
+    chain: chain,
+    enabled: enableSuiNS && !!account?.address,
+  });
+
+  // compose wallet account with suins name
+  const walletAccount: WalletAccountExtended | undefined = useMemo(() => {
+    if (!account) return undefined;
+    return {
+      address: account.address,
+      publicKey: account.publicKey,
+      chains: account.chains,
+      features: account.features,
+      label: account.label,
+      icon: account.icon,
+      suinsName: defaultName
+    } as WalletAccountExtended;
+  }, [account, defaultName]);
 
   const ensureCallable = (
     walletAdapter: IWalletAdapter | undefined,
@@ -498,8 +524,10 @@ export const WalletProvider = (props: WalletProviderProps) => {
         status,
         connecting: status === ConnectionStatus.CONNECTING,
         connected: status === ConnectionStatus.CONNECTED,
-        account,
-        address: account?.address,
+        account: walletAccount,
+        address: walletAccount?.address,
+        useLegacyDisconnectDropdown,
+        enableSuiNS,
         select,
         disconnect,
         on,
