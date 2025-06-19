@@ -62,9 +62,19 @@ export type WalletProviderProps = Extendable & {
   autoConnect?: boolean;
   useLegacyDisconnectDropdown?: boolean;
   enableSuiNS?: boolean;
+  reactQueryClient?: QueryClient;
 };
 
 export const WalletProvider = (props: WalletProviderProps) => {
+  const { reactQueryClient = new QueryClient() } = props;
+  return (
+    <QueryClientProvider client={reactQueryClient}>
+      <WalletProviderInternal {...props} />
+    </QueryClientProvider>
+  )
+}
+
+export const WalletProviderInternal = (props: WalletProviderProps) => {
   const {
     defaultWallets = AllDefaultWallets,
     chains = DefaultChains,
@@ -545,11 +555,9 @@ export const WalletProvider = (props: WalletProviderProps) => {
         verifySignedMessage,
       }}
     >
-      <QueryClientProvider client={new QueryClient()}>
-        <SuiClientContext.Provider value={suiClient}>
-          {children}
-        </SuiClientContext.Provider>
-      </QueryClientProvider>
+      <SuiClientContext.Provider value={suiClient}>
+        {children}
+      </SuiClientContext.Provider>
     </WalletContext.Provider>
   );
 };
