@@ -60,6 +60,7 @@ export type WalletProviderProps = Extendable & {
   defaultWallets?: IDefaultWallet[];
   chains?: Chain[];
   autoConnect?: boolean;
+  useLegacyDisconnectDropdown?: boolean;
 };
 
 export const WalletProvider = (props: WalletProviderProps) => {
@@ -522,6 +523,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
         connected: status === ConnectionStatus.CONNECTED,
         account: walletAccount,
         address: walletAccount?.address,
+        useLegacyDisconnectDropdown: props.useLegacyDisconnectDropdown,
         select,
         disconnect,
         on,

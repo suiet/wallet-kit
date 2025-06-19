@@ -378,6 +378,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <WalletProvider
         defaultWallets={[...AllDefaultWallets, slushWallet]}
+        useLegacyDisconnectDropdown={false}
       >
         <App />
       </WalletProvider>
