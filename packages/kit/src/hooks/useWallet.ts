@@ -27,6 +27,7 @@ import {
 import {
   ExecuteTransactionOptions,
   ExecuteTransactionResult,
+  WalletAccountExtended,
 } from "../types/params";
 
 export interface WalletContextState {
@@ -37,11 +38,13 @@ export interface WalletContextState {
   chain: Chain | undefined;
   name: string | undefined; // name of the connected wallet
   adapter: IWalletAdapter | undefined; // adapter provided by the connected wallet
-  account: WalletAccount | undefined; // current account (the first account of accounts)
+  account: WalletAccountExtended | undefined; // current account (the first account of accounts)
   address: string | undefined; // alias for account.address
   connecting: boolean;
   connected: boolean;
   status: "disconnected" | "connected" | "connecting";
+  useLegacyDisconnectDropdown: boolean;
+  enableSuiNS: boolean;
   select: (walletName: string) => Promise<void>;
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
@@ -122,6 +125,8 @@ const DEFAULT_CONTEXT: WalletContextState = {
   account: undefined,
   status: ConnectionStatus.DISCONNECTED,
   address: undefined,
+  useLegacyDisconnectDropdown: false,
+  enableSuiNS: true,
   async select() {
     throw new KitError(missProviderMessage("select"));
   },

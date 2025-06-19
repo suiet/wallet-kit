@@ -57,6 +57,12 @@ export interface WalletAccount {
 }
 ```
 
+## WalletAccountExtended
+
+```ts
+export type WalletAccountExtended = WalletAccount  & { suinsName: string | null }
+```
+
 ## IWalletAdapter
 
 https://github.com/suiet/wallet-kit/blob/main/packages/kit/src/types/wallet.ts#L39

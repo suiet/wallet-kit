@@ -5,3 +5,4 @@ export * from "./wallet";
 export * from "./wallet-standard";
 export * from "./chain";
 export * from "./error-handling";
+export * from "./suins";

@@ -12,16 +12,21 @@ import {
   UnknownChain,
   BaseError,
 } from "@suiet/wallet-sdk";
+import { AccountModal } from "../Modal/AccountModal";
 
 export type ConnectButtonProps = Extendable & {
   label?: string;
+  showLegacyDisconnectDropdown?: boolean;
   onDisconnectSuccess?: (walletName: string) => void;
   onDisconnectError?: (error: BaseError) => void;
 };
 
+
+
 function WalletInfo(props: ConnectButtonProps) {
-  const { disconnect, account, chain, connected, name } = useWallet();
+  const { account, chain, connected, disconnect, name, useLegacyDisconnectDropdown } = useWallet();
   const { balance } = useAccountBalance();
+  const [showAccountModal, setShowAccountModal] = useState(false);
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
 
   const renderBalance = useCallback(() => {
@@ -32,16 +37,16 @@ function WalletInfo(props: ConnectButtonProps) {
     return <>{formatSUI(balance ?? 0)} SUI</>;
   }, [balance, chain]);
 
-  if (!connected) return null;
-  return (
-    <div
-      className={classnames("wkit-connected-container", props.className)}
-      style={props.style}
-    >
+  const renderConnectButton = () => {
+    return (
       <button
         className={classnames("wkit-connected-button")}
         onClick={() => {
-          setShowDisconnectButton(!showDisconnectButton);
+          if (useLegacyDisconnectDropdown) {
+            setShowDisconnectButton(!showDisconnectButton);
+          } else {
+            setShowAccountModal(true);
+          }
         }}
       >
         <span className={"wkit-connected-button__balance"}>
@@ -49,33 +54,72 @@ function WalletInfo(props: ConnectButtonProps) {
         </span>
         <div className={"wkit-connected-button__divider"}></div>
         <div className={"wkit-address-select"}>
-          <span className={"wkit-address-select__address"}>
-            {addressEllipsis((account as WalletAccount)?.address)}
-          </span>
+          <div className={"wkit-address-select__content"}>
+            <span className={"wkit-address-select__address"}>
+              {(account as any)?.suinsName ?? addressEllipsis((account as WalletAccount)?.address)}
+            </span>
+          </div>
           <span className={"wkit-address-select__right-arrow"}>
             <SvgArrowDown />
           </span>
         </div>
       </button>
-      {showDisconnectButton && (
-        <div className="wkit-disconnect-button__container">
-          <button
-            className={"wkit-disconnect-button"}
-            onClick={async () => {
-              setShowDisconnectButton(false);
-              try {
-                await disconnect();
-              } catch (e) {
-                props?.onDisconnectError?.(e as BaseError);
-                return;
-              }
-              props?.onDisconnectSuccess?.(name as string);
-            }}
-          >
-            Disconnect
-          </button>
-        </div>
-      )}
+    )
+  }
+  
+  const renderLegacyDisconnectDropdown = () => {
+    if (!showDisconnectButton) return null
+    return (
+      <div className="wkit-disconnect-button__container">
+        <button
+          className={"wkit-disconnect-button"}
+          onClick={async () => {
+            setShowDisconnectButton(false);
+            try {
+              await disconnect();
+            } catch (e) {
+              props?.onDisconnectError?.(e as BaseError);
+              return;
+            }
+            props?.onDisconnectSuccess?.(name as string);
+          }}
+        >
+          Disconnect
+        </button>
+      </div>
+    )
+  }
+
+  const renderAccountModal = () => {
+    return (
+      <AccountModal
+        open={showAccountModal}
+        onOpenChange={setShowAccountModal}
+        onDisconnectSuccess={props.onDisconnectSuccess}
+        onDisconnectError={props.onDisconnectError}
+      >
+        {renderConnectButton()}
+      </AccountModal>
+    )
+  }
+
+  const renderWalletInfo = () => {
+    if (useLegacyDisconnectDropdown) {
+      return <>
+        {renderConnectButton()}
+        {renderLegacyDisconnectDropdown()}
+      </>
+    }
+    return renderAccountModal()
+  }
+
+  if (!connected) return null;
+  return (
+    <div
+      className={classnames("wkit-connected-container", props.className)}
+      style={props.style}
+    >
+      {renderWalletInfo()}
     </div>
   );
 }
