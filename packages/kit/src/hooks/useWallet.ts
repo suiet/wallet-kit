@@ -27,6 +27,7 @@ import {
 import {
   ExecuteTransactionOptions,
   ExecuteTransactionResult,
+  WalletAccountExtended,
 } from "../types/params";
 
 export interface WalletContextState {
@@ -37,7 +38,7 @@ export interface WalletContextState {
   chain: Chain | undefined;
   name: string | undefined; // name of the connected wallet
   adapter: IWalletAdapter | undefined; // adapter provided by the connected wallet
-  account: (WalletAccount & { suinsName?: string | null }) | undefined; // current account (the first account of accounts)
+  account: WalletAccountExtended | undefined; // current account (the first account of accounts)
   address: string | undefined; // alias for account.address
   connecting: boolean;
   connected: boolean;
