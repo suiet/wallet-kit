@@ -5,7 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { SvgClose, SvgCopy, SvgDisconnect } from "../Icon/SvgIcons";
 import { useWallet } from "../../hooks";
 import { addressEllipsis, BaseError } from "@suiet/wallet-sdk";
-import type { WalletAccount } from "@mysten/wallet-standard";
+import { copyToClipboard } from "../../utils/copy";
 import "./index.scss";
 
 export type AccountModalProps = Extendable & {
@@ -46,9 +46,11 @@ export const AccountModal = (props: AccountModalProps) => {
     if (!account?.address) return;
     
     try {
-      await navigator.clipboard.writeText(account.address);
-      setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
+      const success = await copyToClipboard(account.address);
+      if (success) {
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      }
     } catch (error) {
       console.warn('Failed to copy address:', error);
     }
