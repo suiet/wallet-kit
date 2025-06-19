@@ -61,6 +61,7 @@ export type WalletProviderProps = Extendable & {
   chains?: Chain[];
   autoConnect?: boolean;
   useLegacyDisconnectDropdown?: boolean;
+  enableSuiNS?: boolean;
 };
 
 export const WalletProvider = (props: WalletProviderProps) => {
@@ -69,6 +70,8 @@ export const WalletProvider = (props: WalletProviderProps) => {
     chains = DefaultChains,
     autoConnect = true,
     children,
+    useLegacyDisconnectDropdown = false,
+    enableSuiNS = true,
   } = props;
 
   const { allAvailableWallets, configuredWallets, detectedWallets } =
@@ -104,7 +107,7 @@ export const WalletProvider = (props: WalletProviderProps) => {
   const { defaultName } = useSuinsName({
     address: account?.address,
     chain: chain,
-    enabled: !!account?.address,
+    enabled: enableSuiNS && !!account?.address,
   });
 
   // compose wallet account with suins name
@@ -523,7 +526,8 @@ export const WalletProvider = (props: WalletProviderProps) => {
         connected: status === ConnectionStatus.CONNECTED,
         account: walletAccount,
         address: walletAccount?.address,
-        useLegacyDisconnectDropdown: props.useLegacyDisconnectDropdown,
+        useLegacyDisconnectDropdown,
+        enableSuiNS,
         select,
         disconnect,
         on,
