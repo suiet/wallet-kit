@@ -201,7 +201,7 @@ The account info in the connected wallet, including address, publicKey etc.
 
 | Type                                       | Default   |
 | ------------------------------------------ | --------- |
-| [WalletAccount](/docs/Types#WalletAccount) | undefined |
+| [WalletAccountExtended](/docs/Types#walletaccountextended) | undefined |
 
 ```ts
 const {connected, account} = useWallet();
@@ -209,6 +209,7 @@ const {connected, account} = useWallet();
 function printAccountInfo() {
   if (!connected) return
   console.log(account?.address)
+  console.log(account?.suinsName)  // should enableSuiNS first
   console.log(account?.publicKey)
 }
 ```
