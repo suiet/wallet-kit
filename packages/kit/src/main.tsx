@@ -379,6 +379,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <WalletProvider
         defaultWallets={[...AllDefaultWallets, slushWallet]}
         useLegacyDisconnectDropdown={false}
+        enableSuiNS={true}
       >
         <App />
       </WalletProvider>
