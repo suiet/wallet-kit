@@ -42,7 +42,8 @@ export interface WalletContextState {
   connecting: boolean;
   connected: boolean;
   status: "disconnected" | "connected" | "connecting";
-  useLegacyDisconnectDropdown: boolean | undefined;
+  useLegacyDisconnectDropdown: boolean;
+  enableSuiNS: boolean;
   select: (walletName: string) => Promise<void>;
   disconnect: () => Promise<void>;
   getAccounts: () => readonly WalletAccount[];
@@ -124,6 +125,7 @@ const DEFAULT_CONTEXT: WalletContextState = {
   status: ConnectionStatus.DISCONNECTED,
   address: undefined,
   useLegacyDisconnectDropdown: false,
+  enableSuiNS: true,
   async select() {
     throw new KitError(missProviderMessage("select"));
   },
