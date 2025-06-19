@@ -376,14 +376,13 @@ const slushWallet = defineSlushWallet({
 });
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <WalletProvider
-        defaultWallets={[...AllDefaultWallets, slushWallet]}
-        useLegacyDisconnectDropdown={false}
-        enableSuiNS={true}
-      >
-        <App />
-      </WalletProvider>
-    </QueryClientProvider>
+    <WalletProvider
+      defaultWallets={[...AllDefaultWallets, slushWallet]}
+      useLegacyDisconnectDropdown={false}
+      enableSuiNS={true}
+      reactQueryClient={queryClient}
+    >
+      <App />
+    </WalletProvider>
   </React.StrictMode>
 );
