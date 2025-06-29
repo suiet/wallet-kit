@@ -13,9 +13,9 @@ export default function Home() {
     <WalletProvider
       defaultWallets={[
         ...AllDefaultWallets,
-        defineSlushWallet({
-          appName: "Suiet Kit Playground",
-        }),
+        // defineSlushWallet({
+        //   appName: "Suiet Kit Playground",
+        // }),
       ]}
     >
       <div className={styles.container}>
