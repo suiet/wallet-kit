@@ -14,9 +14,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <WalletProvider
       defaultWallets={[
         ...AllDefaultWallets,
-        defineSlushWallet({
-          appName: "Suiet Kit Playground",
-        }),
+        // defineSlushWallet({
+        //   appName: "Suiet Kit Playground",
+        // }),
       ]}
     >
       {/* if you want to custiomize you wallet list, please check this doc

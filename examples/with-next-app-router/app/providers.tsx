@@ -18,9 +18,9 @@ const Providers: FC<any> = ({ children }) => {
     <WalletProvider
       defaultWallets={[
         ...AllDefaultWallets,
-        // defineSlushWallet({
-        //   appName: "Suiet Kit Playground",
-        // }),
+        defineSlushWallet({
+          appName: "Suiet Kit Playground",
+        }),
       ]}
     >
       {children}
