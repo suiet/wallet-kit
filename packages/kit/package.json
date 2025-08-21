@@ -27,7 +27,7 @@
   "dependencies": {
     "@mysten/slush-wallet": "0.1.0",
     "@mysten/sui": "1.28.2",
-    "@mysten/wallet-standard": "0.14.7",
+    "@mysten/wallet-standard": "0.16.12",
     "@mysten/zksend": "0.11.0",
     "@radix-ui/react-dialog": "1.0.2",
     "@suiet/wallet-sdk": "workspace:*",
