@@ -18,7 +18,7 @@ export enum PresetWalletId {
 // SHOULD match with what wallets register
 export enum PresetWallet {
   SUIET_WALLET = "Suiet",
-  SLUSH_WALLET = "Sui Wallet",
+  SLUSH_WALLET = "Slush — A Sui Wallet",
   SLUSH_WEB_WALLET = "Slush",
   PHANTOM_WALLET = "Phantom",
   OKX_WALLET = "OKX Wallet",

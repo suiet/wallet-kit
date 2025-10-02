@@ -14,7 +14,8 @@ export const useAvailableWallets = (defaultWallets: IDefaultWallet[]) => {
     if (detectedWalletAdapter?.id && detectedWalletAdapter.id === defaultWallet?.id) {
       return true;
     }
-    if (detectedWalletAdapter?.name && detectedWalletAdapter.name === defaultWallet?.name) {
+    // Compatible slush/sui wallet (Slush — A Sui Wallet)
+    if (defaultWallet?.name && detectedWalletAdapter?.name && defaultWallet.name.includes(detectedWalletAdapter.name)) {
       return true;
     }
     return false;
