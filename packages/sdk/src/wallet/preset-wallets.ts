@@ -18,7 +18,7 @@ export enum PresetWalletId {
 // SHOULD match with what wallets register
 export enum PresetWallet {
   SUIET_WALLET = "Suiet",
-  SLUSH_WALLET = "Slush — A Sui wallet",
+  SLUSH_WALLET = "Slush — A Sui Wallet",
   SLUSH_WEB_WALLET = "Slush",
   PHANTOM_WALLET = "Phantom",
   OKX_WALLET = "OKX Wallet",
@@ -29,7 +29,7 @@ export enum PresetWallet {
   TOKENPOCKET_WALLET = "TokenPocket Wallet",
   MARTIAN_WALLET = "Martian Sui Wallet",
   // @deprecated use SlushWallet instead due to branding
-  SUI_WALLET = "Slush — A Sui wallet",
+  SUI_WALLET = "Sui Wallet",
   // @deprecated not maintained
   ETHOS_WALLET = "Ethos Wallet",
   MORPHIS_WALLET = "Morphis Wallet",
