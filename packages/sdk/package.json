@@ -23,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@mysten/slush-wallet": "0.1.0",
+    "@mysten/slush-wallet": "0.2.12",
     "@mysten/sui": "1.28.2",
     "@mysten/wallet-standard": "0.14.7",
     "@mysten/zksend": "0.11.0",
