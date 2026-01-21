@@ -35,7 +35,7 @@
     "@wallet-standard/core": "1.0.3",
     "buffer": "6.0.3",
     "classnames": "2.3.2",
-    "lodash-es": "4.17.21",
+    "lodash-es": "4.17.23",
     "mitt": "3.0.0",
     "react-query": "3.39.2"
   },
